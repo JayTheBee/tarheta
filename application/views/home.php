@@ -38,9 +38,6 @@
                     * May problema nde ko mapakita yung validation errors like pag nde 
                     matching yung password na iniput or like existing na username or email
                     -->
-                    <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                    <!-- itong echo validation dapat magpapakita sa mga errors or baka mali ako? ayaw lumabas eeh -->
-
                     <form method="POST" autocomplete="off" action="<?=base_url('welcome/Confirm')?>">
                         <div class="mb-3">
                             <label for="exampleInputUsername1" class="form-label">Username</label>
@@ -61,7 +58,6 @@
                         <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
-
         
                         <?php
                             if($this->session->flashdata('success')){?>
@@ -74,6 +70,8 @@
                         <?php } ?>
 
                     </form>
+                    <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+                    <!-- itong echo validation dapat magpapakita sa mga errors or baka mali ako? ayaw lumabas eeh -->
                 </div>
             </div>
             </div>

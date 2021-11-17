@@ -34,8 +34,9 @@ class Welcome extends CI_Controller {
 				like if nde matching yung password nde nagpapakita na "password does not match" or something
 				along those lines.
 			*/
+			$this->load->library('form_validation');
 			$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
-			$this->form_validation->set_rules('email','Email','required');
+			$this->form_validation->set_rules('email','Email','required|is_unique[users.email]');
 			$this->form_validation->set_rules('password','Password','required');
 			$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
@@ -60,7 +61,8 @@ class Welcome extends CI_Controller {
 				$this->user_model->insertuser($data);
 				$this->session->set_flashdata('success','Successfully Created');
 			}
-			redirect(base_url('welcome/index'));
+			// redirect(base_url('welcome/index'));
+			$this->load->view('home');
 		}
 	}
 
