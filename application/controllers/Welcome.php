@@ -27,17 +27,29 @@ class Welcome extends CI_Controller {
 		
 		if($_SERVER['REQUEST_METHOD']=='POST')
 		{
-			$this->form_validation->set_rules('username','Username','required');
+			/*
+			* is_unique lang ginamit ko for checking if existing na yung username 
+			* idk if robust na ito or is there a better way of doing it? 
+			* may problem lang sa html ayaw magpakita nung errors sa set_rules
+				like if nde matching yung password nde nagpapakita na "password does not match" or something
+				along those lines.
+			*/
+			$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
 			$this->form_validation->set_rules('email','Email','required');
 			$this->form_validation->set_rules('password','Password','required');
 			$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
 			if($this->form_validation->run()==TRUE)
 			{
-				echo 'hello world';
-				$username = $this->input->post('username');
-				$email = $this->input->post('email');
-				$password = $this->input->post('password');
+				/*
+				* IDK if ito yung tamang xss filtering nakita ko dito https://stackoverflow.com/questions/36575129/how-to-remove-xss-clean-in-ci3
+				* Ineable ko rin yung sa config.php na "global_xss_filtering" to TRUE accourding dito https://codeigniter.com/userguide3/libraries/input.html 
+					Pero nde ko masasama sa commit yung config.php
+				*/
+				$this->load->helper('security'); 
+				$username = $this->input->post('username', TRUE);
+				$email = $this->input->post('email', TRUE);
+				$password = $this->input->post('password', TRUE);
 
 				$data = array (
 					'username'=>$username,
@@ -47,11 +59,11 @@ class Welcome extends CI_Controller {
 				$this->load->model('user_model');
 				$this->user_model->insertuser($data);
 				$this->session->set_flashdata('success','Successfully Created');
-				redirect(base_url('welcome/index'));
-
 			}
+			redirect(base_url('welcome/index'));
 		}
 	}
+
 	function login(){
 		$this->load->view('login');
 

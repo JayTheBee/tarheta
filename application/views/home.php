@@ -31,10 +31,16 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
             <div class="card" style="margin-top: 5rem">
-                    <div class="card-header text-center">
-                        Register
-                    </div>
-                    <div class="card-body">
+                <div class="card-header text-center"> Register </div>
+
+                <div class="card-body">
+                    <!-- 
+                    * May problema nde ko mapakita yung validation errors like pag nde 
+                    matching yung password na iniput or like existing na username or email
+                    -->
+                    <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+                    <!-- itong echo validation dapat magpapakita sa mga errors or baka mali ako? ayaw lumabas eeh -->
+
                     <form method="POST" autocomplete="off" action="<?=base_url('welcome/Confirm')?>">
                         <div class="mb-3">
                             <label for="exampleInputUsername1" class="form-label">Username</label>
@@ -56,14 +62,20 @@
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
 
+        
                         <?php
-                        if($this->session->flashdata('success')){?>
-                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                            if($this->session->flashdata('success')){?>
+                                <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
                         <?php } ?>
 
-                        </form>
-                    </div>
-                    </div>
+                        <?php
+                            if($this->session->flashdata('error')){?>
+                                <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                        <?php } ?>
+
+                    </form>
+                </div>
+            </div>
             </div>
             <div class="col-md-4"></div>
         </div>
