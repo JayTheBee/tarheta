@@ -26,7 +26,19 @@ class Auth extends CI_Controller {
 					* Ineable ko rin yung sa config.php na "global_xss_filtering" to TRUE accourding dito https://codeigniter.com/userguide3/libraries/input.html 
 						Pero nde ko masasama sa commit yung config.php
 				*/
-				$this->load->helper('security'); 
+				
+				$this->load->helper('security');
+				$usertype;
+				//Switch case para sa user_type na pagset ng value wherein Teacher ay index 2 sa enum while Student ay index 1 sa enum
+				switch($_SESSION['usertype']){ 
+					case 'Student':
+						$usertype = 1;
+						break;
+					case 'Teacher':
+						$usertype = 2;
+						break;
+				}
+
 				$username = $this->input->post('username', TRUE);
 				$email = $this->input->post('email', TRUE);
 				$password = $this->input->post('password', TRUE);
@@ -39,9 +51,12 @@ class Auth extends CI_Controller {
 						* Pinalitan yung pass hashing using the default php hashing. Read more:
 						https://www.php.net/manual/en/function.password-hash.php
 					*/
-				);	
+				);
+
+
+
 				$this->load->model('user_model');
-				$this->user_model->insertuser($data);
+				$this->user_model->insertuser($data, $usertype);
 				$this->session->set_flashdata('success','Successfully Created. You can now login.');
 				redirect(base_url('login'));
 			}
@@ -51,6 +66,17 @@ class Auth extends CI_Controller {
 			$this->load->view('templates/footer');
 
 		}
+	}
+
+	
+	public function setTeacher(){
+		$_SESSION['usertype'] = "Teacher";
+		redirect(base_url('signup'));
+	}
+
+	public function setStudent(){
+		$_SESSION['usertype'] = "Student";
+		redirect(base_url('signup'));
 	}
 	
 
