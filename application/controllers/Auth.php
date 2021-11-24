@@ -45,11 +45,13 @@ class Auth extends CI_Controller {
 				$username = $this->input->post('username', TRUE);
 				$email = $this->input->post('email', TRUE);
 				$password = $this->input->post('password', TRUE);
+				$code = 'asdfasdfklasjdfljalsdPOGISIMARKalsdjfklasjd';
 
 				$data = array (
 					'username'=>$username,
 					'email'=>$email,
 					'password'=>password_hash($password, PASSWORD_DEFAULT),
+					'active_token' => $code,
 					/*
 						* Pinalitan yung pass hashing using the default php hashing. Read more:
 						https://www.php.net/manual/en/function.password-hash.php
@@ -59,6 +61,27 @@ class Auth extends CI_Controller {
 				$this->load->model('user_model');
 				$this->user_model->insertuser($data, $data2);
 				$this->session->set_flashdata('success','Successfully Created. You can now login.');
+
+				// Sending Email
+				$to = $email; // Send email to our user
+                $subject = 'Signup | Verification'; // Give the email a subject 
+                $message = "
+
+                    Thank you for Registering.
+
+                    Your Account:
+                    Email: ".$email."
+                    Please click the link below to activate your account.
+                    ".base_url()."auth/verify/".$username."/".$code."
+
+                "; // Our message above including the link
+
+                $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
+
+                $msg = mail($to, $subject, $message, $headers); // Send our email
+				// print_r($msg);
+				// exit;
+
 				redirect(base_url('login'));
 			}
 
@@ -66,6 +89,24 @@ class Auth extends CI_Controller {
 			$this->load->view('pages/signup');
 			$this->load->view('templates/footer');
 
+		}
+	}
+
+
+	function verify(){
+		$username = $this->uri->segment(3); //get email from url
+		$code = $this->uri->segment(4); //get code from url
+		$data = array(
+			'active' => 1,
+			'active_timestamp' => CURRENT_TIMESTAMP(),
+		);
+
+		$this->load->model('user_model');
+		$query = $this->user_model->verifyAccount($data, $username, $code);
+		if($query){
+			$this->load->view('templates/header');
+			$this->load->view('pages/verified');
+			$this->load->view('templates/footer');
 		}
 	}
 

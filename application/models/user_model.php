@@ -41,6 +41,18 @@
                 return false;
             }
         }
+
+
+        public function verifyAccount($data, $username, $code){
+            $this->db->from('users');
+            // FOR FUTURE RAMON: Please condense yung db->where may naaalala ka noon na mas better way nde mo lang mahanap check docs
+            $this->db->where('username ', $username);
+            $this->db->where('active_token ', $code);
+            $query = $this->db->get();
+            if($query->num_rows() > 0){
+                return $this->db->update('users', $data);
+            }
+        }
     }
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2021 at 04:21 AM
+-- Generation Time: Nov 24, 2021 at 08:30 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -50,7 +50,7 @@ CREATE TABLE `users` (
   `password` varchar(60) NOT NULL,
   `reg_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `active_token` varchar(32) DEFAULT NULL,
-  `active` int(1) NOT NULL DEFAULT 0,
+  `active` enum('Verified','Unverified') NOT NULL DEFAULT 'Unverified',
   `active_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `reset_token` varchar(32) DEFAULT NULL,
   `reset_token_exp` datetime DEFAULT NULL

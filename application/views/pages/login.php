@@ -1,4 +1,15 @@
     <!-- LOGIN PAGE -->
+
+    <?php 
+        /*
+            *This redirects the user to the profile page when the 
+                $_SESSION['UserLoginSession'] is still set.
+        */
+        if (isset($_SESSION['UserLoginSession'])){
+            header("Location: ".base_url()."profile");
+            exit();
+        }
+    ?>
     
     <div class="container">
         <div class="row">
