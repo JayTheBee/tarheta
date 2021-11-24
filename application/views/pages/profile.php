@@ -1,4 +1,15 @@
     <!-- PROFILE VIEW -->
+    <?php 
+        /*
+            *This redirects the user to the Login page when the 
+                $_SESSION['UserLoginSession'] is still not set.
+        */
+        if (!isset($_SESSION['UserLoginSession'])){
+            $this->session->set_flashdata('error', 'Please Login First');
+            header("Location: ".base_url()."login");
+            exit();
+        }
+    ?>
 
     <div class="container">
         <div class="row">
@@ -18,6 +29,21 @@
                             redirect(base_url('login'));
                         }
                     ?>
+
+                    <br><br>
+                    <p>First Name: </p>
+                    <p>Last Name: </p>
+                    <p>Birthday: </p>
+                    <p>School: </p>
+                    <p>Course: </p>
+                    <br>
+
+                    <div class="justify-content-center d-flex flex-column ">
+                        <button type="button" class="btn btn-success" >Edit Profile
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("auth/logout"); ?>'" >Logout
+                        </button>
+                    </div>
                 </div>
             </div>
             </div>

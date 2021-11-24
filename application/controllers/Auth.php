@@ -28,14 +28,17 @@ class Auth extends CI_Controller {
 				*/
 				
 				$this->load->helper('security');
-				$usertype;
+				$data2 = array(
+					'type' => 0,
+					'user_id' => -1,
+				);
 				//Switch case para sa user_type na pagset ng value wherein Teacher ay index 2 sa enum while Student ay index 1 sa enum
 				switch($_SESSION['usertype']){ 
 					case 'Student':
-						$usertype = 1;
+						$data2['type'] = 1;
 						break;
 					case 'Teacher':
-						$usertype = 2;
+						$data2['type'] = 2;
 						break;
 				}
 
@@ -53,10 +56,8 @@ class Auth extends CI_Controller {
 					*/
 				);
 
-
-
 				$this->load->model('user_model');
-				$this->user_model->insertuser($data, $usertype);
+				$this->user_model->insertuser($data, $data2);
 				$this->session->set_flashdata('success','Successfully Created. You can now login.');
 				redirect(base_url('login'));
 			}
@@ -100,7 +101,7 @@ class Auth extends CI_Controller {
 					$session_data = array(
 						'username'=>$username,
 						'email'=>$email,
-						'password'=>$password,
+						'password'=>password_hash($password, PASSWORD_DEFAULT),
 					);
 					
 					$this->session->set_userdata('UserLoginSession',$session_data);
@@ -117,6 +118,12 @@ class Auth extends CI_Controller {
 				redirect(base_url('login'));
 			}
 		}
+	}
+
+	public function logout(){
+		unset($_SESSION['UserLoginSession']);
+		// $this->session->session_destroy();
+		redirect(base_url());
 	}
 }
 ?>

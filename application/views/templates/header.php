@@ -24,6 +24,9 @@
                     <li class="nav-item">
                     <a class="nav-link" href="<?php echo base_url(); ?>login">Login</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
+                    </li>
                 </ul>
                 </div>
             </div>

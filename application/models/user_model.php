@@ -2,39 +2,20 @@
 
     class user_model extends CI_Model{
         
-        function insertuser($data,$usertype){
-            $this->db->from('users');
-            $this->db->set($data);
-            $this->db->insert('users');
+        function insertuser($data,$data2){
 
-            $this->db->from('users');
-            $this->db->where('email', $data['email']);  // Finding the user in the users table via email
-            $userQuery = $this->db->get();
-            $user = $userQuery->result_array(); //Saving the row values to a variable
-            
-            /*
-                * Jedi feeling ko pangit itong way ko hahah medyo bruteforce kasi ayaw gumana ng 
-                    join or baka may mali akong ginawa pero nagana ito
-                * Pero pag nag delete ka sa myPhpAdmin nagcacascade yung delete
-            */
-            
-            // Saving the usertype on the user_types Table
-            $data2  = array(
-                'user_id' => $user[0]['id'],    // Multidementional array sya kaya may '[0]'
-                'type' => $usertype,
-            );
-            $this->db->from('user_types');
-            $this->db->set($data2);
-            $this->db->insert('user_types');
+            $this->db->trans_start();
+            $this->db->insert('users', $data);
+            $user_id = $this->db->insert_id();
 
-            $data3 = array(
-                'user_id' => $user[0]['id'],
-            );
+            $data2['user_id'] = $user_id;
+            $this->db->insert('user_types', $data2);
 
-            // Linking the user_if from the user table to the profile table
-            $this->db->from('profile');
-            $this->db->set($data3);
+            // $this->db->from('profile');  /* This is commented out since it works without it, but just in case.*/
+            $this->db->set('user_id', $user_id);
             $this->db->insert('profile');
+
+            $this->db->trans_complete();
 
             unset($_SESSION['usertype']);
         }
@@ -59,11 +40,6 @@
             else{
                 return false;
             }
-        }
-
-
-        function saveUserType(){
-            $query -$this->db->query("SELECT * FROM user_types");
         }
     }
 

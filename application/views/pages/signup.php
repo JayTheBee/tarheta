@@ -1,20 +1,23 @@
     <!-- SIGN UP PAGE -->
 
+    <?php 
+        /*
+            *This redirects the user to the account-type when the 
+                $_SESSION['usertype'] is still not set.
+        */
+        if (!isset($_SESSION['usertype'])){
+            header("Location: ".base_url()."account-type");
+            exit();
+        }
+    ?>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
             <div class="card" style="margin-top: 5rem">
-                <div class="card-header text-center"> Register as a 
-                    <?php
-                        /* Just in case na manually tinype yung /signup at nde 
-                            dumaan sa account-type na html idedefault nya sa student
-                        */
-                        if (!isset($_SESSION['usertype'])){
-                            $_SESSION['usertype'] = 'Student';
-                        }
-                        echo $_SESSION['usertype'];
-                    ?>
+                <div class="card-header text-center"> 
+                    Register as a <?php echo $_SESSION['usertype'];?>
                 </div>
 
                 <div class="card-body">
@@ -23,7 +26,6 @@
                         * Nde na nawawala yung previous data pag nag press ng confirm
                         button tapos may error like nde unique yung user or email
                     -->
-                    
                     <form method="POST" autocomplete="off" action="<?=base_url('auth/signup')?>">
                         <div class="mb-3">
                             <label for="exampleInputUsername1" class="form-label">Username</label>
