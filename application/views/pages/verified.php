@@ -7,7 +7,7 @@
                 <div class="card-header text-center"> YAY! </div>
 
                 <div class="card-body">
-                    <p>ANG HOT NI MARK</p>
+                    <p>Your Account has been Verified.</p>
 
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("login"); ?>'" >Login
                         </button>

@@ -45,7 +45,7 @@ class Auth extends CI_Controller {
 				$username = $this->input->post('username', TRUE);
 				$email = $this->input->post('email', TRUE);
 				$password = $this->input->post('password', TRUE);
-				$code = 'asdfasdfklasjdfljalsdPOGISIMARKalsdjfklasjd';
+				$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
 
 				$data = array (
 					'username'=>$username,
@@ -79,8 +79,6 @@ class Auth extends CI_Controller {
                 $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
 
                 $msg = mail($to, $subject, $message, $headers); // Send our email
-				// print_r($msg);
-				// exit;
 
 				redirect(base_url('login'));
 			}
@@ -98,7 +96,8 @@ class Auth extends CI_Controller {
 		$code = $this->uri->segment(4); //get code from url
 		$data = array(
 			'active' => 1,
-			'active_timestamp' => CURRENT_TIMESTAMP(),
+			'active_timestamp' => date('Y/m/d h:i:s'), // To be Improved. Issue mali pa ung time pero okay ung date.
+			
 		);
 
 		$this->load->model('user_model');
@@ -163,7 +162,7 @@ class Auth extends CI_Controller {
 
 	public function logout(){
 		unset($_SESSION['UserLoginSession']);
-		// $this->session->session_destroy();
+		//$this->session->session_destroy();
 		redirect(base_url());
 	}
 }
