@@ -26,6 +26,7 @@ class Auth extends CI_Controller {
 					* Ineable ko rin yung sa config.php na "global_xss_filtering" to TRUE accourding dito https://codeigniter.com/userguide3/libraries/input.html 
 						Pero nde ko masasama sa commit yung config.php
 				*/
+
 				
 				$this->load->helper('security');
 				$data2 = array(
@@ -47,15 +48,19 @@ class Auth extends CI_Controller {
 				$password = $this->input->post('password', TRUE);
 				$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
 
+
 				$data = array (
 					'username'=>$username,
 					'email'=>$email,
 					'password'=>password_hash($password, PASSWORD_DEFAULT),
+
 					'active_token' => $code,
+
 					/*
 						* Pinalitan yung pass hashing using the default php hashing. Read more:
 						https://www.php.net/manual/en/function.password-hash.php
 					*/
+
 				);
 
 				$this->load->model('user_model');
@@ -91,6 +96,7 @@ class Auth extends CI_Controller {
 	}
 
 
+
 	function verify(){
 		$username = $this->uri->segment(3); //get email from url
 		$code = $this->uri->segment(4); //get code from url
@@ -119,6 +125,7 @@ class Auth extends CI_Controller {
 		$_SESSION['usertype'] = "Student";
 		redirect(base_url('signup'));
 	}
+
 	
 
 	function login(){
@@ -141,7 +148,9 @@ class Auth extends CI_Controller {
 					$session_data = array(
 						'username'=>$username,
 						'email'=>$email,
+
 						'password'=>password_hash($password, PASSWORD_DEFAULT),
+
 					);
 					
 					$this->session->set_userdata('UserLoginSession',$session_data);
@@ -165,5 +174,6 @@ class Auth extends CI_Controller {
 		//$this->session->session_destroy();
 		redirect(base_url());
 	}
+
 }
 ?>

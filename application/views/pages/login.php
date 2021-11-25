@@ -1,5 +1,6 @@
     <!-- LOGIN PAGE -->
 
+
     <?php 
         /*
             *This redirects the user to the profile page when the 
@@ -10,6 +11,7 @@
             exit();
         }
     ?>
+
     
     <div class="container">
         <div class="row">

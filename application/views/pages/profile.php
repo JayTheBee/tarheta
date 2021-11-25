@@ -1,4 +1,5 @@
     <!-- PROFILE VIEW -->
+
     <?php 
         /*
             *This redirects the user to the Login page when the 
@@ -30,6 +31,7 @@
                         }
                     ?>
 
+
                     <br><br>
                     <p>First Name: </p>
                     <p>Last Name: </p>
@@ -44,6 +46,7 @@
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("auth/logout"); ?>'" >Logout
                         </button>
                     </div>
+
                 </div>
             </div>
             </div>
