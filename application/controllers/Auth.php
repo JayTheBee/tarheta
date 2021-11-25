@@ -53,7 +53,6 @@ class Auth extends CI_Controller {
 					'username'=>$username,
 					'email'=>$email,
 					'password'=>password_hash($password, PASSWORD_DEFAULT),
-
 					'active_token' => $code,
 
 					/*
@@ -103,7 +102,6 @@ class Auth extends CI_Controller {
 		$data = array(
 			'active' => 1,
 			'active_timestamp' => date('Y/m/d h:i:s'), // To be Improved. Issue mali pa ung time pero okay ung date.
-			
 		);
 
 		$this->load->model('user_model');
@@ -125,14 +123,12 @@ class Auth extends CI_Controller {
 		$_SESSION['usertype'] = "Student";
 		redirect(base_url('signup'));
 	}
-
 	
 
 	function login(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$this->form_validation->set_rules('email','Email','required');
 			$this->form_validation->set_rules('password','Password','required');
-
 
 			if($this->form_validation->run()==TRUE){
 				$email = $this->input->post('email');
@@ -148,9 +144,7 @@ class Auth extends CI_Controller {
 					$session_data = array(
 						'username'=>$username,
 						'email'=>$email,
-
 						'password'=>password_hash($password, PASSWORD_DEFAULT),
-
 					);
 					
 					$this->session->set_userdata('UserLoginSession',$session_data);
