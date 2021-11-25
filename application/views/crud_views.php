@@ -10,7 +10,7 @@
 	<body>
 
 <?php echo validation_errors(); ?>
-<?php echo form_open('users/register'); ?>
+<?php echo form_open('crud_controller/register'); ?>
 
 <!-- Forms using bootstrap -->
 <!-- codeigniter recognizes input names, no need for post call -->

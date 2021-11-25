@@ -1,5 +1,5 @@
 <?php
-	class User_model extends CI_Model{
+	class Crud_model extends CI_Model{
 		//model accepts hashed password
 		public function register($enc_password){
 			
@@ -14,7 +14,7 @@
 			);
 
 			// Insert user mysql command
-			return $this->db->insert('usersignup', $data);
+			// return $this->db->insert('usersignup', $data);
 		}
 
 	}
