@@ -11,7 +11,13 @@
                     <p>HELLO WORLD </p>
                     <?php 
                         if(isset($_SESSION['UserLoginSession'])){
+                            echo "<pre>";
                             print_r($_SESSION['UserLoginSession']);
+                            echo "</pre>";
+
+                            echo "<pre>";
+                            print_r($_SESSION['Profile']);
+                            echo "</pre>";
                         }
                         // Pang check ko lang ito ng current SESSION DATA
                     ?>

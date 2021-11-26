@@ -26,8 +26,6 @@ class Auth extends CI_Controller {
 					* Ineable ko rin yung sa config.php na "global_xss_filtering" to TRUE accourding dito https://codeigniter.com/userguide3/libraries/input.html 
 						Pero nde ko masasama sa commit yung config.php
 				*/
-
-				
 				$this->load->helper('security');
 				$data2 = array(
 					'type' => 0,
@@ -53,12 +51,10 @@ class Auth extends CI_Controller {
 					'email'=>$email,
 					'password'=>password_hash($password, PASSWORD_DEFAULT),
 					'active_token' => $code,
-
 					/*
 						* Pinalitan yung pass hashing using the default php hashing. Read more:
 						https://www.php.net/manual/en/function.password-hash.php
 					*/
-
 				);
 
 				$this->load->model('user_model');
@@ -86,7 +82,6 @@ class Auth extends CI_Controller {
 			$this->load->view('templates/header');
 			$this->load->view('pages/signup');
 			$this->load->view('templates/footer');
-
 		}
 	}
 
@@ -182,11 +177,13 @@ class Auth extends CI_Controller {
 					'birthdate'=>$birthdate,
 					'school'=>$school,
 					'course'=>$course,
-					
 				);
 
 				$this->load->model('user_model');
 				$this->user_model->editprofile($data);
+
+				$this->session->set_userdata('Profile',$data);
+
 				$this->session->set_flashdata('success', 'Profile updated successfully');
 				redirect(base_url('editprofile'));
 			}
