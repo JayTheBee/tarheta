@@ -25,6 +25,17 @@
         return $this->db->update('profile',$data);
 	}
 
+        function emailCheck($email){
+            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
+            if($query->num_rows()==1){
+                return $query->row();
+            }
+            else{
+                return false;
+            }
+        }
+
+
         function passCheck($password,$email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
 
@@ -52,6 +63,25 @@
             if($query->num_rows() > 0){
                 return $this->db->update('users', $data);
             }
+        }
+
+        function codeCheck($username, $code){
+            $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND reset_token='$code'");
+            if($query->num_rows() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        function updatePassword($username,$password){
+            $this->db->trans_start();
+            $this->db->from('users');
+            $this->db->set('password', $password);
+            $this->db->where('username', $username);
+            $this->db->update('users');
+            $this->db->trans_complete();
         }
     }
 
