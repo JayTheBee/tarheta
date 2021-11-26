@@ -48,7 +48,6 @@ class Auth extends CI_Controller {
 				$password = $this->input->post('password', TRUE);
 				$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
 
-
 				$data = array (
 					'username'=>$username,
 					'email'=>$email,
@@ -70,14 +69,11 @@ class Auth extends CI_Controller {
 				$to = $email; // Send email to our user
                 $subject = 'Signup | Verification'; // Give the email a subject 
                 $message = "
-
                     Thank you for Registering.
-
                     Your Account:
                     Email: ".$email."
                     Please click the link below to activate your account.
                     ".base_url()."auth/verify/".$username."/".$code."
-
                 "; // Our message above including the link
 
                 $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
@@ -161,6 +157,46 @@ class Auth extends CI_Controller {
 				redirect(base_url('login'));
 			}
 		}
+	}
+	function editprofile(){
+		if($_SERVER['REQUEST_METHOD']=='POST')
+
+		{
+			$this->form_validation->set_rules('firstname','Firstname','required');
+			$this->form_validation->set_rules('lastname','Lastname','required');
+			$this->form_validation->set_rules('birthdate', 'Birthdate', 'required');
+            $this->form_validation->set_rules('school', 'School', 'required');
+			$this->form_validation->set_rules('course', 'Course', 'required');
+
+			if($this->form_validation->run()==TRUE)
+			{
+				$firstname = $this->input->post('firstname');
+				$lastname = $this->input->post('lastname');
+				$birthdate = $this->input->post('birthdate');
+				$school = $this->input->post('school');
+				$course = $this->input->post('course');
+
+				$data = array(
+					'firstname'=>$firstname,
+					'lastname'=>$lastname,
+					'birthdate'=>$birthdate,
+					'school'=>$school,
+					'course'=>$course,
+					
+				);
+
+				$this->load->model('user_model');
+				$this->user_model->editprofile($data);
+				$this->session->set_flashdata('success', 'Profile updated successfully');
+				redirect(base_url('editprofile'));
+			}
+		else
+			{
+				$this->session->set_flashdata('error','Fill all the required fields');
+				redirect(base_url('editprofile'));
+			}
+		}
+
 	}
 
 	public function logout(){

@@ -2,7 +2,6 @@
 
     class user_model extends CI_Model{
         
-
         function insertuser($data,$data2){
 
             $this->db->trans_start();
@@ -21,9 +20,12 @@
             unset($_SESSION['usertype']);
         }
 
+        function editprofile($data)
+	{
+        return $this->db->update('profile',$data);
+	}
 
         function passCheck($password,$email){
-
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
 
             if($query->num_rows()==1)
@@ -38,13 +40,11 @@
                 else{
                     return false;
                 }
-
             }
             else{
                 return false;
             }
         }
-
 
 
         public function verifyAccount($data, $username, $code){
@@ -53,7 +53,6 @@
                 return $this->db->update('users', $data);
             }
         }
-
     }
 
 ?>

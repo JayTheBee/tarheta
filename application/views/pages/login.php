@@ -1,6 +1,5 @@
     <!-- LOGIN PAGE -->
 
-
     <?php 
         /*
             *This redirects the user to the profile page when the 
@@ -11,7 +10,6 @@
             exit();
         }
     ?>
-
     
     <div class="container">
         <div class="row">
@@ -35,7 +33,6 @@
                         <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
-
                         <?php
                             if($this->session->flashdata('success')){?>
                                 <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
