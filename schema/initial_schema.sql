@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2021 at 08:30 AM
+-- Generation Time: Nov 26, 2021 at 06:32 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -52,8 +52,7 @@ CREATE TABLE `users` (
   `active_token` varchar(32) DEFAULT NULL,
   `active` enum('Verified','Unverified') NOT NULL DEFAULT 'Unverified',
   `active_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `reset_token` varchar(32) DEFAULT NULL,
-  `reset_token_exp` datetime DEFAULT NULL
+  `reset_token` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,7 +64,7 @@ CREATE TABLE `users` (
 CREATE TABLE `user_types` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `type` enum('Student','Teacher') NOT NULL
+  `type` enum('STUDENT','TEACHER') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

@@ -83,6 +83,18 @@
             $this->db->update('users');
             $this->db->trans_complete();
         }
+
+        function getProfile($email){
+            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
+            $id = $query->row()->{'id'};
+            if($query->num_rows()==1){
+                $query2 = $this->db->query("SELECT * FROM profile WHERE user_id='$id'");
+                return $query2->row();
+            }
+            else{
+                return false;
+            }
+        }
     }
 
 ?>

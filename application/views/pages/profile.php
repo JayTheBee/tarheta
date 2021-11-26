@@ -9,6 +9,11 @@
             header("Location: ".base_url()."login");
             exit();
         }
+        if(isset($_SESSION["Profile"])){
+            // print_r($_SESSION["Profile"]);
+            // exit;
+            // $firstname = $_SESSION["Profile"]->firstname;
+        }
     ?>
 
     <div class="container">
@@ -31,11 +36,21 @@
                     ?>
 
                     <br><br>
-                    <p>First Name: </p>
-                    <p>Last Name: </p>
-                    <p>Birthday: </p>
-                    <p>School: </p>
-                    <p>Course: </p>
+                    <p>First Name: 
+                        <?php echo $_SESSION['Profile']['firstname']; ?>
+                    </p>
+                    <p>Last Name: 
+                        <?php echo $_SESSION['Profile']['lastname']; ?>
+                    </p>
+                    <p>Birthday: 
+                        <?php echo $_SESSION['Profile']['birthdate']; ?>
+                    </p>
+                    <p>School: 
+                        <?php echo $_SESSION['Profile']['school']; ?>
+                    </p>
+                    <p>Course: 
+                        <?php echo $_SESSION['Profile']['course']; ?>
+                    </p>
                     <br>
 
                     <div class="justify-content-center d-flex flex-column ">
