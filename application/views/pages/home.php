@@ -7,7 +7,22 @@
                 <div class="card-header text-center"> Home Page </div>
 
                 <div class="card-body">
-                    <p>HELLO WORLD</p>
+
+                    <p>HELLO WORLD </p>
+                    <?php 
+                        if(isset($_SESSION['UserLoginSession'])){
+                            echo "<pre>";
+                            print_r($_SESSION['UserLoginSession']);
+                            echo "</pre>";
+
+                            echo "<pre>";
+                            print_r($_SESSION['Profile']);
+                            echo "</pre>";
+                        }
+                        // Pang check ko lang ito ng current SESSION DATA
+                    ?>
+
+
                 </div>
             </div>
             </div>
