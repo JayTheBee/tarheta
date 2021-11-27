@@ -16,7 +16,6 @@ class Auth extends CI_Controller {
 				$this->load->helper('security');
 				$data2 = array(
 					'type' => $_SESSION['usertype'],
-					'user_id' => -1,
 				);
 
 				$username = $this->input->post('username', TRUE);
@@ -37,20 +36,15 @@ class Auth extends CI_Controller {
 				$this->user_model->insertuser($data, $data2);
 				$this->session->set_flashdata('success','Successfully Created. You can now login.');
 
-				// Sending Email
-				$to = $email; // Send email to our user
-                $subject = 'Signup | Verification'; // Give the email a subject 
-                $message = "
-                    Thank you for Registering.
-                    Your Account:
-                    Email: ".$email."
-                    Please click the link below to activate your account.
-                    ".base_url()."auth/verify/".$username."/".$code."
-                "; // Our message above including the link
-
-                $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
-
-                $msg = mail($to, $subject, $message, $headers); // Send our email
+				$mail = array(
+					'subject' => "Tarheta | Activeate Account",
+					'header' => "Activate your account",
+					'username' => $username,
+					'body' => "Please click the the button to activate your account",
+					'button' => "Activate",
+					'link' => base_url()."auth/verify/".$username."/".$code,
+				);
+				$this->sendEmail($mail, 'templates/email', $email);
 
 				redirect(base_url('login'));
 			}
@@ -61,18 +55,24 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	function segmentURL(){
+		$segmentedURL = array(
+			'username' => $this->uri->segment(3),
+			'code' => $this->uri->segment(4),
+		);
+		return $segmentedURL;
+	}
 
 
 	function verify(){
-		$username = $this->uri->segment(3); //get email from url
-		$code = $this->uri->segment(4); //get code from url
+		$url = $this->segmentURL();
 		$data = array(
-			'active' => 1,
+			'active' => "Verified",
 			'active_timestamp' => date('Y/m/d h:i:s'), // To be Improved. Issue mali pa ung time pero okay ung date.
 		);
 
 		$this->load->model('user_model');
-		$query = $this->user_model->verifyAccount($data, $username, $code);
+		$query = $this->user_model->verifyAccount($data, $url['username'], $url['code']);
 		if($query){
 			$this->load->view('templates/header');
 			$this->load->view('pages/verified');
@@ -116,10 +116,6 @@ class Auth extends CI_Controller {
 
 					$query = $this->user_model->getProfile($email);
 					$profile = (array) $query; //Typecasting from object to array
-					// echo "<pre>";
-					// print_r($profile);
-					// echo "</pre>";
-					// exit;
 					$this->session->set_userdata('Profile',$profile);
 					$this->session->set_userdata('UserLoginSession',$session_data);
 					
@@ -141,7 +137,6 @@ class Auth extends CI_Controller {
 	public function logout(){
 		unset($_SESSION['UserLoginSession']);
 		unset($_SESSION['Profile']);
-		//$this->session->session_destroy();
 		redirect(base_url());
 	}
 
@@ -175,12 +170,12 @@ class Auth extends CI_Controller {
 
 	/* Function to extract the code and username in the reset password link and sends it to the model */
 	function resetPassCheck(){
-		$username = $this->uri->segment(3); //get email from url
-		$code = $this->uri->segment(4); //get code from url
+		$data = $this->segmentURL();
 		$this->load->model('user_model');
-		$query = $this->user_model->codeCheck($username, $code);
+		$query = $this->user_model->codeCheck($data['username'], $data['code']);
+		
 		if($query){
-			$_SESSION['resetpassword'] = $username;
+			$_SESSION['resetpassword'] = $data['username'];
 			$this->load->view('templates/header');
 			$this->load->view('pages/reset-password');
 			$this->load->view('templates/footer');
@@ -207,23 +202,21 @@ class Auth extends CI_Controller {
 				$status = $this->user_model->emailCheck($email);
 
 				if($status!=false){
-					// Sending Email
-					$to = $email; // Send email to our user
-					$subject = 'Tarheta | Password Reset'; // Give the email a subject 
-					$message = "
+					/*
+						* This array contains data to be passed to the email.php file which serves as 
+							the content of the email.
+					*/
+					$data = array(
+						'subject' => "Tarheta | Password Reset",
+						'header' => "Reset your Password",
+						'username' => $status->{'username'},
+						'body' => "Please click the the button to reset your password",
+						'button' => "Reset",
+						'link' => base_url()."auth/resetPassCheck/".$status->{'username'}."/".$status->{'reset_token'},
+					);
+					
+					$this->sendEmail($data, 'templates/email', $email);
 
-						You have requested a password reset
-
-						Your Account:
-						Username: ".$status->{'username'}."
-						Please click the link below to reset your password.
-						".base_url()."auth/resetPassCheck/".$status->{'username'}."/".$status->{'reset_token'}."
-
-					"; // Our message above including the link
-
-					$headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
-
-					$msg = mail($to, $subject, $message, $headers); // Send our email
 					$this->session->set_flashdata('success','Password reset email sent.');
 					redirect(base_url('login'));
 				}
@@ -238,6 +231,42 @@ class Auth extends CI_Controller {
 				redirect(base_url('login'));
 			}
 		}
+	}
+
+	/*
+		* I decided to also pass in the email template maybe we can use this function to send another 
+			email but with a different template. ie Email when you joined a class or something.
+	*/
+	function sendEmail($data, $emailTemplate, $email){
+		/*
+	 		* Changed the email sending. It now builds on this: https://www.youtube.com/watch?v=ctUUxx0Klng
+			 	but it loads a php file rather than a string.
+		*/
+		$to = $email;
+		$subject = $data['subject'];
+		$from = 'tarheta.app@gmail.com';
+
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com';
+		$config['smtp_port'] = '465';
+		$config['smtp_timeout'] = '60';
+		
+		$config['smtp_user'] = 'tarheta.app@gmail.com';
+		$config['smtp_pass'] = 'Qw3rtyu!';
+		
+		$config['charset'] = 'utf-8';
+		$config['newline'] = "\r\n";
+		$config['mailtype'] = 'html';
+		$config['validation'] = TRUE;
+
+		$this->email->initialize($config);
+		$this->email->set_mailtype("html");
+		$this->email->from($from);
+		$this->email->to($to);
+		$this->email->subject($subject);
+
+		$this->email->message($this->load->view($emailTemplate,$data,true));
+		$this->email->send();
 	}
 }
 ?>
