@@ -1,5 +1,6 @@
     <!-- SIGN UP PAGE -->
-
+    <!-- reCaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <?php 
         /*
@@ -53,6 +54,10 @@
                             <input type="password" placeholder="Confirm Password" name="confirm_password" class="form-control" id="confirm_password">
                             <?php echo form_error("confirm_password", '<p class="text-danger">','</p>');?> 
                         </div>
+                        <!-- Captcha - Site Key-->
+                        <!-- nasakin ung keys - ryle. si ramon kasi ung sa .env  -->
+                        <div class="g-recaptcha" data-sitekey=""></div><br> 
+
                         <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
@@ -64,7 +69,7 @@
 
                         <?php
                             if($this->session->flashdata('error')){?>
-                                <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                                <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                         <?php } ?>
                     </form>
                 </div>

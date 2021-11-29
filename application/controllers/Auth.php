@@ -5,55 +5,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 	function signup(){
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$this->load->library('form_validation');
-			$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
-			$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
-			$this->form_validation->set_rules('password','Password','required');
-			$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
-			if($this->form_validation->run()==TRUE){
-				$this->load->helper('security');
-				$data2 = array(
-					'type' => $_SESSION['usertype'],
-				);
+		if (($_SERVER['REQUEST_METHOD']=='POST' && $_POST['g-recaptcha-response'] != "")){
+			$secret = '';// Secret key. Nasakin ung keys. si ramon kasi ung sa .env - ryle
+			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+			$responseData = json_decode($verifyResponse);
 
-				$username = $this->input->post('username', TRUE);
-				$email = $this->input->post('email', TRUE);
-				$password = $this->input->post('password', TRUE);
-				$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
-				$code2 = bin2hex(openssl_random_pseudo_bytes(10));
+					if ($responseData->success) {
 
-				$data = array (
-					'username'=>$username,
-					'email'=>$email,
-					'password'=>password_hash($password, PASSWORD_DEFAULT),
-					'active_token' => $code,
-					'reset_token' => $code2,
-				);
+						if($_SERVER['REQUEST_METHOD']=='POST'){
+							$this->load->library('form_validation');
+							$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
+							$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
+							$this->form_validation->set_rules('password','Password','required');
+							$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
-				$this->load->model('user_model');
-				$this->user_model->insertuser($data, $data2);
-				$this->session->set_flashdata('success','Successfully Created. You can now login.');
+							if($this->form_validation->run()==TRUE){
+								$this->load->helper('security');
+								$data2 = array(
+									'type' => $_SESSION['usertype'],
+								);
 
-				$mail = array(
-					'subject' => "Tarheta | Activeate Account",
-					'header' => "Activate your account",
-					'username' => $username,
-					'body' => "Please click the the button to activate your account",
-					'button' => "Activate",
-					'link' => base_url()."auth/verify/".$username."/".$code,
-				);
-				$this->sendEmail($mail, 'templates/email', $email);
+								$username = $this->input->post('username', TRUE);
+								$email = $this->input->post('email', TRUE);
+								$password = $this->input->post('password', TRUE);
+								$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
+								$code2 = bin2hex(openssl_random_pseudo_bytes(10));
 
-				redirect(base_url('login'));
+								$data = array (
+									'username'=>$username,
+									'email'=>$email,
+									'password'=>password_hash($password, PASSWORD_DEFAULT),
+									'active_token' => $code,
+									'reset_token' => $code2,
+								);
+
+								$this->load->model('user_model');
+								$this->user_model->insertuser($data, $data2);
+								$this->session->set_flashdata('success','Successfully Created. You can now login.');
+
+								$mail = array(
+									'subject' => "Tarheta | Activeate Account",
+									'header' => "Activate your account",
+									'username' => $username,
+									'body' => "Please click the the button to activate your account",
+									'button' => "Activate",
+									'link' => base_url()."auth/verify/".$username."/".$code,
+								);
+								$this->sendEmail($mail, 'templates/email', $email);
+
+								redirect(base_url('login'));
+							}
+
+							$this->load->view('templates/header');
+							$this->load->view('pages/signup');
+							$this->load->view('templates/footer');
+						}
+					}
+				}
+				else{
+					$this->session->set_flashdata('error','reCaptcha is Required.');
+					redirect(base_url('signup'));
+				}
 			}
-
-			$this->load->view('templates/header');
-			$this->load->view('pages/signup');
-			$this->load->view('templates/footer');
-		}
-	}
 
 	function segmentURL(){
 		$segmentedURL = array(
