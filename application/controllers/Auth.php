@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller{
 
-
+	//jediboy: Modified function visibility for POLP. A function should always be private unless needed to be called on externally such as for views
 	//jediboy: Added class constructs
 	public function __construct(){
 		parent::__construct();
@@ -14,7 +14,7 @@ class Auth extends CI_Controller{
 		$this->load->model('user_model');
 	}
 
-	function view($page = 'home'){
+	private function view($page = 'home'){
 		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
 			show_404();
 		}
@@ -25,16 +25,18 @@ class Auth extends CI_Controller{
 		$this->load->view('pages/'.$page, $data);
 		$this->load->view('templates/footer');
 	}
-	//jediboy:refactored
-	function captcha() {
+
+	//jediboy: refactored
+	private function captcha() {
 		if (($_SERVER['REQUEST_METHOD']=='POST' && $_POST['g-recaptcha-response'] != "")){
 			$secret = env('RCAPTCHA_SECRET_KEY');// Secret key. Nasakin ung keys. si ramon kasi ung sa .env - ryle
 			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
 			return $responseData = json_decode($verifyResponse);
 		}
 	}
+
 	//jediboy: refactored
-	function signup_clean(){
+	private function signup_clean(){
 		$data2 = array(
 			'type' => $_SESSION['usertype'],
 		);
@@ -57,8 +59,9 @@ class Auth extends CI_Controller{
 		$this->user_model->insertuser($data, $data2);
 		$this->email_verify($username, $code, $email);
 	}
+
 	//jediboy:refactored
-	function email_verify($username, $code, $email){
+	private function email_verify($username, $code, $email){
 
 		$this->session->set_flashdata('success','Successfully Created. You can now login.');
 		$mail = array(
@@ -73,9 +76,9 @@ class Auth extends CI_Controller{
 		$this->email->send_email($mail, 'templates/email', $email);
 		redirect(base_url('login'));
 	}	
-	//jediboy:refactored
 
-	function signup(){
+	//jediboy:refactored
+	public function signup(){
 
 		if ($this->captcha()->success) {
 				
@@ -98,7 +101,7 @@ class Auth extends CI_Controller{
 		}
 	}
 
-	function segmentURL(){
+	private function segmentURL(){
 		$segmentedURL = array(
 			'username' => $this->uri->segment(3),
 			'code' => $this->uri->segment(4),
@@ -107,7 +110,7 @@ class Auth extends CI_Controller{
 	}
 
 	//jediboy: refactored
-	function verify(){
+	private function verify(){
 		$url = $this->segmentURL();
 		$data = array(
 			'active' => "Verified",
@@ -136,7 +139,7 @@ class Auth extends CI_Controller{
 	}
 	
 	//jediboy: refactored
-	function login_redirect($status, $username, $email, $password){
+	private function login_redirect($status, $username, $email, $password){
 		$username = $status->username;
 		$email = $status->email;
 		$session_data = array(
@@ -154,7 +157,7 @@ class Auth extends CI_Controller{
 	}
 
 
-	function login(){
+	public function login(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$this->form_validation->set_rules('email','Email','required|valid_email');
 			$this->form_validation->set_rules('password','Password','required');
@@ -193,7 +196,7 @@ class Auth extends CI_Controller{
 	/////////////////////////////* RESET PASSWORD FUNCTIONS */////////////////////////////
 
 	/* Function wherein it handle taking in the new password and sending it to the model */
-	function resetPassword(){
+	public function resetPassword(){
 		$this->form_validation->set_rules('password','Password','required');
 		$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
@@ -219,7 +222,7 @@ class Auth extends CI_Controller{
 
 
 	/* Function to extract the code and username in the reset password link and sends it to the model */
-	function resetPassCheck(){
+	private function resetPassCheck(){
 		$data = $this->segmentURL();
 
 		$query = $this->user_model->codeCheck($data['username'], $data['code']);
