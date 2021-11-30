@@ -1,16 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include_once (dirname(__FILE__) . "/pages.php");
+class Auth extends CI_Controller{
+	function view($page = 'home'){
+		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
+			show_404();
+		}
 
-/*
-	*Auth Class extends to pages para magamit ko yung view function sa loob ng Pages.php controller
-		wala kasing ibang easy way of loading a controller within a controller and ito lang nakita kong madali?
-	* Pero do enlighten me kapag meron kayong alam.
-	* Dito ko ito nakita: https://stackoverflow.com/questions/14165895/how-to-load-a-controller-from-another-controller-in-codeigniter
-		yung may 18 upvotes nde ko kasi get yung top reply xD
-*/
-class Auth extends Pages{
+		$data['title'] = ucfirst($page);
+
+		$this->load->view('templates/header');
+		$this->load->view('pages/'.$page, $data);
+		$this->load->view('templates/footer');
+	}
+
 	function signup(){
 
 		if (($_SERVER['REQUEST_METHOD']=='POST' && $_POST['g-recaptcha-response'] != "")){
