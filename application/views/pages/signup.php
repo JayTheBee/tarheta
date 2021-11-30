@@ -55,8 +55,7 @@
                             <?php echo form_error("confirm_password", '<p class="text-danger">','</p>');?> 
                         </div>
                         <!-- Captcha - Site Key-->
-                        <!-- nasakin ung keys - ryle. si ramon kasi ung sa .env  -->
-                        <div class="g-recaptcha" data-sitekey=""></div><br> 
+                        <div class="g-recaptcha" data-sitekey= <?php echo env("RCAPTCHA_SITE_KEY"); ?> ></div><br> 
 
                         <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>

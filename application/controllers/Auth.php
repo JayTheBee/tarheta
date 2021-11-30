@@ -1,73 +1,77 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Nirename ko lang yung Welcome controller to Auth
+include_once (dirname(__FILE__) . "/pages.php");
 
-class Auth extends CI_Controller {
+/*
+	*Auth Class extends to pages para magamit ko yung view function sa loob ng Pages.php controller
+		wala kasing ibang easy way of loading a controller within a controller and ito lang nakita kong madali?
+	* Pero do enlighten me kapag meron kayong alam.
+	* Dito ko ito nakita: https://stackoverflow.com/questions/14165895/how-to-load-a-controller-from-another-controller-in-codeigniter
+		yung may 18 upvotes nde ko kasi get yung top reply xD
+*/
+class Auth extends Pages{
 	function signup(){
 
 		if (($_SERVER['REQUEST_METHOD']=='POST' && $_POST['g-recaptcha-response'] != "")){
-			$secret = '';// Secret key. Nasakin ung keys. si ramon kasi ung sa .env - ryle
+			$secret = env('RCAPTCHA_SECRET_KEY');// Secret key. Nasakin ung keys. si ramon kasi ung sa .env - ryle
 			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
 			$responseData = json_decode($verifyResponse);
 
-					if ($responseData->success) {
+			if ($responseData->success) {
+				$this->load->library('form_validation');
+				$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
+				$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
+				$this->form_validation->set_rules('password','Password','required');
+				$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
-						if($_SERVER['REQUEST_METHOD']=='POST'){
-							$this->load->library('form_validation');
-							$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
-							$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
-							$this->form_validation->set_rules('password','Password','required');
-							$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
+				if($this->form_validation->run()==TRUE){
+					$this->load->helper('security');
+					$data2 = array(
+						'type' => $_SESSION['usertype'],
+					);
 
-							if($this->form_validation->run()==TRUE){
-								$this->load->helper('security');
-								$data2 = array(
-									'type' => $_SESSION['usertype'],
-								);
+					$username = $this->input->post('username', TRUE);
+					$email = $this->input->post('email', TRUE);
+					$password = $this->input->post('password', TRUE);
+					$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
+					$code2 = bin2hex(openssl_random_pseudo_bytes(10));
 
-								$username = $this->input->post('username', TRUE);
-								$email = $this->input->post('email', TRUE);
-								$password = $this->input->post('password', TRUE);
-								$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
-								$code2 = bin2hex(openssl_random_pseudo_bytes(10));
+					$data = array (
+						'username'=>$username,
+						'email'=>$email,
+						'password'=>password_hash($password, PASSWORD_DEFAULT),
+						'active_token' => $code,
+						'reset_token' => $code2,
+					);
 
-								$data = array (
-									'username'=>$username,
-									'email'=>$email,
-									'password'=>password_hash($password, PASSWORD_DEFAULT),
-									'active_token' => $code,
-									'reset_token' => $code2,
-								);
+					$this->load->model('user_model');
+					$this->user_model->insertuser($data, $data2);
+					$this->session->set_flashdata('success','Successfully Created. You can now login.');
 
-								$this->load->model('user_model');
-								$this->user_model->insertuser($data, $data2);
-								$this->session->set_flashdata('success','Successfully Created. You can now login.');
+					$mail = array(
+						'subject' => "Tarheta | Activeate Account",
+						'header' => "Activate your account",
+						'username' => $username,
+						'body' => "Please click the the button to activate your account",
+						'button' => "Activate",
+						'link' => base_url()."auth/verify/".$username."/".$code,
+					);
+					$this->sendEmail($mail, 'templates/email', $email);
 
-								$mail = array(
-									'subject' => "Tarheta | Activeate Account",
-									'header' => "Activate your account",
-									'username' => $username,
-									'body' => "Please click the the button to activate your account",
-									'button' => "Activate",
-									'link' => base_url()."auth/verify/".$username."/".$code,
-								);
-								$this->sendEmail($mail, 'templates/email', $email);
-
-								redirect(base_url('login'));
-							}
-
-							$this->load->view('templates/header');
-							$this->load->view('pages/signup');
-							$this->load->view('templates/footer');
-						}
-					}
+					redirect(base_url('login'));
 				}
-				else{
-					$this->session->set_flashdata('error','reCaptcha is Required.');
-					redirect(base_url('signup'));
-				}
+				$this->view('signup');
+				// $this->load->view('templates/header');
+				// $this->load->view('pages/signup');
+				// $this->load->view('templates/footer');
 			}
+		}
+		else{
+			$this->session->set_flashdata('error','reCaptcha is Required.');
+			$this->view('signup');
+		}
+	}
 
 	function segmentURL(){
 		$segmentedURL = array(
@@ -88,9 +92,10 @@ class Auth extends CI_Controller {
 		$this->load->model('user_model');
 		$query = $this->user_model->verifyAccount($data, $url['username'], $url['code']);
 		if($query){
-			$this->load->view('templates/header');
-			$this->load->view('pages/verified');
-			$this->load->view('templates/footer');
+			$this->view('verified');
+			// $this->load->view('templates/header');
+			// $this->load->view('pages/verified');
+			// $this->load->view('templates/footer');
 		}
 	}
 
@@ -137,12 +142,14 @@ class Auth extends CI_Controller {
 				}
 				else{
 					$this->session->set_flashdata('error', 'Incorrect Email or Password');
-					redirect(base_url('login'));
+					$this->view('login');
+					// redirect(base_url('login'));
 				}
 			}
 			else{
 				$this->session->set_flashdata('error','Fill all the required fields');
-				redirect(base_url('login'));
+				$this->view('login');
+				// redirect(base_url('login'));
 			}
 		}
 	}
@@ -175,9 +182,10 @@ class Auth extends CI_Controller {
 			redirect(base_url('login'));
 		}
 		else{
-			$this->load->view('templates/header');
-			$this->load->view('pages/reset-password');
-			$this->load->view('templates/footer');
+			$this->view('reset-password');
+			// $this->load->view('templates/header');
+			// $this->load->view('pages/reset-password');
+			// $this->load->view('templates/footer');
 		}
 	}
 
@@ -190,9 +198,10 @@ class Auth extends CI_Controller {
 		
 		if($query){
 			$_SESSION['resetpassword'] = $data['username'];
-			$this->load->view('templates/header');
-			$this->load->view('pages/reset-password');
-			$this->load->view('templates/footer');
+			$this->view('reset-password');
+			// $this->load->view('templates/header');
+			// $this->load->view('pages/reset-password');
+			// $this->load->view('templates/footer');
 		}
 		else{
 			$this->session->set_flashdata('error','Token Invalid.');
@@ -258,15 +267,15 @@ class Auth extends CI_Controller {
 		*/
 		$to = $email;
 		$subject = $data['subject'];
-		$from = 'tarheta.app@gmail.com';
+		$from = env('EMAIL');
 
 		$config['protocol'] = 'smtp';
 		$config['smtp_host'] = 'ssl://smtp.gmail.com';
 		$config['smtp_port'] = '465';
 		$config['smtp_timeout'] = '60';
 		
-		$config['smtp_user'] = 'tarheta.app@gmail.com';
-		$config['smtp_pass'] = 'Qw3rtyu!';
+		$config['smtp_user'] = env('EMAIL');
+		$config['smtp_pass'] = env('EMAIL_PASSWORD');
 		
 		$config['charset'] = 'utf-8';
 		$config['newline'] = "\r\n";
