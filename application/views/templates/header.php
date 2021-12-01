@@ -19,22 +19,28 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
-                    </li>
-                    <li class="nav-item">
-
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>account-type">Register</a>
-
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url(); ?>login">Login</a>
-                    </li>
 
                     <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
+                      <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
                     </li>
-
+<?php if(!isset($_SESSION['UserLoginSession'])) : ?>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>account-type">Register</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>login">Login</a>
+                      </li>
+<?php else : ?>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>flashcards/create">+Create Flashcards</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>flashcards/index">Flashcard</a>
+                      </li>
+<?php endif; ?>
                 </ul>
                 </div>
             </div>

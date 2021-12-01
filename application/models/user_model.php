@@ -20,10 +20,9 @@
             unset($_SESSION['usertype']);
         }
 
-        function editprofile($data)
-	{
-        return $this->db->update('profile',$data);
-	}
+        function editprofile($data){
+            return $this->db->update('profile',$data);
+        }
 
         function emailCheck($email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");

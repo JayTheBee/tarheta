@@ -49,6 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+// $route['flashcards/view/(:any)'] = 'flashcards/view/$1';
+$route['flashcards/create_flashcards'] = 'flashcards/create_flashcards';
+$route['flashcards/(:any)'] = 'flashcards/view/$1';
 $route['default_controller'] = 'pages/view';
 $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
