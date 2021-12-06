@@ -67,7 +67,7 @@
 
         function codeCheck($username, $code){
             $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND reset_token='$code'");
-            if($query->num_rows() > 0){
+            if(($query->num_rows() > 0) && (strtotime($query->row('reset_exp')) < time())){ //Checks if the reset_exp < current time meaning it is still valid
                 return true;
             }
             else{
@@ -94,6 +94,19 @@
             else{
                 return false;
             }
+        }
+
+        function genNewResetToken($id){
+            $datetime = new DateTime('tomorrow'); //Sets the new expiry +24 Hours
+            $newToken = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token
+            $this->db->trans_start();
+            $this->db->from('users');
+            $this->db->set('reset_token', $newToken);
+            $this->db->set('reset_exp', $datetime->format('Y-m-d H:i:s')); // @ryle pa fix Time not setting same na rin siguro sa Auth.php line 50
+            $this->db->where('id', $id);
+            $this->db->update('users');
+            $this->db->trans_complete();
+            return $newToken;
         }
     }
 

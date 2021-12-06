@@ -47,6 +47,7 @@ class Auth extends CI_Controller{
 
 		$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
 		$code2 = bin2hex(openssl_random_pseudo_bytes(10));
+		$datetime = new DateTime('tomorrow');
 
 		$data = array (
 			'username'=>$username,
@@ -54,6 +55,7 @@ class Auth extends CI_Controller{
 			'password'=>password_hash($password, PASSWORD_DEFAULT),
 			'active_token' => $code,
 			'reset_token' => $code2,
+			'reset_exp' =>  $datetime->format('Y-m-d H:i:s')
 		);
 
 		$this->user_model->insertuser($data, $data2);
@@ -80,7 +82,7 @@ class Auth extends CI_Controller{
 	//jediboy:refactored
 	public function signup(){
 
-		if ($this->captcha()->success) {
+		if ($this->captcha()) { // '-> success' throws an error
 				
 				$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
 				$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
@@ -222,7 +224,7 @@ class Auth extends CI_Controller{
 
 
 	/* Function to extract the code and username in the reset password link and sends it to the model */
-	private function resetPassCheck(){
+	public function resetPassCheck(){ //Changed to public since it needs to be access when resetting the password
 		$data = $this->segmentURL();
 
 		$query = $this->user_model->codeCheck($data['username'], $data['code']);
@@ -243,17 +245,14 @@ class Auth extends CI_Controller{
 
 	/* Function that sends the reset password link to the entered email */
 	public function sendPassReset(){
-		if($_SERVER['REQUEST_METHOD']=='POST')
-		{
-			
-
+		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$this->form_validation->set_rules('email','Email','required|valid_email');
 			if($this->form_validation->run()==TRUE){
 				$email = $this->input->post('email');
 
-
-				
 				$status = $this->user_model->emailCheck($email);
+				//generate new token upon password reset request
+				$status->{'reset_token'} = $this->user_model->genNewResetToken($status->{'id'});
 
 				if($status!=false){
 					/*
@@ -284,6 +283,16 @@ class Auth extends CI_Controller{
 				$this->session->set_flashdata('error','No email entered for password reset.');
 				redirect(base_url('login'));
 			}
+		}
+	}
+
+	/* Function to check if the reset_exp from the database is expired */
+	private function checkTokenExpiry($status){
+		if (strtotime($status->{'reset_exp'}) > time()){
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 
