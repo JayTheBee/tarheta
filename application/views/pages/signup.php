@@ -8,8 +8,7 @@
                 $_SESSION['usertype'] is still not set.
         */
         if (!isset($_SESSION['usertype'])){
-            header("Location: ".base_url()."account-type");
-            exit();
+            redirect(base_url('account-type'));
         }
     ?>
 

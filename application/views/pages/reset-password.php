@@ -5,8 +5,7 @@
         *This redirects the user to the home page
     */
     if (!isset($_SESSION['resetpassword'])){
-        header("Location: ".base_url()."home");
-        exit();
+        redirect(base_url('home'));
     }
 ?>
     

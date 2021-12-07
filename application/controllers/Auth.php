@@ -286,16 +286,6 @@ class Auth extends CI_Controller{
 		}
 	}
 
-	/* Function to check if the reset_exp from the database is expired */
-	private function checkTokenExpiry($status){
-		if (strtotime($status->{'reset_exp'}) > time()){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
 	//Jediboy: Added a MY_email custom library instead
 	/*
 		* I decided to also pass in the email template maybe we can use this function to send another 

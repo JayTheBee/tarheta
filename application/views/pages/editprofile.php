@@ -2,8 +2,7 @@
 <?php
     if (!isset($_SESSION['UserLoginSession'])){
         $this->session->set_flashdata('error', 'Please Login First');
-        header("Location: ".base_url()."login");
-        exit();
+        redirect(base_url('login'));
     }
     if(isset($_SESSION["Profile"])){
         // print_r($_SESSION["Profile"]);

@@ -6,8 +6,7 @@
                 $_SESSION['UserLoginSession'] is still set.
         */
         if (isset($_SESSION['UserLoginSession'])){
-            header("Location: ".base_url()."profile");
-            exit();
+            redirect(base_url('profile'));
         }
     ?>
     
