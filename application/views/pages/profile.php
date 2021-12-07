@@ -50,7 +50,7 @@
                     <div class="justify-content-center d-flex flex-column ">
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("editprofile"); ?>'" >Edit Profile
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("auth/logout"); ?>'" >Logout
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("logins/logout"); ?>'" >Logout
                         </button>
                     </div>
                 </div>

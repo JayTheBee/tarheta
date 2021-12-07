@@ -2,17 +2,6 @@
     <!-- reCaptcha -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    <?php 
-        /*
-            *This redirects the user to the account-type when the 
-                $_SESSION['usertype'] is still not set.
-        */
-        if (!isset($_SESSION['usertype'])){
-            redirect(base_url('account-type'));
-        }
-    ?>
-
-
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
@@ -25,14 +14,7 @@
 
 
                 <div class="card-body">
-                    <!-- 
-                        * Validation errors now show under the specific field na may error
-                        * Nde na nawawala yung previous data pag nag press ng confirm
-                        button tapos may error like nde unique yung user or email
-
-                    -->
-
-                    <form method="POST" autocomplete="off" action="<?=base_url('auth/signup')?>">
+                    <form method="POST" autocomplete="off" action="<?=base_url('signups/signup')?>">
                         <div class="mb-3">
                             <label for="exampleInputUsername1" class="form-label">Username</label>
                             <input type="text" placeholder="Username" name="username" value="<?php echo set_value('username'); ?>" class="form-control" id="username" aria-describedby="name">
@@ -64,11 +46,11 @@
                             if($this->session->flashdata('success')){?>
                                 <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
                         <?php } ?>
-
                         <?php
                             if($this->session->flashdata('error')){?>
                                 <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                         <?php } ?>
+                        
                     </form>
                 </div>
             </div>
