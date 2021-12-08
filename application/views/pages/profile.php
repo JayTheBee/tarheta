@@ -1,14 +1,6 @@
     <!-- PROFILE VIEW -->
-    <?php 
-        /*
-            *This redirects the user to the Login page when the 
-                $_SESSION['UserLoginSession'] is still not set.
-        */
-        if (!isset($_SESSION['UserLoginSession'])){
-            $this->session->set_flashdata('error', 'Please Login First');
-            redirect(base_url('login'));
-        }
-    ?>
+
+    <!-- jediboy: unnecessary checks -->
 
     <div class="container">
         <div class="row">
@@ -24,9 +16,7 @@
 
                             echo 'Welcome'.' '.$udata['username'];
                         }
-                        else{
-                            redirect(base_url('login'));
-                        }
+                        //jediboy: unnecessary checks
                     ?>
 
                     <br><br>
