@@ -72,7 +72,7 @@ class Resetpasswords extends CI_Controller{
 			// $this->load->view('templates/footer');
 		}
 		else{
-			$this->session->set_flashdata('error','Token Invalid.');
+			$this->session->set_flashdata('error','Invalid Token.');
 			redirect(base_url('login'));
 		}
 	}
