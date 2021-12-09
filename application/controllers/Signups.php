@@ -101,7 +101,7 @@ class Signups extends CI_Controller{
 			'username' => $username,
 			'body' => "Please click the the button to activate your account",
 			'button' => "Activate",
-			'link' => base_url()."auth/verify/".$username."/".$code,
+			'link' => base_url()."signups/verify/".$username."/".$code,
 		);
 
 		$this->email->send_email($mail, 'templates/email', $email);
@@ -116,5 +116,22 @@ class Signups extends CI_Controller{
 	public function setStudent(){
 		$_SESSION['usertype'] = "STUDENT";
 		redirect(base_url('signup'));
+	}
+
+	public function verify(){
+		$url = $this->segmentURL();
+		$data = array(
+			'active' => "Verified",
+			'active_timestamp' => date('Y/m/d h:i:s'), // To be Improved. Issue mali pa ung time pero okay ung date.
+		);
+
+		
+		$query = $this->user_model->verifyAccount($data, $url['username'], $url['code']);
+		if($query){
+			$this->view('verified');
+			// $this->load->view('templates/header');
+			// $this->load->view('pages/verified');
+			// $this->load->view('templates/footer');
+		}
 	}
 }
