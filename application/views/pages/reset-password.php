@@ -1,14 +1,4 @@
-<!-- ACCOUNT TYPE SELECTION PAGE -->
-
-<?php 
-    /*
-        *This redirects the user to the home page
-    */
-    if (!isset($_SESSION['resetpassword'])){
-        header("Location: ".base_url()."home");
-        exit();
-    }
-?>
+<!-- RESET PASSWORD PAGE -->
     
 <div class="container">
         <div class="row">
@@ -19,7 +9,7 @@
                         Enter new password
                     </div>
                     <div class="card-body">
-                        <form method="post" autocomplete="off" action="<?=base_url('auth/resetPassword')?>">
+                        <form method="post" autocomplete="off" action="<?=base_url('resetpasswords/resetPassword')?>">
 
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" name="password" class="form-label">New Password</label>
