@@ -17,21 +17,15 @@
                                 * Pasabi nalng pag may better way.
                             -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("auth/setTeacher"); ?>'" >Teacher
+                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("signups/setTeacher"); ?>'" >Teacher
                                 </button>
-                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("auth/setStudent"); ?>'" >Student
+                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("signups/setStudent"); ?>'" >Student
                                 </button>
                             </div>
 
-                            <?php
-                                if($this->session->flashdata('success')){?>
-                                    <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                            <?php } ?>
-                            
-                            <?php
-                            if($this->session->flashdata('error')){?>
-                                <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                            <?php } ?>
+
+                            <!-- jediboy: unnecessary flashdata checks -->
+
 
                         </form>
                 </div>

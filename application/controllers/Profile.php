@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Nirename ko lang yung Welcome controller to Auth
-
 class Profile extends CI_Controller {
     function editprofile(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -30,10 +28,6 @@ class Profile extends CI_Controller {
 				'school'=>$school,
 				'course'=>$course,
 			);
-			// echo "<pre>";
-			// print_r($data);
-			// echo "</pre>";
-			// exit;
 
 			$this->load->model('profile_model');
 			$this->profile_model->editprofile($data);
@@ -42,16 +36,6 @@ class Profile extends CI_Controller {
 
 			$this->session->set_flashdata('success', 'Profile updated successfully');
 			redirect(base_url('profile'));
-
-			/*if($this->form_validation->run()==TRUE)
-			{
-
-			}
-			else
-			{
-				$this->session->set_flashdata('error','Fill all the required fields');
-				redirect(base_url('editprofile'));
-			}*/
 		}
 
 	}
