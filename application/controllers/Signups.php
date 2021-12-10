@@ -51,7 +51,7 @@ class Signups extends CI_Controller{
 		$password = $this->input->post('password', TRUE);
 
 		$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
-		$code2 = bin2hex(openssl_random_pseudo_bytes(10));
+		// $code2 = bin2hex(openssl_random_pseudo_bytes(10));	jedi:ito dapat removed
 		//$datetime = new DateTime('tomorrow'); // @ryle pa fix Time not setting. 0:0:0 nagsasave sa DB
 		// $datetime = time(); // hindi na 0:0:0 ung time. -ryle
 
@@ -60,7 +60,7 @@ class Signups extends CI_Controller{
 			'email'=>$email,
 			'password'=>password_hash($password, PASSWORD_DEFAULT),
 			'active_token' => $code,
-			'reset_token' => $code2,
+			// 'reset_token' => $code2,	jedi: ito rin dapat removed
 			// 'reset_exp' =>  date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60)
 		);
 
