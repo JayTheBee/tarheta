@@ -1,20 +1,6 @@
     <!-- PROFILE VIEW -->
-    <?php 
-        /*
-            *This redirects the user to the Login page when the 
-                $_SESSION['UserLoginSession'] is still not set.
-        */
-        if (!isset($_SESSION['UserLoginSession'])){
-            $this->session->set_flashdata('error', 'Please Login First');
-            header("Location: ".base_url()."login");
-            exit();
-        }
-        if(isset($_SESSION["Profile"])){
-            // print_r($_SESSION["Profile"]);
-            // exit;
-            // $firstname = $_SESSION["Profile"]->firstname;
-        }
-    ?>
+
+    <!-- jediboy: unnecessary checks -->
 
     <div class="container">
         <div class="row">
@@ -30,9 +16,7 @@
 
                             echo 'Welcome'.' '.$udata['username'];
                         }
-                        else{
-                            redirect(base_url('login'));
-                        }
+                        //jediboy: unnecessary checks
                     ?>
 
                     <br><br>
@@ -56,7 +40,7 @@
                     <div class="justify-content-center d-flex flex-column ">
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("editprofile"); ?>'" >Edit Profile
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("auth/logout"); ?>'" >Logout
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("logins/logout"); ?>'" >Logout
                         </button>
                     </div>
                 </div>

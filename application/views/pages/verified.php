@@ -7,11 +7,12 @@
                 <div class="card-header text-center"> YAY! </div>
 
                 <div class="card-body">
-                    <p>Your Account has been Verified.</p>
+                    <div class="text-center">
+                        <p>Your Account has been Verified.</p>
 
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("login"); ?>'" >Login
                         </button>
-
+                    </div>
                 </div>
             </div>
             </div>
