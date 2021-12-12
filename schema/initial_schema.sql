@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2021 at 06:32 AM
+-- Generation Time: Dec 06, 2021 at 03:30 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_softeng`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flashcards`
+--
+
+CREATE TABLE `flashcards` (
+  `id` int(11) NOT NULL,
+  `creator_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `type` enum('QUIZ','REVIEWER') NOT NULL,
+  `visibility` enum('PRIVATE','PUBLIC') NOT NULL,
+  `total_score` int(11) NOT NULL,
+  `timeopen` datetime NOT NULL,
+  `timeclose` datetime NOT NULL,
+  `active` enum('ACTIVE','UNACTIVE') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `flashcards`
+--
+
+INSERT INTO `flashcards` (`id`, `creator_id`, `name`, `description`, `type`, `visibility`, `total_score`, `timeopen`, `timeclose`, `active`) VALUES
+(4, 11, 'test1', 'TEST!', 'QUIZ', 'PRIVATE', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'ACTIVE'),
+(5, 11, 'Test2', 'TEst3333', 'REVIEWER', 'PUBLIC', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'ACTIVE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flashcards_user_access`
+--
+
+CREATE TABLE `flashcards_user_access` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `flashcards_user_access`
+--
+
+INSERT INTO `flashcards_user_access` (`id`, `flashcard_id`, `user_id`) VALUES
+(1, 4, 11),
+(2, 5, 11);
 
 -- --------------------------------------------------------
 
@@ -52,7 +99,8 @@ CREATE TABLE `users` (
   `active_token` varchar(32) DEFAULT NULL,
   `active` enum('Verified','Unverified') NOT NULL DEFAULT 'Unverified',
   `active_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `reset_token` varchar(32) DEFAULT NULL
+  `reset_token` varchar(32) DEFAULT NULL,
+  `reset_exp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -70,6 +118,18 @@ CREATE TABLE `user_types` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `flashcards`
+--
+ALTER TABLE `flashcards`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `flashcards_user_access`
+--
+ALTER TABLE `flashcards_user_access`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `profile`
@@ -96,22 +156,34 @@ ALTER TABLE `user_types`
 --
 
 --
+-- AUTO_INCREMENT for table `flashcards`
+--
+ALTER TABLE `flashcards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `flashcards_user_access`
+--
+ALTER TABLE `flashcards_user_access`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

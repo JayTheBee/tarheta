@@ -8,7 +8,6 @@
                         <div class="home-text">
                         <h1>Study Anywhere, Anytime & Grow Your Skills</h1>
                         </div>
-
                         <div> <!--just to make the get started button not occupying the full width-->
                             <a class="btn btn-bd-getStarted rounded-pill" href="#" role="button">Get Started ></a> 
                         </div>

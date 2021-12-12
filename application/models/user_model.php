@@ -61,13 +61,19 @@
         public function verifyAccount($data, $username, $code){
             $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND active_token='$code'");
             if($query->num_rows() > 0){
-                return $this->db->update('users', $data);
+                //return $this->db->update('users', $data);
+                $this->db->trans_start();
+                $this->db->from('users');
+                $this->db->set('active', $data['active']);
+                $this->db->where('username', $username);
+                $this->db->update('users');
+                return $this->db->trans_complete();
             }
         }
 
         function codeCheck($username, $code){
             $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND reset_token='$code'");
-            if($query->num_rows() > 0){
+            if(($query->num_rows() > 0) && (strtotime($query->row('reset_exp')) > time())){ //Checks if the reset_exp > current time meaning it is still valid
                 return true;
             }
             else{
@@ -94,6 +100,19 @@
             else{
                 return false;
             }
+        }
+
+        function genNewResetToken($id){
+            $datetime = time(); //Sets the new expiry +24 Hours
+            $newToken = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token
+            $this->db->trans_start();
+            $this->db->from('users');
+            $this->db->set('reset_token', $newToken);
+            $this->db->set('reset_exp', date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60)); // 17 hours Validity. -ryle
+            $this->db->where('id', $id);
+            $this->db->update('users');
+            $this->db->trans_complete();
+            return $newToken;
         }
     }
 
