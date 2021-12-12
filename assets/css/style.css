@@ -140,3 +140,38 @@ body {
 	border-bottom: 3px solid #e4be91;
 	color: #e4be91;
 }
+.bg-custom{
+    background-color: #52888A;
+    min-height: 100vh;
+}
+.product-holder{
+    position: relative;
+}
+.image-custom{
+    margin-top: -40px;
+    width: 100vw;
+}
+.rectangle{
+    height: 35rem;
+    width: 80vw;
+}
+.molecule{
+    width: 25rem;
+    height: 30rem;
+}
+.friends{
+    height: 30rem;
+    width: 24rem;
+}
+.footer-text{
+    font-family: 'Poppins', sans-serif;
+    font-weight: lighter;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    color: #fff;
+}
+.footer-custom{
+    background-color: #0B4B57;
+    bottom: 0;
+}
+
