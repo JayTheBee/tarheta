@@ -12,30 +12,32 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- my css -->
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
+
     <title>Sprint Demo</title>
   </head>
   <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
-                    </li>
-                    <li class="nav-item">
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-md  navbar-light navbar-bg navbar sticky-top">
+          <div class="container">
+              <a href="#home" class="navbar-brand brand-des">LOGO</a>  <!-- will eventually change to picture -->
+              <button type="button" class="navbar-toggler " data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon navbar-dark" ></span>
+              </button>
+      
+              <div class="collapse navbar-collapse show" id="navbarCollapse">
+                  <ul class="navbar-nav flex-row flex-wrap ms-auto pt-2 py-md-0">
+                      <li class="nav-item col-6 col-md-auto px-lg-5 px-3"><a class="nav-link" href="<?php echo base_url();?>home">HOME</a></li>
+                      <li class="nav-item col-6 col-md-auto px-lg-5 px-3"><a class="nav-link" href="#">FEATURES</a></li>
+                      <li class="nav-item col-6 col-md-auto px-lg-5 px-3"><a class="nav-link" href="#">DEVELOPERS</a></li>
+                  </ul>
 
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>account-type">Register</a>
-
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url(); ?>login">Login</a>
-                    </li>
-
-                    <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
-                    </li>
-
-                </ul>
-                </div>
-            </div>
-        </nav>
+                  <div class="ms-auto">
+                      <a class="btn btn-bd-login rounded-pill text-decoration-underline" href="#" role="button" href="#" role="button">LOG IN</a>
+                  </div>
+              </div>
+          </div>
+      </nav>
+      <!-- end of navbar -->
