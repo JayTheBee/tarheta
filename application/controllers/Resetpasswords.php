@@ -87,9 +87,9 @@ class Resetpasswords extends CI_Controller{
 
 				$status = $this->user_model->emailCheck($email);
 				//generate new token upon password reset request
-				$status->{'reset_token'} = $this->user_model->genNewResetToken($status->{'id'});
 
 				if($status!=false){
+					$status->{'reset_token'} = $this->user_model->genNewResetToken($status->{'id'});
 					/*
 						* This array contains data to be passed to the email.php file which serves as 
 							the content of the email.
@@ -109,13 +109,13 @@ class Resetpasswords extends CI_Controller{
 					redirect(base_url('login'));
 				}
 				else{
-					$this->session->set_flashdata('error','Email not registered in the database.');
+					$this->session->set_flashdata('error','Email not registered!');
 					redirect(base_url('login'));
 				}
 				
 			}
 			else{
-				$this->session->set_flashdata('error','No email entered for password reset.');
+				$this->session->set_flashdata('error','No email entered for password reset!');
 				redirect(base_url('login'));
 			}
 		}
