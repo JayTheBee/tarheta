@@ -15,9 +15,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
-                $this->load->view('templates/header');
-                $this->load->view('flashcards/index', $data);
-                $this->load->view('templates/footer');
             }
             if ($page == 'create-questions'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
