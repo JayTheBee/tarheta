@@ -1,24 +1,4 @@
 <!-- ACCOUNT TYPE SELECTION PAGE -->
-
-<script type="text/javascript" language = "javascript">
-    document.getElementById('#question-type').addEventListener("change", function() {
-        if(this.value == "CHOICE"){
-            console.log(this.value);
-            document.getElementById("multiple-choice").style.display="none";
-            
-        /*Execute your script */
-        }
-        else if(this.value == "IDENTIFICATION"){
-            console.log(this.value);
-            document.getElementById("multiple-choice").style.display="none";
-        }
-        else if(this.value == "TRUEFALSE"){
-            console.log(this.value);
-            $('#multiple-choice').removeClass('d-none');
-            // $("#multiple-choice").toggleClass('d-none');
-        }
-    });
-</script>
     
 <div class="container">
         <div class="row">
@@ -26,32 +6,37 @@
             <div class="">
             <div class="card" style="margin-top: 5rem">
                     <div class="card-header text-center">
-                        CREATE QUESTIONS
+                        QUESTIONS
                     </div>
                     <div class="card-body">
-                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/add_question')?>">
+                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/questions')?>">
 
-                            <div class="mb-2">
+                            <!-- <div class="mb-2">
                                 <label for="exampleInputUsername1" class="form-label">Question</label>
-                                <input type="text" placeholder="Flashcard name" name="name" class="form-control" id="name" aria-describedby="name">
-                            </div>
+                                <input type="text" placeholder="Enter Question" name="name" class="form-control" id="name" aria-describedby="name">
+                            </div> -->
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <!-- Pwede daw na wag muna JS rekta controller then load new php file sa view -->
                                     <label for="inputState">Type</label>
-                                    <select id="question-type" name="type" class="form-control">
+                                    <select id="question-type" name="question-type" class="form-control">
                                         <option value="CHOICE">Multiple Choice</option>
                                         <option value="IDENTIFICATION">Identification</option>
                                         <option value="TRUEFALSE">True/False</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-2 d-none" id='multiple-choice' >
-                                <label for="exampleInputUsername1" class="form-label">Chioces</label>
-                            </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary">ADD</button>
+                            </div>
+
+                            <div class="form-row">
+                                <?php foreach($questions as $question): ?>
+                                    <h5><?php echo $question['question']; ?></h5>
+                                    <p><?php echo $question['answer']; ?></p>
+                                    <br><br>
+                                <?php endforeach; ?>
                             </div>
                             
 

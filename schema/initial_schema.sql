@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 03:30 PM
+-- Generation Time: Dec 14, 2021 at 02:50 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -40,13 +40,22 @@ CREATE TABLE `flashcards` (
   `active` enum('ACTIVE','UNACTIVE') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `flashcards`
+-- Table structure for table `flashcards_questions`
 --
 
-INSERT INTO `flashcards` (`id`, `creator_id`, `name`, `description`, `type`, `visibility`, `total_score`, `timeopen`, `timeclose`, `active`) VALUES
-(4, 11, 'test1', 'TEST!', 'QUIZ', 'PRIVATE', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'ACTIVE'),
-(5, 11, 'Test2', 'TEst3333', 'REVIEWER', 'PUBLIC', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'ACTIVE');
+CREATE TABLE `flashcards_questions` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `choice_id` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
+  `question_type` enum('CHOICE','IDENTIFICATION','TRUEFALSE') NOT NULL,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  `total_points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -60,13 +69,20 @@ CREATE TABLE `flashcards_user_access` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `flashcards_user_access`
+-- Table structure for table `flashcard_multiple_choice`
 --
 
-INSERT INTO `flashcards_user_access` (`id`, `flashcard_id`, `user_id`) VALUES
-(1, 4, 11),
-(2, 5, 11);
+CREATE TABLE `flashcard_multiple_choice` (
+  `id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `choiceA` text NOT NULL,
+  `choiceB` text NOT NULL,
+  `choiceC` text NOT NULL,
+  `choiceD` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -106,6 +122,23 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_answers`
+--
+
+CREATE TABLE `user_answers` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `answer` text NOT NULL,
+  `judgement` enum('CORRECT','WRONG','UNANSWERED') NOT NULL,
+  `points` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `attemp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_types`
 --
 
@@ -126,9 +159,21 @@ ALTER TABLE `flashcards`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `flashcards_questions`
+--
+ALTER TABLE `flashcards_questions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `flashcards_user_access`
 --
 ALTER TABLE `flashcards_user_access`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `flashcard_multiple_choice`
+--
+ALTER TABLE `flashcard_multiple_choice`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -142,6 +187,12 @@ ALTER TABLE `profile`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_answers`
+--
+ALTER TABLE `user_answers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -159,31 +210,49 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `flashcards`
 --
 ALTER TABLE `flashcards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `flashcards_questions`
+--
+ALTER TABLE `flashcards_questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `flashcards_user_access`
 --
 ALTER TABLE `flashcards_user_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `flashcard_multiple_choice`
+--
+ALTER TABLE `flashcard_multiple_choice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_answers`
+--
+ALTER TABLE `user_answers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
