@@ -39,15 +39,29 @@
                     }
                     break;
                 case 'login':
-                    if (isset($_SESSION['UserLoginSession'])){
-                        redirect(base_url('profile'));
-                    }
+                    $this->unsetUserType();
+                    $this->isUserLogedIn('profile');
                     break;
                 case 'signup':
+                    $this->isUserLogedIn('home');
                     if (!isset($_SESSION['usertype'])){
                         redirect(base_url('account-type'));
                     }
                     break;
+                case 'account-type':
+                    $this->isUserLogedIn('home');
+                    break;
+            }
+        }
+        private function unsetUserType(){
+            if (isset($_SESSION['usertype'])){
+                unset($_SESSION['usertype']);
+            }
+        }
+        private function isUserLogedIn($redirect){
+            if (isset($_SESSION['UserLoginSession'])){
+                $this->unsetUserType();
+                redirect(base_url($redirect));
             }
         }
     }

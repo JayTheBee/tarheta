@@ -19,9 +19,14 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<<<<<<< HEAD
 
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
+=======
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
+>>>>>>> f97fa2494fd318be7e02548a008dfeb9a56b5c02
                     </li>
 <?php if(!isset($_SESSION['UserLoginSession'])) : ?>
                       <li class="nav-item">
