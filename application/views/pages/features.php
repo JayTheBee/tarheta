@@ -2,13 +2,13 @@
       <div class="row justify-content-center align-items-center">
         <div class="blackboard col-sm-8">
           <img
-            src="<?php echo base_url('assets/images/blackboard.png');?>"
-            class="blackbrd my-5"
+            src="<?php echo base_url('assets/images/features/blackboard.png');?>"
+            class="blackbrd my-1"
             height="500rem"
             width="800rem"
           />
           <div class="feature text-center" id="feature1">
-            <img src="<?php echo base_url('assets/images/Character/Ikbal.png');?>" class="pt-5" />
+            <img src="<?php echo base_url('assets/images/features/Ikbal.png');?>" class="features-img pt-5" />
             <p class="description py-5">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Aspernatur, accusantium dicta, amet dignissimos, possimus officiis
@@ -17,7 +17,7 @@
             </p>
           </div>
           <div class="feature text-center" id="feature2">
-            <img src="<?php echo base_url('assets/images/Character/Marni.png');?>"  class="pt-5" />
+            <img src="<?php echo base_url('assets/images/features/Marni.png');?>"  class="features-img pt-5" />
             <p class="description py-5">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo,
               error! Eius perferendis excepturi id magni totam perspiciatis
@@ -26,7 +26,7 @@
             </p>
           </div>
           <div class="feature text-center" id="feature3">
-            <img src="<?php echo base_url('assets/images/Character/Badrun.png');?>" class="pt-5" />
+            <img src="<?php echo base_url('assets/images/features/Badrun.png');?>" class="features-img pt-5" />
             <p class="description py-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
               beatae possimus, ullam itaque ea, corrupti earum fuga mollitia
@@ -41,7 +41,7 @@
             <p class="btn my-5" onclick="Show1()">COLLABORATE WITH OTHERS</p>
             <p class="btn my-5" onclick="Show2()">COMPETE WITH ONE ANOTHER</p>
             <p class="btn my-5" onclick="Show3()">STUDY ON THE GO!</p>
-            <img class="eye" src="<?php echo base_url('assets/images/eye.png');?>" />
+            <img class="eye" src="<?php echo base_url('assets/images/features/eye.png');?>" />
           </div>
         </div>
       </div>
