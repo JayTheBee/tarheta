@@ -14,7 +14,7 @@
 
 
                 <div class="card-body">
-                    <form method="POST" autocomplete="off" action="<?=base_url('signups/signup')?>">
+                    <form method="POST" autocomplete="off" action="<?=base_url('auth/signups/signup')?>">
                         <div class="mb-3">
                             <label for="exampleInputUsername1" class="form-label">Username</label>
                             <input type="text" placeholder="Username" name="username" value="<?php echo set_value('username'); ?>" class="form-control" id="username" aria-describedby="name">

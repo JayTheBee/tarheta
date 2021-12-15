@@ -9,7 +9,7 @@
                         Enter new password
                     </div>
                     <div class="card-body">
-                        <form method="post" autocomplete="off" action="<?=base_url('resetpasswords/resetPassword')?>">
+                        <form method="post" autocomplete="off" action="<?=base_url('auth/resetpasswords/resetPassword')?>">
 
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" name="password" class="form-label">New Password</label>

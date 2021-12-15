@@ -9,7 +9,7 @@
                     Login
                 </div>
                 <div class="card-body">
-                    <form method="POST" autocomplete="off" action="<?=base_url('logins/login')?>">
+                    <form method="POST" autocomplete="off" action="<?=base_url('auth/logins/login')?>">
 
                         <div class="mb-3">
                             <label for="exampleInputEmail1" name="email" class="form-label">Email</label>
@@ -45,7 +45,7 @@
                     <div id="myModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="POST" autocomplete="off" action="<?=base_url('resetpasswords/sendPassReset')?>">
+                                <form method="POST" autocomplete="off" action="<?=base_url('auth/resetpasswords/sendPassReset')?>">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Password reset.</h5>
                                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->

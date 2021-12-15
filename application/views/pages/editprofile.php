@@ -6,7 +6,7 @@
             <div class="col-md-4">
             <div class="card" style="margin-top: 5rem">
                 <div class="card-header text-center"> Profile </div>
-                <form method="POST" autocomplete="off" action="<?=base_url('profile/editprofile')?>">
+                <form method="POST" autocomplete="off" action="<?=base_url('user/profile/editprofile')?>">
                     <div class="form-group">
                     <label>First Name </label> 
                     <input type="text" placeholder="<?php echo $_SESSION["Profile"]['firstname'];?>"

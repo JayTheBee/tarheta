@@ -20,9 +20,25 @@
             unset($_SESSION['usertype']);
         }
 
-        function editprofile($data){
-            return $this->db->update('profile',$data);
-        }
+        // function editprofile($data, $user){
+        //     echo($user_id);
+        //     exit();
+        //     $query = $this->db->query("SELECT * FROM users WHERE username='$user'");
+        //     $user_id = $query->row()->{'id'};
+            
+        //     $this->db->trans_start();
+        //     $this->db->from('profile');
+        //     $this->db->set('birthdate', $data['birthdate']);
+        //     $this->db->set('firstname', $data['firstname']);
+        //     $this->db->set('lastname', $data['lastname']);
+        //     $this->db->set('school', $data['school']);
+        //     $this->db->set('course', $data['course']);
+        //     $this->db->where('user_id', $user_id);
+            
+        //     $this->db->update('profile');
+        //     return $this->db->trans_complete();
+        //     return $this->db->update('profile',$data);
+	    // }
 
         function emailCheck($email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");

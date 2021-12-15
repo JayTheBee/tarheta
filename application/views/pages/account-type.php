@@ -17,9 +17,9 @@
                                 * Pasabi nalng pag may better way.
                             -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("signups/setTeacher"); ?>'" >Teacher
+                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("auth/signups/setTeacher"); ?>'" >Teacher
                                 </button>
-                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("signups/setStudent"); ?>'" >Student
+                                <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("auth/signups/setStudent"); ?>'" >Student
                                 </button>
                             </div>
 

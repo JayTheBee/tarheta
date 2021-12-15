@@ -28,9 +28,9 @@ class Profile extends CI_Controller {
 				'school'=>$school,
 				'course'=>$course,
 			);
-			$user = $_SESSION['UserLoginSession']['username'];
+
 			$this->load->model('profile_model');
-			$this->profile_model->editprofile($data, $user);
+			$this->profile_model->editprofile($data);
 
 			$this->session->set_userdata('Profile',$data);
 
