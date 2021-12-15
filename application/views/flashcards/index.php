@@ -12,7 +12,10 @@
                     <?php foreach($flashcards as $flashcard): ?>
                         <h5><?php echo $flashcard['name']; ?></h5>
                         <p><?php echo $flashcard['description']; ?></p>
-                        <button>View</button>
+                        <?php echo form_open("flashcards/show/".$flashcard["id"])?>
+                            <button class="btn btn-primary" type="submit">View</button>
+                        </form>
+                        <!-- <button href="">View</button> -->
                         <br><br>
                     <?php endforeach; ?>
                 </div>

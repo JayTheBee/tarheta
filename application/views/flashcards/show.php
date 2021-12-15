@@ -6,30 +6,14 @@
             <div class="">
             <div class="card" style="margin-top: 5rem">
                     <div class="card-header text-center">
-                        QUESTIONS
+                        <h3><?php echo $flashcard['name']; ?></h3>
+                        <p><?php echo $flashcard['description'] ?></p>
+                        <p>Visibility: <?php echo $flashcard['visibility'] ?></p>
+                        <p>Flashcard Type: <?php echo $flashcard['type'] ?></p>
                     </div>
                     <div class="card-body">
                         <form method="POST" autocomplete="off" action="<?=base_url('flashcards/questions')?>">
 
-                            <!-- <div class="mb-2">
-                                <label for="exampleInputUsername1" class="form-label">Question</label>
-                                <input type="text" placeholder="Enter Question" name="name" class="form-control" id="name" aria-describedby="name">
-                            </div> -->
-                            <div class="form-row">
-                                <div class="form-group col-md-2">
-                                    <!-- Pwede daw na wag muna JS rekta controller then load new php file sa view -->
-                                    <label for="inputState">Type</label>
-                                    <select id="question-type" name="question-type" class="form-control">
-                                        <option value="CHOICE">Multiple Choice</option>
-                                        <option value="IDENTIFICATION">Identification</option>
-                                        <option value="TRUEFALSE">True/False</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">ADD</button>
-                            </div>
 
                             <div class="form-row">
                                 <?php foreach($questions as $question): ?>
@@ -43,8 +27,15 @@
                                                 <p>D. <?php echo $multi_choice['choiceD'] ?></p>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
-                                    <?php endif; ?>
-                                    <p>Answer: <?php echo $question['answer']; ?></p>
+                                    <?php elseif($question['question_type'] == 'TRUEFALSE'):?>
+                                        <p>TRUE/FALSE</p>
+                                    <?php elseif($question['question_type'] == 'IDENTIFICATION'):?>
+                                        <p>TEXT BOX GO BRRRRR</p>
+                                    <?php endif; ?>    
+                                    
+                                    <?php if($flashcard['type'] == 'REVIEWER'):?>
+                                        <p>Answer: <?php echo $question['answer']; ?></p>
+                                    <?php endif; ?>    
                                     <br><br>
                                 <?php endforeach; ?>
                             </div>

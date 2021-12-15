@@ -39,6 +39,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->view('templates/footer');
         }
 
+        // Function wherein it displays the specific flashcard from the flashcards tab.
+        public function show($flashcard_id){
+            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
+            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
+            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+
+            $this->load->view('templates/header');
+            $this->load->view('flashcards/show', $data);
+            $this->load->view('templates/footer');
+        }
+
 
         private function create_flashcards_clean(){
     

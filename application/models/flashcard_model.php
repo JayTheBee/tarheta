@@ -17,12 +17,14 @@
             $user_id = $_SESSION['Profile']['user_id'];
             $query = $this->db->query("SELECT * FROM flashcards WHERE visibility='PUBLIC' OR creator_id='$user_id'");
             return $query->result_array();
-            // echo("<pre>");
-            //     print_r($query->result_array());
-            // echo("</pre>");
-            // exit();
         }
 
+        public function get_flashcard_data($flashcard_id){
+            $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");
+            return $query->row_array();
+        }
+
+        //Function where it returns an array containing all the question of a specific flashcard
         public function get_questions($flashcard_id){
             $query = $this->db->query("SELECT * FROM flashcards_questions WHERE flashcard_id='$flashcard_id'");
             return $query->result_array();
@@ -37,8 +39,8 @@
             return $question_id;
         }
 
+        //Function that returns the choices of a multiple choice question
         public function get_choices($data){
-            // print_r($data);
             $choices = array();
             foreach($data as &$question){
                 if ($question['choice_id'] != -1){
