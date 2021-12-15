@@ -2,7 +2,7 @@
 
     class profile_model extends CI_Model{
 
-        function editprofile($data, $user){
+        public function editprofile($data, $user){
             $query = $this->db->query("SELECT * FROM users WHERE username='$user'");
             $user_id = $query->row()->{'id'};
             
@@ -14,7 +14,7 @@
 	    }
 
 
-        function getProfile($email){
+        public function getProfile($email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
             $id = $query->row()->{'id'};
             if($query->num_rows()==1){

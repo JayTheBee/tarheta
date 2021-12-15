@@ -24,8 +24,8 @@ class Resetpasswords extends CI_Controller{
 
     private function segmentURL(){
 		$segmentedURL = array(
-			'username' => $this->uri->segment(3),
-			'code' => $this->uri->segment(4),
+			'username' => $this->uri->segment(4),
+			'code' => $this->uri->segment(5),
 		);
 		return $segmentedURL;
 	}
@@ -100,7 +100,7 @@ class Resetpasswords extends CI_Controller{
 						'username' => $status->{'username'},
 						'body' => "Please click the the button to reset your password",
 						'button' => "Reset",
-						'link' => base_url()."resetpasswords/resetPassCheck/".$status->{'username'}."/".$status->{'reset_token'},
+						'link' => base_url()."auth/resetpasswords/resetPassCheck/".$status->{'username'}."/".$status->{'reset_token'},
 					);
 
 					$this->email->send_email($data, 'templates/email', $email);

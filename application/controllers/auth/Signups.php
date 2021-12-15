@@ -34,8 +34,8 @@ class Signups extends CI_Controller{
 
     private function segmentURL(){
 		$segmentedURL = array(
-			'username' => $this->uri->segment(3),
-			'code' => $this->uri->segment(4),
+			'username' => $this->uri->segment(4),
+			'code' => $this->uri->segment(5),
 		);
 		return $segmentedURL;
 	}
@@ -102,7 +102,7 @@ class Signups extends CI_Controller{
 			'username' => $username,
 			'body' => "Please click the the button to activate your account",
 			'button' => "Activate",
-			'link' => base_url()."signups/verify/".$username."/".$code,
+			'link' => base_url()."/auth/signups/verify/".$username."/".$code,
 		);
 
 		$this->email->send_email($mail, 'templates/email', $email);
@@ -123,7 +123,7 @@ class Signups extends CI_Controller{
 		$url = $this->segmentURL();
 		$data = array(
 			'active' => "Verified",
-			'active_timestamp' => date('Y/m/d h:i:s'), // To be Improved. Issue mali pa ung time pero okay ung date.
+			'active_timestamp' => date('Y-m-d H:i:s', time()), 
 		);
 
 		

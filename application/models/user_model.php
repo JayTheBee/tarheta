@@ -2,7 +2,7 @@
 
     class user_model extends CI_Model{
         
-        function insertuser($data,$data2){
+        public function insertuser($data,$data2){
 
             $this->db->trans_start();
             $this->db->insert('users', $data);
@@ -40,7 +40,7 @@
         //     return $this->db->update('profile',$data);
 	    // }
 
-        function emailCheck($email){
+        public function emailCheck($email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
             if($query->num_rows()==1){
                 return $query->row();
@@ -51,7 +51,7 @@
         }
 
 
-        function passCheck($password,$email){
+        public function passCheck($password,$email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
 
             if($query->num_rows()==1)
@@ -80,13 +80,14 @@
                 $this->db->trans_start();
                 $this->db->from('users');
                 $this->db->set('active', $data['active']);
+                $this->db->set('active_timestamp', $data['active_timestamp']);
                 $this->db->where('username', $username);
                 $this->db->update('users');
                 return $this->db->trans_complete();
             }
         }
 
-        function codeCheck($username, $code){
+        public function codeCheck($username, $code){
             $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND reset_token='$code'");
             if(($query->num_rows() > 0) && (strtotime($query->row('reset_exp')) > time())){ //Checks if the reset_exp > current time meaning it is still valid
                 return true;
@@ -96,16 +97,18 @@
             }
         }
 
-        function updatePassword($username,$password){
+        public function updatePassword($username,$password){
             $this->db->trans_start();
             $this->db->from('users');
             $this->db->set('password', $password);
+            $this->db->set('reset_token', 'NULL', false);
+            $this->db->set('reset_exp', 'NULL', false);
             $this->db->where('username', $username);
             $this->db->update('users');
             $this->db->trans_complete();
         }
 
-        function getProfile($email){
+        public function getProfile($email){
             $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
             $id = $query->row()->{'id'};
             if($query->num_rows()==1){
@@ -117,7 +120,7 @@
             }
         }
 
-        function genNewResetToken($id){
+        public function genNewResetToken($id){
             $datetime = time(); //Sets the new expiry +24 Hours
             $newToken = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token
             $this->db->trans_start();
