@@ -2,9 +2,16 @@
 
     class profile_model extends CI_Model{
 
-        function editprofile($data){
-            return $this->db->update('profile',$data);
-        }
+        function editprofile($data, $user){
+            $query = $this->db->query("SELECT * FROM users WHERE username='$user'");
+            $user_id = $query->row()->{'id'};
+            
+            $this->db->trans_start();
+            $this->db->from('profile');
+            $this->db->where('user_id', $user_id);    
+            $this->db->update('profile', $data);
+            return $this->db->trans_complete();
+	    }
 
 
         function getProfile($email){
