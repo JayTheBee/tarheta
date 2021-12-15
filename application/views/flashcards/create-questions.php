@@ -34,7 +34,17 @@
                             <div class="form-row">
                                 <?php foreach($questions as $question): ?>
                                     <h5><?php echo $question['question']; ?></h5>
-                                    <p><?php echo $question['answer']; ?></p>
+                                    <?php if($question['question_type'] == 'CHOICE'): 
+                                        foreach($multi_choices as $multi_choice):
+                                            if($multi_choice['question_id'] == $question['id']):?>
+                                                <p>A. <?php echo $multi_choice['choiceA'] ?></p>
+                                                <p>B. <?php echo $multi_choice['choiceB'] ?></p>
+                                                <p>C. <?php echo $multi_choice['choiceC'] ?></p>
+                                                <p>D. <?php echo $multi_choice['choiceD'] ?></p>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <p>Answer: <?php echo $question['answer']; ?></p>
                                     <br><br>
                                 <?php endforeach; ?>
                             </div>

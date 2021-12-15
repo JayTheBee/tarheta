@@ -18,6 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             if ($page == 'create-questions'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
+                $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
             }
             
             return $data;
@@ -82,10 +83,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 if($this->form_validation->run()==TRUE){
                     $_SESSION['Current_Question']['question_type'] = $this->input->post('question-type', TRUE);
-                    // $data = array(
-                    //     'question-type' => $this->input->post('question-type', TRUE)
-                    // );
-                    // $this->session->set_userdata('Current_Question',$data);
                     $this->view('add-question');
                 }
                 else{
@@ -110,12 +107,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $question = $this->input->post('question', TRUE);
             $answer = $this->input->post(strtolower($_SESSION['Current_Question']['question_type'])."-answer", TRUE);
+            if($_SESSION['Current_Question']['question_type'] == 'CHOICE'){
+                $answer = $this->input->post(strtolower($_SESSION['Current_Question']['question_type'])."-answer-".$answer, TRUE);
+            }
+            
             // In the case of a multiple question the value that would be saved in the database would be "A" "B" "C" or "D"
             // I think JavaScript is needed to retrieve the value from the other input field.
             // For now this would do.
 
             $data = array(
                 'flashcard_id' => $_SESSION['Current_Flashcard']['flashcard_id'],
+                'choice_id' => -1,
                 'question_type' => $_SESSION['Current_Question']['question_type'],
                 'question' => $question,
                 'answer' => $answer,

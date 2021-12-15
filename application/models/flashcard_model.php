@@ -37,6 +37,23 @@
             return $question_id;
         }
 
+        public function get_choices($data){
+            // print_r($data);
+            $choices = array();
+            foreach($data as &$question){
+                if ($question['choice_id'] != -1){
+                    $question_choices = $this->retrieve_choice($question['choice_id']);
+                    array_push($choices, $question_choices);
+                }
+            };
+            return $choices;
+        }
+
+        private function retrieve_choice($choice_id){
+            $query = $this->db->query("SELECT * FROM flashcard_multiple_choice WHERE id='$choice_id'");
+            return $query->row_array();
+        }
+
         public function insert_choices($data){
             $this->db->trans_start();
             $this->db->insert('flashcard_multiple_choice', $data);
