@@ -13,34 +13,34 @@
                         name="firstname" value="<?php echo $_SESSION["Profile"]['firstname'];?>"
                         class="form-control" id="firstname" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                     <div class="form-group">
                     <label>Last Name </label> 
                     <input type="text" placeholder="<?php echo $_SESSION['Profile']['lastname'];?>"
                         name="lastname" value="<?php echo $_SESSION['Profile']['lastname'];?>"
                         class="form-control" id="lastname" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                     <div class="form-group">
                     <label>Birthday </label> 
                     <input type="date" name="birthdate" value="<?php echo $_SESSION['Profile']['birthdate'];?>"
                         class="form-control" id="birthdate" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                     <div class="form-group">
                     <label>School </label> 
                     <input type="text" placeholder="<?php echo $_SESSION['Profile']['school'];?>"
                         name="school" value="<?php echo $_SESSION['Profile']['school'];?>"
                         class="form-control" id="school" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                     <div class="form-group">
                     <label>Course </label> 
                     <input type="text" placeholder="<?php echo $_SESSION['Profile']['course'];?>"
                         name="course" value="<?php echo $_SESSION['Profile']['course'];?>"
                         class="form-control" id="course" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                 <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("profile"); ?>'" >Back

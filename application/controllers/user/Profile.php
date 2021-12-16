@@ -14,26 +14,36 @@ class Profile extends CI_Controller {
             $this->form_validation->set_rules('school', 'School');
 			$this->form_validation->set_rules('course', 'Course');*/
 
-			$this->load->helper('security');
-			$firstname = $this->input->post('firstname', TRUE);
-			$lastname = $this->input->post('lastname', TRUE);
-			$birthdate = $this->input->post('birthdate',TRUE);
-			$school = $this->input->post('school',TRUE);
-			$course = $this->input->post('course',TRUE);
-
 			$data = array(
-				'firstname'=>$firstname,
-				'lastname'=>$lastname,
-				'birthdate'=>$birthdate,
-				'school'=>$school,
-				'course'=>$course,
+				'firstname'=>"",
+				'lastname'=>"",
+				'birthdate'=>"",
+				'school'=>"",
+				'course'=>"",
 			);
-
+			$this->load->helper('security');
+			if(!empty($this->input->post('firstname'))){
+				$data['firstname'] = $this->input->post('firstname', TRUE);
+			}
+			if(!empty($this->input->post('lastname'))){
+				$data['lastname'] = $this->input->post('lastname', TRUE);	
+				
+			}
+			if(!empty($this->input->post('birthdate'))){
+				$data['birthdate'] = $this->input->post('birthdate',TRUE);
+				
+			}
+			if(!empty($this->input->post('school'))){
+				$data['school'] = $this->input->post('school',TRUE);
+				
+			}
+			if(!empty($this->input->post('course'))){
+				$data['course'] = $this->input->post('course',TRUE);	
+			}
+			$user = $_SESSION['UserLoginSession']['username'];
 			$this->load->model('profile_model');
-			$this->profile_model->editprofile($data);
-
+			$this->profile_model->editprofile($data, $user);
 			$this->session->set_userdata('Profile',$data);
-
 			$this->session->set_flashdata('success', 'Profile updated successfully');
 			redirect(base_url('profile'));
 		}

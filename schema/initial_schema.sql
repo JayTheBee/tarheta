@@ -114,7 +114,7 @@ CREATE TABLE `users` (
   `reg_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `active_token` varchar(32) DEFAULT NULL,
   `active` enum('Verified','Unverified') NOT NULL DEFAULT 'Unverified',
-  `active_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active_timestamp` datetime DEFAULT NULL,
   `reset_token` varchar(32) DEFAULT NULL,
   `reset_exp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
