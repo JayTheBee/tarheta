@@ -61,6 +61,9 @@
                             <?php } ?>
 
                         </form>
+                        <?php echo form_open("flashcards/show/".$_SESSION['Current_Flashcard']['flashcard_id'])?>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </form>
                 </div>
             </div>
         </div>

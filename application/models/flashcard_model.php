@@ -6,17 +6,44 @@
             $this->db->insert('flashcards', $data);
             $flashcard_id = $this->db->insert_id();
 
-            $this->db->set('user_id', $data['creator_id']);
-            $this->db->set('flashcard_id', $flashcard_id);
-            $this->db->insert('flashcards_user_access');
+            // $this->db->set('user_id', $data['creator_id']);
+            // $this->db->set('flashcard_id', $flashcard_id);
+            // $this->db->insert('flashcards_user_access');
+            $this->insert_flashcard_user_access($flashcard_id, $data['creator_id']);
             $this->db->trans_complete();
             return $flashcard_id;
         }
 
         public function get_flashcards(){
             $user_id = $_SESSION['Profile']['user_id'];
-            $query = $this->db->query("SELECT * FROM flashcards WHERE visibility='PUBLIC' OR creator_id='$user_id'");
-            return $query->result_array();
+            $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
+            $flashcards = $query->result_array();
+            
+            $result = array();
+
+            //Getting the user's private and public flashcards
+            foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND creator_id='$user_id'");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+
+            //Getting flashcards that is shared to the user
+            foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND visibility='PRIVATE' AND creator_id <> '$user_id' ");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+
+            //Getting the other public flashcards that is not created by the user
+            $query = $this->db->query("SELECT * FROM flashcards WHERE visibility='PUBLIC' AND creator_id <> '$user_id'");
+            $result = array_merge($result, $query->result_array());
+
+            return $result;
         }
 
         public function get_flashcard_data($flashcard_id){
@@ -67,6 +94,33 @@
 
         public function set_question_choice_id($choice_id, $question_id){
             $this->db->query("UPDATE flashcards_questions SET choice_id = '$choice_id' WHERE id='$question_id'");
+        }
+
+        public function flashcard_share($flashcard_id, $email){
+
+            //Check if the user exists in the DB
+            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
+            if($query->num_rows()==1){
+                $user_id = $query->row()->{'id'};
+            }
+            else{
+                return FALSE; //user not found
+            }
+
+            //Check if the user already has access to the flashcard
+            $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE flashcard_id='$flashcard_id' AND user_id='$user_id'");
+            if($query->num_rows()==0){
+                $this->insert_flashcard_user_access($flashcard_id, $user_id); //Insert new user access
+            }
+            return TRUE;
+        }
+
+        private function insert_flashcard_user_access($flashcard_id, $user_id){
+            $this->db->trans_start();
+            $this->db->set('flashcard_id', $flashcard_id);
+            $this->db->set('user_id', $user_id);
+            $this->db->insert('flashcards_user_access');
+            $this->db->trans_complete();
         }
     }
 ?>

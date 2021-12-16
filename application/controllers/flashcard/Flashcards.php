@@ -159,4 +159,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $choice_id = $this->flashcard_model->insert_choices($data);
             $this->flashcard_model->set_question_choice_id($choice_id, $question_id);
         }
+
+        public function share($flashcard_id){
+            $email = $this->input->post('email', TRUE);
+            $status = $this->flashcard_model->flashcard_share($flashcard_id, $email);
+            if($status){
+                $this->session->set_flashdata('success', 'Shared');
+            }
+            else{
+                $this->session->set_flashdata('error', 'User not found');
+            }
+            redirect(base_url('flashcards/show/'.$flashcard_id));
+            // echo "<pre>";
+            //     print_r($status);
+            //     // print_r($email);
+            // echo "</pre>";
+        }
     }
