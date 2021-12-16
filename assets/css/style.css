@@ -189,6 +189,70 @@ body {
     right: 0px;
     margin-bottom: 0px;
 }
+/* ACCOUNT TYPE PAGE */
+.teacherStudent-bg {
+    background-color: #52888A;
+    color: #fff;
+}
+
+.waveSize {
+    width: 100vw;
+    left: 0;
+    z-index: 1;
+    height: 100vh;
+}
+
+.boxPos {
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+}
+
+.boxWidth {
+    width: 75%;
+    margin-top: 5rem;
+}
+
+.firstBox {
+    background-color: rgba(112,95,89, 0.8);;
+    padding-left: 5rem;
+    border-radius: 15px;
+}
+
+.firstBox p {
+    font-size: 2rem;
+    font-weight: 300;
+    padding-top: 3rem;
+    
+}
+
+.btn-bd-choose {
+    background-color: #175561;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.boxBorder {
+    border-radius: 15px;
+    margin-right: 6rem;
+    padding: 1rem;
+}
+
+.btm-margin {
+    margin-bottom: 7rem;
+}
+
+.teacherStudent-boy {
+    height: 35rem;
+    left: 40px;
+    top: 50px;
+}
+
+.teacherStudent-plant {
+    left: 1100px;
+    top: 380px;
+}
+
 
 /* LOG IN PAGE */
 .navbar-custom{
@@ -294,6 +358,7 @@ body {
         display: none;
     }
 }
+
 @media only screen and (max-width: 1200px) {
     .rectangle-login{
         padding-top: 5rem;
@@ -301,5 +366,21 @@ body {
     }
     .email, .pass {
         width: 30rem;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .teacherStudent-plant {
+        height: 15rem;
+        left: 900px;
+        top: 380px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .teacherStudent-plant {
+        height: 15rem;
+        left: 1000px;
+        top: 380px;
     }
 }
