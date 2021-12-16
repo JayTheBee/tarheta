@@ -1,73 +1,57 @@
-    <!-- LOGIN PAGE -->
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-            <div class="card" style="margin-top: 5rem">
-                <div class="card-header text-center">
-                    Login
-                </div>
-                <div class="card-body">
-                    <form method="POST" autocomplete="off" action="<?=base_url('logins/login')?>">
+<!-- plan to change navbar for login, signup, & choose role -->
 
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" name="email" class="form-label">Email</label>
-                            <input type="email" placeholder="Email Address" name="email" value="<?php echo set_value('email'); ?>" class="form-control" id="email" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" name="password" class="form-label">Password</label>
-                            <input type="password" placeholder="Password" name="password" class="form-control" id="password">
-                        </div>
-                        <!-- <a href="" data-bs-target="#myModal">Forgot password?</a> -->
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">Forgot Password</button>
-                        </div>
-                        
-                        <br>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                            <br><br>
-                            <a href="">Don't have an account? Sign up</a>
-                        </div>
-                        <?php
-                            if($this->session->flashdata('success')){?>
-                                <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                        <?php } ?>
-                        
-                        <?php
-                        if($this->session->flashdata('error')){?>
-                            <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                        <?php } ?>
-
-                    </form> 
-
-                    <div id="myModal" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form method="POST" autocomplete="off" action="<?=base_url('resetpasswords/sendPassReset')?>">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Password reset.</h5>
-                                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
-                                    </div>
-                                    <div class="modal-body">                        
-                                        <div class="mb-3">
-                                            <!-- <label class="form-label">Email</label>  -->
-                                            <input type="text" placeholder="Account Email" class="form-control" name="email">
-                                        </div>                       
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> 
-                    </div>
-
-                </div>
+<section id="Log In" class="bg-blue">
+    <div class="position-relative">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive rectangle-login" alt="...">
             </div>
-            <div class="col-md-4"></div>
         </div>
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-center">
+                <h2 class="position-absolute login-text">Log In to Tarheta</h2>
 
+                <form class="form-inline" method="POST" autocomplete="off" action="<?= base_url('logins/login') ?>">
+                    <div class="container form-group d-flex align-items-center justify-content-center">
+                        <input class="form-control form-control-lg email" type="email" value="<?php echo set_value('email'); ?>" id="email" aria-describedby="emailHelp" placeholder="EMAIL ADDRESS">
+                        <input class="form-control form-control-lg pass" type="password" placeholder="PASSWORD">
+                        <p class="forgot-pass">Forgot password?
+                            <a href="#" class="log-text" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">Reset your password</a>
+                        </p>
+                        <button type="submit" class="btn btn-custom"><span class="log-text">LOG IN</span></button>
+                        <a href="<?php echo base_url(); ?>account-type" class="go-to-signup log-text">Don't have an account yet? Signup</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <img src="<?php echo base_url("assets/images/login/man-using-phone.png"); ?>" class="img-responsive position-absolute float-left man" alt="...">
+        <img src="<?php echo base_url("assets/images/login/normal-plant.png"); ?>" class="img-responsive position-absolute plant" alt="...">
+        <img src="<?php echo base_url("assets/images/login/Vector 7.png"); ?>" class="image-custom-below" alt="...">
     </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" autocomplete="off" action="<?= base_url('resetpasswords/sendPassReset') ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Password reset.</h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <!-- <label class="form-label">Email</label>  -->
+                            <input type="text" placeholder="Account Email" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

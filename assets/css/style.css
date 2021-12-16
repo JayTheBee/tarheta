@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
 body {
 	height: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 	font-family: "Poppins", sans-serif;
 }
 
@@ -17,6 +17,8 @@ body {
 
 .container .brand-des {
 	color: black;
+	font-weight: 800;
+	font-size: 1.8rem;
 }
 
 #navbarCollapse ul li a {
@@ -27,6 +29,14 @@ body {
 	background-color: #175561;
 	color: #fff;
 	font-weight: 600;
+	height: 2.8rem;
+}
+
+.button-login-text{
+	display: table-cell;
+	font-size: 1.4rem; 
+	vertical-align:middle;
+	font-weight: 800;
 }
 
 .home-bg {
@@ -78,9 +88,7 @@ body {
 }
 
 .img-size-plant {
-	position: absolute;
-	left: 0px;
-	top: 490px;
+	left: 0;
 	z-index: 1;
 }
 
@@ -96,6 +104,7 @@ body {
 	}
 }
 
+/* FEATURES PAGE */
 body {
 	background-color: #e5cfab;
 	background-image: url("bgvector.svg");
@@ -124,7 +133,7 @@ body {
 .description {
 	font-family: "Poppins", sans-serif;
 	font-size: 1.33em;
-	color: #ffff;
+	color: #fff;
 }
 
 .btn {
@@ -140,9 +149,11 @@ body {
 	border-bottom: 3px solid #e4be91;
 	color: #e4be91;
 }
+
+/* DEVELOPERS PAGE */
 .bg-custom{
     background-color: #52888A;
-    min-height: 100vh;
+   
 }
 .product-holder{
     position: relative;
@@ -162,6 +173,7 @@ body {
 .friends{
     height: 30rem;
     width: 24rem;
+	z-index: 9;
 }
 .footer-text{
     font-family: 'Poppins', sans-serif;
@@ -172,6 +184,122 @@ body {
 }
 .footer-custom{
     background-color: #0B4B57;
-    bottom: 0;
+	bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
 }
 
+/* LOG IN PAGE */
+.navbar-custom{
+    background-color: #52888A;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+.bg-blue{
+    background-color: #52888A;
+    min-height: 100vh;
+}
+.product-holder{
+    position: relative;
+}
+.image-custom-below{
+    width: 100vw;
+    z-index: 1;
+    height: 100vh;
+}
+.man{
+    z-index: 4;
+    height: 40rem;
+    padding: 12rem 2rem 0 0;
+}
+.rectangle-login{   
+    background-color: #705F59;
+    opacity: 80%;
+    height: 28rem;
+    width: 58rem;   
+    border-radius: 40px;
+    margin-top: 42rem;
+}
+.login-text{
+    z-index: 10;
+    padding-top: 20rem;
+    font-weight: 600;
+    color: #fff;
+}
+.form-inline input{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.email{
+    margin: 30rem 2rem 0 2rem;    
+    position: absolute;
+    width: 45rem;
+	z-index: 5;
+}
+.pass{
+    margin: 40rem 2rem 0 2rem;
+    position: absolute;
+    width: 45rem;
+	z-index: 5;
+}
+.btn-custom{
+    margin-top: 53rem;
+    position: absolute;
+    background-color: #175561;
+    width: 12rem;
+    height: 3rem;
+    border-radius: 20px;
+}
+.form-inline .btn-custom:hover{
+    background-color: #18606e;
+}
+.form-control::-webkit-input-placeholder{
+    color: #E4BE91;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+.log-text{
+    color: #FFFFFF;
+    font-weight: 600;
+}
+.forgot-pass{
+	position: absolute;
+	margin-top: 47rem;
+	color: #FFFFFF;
+	text-align: center;
+	
+}
+.go-to-signup{
+    position: absolute;
+    margin-top: 59rem;
+    color: #FFFFFF;
+}
+.plant{
+    right: 0;
+    margin: 25rem 5rem 0 0;
+    height: 13rem;
+}
+
+/* START OF MEDIA QUERIES */
+@media only screen and (max-width: 980px) {
+    .rectangle-login{
+        padding-top: 5rem;
+        width: 40rem;
+    }
+    .email, .pass {
+        width: 35rem;
+    }
+    .man, .plant{
+        display: none;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .rectangle-login{
+        padding-top: 5rem;
+        width: 40rem;
+    }
+    .email, .pass {
+        width: 30rem;
+    }
+}

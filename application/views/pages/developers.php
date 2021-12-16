@@ -16,26 +16,13 @@
     <section id="Developers" class="dev-custom">
         <div class="bg-custom">
             <div class="product-holder">
-                <img src="<?php echo base_url("assets/images/Vector 14.png"); ?>" class="float-left image-custom " alt="...">
-                <img src="<?php echo base_url("assets/images/rectangle.png"); ?>" class="position-absolute top-50 start-50 translate-middle rectangle" alt="...">
-                <img src="<?php echo base_url("assets/images/molecule.png"); ?>" class="position-absolute top-0 start-0 molecule" alt="...">
-                <img src="<?php echo base_url("assets/images/friends.png"); ?>" class="position-absolute bottom-0 end-0 friends" alt="...">
+                <img src="<?php echo base_url("assets/images/developers/Vector 14.png"); ?>" class="float-left image-custom " alt="...">
+                <img src="<?php echo base_url("assets/images/developers/rectangle.png"); ?>" class="position-absolute top-50 start-50 translate-middle rectangle" alt="...">
+                <img src="<?php echo base_url("assets/images/developers/molecule.png"); ?>" class="position-absolute top-0 start-0 molecule" alt="...">
+                <img src="<?php echo base_url("assets/images/developers/friends.png"); ?>" class="position-absolute bottom-0 end-0 friends" alt="...">
             </div>
         </div>
-
-        <footer class="footer footer-custom" id="footer">
-            <div class="container-lg py-4">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <p class="footer-text m-0 text-center">&copy; 2021 TEAM02 BSCS3CD</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </section>
 
-    <!-- footer starts here -->
-
-    <!-- footer ends here -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
