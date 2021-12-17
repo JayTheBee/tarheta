@@ -4,7 +4,7 @@
             <div class="col-md-4">
             <div class="card" style="margin-top: 5rem">
                 <div class="card-header text-right"> Create Class </div>
-                <form method="POST" autocomplete="off" action="<?=base_url('auth/class')?>">
+                <form method="POST" autocomplete="off" action="<?=base_url('class/create_classes')?>">
                     <div class="form-group">
                     <input type="text" placeholder="Enter classname (course, teacher, year, section)" name="classname" value="<?php echo set_value('classname'); ?>" class="form-control" id="classname" aria-describedby="name"> 
                     <label>Class Name</label> 
