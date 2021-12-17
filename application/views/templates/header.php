@@ -34,6 +34,15 @@
                         <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
                       </li>
                       <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>classes/classes">Classes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>classes/joinclass">Join Class</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>classes/createclass">+ Create Class</a>
+                      </li>
+                      <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>flashcards/create">+Create Flashcards</a>
                       </li>
                       <li class="nav-item">
@@ -44,3 +53,4 @@
                 </div>
             </div>
         </nav>
+
