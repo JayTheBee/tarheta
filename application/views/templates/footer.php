@@ -1,9 +1,8 @@
-<!-- Optional JavaScript; choose one of the two! -->
 <footer class="footer footer-custom " id="footer">
     <div class="container-lg py-4">
         <div class="row">
             <div class="col-xs-3">
-                <p class="footer-text m-0 text-center">&copy; 2021 TEAM02 BSCS3CD</p>
+                <p class="footer-text m-0 text-center">&copy; TARHETA 2021 | TEAM02 BSCS3CD</p>
             </div>
         </div>
     </div>

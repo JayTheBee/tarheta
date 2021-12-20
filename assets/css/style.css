@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
 body {
-	height: 100%;
+	height: auto;
 	overflow-x: hidden;
 	font-family: "Poppins", sans-serif;
 }
@@ -21,7 +21,7 @@ body {
 	font-size: 1.8rem;
 }
 
-#navbarCollapse ul li a {
+#navbarSupportedContent ul li a {
 	color: #8e7a74;
 }
 
@@ -38,7 +38,12 @@ body {
 	vertical-align:middle;
 	font-weight: 800;
 }
-
+.btn-bd-getStarted:hover, .btn-bd-login:hover{
+    background-color: #196372;
+    color: #FFFFFF;
+    box-shadow: 0px 10px 11px rgba(44, 39, 39, 0.2); 
+    transform: translateY(-0.20em);
+}
 .home-bg {
 	background-color: #e5cfab;
 }
@@ -46,6 +51,7 @@ body {
 .wave-size {
 	width: 100vw;
 	height: 100vh;
+	z-index: 2;
 }
 
 .positionZ {
@@ -63,8 +69,8 @@ body {
 	/* font-style: normal; */
 	font-weight: 900;
 	font-size: 4rem;
-	line-height: 6.5rem;
-	letter-spacing: 0.04em;
+	line-height: 5.5rem;
+    padding-top: 4rem;
 	color: #2b1313;
 }
 
@@ -88,79 +94,75 @@ body {
 }
 
 .img-size-plant {
+    position: absolute;
 	left: 0;
 	z-index: 1;
 }
 
 .img-size-plant img {
-	width: 350px;
-	height: 250px;
+    margin-top: 29rem;
+	width: 300px;
+	height: 200px;
 }
 
-@media only screen and (max-width: 1400px) {
-	.home-text h1 {
-		font-size: 3.5rem;
-		line-height: 5.5rem;
-	}
-}
 
 /* FEATURES PAGE */
-body {
-	background-color: #e5cfab;
-	background-image: url("bgvector.svg");
-	background-size: cover;
-}
-.feature {
-	position: absolute;
-	top: 10%;
-	left: 22%;
-	height: 34rem;
-	width: 36rem;
-}
-
 .blackbrd {
-	height: 38rem;
+    margin-top: 2.5rem;
+	height: 34rem;
 	width: 56rem;
+    z-index: 2;
 }
-.eye {
-	height: 14rem;
-	width: 12rem;
-	position: absolute;
-	bottom: -10%;
-	right: 0%;
+.features-img{
+    height: 13rem;
+    width: 20rem;
+    position: static;
 }
-
-.description {
-	font-family: "Poppins", sans-serif;
-	font-size: 1.33em;
-	color: #fff;
+.carousel-item img{
+    margin: 10rem 32rem 1rem 34rem;
+    z-index: 10;
+    position: relative;
 }
-
-.btn {
-	font-family: "Poppins", sans-serif;
-	font-size: 1.66em;
+.carousel-indicators{
+   left: 0;
+   bottom: 0;
+   display: inline;
+   margin-left: 46rem;
+   margin-bottom: 5rem;
+   z-index: 10;
 }
-
-.btn:hover {
-	border-bottom: 3px solid #e4be91;
+.desc{
+    z-index: 5;
+    position: relative;
+    padding: 2rem 18.5rem 0 13.5rem;
+    color: white;
+    font-size: 1rem;
 }
-
-.btn:active {
-	border-bottom: 3px solid #e4be91;
-	color: #e4be91;
+.carousel-control-prev{
+    position: absolute;
+    margin-left: 27rem;
+    z-index: 10;
+}
+.carousel-control-next{
+    right: 0;
+    position: absolute;
+    margin-right: 11rem;
+    z-index: 10;
+}
+h3 {
+    font-weight: 500;
+}
+p {
+    font-weight: 200;
 }
 
 /* DEVELOPERS PAGE */
-.bg-custom{
-    background-color: #52888A;
-   
+.cust-wave-size{
+    width: 100vw;
+	height: 100vh;
 }
 .product-holder{
     position: relative;
-}
-.image-custom{
-    margin-top: -40px;
-    width: 100vw;
 }
 .rectangle{
     height: 35rem;
@@ -169,12 +171,72 @@ body {
 .molecule{
     width: 25rem;
     height: 30rem;
+    z-index: 8;
+}
+.card-img-top{
+    margin-top: 2rem;
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.card{
+    background-color: #A2795E;
+    opacity: 98%;
+    color: white;
+    z-index: 20;
+}
+.card:hover{
+    box-shadow: 0px 10px 11px rgba(44, 39, 39, 0.2); 
+    transform: translateY(-0.25em);
+}
+.card a{
+    color: white;
+}
+.card a:hover{
+    color: #175561;
+}
+div h5{
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+div p{
+    font-size: 0.9rem;
+}
+
+/* CONTACT PAGE */
+.home-darkbrown-bg{
+    background-color: #E4BE91;
+}
+.wave-size-2{
+    width: 100vw;
+    height: 87vh;
+    z-index: 1;
+}
+.contact{
+    position: relative;
+    z-index: 10;
+}
+.btn-contact{
+    background-color: #0B4B57;
+    color: white;
+}
+.btn-contact:hover{
+    color: white;
+    background-color: #15788a;
 }
 .friends{
-    height: 30rem;
-    width: 24rem;
-	z-index: 9;
+    height: 15rem;
+    width: 13rem;
+    margin-top: 17.8rem;
+    z-index: 10;
 }
+.text-custom{
+    color: #A2795E;
+}
+
+/* FOOTER */
 .footer-text{
     font-family: 'Poppins', sans-serif;
     font-weight: lighter;
@@ -183,6 +245,8 @@ body {
     color: #fff;
 }
 .footer-custom{
+    position: relative;
+    z-index: 5;
     background-color: #0B4B57;
 	bottom: 0px;
     left: 0px;
@@ -262,7 +326,7 @@ body {
 }
 .bg-blue{
     background-color: #52888A;
-    min-height: 100vh;
+    height: auto;
 }
 .product-holder{
     position: relative;
@@ -345,10 +409,18 @@ body {
     height: 13rem;
 }
 
+
 /* START OF MEDIA QUERIES */
 @media only screen and (max-width: 980px) {
+    .img-size-girl{
+        padding-top: 10rem;
+        padding-left: 3rem;
+    }
+    .home-text h1 {
+		font-size: 3.5rem;
+		line-height: 3rem;
+	}
     .rectangle-login{
-        padding-top: 5rem;
         width: 40rem;
     }
     .email, .pass {
@@ -357,30 +429,90 @@ body {
     .man, .plant{
         display: none;
     }
+    .carousel-indicators{
+        margin-left: 35rem;
+    }
+    .desc{
+        display: none;
+        padding: 2rem 15rem 0 13.5rem;
+    }
 }
 
-@media only screen and (max-width: 1200px) {
-    .rectangle-login{
+@media only screen and (max-width: 1029px) {
+    .home-text h1 {
+		font-size: 3rem;
+		line-height: 3.3rem;
+	}
+    .positionZ{
+        padding-top: 4rem;
+    }
+    .hText-padding-top{
         padding-top: 5rem;
+    }
+    .carousel-indicators{
+        margin-left: 36rem;
+    }
+    .carousel-control-prev{
+        margin-left: 18rem;
+    }
+    .carousel-control-next{     
+        margin-right: 2rem;
+    }
+    .carousel h3{
+        margin-top: 2rem;
+    }
+    .desc{
+        padding: 0 2rem 0 2rem;
+        margin: 0 10rem 0 10rem;
+        font-size: 0.8rem;
+    }
+    .carousel-item img{
+        margin: 10rem 50rem 0 29rem;
+    }
+
+}
+@media only screen and (min-width: 1200px) and (max-width:1200px) {
+    .hText-padding-top{
+        padding-top: 7rem;
+    }
+    .rectangle-login{
         width: 40rem;
     }
     .email, .pass {
         width: 30rem;
     }
-}
-
-@media only screen and (max-width: 1300px) {
-    .teacherStudent-plant {
-        height: 15rem;
-        left: 900px;
-        top: 380px;
+    .carousel-indicators{
+        margin-left: 47rem;
+    }
+    .carousel-control-prev{
+        margin-left: 26rem;
+    }
+    .carousel-control-next{     
+        margin-right: 11rem;
+    }
+    .desc{
+        margin: 0 2rem 0 2rem;
+        font-size: 0.8rem;
+    }
+    .carousel-item img{
+        margin: 10rem 50rem 0 35rem;
     }
 }
-
-@media only screen and (max-width: 1400px) {
-    .teacherStudent-plant {
-        height: 15rem;
-        left: 1000px;
-        top: 380px;
+@media only screen and (min-width: 1400px) {  
+    .carousel-indicators{
+        margin-left: 48rem;
+    }
+    .carousel-control-prev{
+        margin-left: 28rem;
+    }
+    .carousel-control-next{     
+        margin-right: 13rem;
+    }
+    .desc{
+        margin: 0 8rem 0 5rem;
+        font-size: 0.8rem;
+    }
+    .carousel-item img{
+        margin: 10rem 50rem 0 40rem;
     }
 }
