@@ -7,11 +7,20 @@
             <div class="boxWidth">
                 <div class="container firstBox">
                     <p>Are you A ...</p>
-
-                    <div class="d-flex flex-column mx-5">
-                        <a class="btn btn-bd-choose boxBorder my-4 d-flex align-items-start" role="button">TEACHER</a>
-                        <a class="btn btn-bd-choose boxBorder btm-margin d-flex align-items-start" role="button">STUDENT</a>
-                    </div>
+                    <form method="" autocomplete="off" action="<?php echo base_url(); ?>signup">
+                         <div class="d-flex flex-column mx-5">
+                        <!--Choose teacher-->
+                             <a role="button">
+                                 <button type="button" class="btn-bd-choose boxBorder my-4 d-flex align-items-start" onclick="window.location='<?php echo site_url("signups/setTeacher"); ?>'" >Teacher
+                                </button>
+                            </a>
+                          <!--choose student-->
+                             <a role="button">
+                                 <button type="button" class="btn-bd-choose boxBorder btm-margin d-flex align-items-start" onclick="window.location='<?php echo site_url("signups/setStudent"); ?>'" >Student
+                                </button>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
 
