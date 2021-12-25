@@ -122,5 +122,9 @@
             $this->db->insert('flashcards_user_access');
             $this->db->trans_complete();
         }
+
+        public function delete_question($question_id){
+            $this->db->query("DELETE FROM flashcards_questions WHERE id = $question_id");
+        }
     }
 ?>

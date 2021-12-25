@@ -20,6 +20,21 @@
                             </div>
                         <?php endif; ?>
 
+                        <!-- Edit Button -->
+                        <?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
+                            <?php 
+                                $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
+                                echo form_open("flashcards/edit/".$flashcard['id'])
+                            ?>
+                                <button class="btn btn-success" type="submit">Edit</button>
+                            </form>
+                        <?php endif; ?>
+                        <!-- Answer Quiz Button -->
+                        <?php if ($flashcard['type']=="QUIZ"): ?>
+                            <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >Answer
+                            </button>
+                        <?php endif; ?>
+                        
                         <!-- Flash data -->
                         <?php
                             if($this->session->flashdata('success')){?>
@@ -36,6 +51,11 @@
 
 
                             <div class="form-row">
+                                <?php //if ($flashcard['type'] == "REVIEWER"): ?>
+                                <!-- 
+                                    Does the user have the ability to view the questions when 
+                                    viewing a QUIZ type flashcard?
+                                -->
                                 <?php foreach($questions as $question): ?>
                                     <h5><?php echo $question['question']; ?></h5>
 

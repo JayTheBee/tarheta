@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['title'] = "View Flashcards";
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
             }
-            if ($page == 'create-questions'){
+            if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
                 $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
             }
@@ -50,6 +50,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->view('templates/footer');
         }
 
+        public function edit($flashcard_id){
+            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
+            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
+            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+
+            $this->load->view('templates/header');
+            $this->load->view('flashcards/edit', $data);
+            $this->load->view('templates/footer');
+        }
+
 
         private function create_flashcards_clean(){
     
@@ -67,7 +77,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             );
     
             $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
-            $this->session->set_userdata('Current_Flashcard',$data);    
+            $this->session->set_userdata('Current_Flashcard',$data);
+            return $data['flashcard_id'];
         }
 
 
@@ -79,8 +90,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $this->form_validation->set_rules('visibility','Visibility');
                 
                 if($this->form_validation->run()==TRUE){
-                    $this->create_flashcards_clean();
-                    $this->view('create-questions');
+                    $flashcard_id = $this->create_flashcards_clean();
+                    // $this->view('edit');
+                    redirect(base_url('flashcards/edit/'.$flashcard_id));
                 }
                 else{
                     $this->view('create');
@@ -97,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $this->view('add-question');
                 }
                 else{
-                    $this->view('create-questions');
+                    $this->view('edit');
                 }
 
             }
@@ -109,7 +121,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if($this->form_validation->run()==TRUE){
                     $this->clean_question();
                 }
-                $this->view('create-questions');
+                // $this->view('edit');
+                redirect(base_url('flashcards/edit/'.$_SESSION['Current_Flashcard']['flashcard_id']));
 
             }
         }
@@ -121,10 +134,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if($_SESSION['Current_Question']['question_type'] == 'CHOICE'){
                 $answer = $this->input->post(strtolower($_SESSION['Current_Question']['question_type'])."-answer-".$answer, TRUE);
             }
-            
-            // In the case of a multiple question the value that would be saved in the database would be "A" "B" "C" or "D"
-            // I think JavaScript is needed to retrieve the value from the other input field.
-            // For now this would do.
 
             $data = array(
                 'flashcard_id' => $_SESSION['Current_Flashcard']['flashcard_id'],
@@ -174,5 +183,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //     print_r($status);
             //     // print_r($email);
             // echo "</pre>";
+        }
+
+        public function delete_question($question_id){
+            $this->flashcard_model->delete_question($question_id);
+            redirect(base_url('flashcards/edit/'.$_SESSION['Current_Flashcard']['flashcard_id']));
         }
     }
