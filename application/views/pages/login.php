@@ -13,8 +13,9 @@
 
                 <form class="form-inline" method="POST" autocomplete="off" action="<?= base_url('logins/login') ?>">
                     <div class="container form-group d-flex align-items-center justify-content-center">
-                        <input class="form-control form-control-lg email" type="email" value="<?php echo set_value('email'); ?>" id="email" aria-describedby="emailHelp" placeholder="EMAIL ADDRESS">
-                        <input class="form-control form-control-lg pass" type="password" placeholder="PASSWORD">
+                        <!-- pag mga forms na coconect sa controller wag nyo tatanggalin yung 'name' na property -->
+                        <input class="form-control form-control-lg email" type="email" value="<?php echo set_value('email'); ?>" id="email" name="email" aria-describedby="emailHelp" placeholder="EMAIL ADDRESS">
+                        <input class="form-control form-control-lg pass" type="password" placeholder="PASSWORD" id="password" name="password">
                         <p class="forgot-pass">Forgot password?
                             <a href="#" class="log-text" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">Reset your password</a>
                         </p>
