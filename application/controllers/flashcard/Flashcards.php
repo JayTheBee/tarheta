@@ -41,9 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         // Function wherein it displays the specific flashcard from the flashcards tab.
         public function show($flashcard_id){
-            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
-            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
-            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+            $data = $this->get_data($flashcard_id);
 
             $this->load->view('templates/header');
             $this->load->view('flashcards/show', $data);
@@ -51,9 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         public function edit($flashcard_id){
-            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
-            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
-            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+            $data = $this->get_data($flashcard_id);
 
             $this->load->view('templates/header');
             $this->load->view('flashcards/edit', $data);
@@ -179,14 +175,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $this->session->set_flashdata('error', 'User not found');
             }
             redirect(base_url('flashcards/show/'.$flashcard_id));
-            // echo "<pre>";
-            //     print_r($status);
-            //     // print_r($email);
-            // echo "</pre>";
         }
 
         public function delete_question($question_id){
             $this->flashcard_model->delete_question($question_id);
             redirect(base_url('flashcards/edit/'.$_SESSION['Current_Flashcard']['flashcard_id']));
+        }
+
+        public function answer($flashcard_id){
+            $data = $this->get_data($flashcard_id);
+
+            $this->session->set_userdata('Current_Answering',$data['questions']);
+            $this->session->set_userdata('Current_Number', 0);
+            // shuffle($_SESSION['Current_Answering']);
+            // shuffle($data['questions']);
+            $this->load->view('templates/header');
+            $this->load->view('flashcards/answer', $data);
+            $this->load->view('templates/footer');
+        }
+
+        // This is a public function since it will be used by the ajax
+        public function get_data($flashcard_id){
+            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
+            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
+            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                echo json_encode($data);
+            }
+            return $data;
         }
     }
