@@ -1,6 +1,4 @@
 <!-- ACCOUNT TYPE SELECTION PAGE -->
-<!-- TOBE FIXED -->
-<!-- When you manually type the url you can access private flashcards that are not assigned to you -->
     
 <div class="container">
     <div class="row">

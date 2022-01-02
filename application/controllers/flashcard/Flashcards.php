@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->model('flashcard_model');
         }
 
+        
         private function check_page($page, $data){
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
@@ -39,21 +40,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->view('templates/footer');
         }
 
+
         // Function wherein it displays the specific flashcard from the flashcards tab.
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
-
-            $this->load->view('templates/header');
-            $this->load->view('flashcards/show', $data);
-            $this->load->view('templates/footer');
+            
+            if ($this->check_access($flashcard_id)){
+                $this->load->view('templates/header');
+                $this->load->view('flashcards/show', $data);
+                $this->load->view('templates/footer');
+            }
+            else{
+                redirect(base_url('flashcards/index'));
+            }
         }
+
 
         public function edit($flashcard_id){
             $data = $this->get_data($flashcard_id);
+            
+            if ($this->check_access($flashcard_id)){
+                $this->load->view('templates/header');
+                $this->load->view('flashcards/edit', $data);
+                $this->load->view('templates/footer');
+            }
+            else{
+                redirect(base_url('flashcards/index'));
+            }
 
-            $this->load->view('templates/header');
-            $this->load->view('flashcards/edit', $data);
-            $this->load->view('templates/footer');
+            
+        }
+
+
+        // Function that prevents the user from accessing flashcards by manually typing the URL
+        private function check_access($flashcard_id){
+            if (isset($_SESSION['UserLoginSession']) && isset($_SESSION['Profile'])){
+                // Gets all the flashcards that the current user has access to
+                $flashcards = $this->flashcard_model->get_flashcards();
+
+                // Check if the requested flashcard is in the list of accessible flashcards of the user
+                foreach($flashcards as $card){
+                    if ($card['id'] == $flashcard_id)
+                        return TRUE;    
+                }
+                return FALSE;
+            }
+            else
+                return FALSE;
+            
         }
 
 
@@ -96,6 +130,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 // $this->view('index');
             }
         }
+
+
         public function questions(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 $this->form_validation->set_rules('question-type','Question Type','required');
@@ -110,9 +146,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             }
         }
+
+
         public function save_question(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 $this->form_validation->set_rules('question','Question','required');
+                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required');
 
                 if($this->form_validation->run()==TRUE){
                     $this->clean_question();
@@ -123,6 +162,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }
 
+
         private function clean_question(){
 
             $question = $this->input->post('question', TRUE);
@@ -130,6 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if($_SESSION['Current_Question']['question_type'] == 'CHOICE'){
                 $answer = $this->input->post(strtolower($_SESSION['Current_Question']['question_type'])."-answer-".$answer, TRUE);
             }
+            $numpoints = $this->input->post('numpoints', TRUE);
 
             $data = array(
                 'flashcard_id' => $_SESSION['Current_Flashcard']['flashcard_id'],
@@ -137,6 +178,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'question_type' => $_SESSION['Current_Question']['question_type'],
                 'question' => $question,
                 'answer' => $answer,
+                'total_points' => $numpoints
             );
 
             $question_id = $this->flashcard_model->insert_question($data);
@@ -147,6 +189,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
         }
+
+
         private function save_choices($question_id){
             $choiceA = $this->input->post('choice-answer-a', TRUE);
             $choiceB = $this->input->post('choice-answer-b', TRUE);
@@ -165,6 +209,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->flashcard_model->set_question_choice_id($choice_id, $question_id);
         }
 
+
         public function share($flashcard_id){
             $email = $this->input->post('email', TRUE);
             $status = $this->flashcard_model->flashcard_share($flashcard_id, $email);
@@ -177,22 +222,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             redirect(base_url('flashcards/show/'.$flashcard_id));
         }
 
+
         public function delete_question($question_id){
             $this->flashcard_model->delete_question($question_id);
             redirect(base_url('flashcards/edit/'.$_SESSION['Current_Flashcard']['flashcard_id']));
         }
 
+
         public function answer($flashcard_id){
             $data = $this->get_data($flashcard_id);
 
-            $this->session->set_userdata('Current_Answering',$data['questions']);
-            $this->session->set_userdata('Current_Number', 0);
-            // shuffle($_SESSION['Current_Answering']);
-            // shuffle($data['questions']);
-            $this->load->view('templates/header');
-            $this->load->view('flashcards/answer', $data);
-            $this->load->view('templates/footer');
+            if ($this->check_access($flashcard_id)){
+                $this->session->set_userdata('Current_Answering',$data['questions']);
+                $this->session->set_userdata('Current_Number', 0);
+                // shuffle($_SESSION['Current_Answering']);
+                // shuffle($data['questions']);
+                $this->load->view('templates/header');
+                $this->load->view('flashcards/answer', $data);
+                $this->load->view('templates/footer');
+            }
+            else{
+                redirect(base_url('flashcards/index'));
+            }
         }
+
 
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){

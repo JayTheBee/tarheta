@@ -15,6 +15,8 @@ class Profile extends CI_Controller {
 			$this->form_validation->set_rules('course', 'Course');*/
 
 			$data = array(
+				'id'=>$_SESSION['Profile']['id'],
+				'user_id'=>$_SESSION['Profile']['user_id'],
 				'firstname'=>"",
 				'lastname'=>"",
 				'birthdate'=>"",
