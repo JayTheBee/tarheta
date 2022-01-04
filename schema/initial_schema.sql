@@ -24,6 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `classes`
+--
+
+CREATE TABLE `classes` (
+  `id` int(11) NOT NULL,
+  `invite` enum('YES','NO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enroll`
+--
+
+CREATE TABLE `enroll` (
+  `id` int(11) NOT NULL,
+  `creator_id` int(11) NOT NULL,
+  `classname` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `school` varchar(255) NOT NULL,
+  `access verified?` enum('YES','NO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `flashcards`
 --
 
@@ -63,11 +88,11 @@ CREATE TABLE `flashcards_questions` (
 -- Table structure for table `flashcards_user_access`
 --
 
-CREATE TABLE `flashcards_user_access` (
-  `id` int(11) NOT NULL,
-  `flashcard_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CREATE TABLE `flashcards_user_access` (
+    `id` int(11) NOT NULL,
+    `flashcard_id` int(11) NOT NULL,
+    `user_id` int(11) NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -153,6 +178,18 @@ CREATE TABLE `user_types` (
 --
 
 --
+-- Indexes for table `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `enroll`
+--
+ALTER TABLE `enroll`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `flashcards`
 --
 ALTER TABLE `flashcards`
@@ -205,6 +242,18 @@ ALTER TABLE `user_types`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `enroll`
+--
+ALTER TABLE `enroll`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `flashcards`

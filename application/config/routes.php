@@ -51,12 +51,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // $route['flashcards/index'] = 'flashcards/index';
+$route['flashcards/get-data/(:any)'] = 'flashcard/flashcards/get_data/$1';
+$route['flashcards/answer/(:any)'] = 'flashcard/flashcards/answer/$1';
+$route['flashcards/delete-question/(:any)'] = 'flashcard/flashcards/delete_question/$1';
+$route['flashcards/edit/(:any)'] = 'flashcard/flashcards/edit/$1';
 $route['flashcards/share/(:any)'] = 'flashcard/flashcards/share/$1';
 $route['flashcards/show/(:any)'] = 'flashcard/flashcards/show/$1';
 $route['flashcards/questions'] = 'flashcard/flashcards/questions';
 $route['flashcards/save_question'] = 'flashcard/flashcards/save_question';
 $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
+
+//$route['classes/join/(:any)'] = 'class/classes/join/$1';
+$route['classes/classes/(:any)'] = 'class/classes/classes/$1';
+$route['classes/create_classes'] = 'class/classes/create_classes';
+$route['classes/(:any)'] = 'class/classes/view/$1';
 
 $route['default_controller'] = 'pages/view';
 $route['(:any)'] = 'pages/view/$1';
