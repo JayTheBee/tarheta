@@ -5,7 +5,6 @@ class Classes extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
-        $this->load->library('email');
         $this->load->library('form_validation');
         $this->load->helper('security');
         $this->load->model('classes_model');
@@ -28,37 +27,34 @@ class Classes extends CI_Controller{
         if ($_SERVER['REQUEST_METHOD']=='POST'){
             $this->form_validation->set_rules('class_name','Class_Name','required');
             $this->form_validation->set_rules('description','Description');
-            //$this->form_validation->set_rules('invite','Invite');
             $this->form_validation->set_rules('school','School');
             
             if($this->form_validation->run()==TRUE){
 
                     $class_name = $this->input->post('class_name', TRUE);
                     $description = $this->input->post('description');
-                   // $invite = $this->input->post('invite');
+                    $invite = bin2hex(openssl_random_pseudo_bytes(10));
                     $school = $this->input->post('school');
-    
                     $data = array(
-                        'creator_id' => $_SESSION['Profile']['user_id'],
                         'class_name'=> $class_name,
                         'description'=> $description,
-                        //'invite' => $invite,
+                        'invite_code' => $invite,
                         'school'=> $school,
                         
                     );
-    
-                    $this->load->model('classes_model');
-                    $this->classes_model->insertclasses($data);
+                    $user_id = $_SESSION['Profile']['user_id'];
+                    $data['class_id'] = $this->classes_model->insertclasses($data, $user_id);
                     $this->session->set_userdata('classes',$data);
-                    $this->session->set_flashdata('success','Classes successfully created');
-                    redirect(base_url('classes/create'));
+                    echo $data;
+                    $this->session->set_flashdata('success','Classes successfully created!');
+                    redirect(base_url('classes/index'));
                 }
-            else
-			 {
+            else{
 				$this->session->set_flashdata('error','Class Name is Required');
-				redirect(base_url('classes/create'));
-			 }
-            }
+				redirect(base_url('classes/index'));
+			}
         }
+    }
+    // function for showing i guess?
 }
 
