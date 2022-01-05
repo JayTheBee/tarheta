@@ -25,21 +25,21 @@ class Classes extends CI_Controller{
 
     public function create_classes(){
         if ($_SERVER['REQUEST_METHOD']=='POST'){
-            $this->form_validation->set_rules('classname','ClassName','required');
+            $this->form_validation->set_rules('class_name','Class_Name','required');
             $this->form_validation->set_rules('description','Description');
             //$this->form_validation->set_rules('invite','Invite');
             $this->form_validation->set_rules('school','School');
             
             if($this->form_validation->run()==TRUE){
 
-                    $classname = $this->input->post('classname', TRUE);
+                    $class_name = $this->input->post('class_name', TRUE);
                     $description = $this->input->post('description');
                    // $invite = $this->input->post('invite');
                     $school = $this->input->post('school');
     
                     $data = array(
                         'creator_id' => $_SESSION['Profile']['user_id'],
-                        'classname'=> $classname,
+                        'class_name'=> $class_name,
                         'description'=> $description,
                         //'invite' => $invite,
                         'school'=> $school,
@@ -48,17 +48,16 @@ class Classes extends CI_Controller{
     
                     $this->load->model('classes_model');
                     $this->classes_model->insertclasses($data);
+                    $this->session->set_userdata('classes',$data);
                     $this->session->set_flashdata('success','Classes successfully created');
                     redirect(base_url('classes/create'));
                 }
-                else
-			{
+            else
+			 {
 				$this->session->set_flashdata('error','Class Name is Required');
 				redirect(base_url('classes/create'));
-			}
+			 }
             }
-    
         }
-
 }
 
