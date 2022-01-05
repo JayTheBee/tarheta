@@ -268,10 +268,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         public function submit_answer(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
-                echo ($this->input->post('answer'));
-                echo " pumasok sa submit_answer()";
-                // exit();
+                $user_id = $this->input->post('user_id', TRUE);
+                $question_id = $this->input->post('question_id', TRUE);
+                $answer = $this->input->post('answer', TRUE);
+                $total_points = $this->input->post('points', TRUE);
+
+                $judgement = $this->flashcard_model->check_answer($question_id, $answer);
+                $points = $this->assign_points($judgement, $total_points);
+                $datetime = time();
+                $attempt = $this->flashcard_model->check_attempts($question_id, $user_id) + 1;
+
+                $data = array(
+                    'user_id' => $user_id,
+                    'question_id' => $question_id,
+                    'answer' => $answer,
+                    'judgement' => $judgement,
+                    'points' => $points,
+                    'timestamp' => date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60),
+                    'attempt' => $attempt,
+                );
+
+                $query = $this->flashcard_model->save_answer($data, $total_points);
+
+                //Placeholder IDK
+                if($judgement == 'CORRECT')
+                    echo "true";
+                else
+                    echo "false";
+                // echo " alert('SUCCESS!!');";
+                // echo gettype($attempt);
+                // echo $data['answer'];
+                //echo json_encode($query);
             }
-            // s
         }
+
+        private function assign_points($judgement, $total_points){
+            if($judgement == 'CORRECT')
+                return $total_points;
+            else
+                return 0;
+        }
+
+        
     }

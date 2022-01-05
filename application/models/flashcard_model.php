@@ -126,5 +126,47 @@
         public function delete_question($question_id){
             $this->db->query("DELETE FROM flashcards_questions WHERE id = $question_id");
         }
+
+        //Function to check if the answer provided is correct
+        public function check_answer($question_id, $answer){
+            if(isset($answer) && strlen($answer) != 0){
+                $query = $this->db->query("SELECT * FROM flashcards_questions WHERE id='$question_id' AND answer='$answer'");
+                if($query->num_rows()!=0)
+                    return "CORRECT";
+                else
+                    return "WRONG";
+            }
+            else
+                return "UNANSWERED";
+        }
+
+        // Check the number of attempts of a user on a question
+        // This works however i still creates a new input
+        public function check_attempts($question_id, $user_id){
+            $query = $this->db->query("SELECT * FROM user_answers WHERE question_id='$question_id' AND user_id='$user_id'");
+            if($query->num_rows()==0)
+                return 0;
+            else
+                return ($query->row()->{'attempt'});
+        }
+
+        public function save_answer($data, $total_points){
+            $this->db->trans_start();
+            $this->db->insert('user_answers', $data);
+            // $user_answer_id = $this->db->insert_id();
+            $this->db->trans_complete();
+            return $data;
+        }
+
+        private function assign_points($judgement, $total_points){
+            if($judgement == 'CORRECT')
+                return $total_points;
+            else
+                return 0;
+        }
+
+        public function check_already_answered(){
+            
+        }
     }
 ?>

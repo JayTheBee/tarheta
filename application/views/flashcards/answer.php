@@ -26,7 +26,12 @@
                     <div class="form-group col-md-2" id='truefalse-container'>
                                         
                     </div>
-                    <button type="button" id='previous'><-</button>
+                    <!-- 
+                        Commented muna since ayaw ko pa muna ifigure out yung pag
+                        handle pag back ng user sa previous answered questions
+                        That's future ramon's problem
+                    -->
+                    <!-- <button type="button" id='previous'><-</button> -->
                     <button type="submit" id='next' value='<?php $_SESSION['Current_Number']?>'>-></button>
                 </form>
             </div>
@@ -43,16 +48,25 @@
         $('#question-answer').submit(function(e){
             console.log("helloworld");
             e.preventDefault();
-            var answer = get_answer();
+            var answer = get_user_answer();
             $.ajax({
                 type:"post",
                 url:'<?php echo base_url();?>flashcards/submit-answer',
-                data:{answer:answer},
+                data:
+                {
+                    answer:answer, 
+                    user_id: <?php echo $_SESSION['Profile']['user_id']; ?>,
+                    question_id: flashcard_data['questions'][current_number]['id'],
+                    points: flashcard_data['questions'][current_number]['total_points'],
+                },
                 success:function(data)
                 {
                     console.log(data);
+                    if(data == 'true')
+                        alert('CORRECT!!');
+                    else
+                        alert('SADNESS IN OUR HEARTS');
                     next_number();
-                    
                 },
                 error:function()
                 {
@@ -74,7 +88,7 @@
     });
     $
 
-// ------ MOVE to the next_number() function since may conflict at natatawag ito before the submit function ng form -------
+    // ------> MOVED to the 'next_number()' function since may conflict at natatawag ito before the submit function ng form -------
     // Function connected to the next button
     // $(document).on("click","#next",function(){
     //     if (current_number < flashcard_data['questions'].length-1){
@@ -99,7 +113,7 @@
         }
     });
 
-
+    // Setting up to display the next number in the flashcard
     function next_number(){
         if (current_number < flashcard_data['questions'].length-1){
             current_number += 1;
@@ -115,27 +129,27 @@
         }
     }
 
-
-    function get_answer(){
+    // Retrieving the user input
+    function get_user_answer(){
         console.log("Getting User Answer");
         if(flashcard_data['questions'][current_number]['question_type'] == "CHOICE"){
             var radios = document.getElementsByTagName('input');
             var value;
+            // Looping through the multiple choices and finding which is selected
             for (var i = 0; i < radios.length; i++) {
                 if (radios[i].type === 'radio' && radios[i].checked) {
                     value = radios[i].value;
                     var id = 'choice-answer-' + value;
-                    console.log(document.getElementById(id).textContent);
                     return (document.getElementById(id).textContent);
                 }
             }
-            
-            //return ("MULTIPLE CHOICE ANSWER");
         }
         else if(flashcard_data['questions'][current_number]['question_type'] == "IDENTIFICATION"){
+            // Getting the value that the user entered via element id
             return ($("#identification-answer").val());
         }
         else if(flashcard_data['questions'][current_number]['question_type'] == "TRUEFALSE"){
+            // Getting the value that the user selected via element id
             return ($("#truefalse-answer").val());
         }
     };
@@ -155,6 +169,7 @@
                 break;
         }
     };
+
     // Gets the multiple choices answer and displays it
     function set_multi(choice_id){
         for (var i = 0; i < flashcard_data['multi_choices'].length; i++){
@@ -184,12 +199,14 @@
             }
         }
     };
+
     // Sets the identification input box
     function set_identification(){
         var input_body = "";
         input_body += "<input type='text' placeholder='Enter Answer' name='identification-answer' class='form-control' id='identification-answer' aria-describedby='name'>"
         $("#choices-container").html(input_body);
     };
+
     // Sets the true or false selection
     function set_truefalse(){
         var input_body = "";
