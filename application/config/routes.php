@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // $route['flashcards/index'] = 'flashcards/index';
+$route['flashcards/submit-answer'] = 'flashcard/flashcards/submit_answer';
 $route['flashcards/get-data/(:any)'] = 'flashcard/flashcards/get_data/$1';
 $route['flashcards/answer/(:any)'] = 'flashcard/flashcards/answer/$1';
 $route['flashcards/delete-question/(:any)'] = 'flashcard/flashcards/delete_question/$1';

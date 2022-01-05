@@ -11,11 +11,17 @@
                 <p>Creator ID: <?php echo $flashcard['creator_id']?> </p>
                 <p>Visibility: <?php echo $flashcard['visibility'] ?></p>
                 <p>Flashcard Type: <?php echo $flashcard['type'] ?></p>
+                <?php if($flashcard['type'] == 'QUIZ'): ?>
+                    <p>Time Open: <?php echo $flashcard['timeopen'] ?></p>
+                    <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
+                <?php endif; ?>
 
                 <!-- Share Button -->
                 <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
                     <div class="text-center">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">Assign/Share</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
+                            Assign/Share
+                        </button>
                     </div>
                 <?php endif; ?>
 
@@ -25,17 +31,23 @@
                         $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
                         //echo form_open("flashcards/edit/".$flashcard['id'])
                     ?>
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >Edit
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >
+                    Edit
                     </button>
-                        <!-- <button class="btn btn-secondary" type="submit">Edit</button> -->
-                    <!-- </form> -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
+                            Delete
+                        </button>
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'" >Answer
-                </button>
-                <?php //if ($flashcard['type']=="QUIZ"): ?>
-                    
+                <?php //if($flashcard['type']=="QUIZ" && $flashcard['timeopen'] <= time() && $flashcard['timeclose'] > time()): ?>
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
+                    Answer
+                    </button>
+                <?php //elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
+                    <!-- <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
+                    Answer
+                    </button> -->
                 <?php //endif; ?>
                 
                 <!-- Flash data -->
@@ -78,7 +90,7 @@
                             <p>TEXT BOX GO BRRRRR</p>
                         <?php endif; ?>    
                         
-                        <!-- Shows answer when type is reviewer-->
+                        <!-- Shows answer button when type is reviewer-->
                         <?php if($flashcard['type'] == 'REVIEWER'):?>
                             <div class="answer"> 
                                 <button class="btn btn-success" onclick="revealAnswersFunction(this)">Click/Tap To Reveal Answers: </button>

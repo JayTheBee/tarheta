@@ -19,13 +19,16 @@
             
             <!-- Where the answers will be displayed -->
             <div class="card-body text-center">
-                <div class="form-row">
-                    <p id="choices-container">
-                        <!-- <input type="text"> -->
-                    </p>
-                </div>
-                <button id='previous'><-</button>
-                <button id='next' value='<?php $_SESSION['Current_Number']?>'>-></button>
+                <form action="" method="POST" id="question-answer" class="form-group">
+                    <div class="form-row" id="choices-container">
+                        
+                    </div>
+                    <div class="form-group col-md-2" id='truefalse-container'>
+                                        
+                    </div>
+                    <button type="button" id='previous'><-</button>
+                    <button type="submit" id='next' value='<?php $_SESSION['Current_Number']?>'>-></button>
+                </form>
             </div>
         </div>
     
@@ -37,6 +40,26 @@
     let flashcard_data;
     let current_number = 0;
     $(document).ready(function(){
+        $('#question-answer').submit(function(e){
+            console.log("helloworld");
+            e.preventDefault();
+            var answer = get_answer();
+            $.ajax({
+                type:"post",
+                url:'<?php echo base_url();?>flashcards/submit-answer',
+                data:{answer:answer},
+                success:function(data)
+                {
+                    console.log(data);
+                    next_number();
+                    
+                },
+                error:function()
+                {
+                    alert('fail');
+                }
+            });
+        });
         $.ajax({
             url : "<?php echo base_url();?>flashcards/get-data/<?php echo $flashcard['id']?>",
             type : "POST",
@@ -49,25 +72,74 @@
             }
         });
     });
-    // Function connected to the next button
-    $(document).on("click","#next",function(){
-        if (current_number < flashcard_data['questions'].length-1){
-            current_number += 1;
-            document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
-            document.getElementById("choices-container").innerHTML="";
-            get_choices();
-        }
+    $
 
-    });
+// ------ MOVE to the next_number() function since may conflict at natatawag ito before the submit function ng form -------
+    // Function connected to the next button
+    // $(document).on("click","#next",function(){
+    //     if (current_number < flashcard_data['questions'].length-1){
+    //         submit_answer();
+    //         current_number += 1;
+    //         document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
+    //         document.getElementById("choices-container").innerHTML="";
+    //         document.getElementById("truefalse-container").innerHTML="";
+    //         get_choices();
+    //     }
+    // });
+
+
     // Function connected to the previous button
     $(document).on("click","#previous",function(){
         if (current_number > 0){
             current_number -= 1;
             document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
             document.getElementById("choices-container").innerHTML="";
+            document.getElementById("truefalse-container").innerHTML="";
             get_choices();
         }
     });
+
+
+    function next_number(){
+        if (current_number < flashcard_data['questions'].length-1){
+            current_number += 1;
+            document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
+            document.getElementById("choices-container").innerHTML="";
+            document.getElementById("truefalse-container").innerHTML="";
+            get_choices();
+        }
+        else{
+            // Placeholder for the redirect to the results page
+            // or maybe a button na view results then dun palang magreredirect?
+            window.location.replace("<?php echo base_url();?>flashcards/index");
+        }
+    }
+
+
+    function get_answer(){
+        console.log("Getting User Answer");
+        if(flashcard_data['questions'][current_number]['question_type'] == "CHOICE"){
+            var radios = document.getElementsByTagName('input');
+            var value;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].type === 'radio' && radios[i].checked) {
+                    value = radios[i].value;
+                    var id = 'choice-answer-' + value;
+                    console.log(document.getElementById(id).textContent);
+                    return (document.getElementById(id).textContent);
+                }
+            }
+            
+            //return ("MULTIPLE CHOICE ANSWER");
+        }
+        else if(flashcard_data['questions'][current_number]['question_type'] == "IDENTIFICATION"){
+            return ($("#identification-answer").val());
+        }
+        else if(flashcard_data['questions'][current_number]['question_type'] == "TRUEFALSE"){
+            return ($("#truefalse-answer").val());
+        }
+    };
+    
     // Handles checking what is the question's type
     function get_choices(){
         console.log("Choices");
@@ -87,19 +159,44 @@
     function set_multi(choice_id){
         for (var i = 0; i < flashcard_data['multi_choices'].length; i++){
             if (flashcard_data['multi_choices'][i]['id'] == choice_id){
-                $('#choices-container').append("[]" + flashcard_data['multi_choices'][i]['choiceA'] + "<br>");
-                $('#choices-container').append("[]" + flashcard_data['multi_choices'][i]['choiceB'] + "<br>");
-                $('#choices-container').append("[]" + flashcard_data['multi_choices'][i]['choiceC'] + "<br>");
-                $('#choices-container').append("[]" + flashcard_data['multi_choices'][i]['choiceD'] + "<br>");
+                var input_body = "";
+                input_body += "<div class='mb-2'>";
+                input_body += "<input type='radio' name='choice-answer' value='a'>";
+                input_body += "<label id='choice-answer-a' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceA'] + "</label>";
+                input_body += "</div>";
+
+                input_body += "<div class='mb-2'>";
+                input_body += "<input type='radio' name='choice-answer' value='b'>";
+                input_body += "<label id='choice-answer-b' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceB'] + "</label>";
+                input_body += "</div>";
+
+                input_body += "<div class='mb-2'>";
+                input_body += "<input type='radio' name='choice-answer' value='c'>";
+                input_body += "<label id='choice-answer-c' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceC'] + "</label>";
+                input_body += "</div>";
+
+                input_body += "<div class='mb-2'>";
+                input_body += "<input type='radio' name='choice-answer' value='d'>";
+                input_body += "<label id='choice-answer-d' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceD'] + "</label>";
+                input_body += "</div>";
+
+                $("#choices-container").html(input_body);
             }
         }
     };
     // Sets the identification input box
     function set_identification(){
-        $('#choices-container').append("[______________]");
-    }
+        var input_body = "";
+        input_body += "<input type='text' placeholder='Enter Answer' name='identification-answer' class='form-control' id='identification-answer' aria-describedby='name'>"
+        $("#choices-container").html(input_body);
+    };
     // Sets the true or false selection
     function set_truefalse(){
-        $('#choices-container').append("[]TRUE []FALSE");
-    }
+        var input_body = "";
+        input_body += "<select id='truefalse-answer' name='truefalse-answer' class='form-control'>";
+        input_body += "<option value='TRUE'>True</option>";
+        input_body += "<option value='FALSE'>False</option>";
+        input_body += "</select>";
+        $("#truefalse-container").html(input_body);
+    };
 </script>

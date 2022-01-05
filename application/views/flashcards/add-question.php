@@ -35,7 +35,7 @@
                             </div>
 <!-- Answer for CHOICE -->
 <?php elseif ((isset($_SESSION['Current_Question'])) && ($_SESSION['Current_Question']['question_type']=='CHOICE')): ?>
-                            <div   div class="mb-2">
+                            <div class="mb-2">
                                 <input type='radio' name='choice-answer' value='a'>
                                 <label for="exampleQuestion1" class="form-label">A</label> 
                                 <input type="text" placeholder="A" name="choice-answer-a" class="form-control" id="choice-answer-a" aria-describedby="name">
@@ -45,12 +45,12 @@
                                 <label for="exampleQuestion1" class="form-label">B</label> 
                                 <input type="text" placeholder="B" name="choice-answer-b" class="form-control" id="choice-answer-b" aria-describedby="name">
                             </div>
-                            <div   div class="mb-2">
+                            <div class="mb-2">
                                 <input type='radio' name='choice-answer' value='c'>
                                 <label for="exampleQuestion1" class="form-label">C</label> 
                                 <input type="text" placeholder="C" name="choice-answer-c" class="form-control" id="choice-answer-c" aria-describedby="name">
                             </div>
-                            <div   div class="mb-2">
+                            <div class="mb-2">
                                 <input type='radio' name='choice-answer' value='d'>
                                 <label for="exampleQuestion1" class="form-label">D</label>
                                 <input type="text" placeholder="D" name="choice-answer-d" class="form-control" id="choice-answer-d" aria-describedby="name">

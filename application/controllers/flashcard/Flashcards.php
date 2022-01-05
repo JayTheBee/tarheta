@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function edit($flashcard_id){
             $data = $this->get_data($flashcard_id);
             
-            if ($this->check_access($flashcard_id)){
+            if ($data['creator_id'] == $_SESSION['Profile']['id'] && $this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/edit', $data);
                 $this->load->view('templates/footer');
@@ -97,6 +97,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $description = $this->input->post('description', TRUE);
             $type = $this->input->post('type', TRUE);
             $visibility = $this->input->post('visibility', TRUE);
+            $time_open = $this->input->post('time-open', TRUE);
+            $time_close = $this->input->post('time-close', TRUE);
     
             $data = array (
                 'creator_id' => $_SESSION['Profile']['user_id'],
@@ -104,6 +106,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'description' => $description,
                 'type' => $type,
                 'visibility' => $visibility,
+                'timeopen' => $time_open,
+                'timeclose' => $time_close
             );
     
             $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
@@ -118,6 +122,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $this->form_validation->set_rules('description','Description');
                 $this->form_validation->set_rules('type','Type');
                 $this->form_validation->set_rules('visibility','Visibility');
+                $this->form_validation->set_rules('time-open', 'Time-open');
+                $this->form_validation->set_rules('time-close', 'Time-close');
+                
                 
                 if($this->form_validation->run()==TRUE){
                     $flashcard_id = $this->create_flashcards_clean();
@@ -257,5 +264,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 echo json_encode($data);
             }
             return $data;
+        }
+
+        public function submit_answer(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                echo ($this->input->post('answer'));
+                echo " pumasok sa submit_answer()";
+                // exit();
+            }
+            // s
         }
     }
