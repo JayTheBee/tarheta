@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.8.5  
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 02:50 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- Generation Time: Jan 05, 2021 at 06:57 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,9 +27,24 @@ SET time_zone = "+00:00";
 -- Table structure for table `classes`
 --
 
+CREATE TABLE `class_ranking` (
+  `id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `total_points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
 CREATE TABLE `classes` (
   `id` int(11) NOT NULL,
-  `invite` enum('YES','NO') NOT NULL
+  `class_name` varchar(255) NOT NULL,
+  `school` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `creator_id` timestamp,
+  `invite_code` varchar(255) NOT NULL,
+  `invitations` enum('YES','NO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -40,11 +55,10 @@ CREATE TABLE `classes` (
 
 CREATE TABLE `enroll` (
   `id` int(11) NOT NULL,
-  `creator_id` int(11) NOT NULL,
-  `classname` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `school` varchar(255) NOT NULL,
-  `access verified?` enum('YES','NO') NOT NULL
+  `class_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `role` enum('MEMBER','CREATOR') NOT NULL,
+  `join_date` timestamp
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -178,6 +192,12 @@ CREATE TABLE `user_types` (
 --
 
 --
+-- Indexes for table `class_ranking`
+--
+ALTER TABLE `class_ranking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
@@ -242,6 +262,12 @@ ALTER TABLE `user_types`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `class_ranking`
+--
+ALTER TABLE `class_ranking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `classes`
