@@ -16,6 +16,7 @@ class Classes extends CI_Controller{
             show_404();
         }
 
+        $data['result'] = $this->classes_model->getData();
         $data['title'] = ucfirst($page);
 
         $this->load->view('templates/header');
