@@ -295,10 +295,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo "true";
                 else
                     echo "false";
-                // echo " alert('SUCCESS!!');";
-                // echo gettype($attempt);
-                // echo $data['answer'];
-                //echo json_encode($query);
             }
         }
 

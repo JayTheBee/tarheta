@@ -44,6 +44,9 @@
 <script type="text/javascript" language="javascript">
     let flashcard_data;
     let current_number = 0;
+    // https://stackoverflow.com/questions/32732808/codeigniter-submit-form-data-without-page-refreshing-with-jquery-ajax
+    // https://stackoverflow.com/questions/13406690/jquery-ajax-call-to-php-controller
+    // https://www.w3schools.com/jquery/ajax_ajax.asp
     $(document).ready(function(){
         $('#question-answer').submit(function(e){
             console.log("helloworld");
@@ -74,6 +77,7 @@
                 }
             });
         });
+        // https://stackoverflow.com/questions/6395720/get-data-from-php-array-via-ajax-and-jquery
         $.ajax({
             url : "<?php echo base_url();?>flashcards/get-data/<?php echo $flashcard['id']?>",
             type : "POST",
