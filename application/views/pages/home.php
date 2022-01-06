@@ -18,6 +18,10 @@
                             echo "<pre>";
                             print_r($_SESSION['Profile']);
                             echo "</pre>";
+
+                            echo "<pre>";
+                            print_r($_SESSION['UserType']);
+                            echo "</pre>";
                         }
                         // Pang check ko lang ito ng current SESSION DATA
                     ?>

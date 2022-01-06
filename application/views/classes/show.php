@@ -8,6 +8,10 @@
                 <p>Name: <?php echo $class['class_name']?> </p>
                 <p>Description: <?php echo $class['description'] ?></p>
                 <p>School: <?php echo $class['school'] ?></p>
+
+                <p>show members</p>
+
+                <p>invite</p>
             </div>    
         </div>  
     </div>  

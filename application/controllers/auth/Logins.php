@@ -34,9 +34,12 @@ class Logins extends CI_Controller{
 		);
 
 		$query = $this->user_model->getProfile($email);
+		$query2 = $this->user_model->getType($email);
 		$profile = (array) $query; //Typecasting from object to array
-		$this->session->set_userdata('Profile',$profile);
-		$this->session->set_userdata('UserLoginSession',$session_data);
+		$type = (array) $query2;
+		$this->session->set_userdata('UserType', $type);
+		$this->session->set_userdata('Profile', $profile);
+		$this->session->set_userdata('UserLoginSession', $session_data);
 		
 		redirect(base_url('profile'));
 	}
@@ -73,6 +76,7 @@ class Logins extends CI_Controller{
 	public function logout(){
 		unset($_SESSION['UserLoginSession']);
 		unset($_SESSION['Profile']);
+		unset($_SESSION['UserType']);
 		redirect(base_url());
 	}
 }

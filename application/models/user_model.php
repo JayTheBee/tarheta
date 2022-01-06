@@ -120,6 +120,18 @@
             }
         }
 
+        public function getType($email){
+            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
+            $id = $query->row()->{'id'};
+            if($query->num_rows()==1){
+                $query2 = $this->db->query("SELECT * FROM user_types WHERE user_id='$id'");
+                return $query2->row();
+            }
+            else{
+                return false;
+            }
+        }
+
         public function genNewResetToken($id){
             $datetime = time(); //Sets the new expiry +24 Hours
             $newToken = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token

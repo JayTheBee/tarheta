@@ -33,6 +33,7 @@
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
                       </li>
+        <?php if($_SESSION['UserType']['type'] == 'TEACHER') : ?>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/index">Classes</a>
                       </li>
@@ -42,6 +43,7 @@
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/create">+ Create Class</a>
                       </li>
+        <?php endif; ?>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>flashcards/create">+Create Flashcards</a>
                       </li>
