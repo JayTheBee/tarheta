@@ -56,6 +56,7 @@ $route['flashcards/score-user/(:any)/(:any)'] = 'flashcard/scorings/score_user/$
 
 
 /* Flashcards routes */
+$route['flashcards/result/(:any)/(:any)'] = 'flashcard/scorings/result/$1/$2';
 $route['flashcards/submit-answer'] = 'flashcard/flashcards/submit_answer';
 $route['flashcards/get-data/(:any)'] = 'flashcard/flashcards/get_data/$1';
 $route['flashcards/answer/(:any)'] = 'flashcard/flashcards/answer/$1';

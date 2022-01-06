@@ -221,5 +221,26 @@
             $this->db->trans_complete();
             return $data;
         }
+
+
+        public function get_data($flashcard_id){
+            $data['flashcard'] = $this->get_flashcard_data($flashcard_id);
+            $data['questions'] = $this->get_questions($flashcard_id);
+            $data['multi_choices'] = $this->get_choices($data['questions']);
+
+            return $data;
+        }
+
+        public function get_user_answers($flashcard_id, $user_id, $questions){
+            $data = array();
+            foreach($questions as $question){
+                $question_id = $question['id'];
+                $query = $this->db->query("SELECT * FROM user_answers WHERE question_id='$question_id' AND user_id='$user_id'");
+                if($query->num_rows() != 0){
+                    array_push($data, $query->row_array());
+                }
+            }
+            return $data;
+        }
     }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 02:50 PM
+-- Generation Time: Jan 06, 2022 at 09:35 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -87,6 +87,21 @@ CREATE TABLE `flashcard_multiple_choice` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `flashcard_statistic`
+--
+
+CREATE TABLE `flashcard_statistic` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `correct` decimal(10,0) NOT NULL,
+  `wrong` decimal(10,0) NOT NULL,
+  `unanswered` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `profile`
 --
 
@@ -103,6 +118,20 @@ CREATE TABLE `profile` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `question_statistic`
+--
+
+CREATE TABLE `question_statistic` (
+  `id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `correct` decimal(10,0) NOT NULL,
+  `wrong` decimal(10,0) NOT NULL,
+  `unanswered` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -114,7 +143,7 @@ CREATE TABLE `users` (
   `reg_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `active_token` varchar(32) DEFAULT NULL,
   `active` enum('Verified','Unverified') NOT NULL DEFAULT 'Unverified',
-  `active_timestamp` datetime DEFAULT NULL,
+  `active_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `reset_token` varchar(32) DEFAULT NULL,
   `reset_exp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -133,7 +162,24 @@ CREATE TABLE `user_answers` (
   `judgement` enum('CORRECT','WRONG','UNANSWERED') NOT NULL,
   `points` int(11) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `attemp` int(11) NOT NULL
+  `attempt` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_scores`
+--
+
+CREATE TABLE `user_scores` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `flashcard_rank` int(11) DEFAULT NULL,
+  `attempt` int(11) NOT NULL,
+  `latest` enum('YES','NO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -177,11 +223,23 @@ ALTER TABLE `flashcard_multiple_choice`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `flashcard_statistic`
+--
+ALTER TABLE `flashcard_statistic`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `profile`
 --
 ALTER TABLE `profile`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `question_statistic`
+--
+ALTER TABLE `question_statistic`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -193,6 +251,12 @@ ALTER TABLE `users`
 -- Indexes for table `user_answers`
 --
 ALTER TABLE `user_answers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_scores`
+--
+ALTER TABLE `user_scores`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -231,9 +295,21 @@ ALTER TABLE `flashcard_multiple_choice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `flashcard_statistic`
+--
+ALTER TABLE `flashcard_statistic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `question_statistic`
+--
+ALTER TABLE `question_statistic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -246,6 +322,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_scores`
+--
+ALTER TABLE `user_scores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

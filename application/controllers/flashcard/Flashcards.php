@@ -256,9 +256,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){
-            $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
-            $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
-            $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+            // $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
+            // $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
+            // $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+            $data = $this->flashcard_model->get_data($flashcard_id);
 
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 echo json_encode($data);

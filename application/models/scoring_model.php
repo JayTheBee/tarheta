@@ -1,7 +1,9 @@
 <?php 
 
     class scoring_model extends CI_Model{
-        public function get_user_score($flashcard_id,$user_id, $questions){
+
+        // Kaya may $save kasi nireuse ko itong function just to retrieve the scores and not update the DB
+        public function get_user_score($flashcard_id,$user_id, $questions, $save = TRUE){
             $data['user_score'] = 0;
             $data['correct_num'] = 0;
             $data['wrong_num'] = 0;
@@ -11,21 +13,24 @@
                 $question_id = $question['id'];
                 $query = $this->db->query("SELECT * FROM user_answers WHERE question_id='$question_id' AND user_id='$user_id'");
                 if($query->num_rows() != 0){
-                    $this->insert_question_stat($question_id);
+                    if($save)
+                        $this->insert_question_stat($question_id);
                     $judgement = $query->row()->{'judgement'};
                     $data['user_score'] += $query->row()->{'points'};
-                    $data = $this->check_judgement($judgement, $data, $question_id);
+                    $data = $this->check_judgement($judgement, $data, $question_id, $save);
                 }
             }
-        
-            $this->insert_flashcard_stat($flashcard_id, $user_id);
-            $this->update_flashcard_stat($flashcard_id, $user_id, $data);
+            
+            if($save){
+                $this->insert_flashcard_stat($flashcard_id, $user_id);
+                $this->update_flashcard_stat($flashcard_id, $user_id, $data);
+            }
 
             return $data;
         }
 
 
-        private function check_judgement($judgement, $data, $question_id){
+        private function check_judgement($judgement, $data, $question_id, $save = TRUE){
             switch($judgement){
                 case 'CORRECT':
                     $data['correct_num'] += 1;
@@ -37,7 +42,8 @@
                     $data['unanswered_num'] += 1;
                     break;
             }
-            $this->update_question_stat($question_id, $judgement);
+            if($save)
+                $this->update_question_stat($question_id, $judgement);
             return $data;
         }
 
