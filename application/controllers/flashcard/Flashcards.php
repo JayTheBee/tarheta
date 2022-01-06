@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function edit($flashcard_id){
             $data = $this->get_data($flashcard_id);
             
-            if ($data['creator_id'] == $_SESSION['Profile']['id'] && $this->check_access($flashcard_id)){
+            if ($data['flashcard']['creator_id'] == $_SESSION['Profile']['user_id'] && $this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/edit', $data);
                 $this->load->view('templates/footer');
@@ -240,7 +240,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data = $this->get_data($flashcard_id);
 
             if ($this->check_access($flashcard_id)){
-                $this->session->set_userdata('Current_Answering',$data['questions']);
+                $this->session->set_userdata('Current_Answering',$data['flashcard']);
                 $this->session->set_userdata('Current_Number', 0);
                 // shuffle($_SESSION['Current_Answering']);
                 // shuffle($data['questions']);
@@ -276,7 +276,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $judgement = $this->flashcard_model->check_answer($question_id, $answer);
                 $points = $this->assign_points($judgement, $total_points);
                 $datetime = time();
-                $attempt = $this->flashcard_model->check_attempts($question_id, $user_id) + 1;
+                $attempt = (int)$this->flashcard_model->check_attempts($question_id, $user_id) + 1;
 
                 $data = array(
                     'user_id' => $user_id,
@@ -288,7 +288,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     'attempt' => $attempt,
                 );
 
-                $query = $this->flashcard_model->save_answer($data, $total_points);
+                $query = $this->flashcard_model->save_answer($data);
 
                 //Placeholder IDK
                 if($judgement == 'CORRECT')

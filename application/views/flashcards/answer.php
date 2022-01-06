@@ -36,10 +36,8 @@
                 </form>
             </div>
         </div>
-    
-    
-    
 </div>
+
 
 <script type="text/javascript" language="javascript">
     let flashcard_data;
@@ -49,7 +47,6 @@
     // https://www.w3schools.com/jquery/ajax_ajax.asp
     $(document).ready(function(){
         $('#question-answer').submit(function(e){
-            console.log("helloworld");
             e.preventDefault();
             var answer = get_user_answer();
             $.ajax({
@@ -64,16 +61,18 @@
                 },
                 success:function(data)
                 {
-                    console.log(data);
-                    if(data == 'true')
-                        alert('CORRECT!!');
-                    else
-                        alert('SADNESS IN OUR HEARTS');
+                    // console.log(data);
+                    /* 
+                    Task mo ay gumawa ng view kung saan ipapakita yung total score sa quiz/reviewer
+                    then yung answer history (correct and wrong parang gForms)
+                    tas isa rin view na score lang ang ipapakita
+                    */
                     next_number();
                 },
-                error:function()
+                error:function(data)
                 {
-                    alert('fail');
+                    console.log(data);
+                    alert('Something Went Wrong');
                 }
             });
         });
@@ -90,52 +89,42 @@
             }
         });
     });
-    $
-
-    // ------> MOVED to the 'next_number()' function since may conflict at natatawag ito before the submit function ng form -------
-    // Function connected to the next button
-    // $(document).on("click","#next",function(){
-    //     if (current_number < flashcard_data['questions'].length-1){
-    //         submit_answer();
-    //         current_number += 1;
-    //         document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
-    //         document.getElementById("choices-container").innerHTML="";
-    //         document.getElementById("truefalse-container").innerHTML="";
-    //         get_choices();
-    //     }
-    // });
 
 
     // Function connected to the previous button
     $(document).on("click","#previous",function(){
         if (current_number > 0){
             current_number -= 1;
-            document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
-            document.getElementById("choices-container").innerHTML="";
-            document.getElementById("truefalse-container").innerHTML="";
-            get_choices();
+            set_question();
         }
     });
+
 
     // Setting up to display the next number in the flashcard
     function next_number(){
         if (current_number < flashcard_data['questions'].length-1){
             current_number += 1;
-            document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
-            document.getElementById("choices-container").innerHTML="";
-            document.getElementById("truefalse-container").innerHTML="";
-            get_choices();
+            set_question();
         }
         else{
             // Placeholder for the redirect to the results page
             // or maybe a button na view results then dun palang magreredirect?
-            window.location.replace("<?php echo base_url();?>flashcards/index");
+            window.location.replace('<?php echo base_url();?>flashcards/score-user/<?php echo $_SESSION['Profile']['user_id']?>/<?php echo $_SESSION['Current_Answering']['id']?>');
         }
     }
 
+
+    function set_question(){
+        document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
+        document.getElementById("choices-container").innerHTML="";
+        document.getElementById("truefalse-container").innerHTML="";
+
+        get_choices();
+    }
+
+
     // Retrieving the user input
     function get_user_answer(){
-        console.log("Getting User Answer");
         if(flashcard_data['questions'][current_number]['question_type'] == "CHOICE"){
             var radios = document.getElementsByTagName('input');
             var value;
@@ -158,9 +147,9 @@
         }
     };
     
+
     // Handles checking what is the question's type
     function get_choices(){
-        console.log("Choices");
         switch(flashcard_data['questions'][current_number]['question_type']){
             case "CHOICE":
                 set_multi(flashcard_data['questions'][current_number]['choice_id']);
@@ -173,6 +162,7 @@
                 break;
         }
     };
+
 
     // Gets the multiple choices answer and displays it
     function set_multi(choice_id){
@@ -204,12 +194,14 @@
         }
     };
 
+
     // Sets the identification input box
     function set_identification(){
         var input_body = "";
         input_body += "<input type='text' placeholder='Enter Answer' name='identification-answer' class='form-control' id='identification-answer' aria-describedby='name'>"
         $("#choices-container").html(input_body);
     };
+
 
     // Sets the true or false selection
     function set_truefalse(){

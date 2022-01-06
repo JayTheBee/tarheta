@@ -5,6 +5,9 @@
             <div class="col-md-4"></div>
             <div class="">
             <div class="card" style="margin-top: 5rem">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
+                        Delete Flashcard
+                    </button>
                     <div class="card-header text-center">
                         QUESTIONS
                         <form method="POST" autocomplete="off" action="<?=base_url('flashcards/questions')?>">

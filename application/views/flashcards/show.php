@@ -34,9 +34,6 @@
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >
                     Edit
                     </button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
-                            Delete
-                        </button>
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
