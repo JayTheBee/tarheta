@@ -15,7 +15,7 @@ class Classes extends CI_Controller{
             show_404();
         }
 
-        $data['result'] = $this->classes_model->getData();
+        $data['result'] = $this->classes_model->getClass();
         $data['title'] = ucfirst($page);
 
         $this->load->view('templates/header');
@@ -55,6 +55,14 @@ class Classes extends CI_Controller{
 			}
         }
     }
-    // function for showing i guess?
+
+
+    function show($class_id){
+        $data['class'] = $this->classes_model->showClass($class_id);
+
+        $this->load->view('templates/header');
+        $this->load->view('classes/show', $data);
+        $this->load->view('templates/footer');
+    }
 }
 

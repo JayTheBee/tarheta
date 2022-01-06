@@ -5,6 +5,9 @@
             <div class="card-body">
                 <!-- class id fetch -->
                 <p>theres supposed to be a class info here</p>
+                <p>Name: <?php echo $class['class_name']?> </p>
+                <p>Description: <?php echo $class['description'] ?></p>
+                <p>School: <?php echo $class['school'] ?></p>
             </div>    
         </div>  
     </div>  

@@ -12,8 +12,12 @@
                     <p>No Classes Yet!</p>
                 <?php else: ?>
                     <?php foreach($result as $row): ?>
-                        <p>Class Name: <?php echo $row->class_name ?> </p> 
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("classes/show"); ?>'" >View</button>
+
+                        <p>Class Name: <?php echo $row['class_name'] ?> </p> 
+
+                        <?php echo form_open("classes/show/".$row['id'])?>
+                            <button class="btn btn-primary" type="submit">View</button>
+                        </form>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </div>

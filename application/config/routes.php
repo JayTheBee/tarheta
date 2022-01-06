@@ -63,8 +63,7 @@ $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
 //$route['classes/join/(:any)'] = 'class/classes/join/$1';
-$route['classes/index/(:any)'] = 'class/classes/index/$1';
-$route['classes/create_classes'] = 'class/classes/create_classes';
+$route['classes/show/(:any)'] = 'class/classes/show/$1';
 $route['classes/(:any)'] = 'class/classes/view/$1';
 
 $route['default_controller'] = 'pages/view';

@@ -14,9 +14,28 @@ class classes_model extends CI_Model {
 
 
 	//fucntion to check for access first
-	function getData(){
-		$query = $this->db->query('SELECT * FROM classes');
-		return $query->result();
+	function getClass(){
+        $user_id = $_SESSION['Profile']['user_id'];
+        $query = $this->db->query("SELECT * FROM enroll WHERE user_id='$user_id'");
+        $access = $query->result_array();
+        
+        $result = array();
+        
+        foreach($access as $class){
+            $class_id = $class['class_id'];
+	        //Getting the user's classes
+	        $query = $this->db->query("SELECT * FROM classes WHERE id='$class_id'");
+	        if($query->num_rows()==1){
+	            array_push($result, $query->row_array());
+	        };
+        }
+        return $result;
+	}
+
+
+	function showClass($class_id){
+        $query = $this->db->query("SELECT * FROM classes WHERE id='$class_id'");
+	    return $query->row_array();
 	}
 
     private function userEnroll($class_id, $user_id, $role){
