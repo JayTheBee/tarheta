@@ -50,7 +50,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-// $route['flashcards/index'] = 'flashcards/index';
+
+/* Scoring routes */
+$route['flashcards/score-user/(:any)/(:any)'] = 'flashcard/scorings/score_user/$1/$2';
+
+
+/* Flashcards routes */
+$route['flashcards/result/(:any)/(:any)'] = 'flashcard/scorings/result/$1/$2';
+$route['flashcards/submit-answer'] = 'flashcard/flashcards/submit_answer';
 $route['flashcards/get-data/(:any)'] = 'flashcard/flashcards/get_data/$1';
 $route['flashcards/answer/(:any)'] = 'flashcard/flashcards/answer/$1';
 $route['flashcards/delete-question/(:any)'] = 'flashcard/flashcards/delete_question/$1';
