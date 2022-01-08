@@ -92,12 +92,12 @@ class Classes extends CI_Controller{
                 }
                 else{
                     $this->session->set_flashdata('error','Valid class code required!');
-                    redirect(base_url('classes/index'));
+                    redirect(base_url('classes/join'));
                 }
             }
             else{
                 $this->session->set_flashdata('error','Valid class code required!');
-                redirect(base_url('classes/index'));
+                redirect(base_url('classes/join'));
             }
         }
         $this->view('join');
