@@ -6,8 +6,8 @@
             <div class="card-header text-right"> Create Class </div>
                 <form method="POST" autocomplete="off" action="<?=base_url('classes/create_classes')?>">
                     <div class="form-group">
-                        <input type="text" placeholder="Enter classname (course, year, section)" name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
                         <label>Class Name</label> 
+                        <input type="text" placeholder="Enter classname (course, year, section)" name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
                     </div>
                     <div class="form-group">
                         <input type="text" placeholder="Enter description (optional)" name="description" value="<?php echo set_value('description'); ?>" class="form-control" id="description" > 
@@ -28,11 +28,11 @@
                     </div>
                     <?php
                         if($this->session->flashdata('success')){?>
-                        <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
                     <?php } ?>
-                            
+                    
                     <?php
-                        if($this->session->flashdata('error')){?>
+                    if($this->session->flashdata('error')){?>
                         <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                     <?php } ?>
                 </form>

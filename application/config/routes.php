@@ -69,7 +69,10 @@ $route['flashcards/save_question'] = 'flashcard/flashcards/save_question';
 $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
-//$route['classes/join/(:any)'] = 'class/classes/join/$1';
+// $route['classes/join/'] = 'class/classes/join/';
+$route['classes/index/'] = 'class/classes/index/';
+$route['classes/create_classes'] = 'class/classes/create_classes';
+// $route['classes/join'] = 'class/classes/join';
 $route['classes/show/(:any)'] = 'class/classes/show/$1';
 $route['classes/(:any)'] = 'class/classes/view/$1';
 

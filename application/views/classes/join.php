@@ -1,50 +1,28 @@
-<!--<div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
             <div class="card" style="margin-top: 5rem">
-                <div class="card-header text-center"> class name here </div>
-                <form method="POST" autocomplete="off" action="<?= //base_url('classes/join_classes')?>">
+                <form method="POST" autocomplete="off" action="<?=site_url('classes/join')?>">
                     <div class="form-group">
-                    <label>Share this join link</label> 
-                    <input type="text" placeholder="<?php //echo $_SESSION[""][''];?>"
-                        name="sharelink" value="<?php //echo $_SESSION[""][''];?>"
-                        class="form-control" id="firstname" aria-describedby="name"
-                        <button type="submit" class="btn btn-primary">Copy Link</button>
-                    > 
+                        <label>Invites</label> 
+                        <input type="text" placeholder="INVITE CODE" name="invite" class="form-control" id="invite" aria-describedby="name"> 
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                         </div>
                     </div>
-                    <div class="form-group">
-                    <label>Invite link</label> 
-                    <input type="text" placeholder="<?php //echo $_SESSION[""][''];?>"
-                        name="invitelink" value="<?php //echo $_SESSION[""][''];?>"
-                        class="form-control" id="firstname" aria-describedby="name"
-                        <button type="submit" class="btn btn-primary">Copy</button>
-                    > 
-                    </div>
-                    <div class="form-group">
-                    <label>Share Code</label> 
-                    <input type="text" placeholder="<?php //echo $_SESSION[""][''];?>"
-                        name="invitelink" value="<?php //echo $_SESSION[""][''];?>"
-                        class="form-control" id="firstname" aria-describedby="name"
-                        <button type="submit" class="btn btn-primary">Copy</button>
-                    > 
-                    </div>
-                    <div class="form-group">
-                    <label>Members </label> 
-                    </div>
-                    <div class="form-group">
-                    <label>Class Details </label> 
+                </form>              
+            </div>
+                <?php
+                    if($this->session->flashdata('success')){?>
+                        <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                <?php } ?>
                 
-                    > 
-                    </div>
-    
-                        
-                    </form>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-4"></div>
+                <?php
+                if($this->session->flashdata('error')){?>
+                    <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                <?php } ?>
         </div>
-
+        <div class="col-md-4"></div>
     </div>
-   -->
+</div>

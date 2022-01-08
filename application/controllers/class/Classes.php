@@ -10,13 +10,23 @@ class Classes extends CI_Controller{
         $this->load->model('classes_model');
     }
 
+    function check_page($page, $data){
+        if($page == 'index'){
+            $data['result'] = $this->classes_model->getClass();
+        }
+        // if($page == 'join'){
+
+        // }
+        return $data;
+    }
+
     public function view($page = 'index'){
         if(!file_exists(APPPATH.'views/classes/'.$page.'.php')){
             show_404();
         }
 
-        $data['result'] = $this->classes_model->getClass();
         $data['title'] = ucfirst($page);
+        $data = $this->check_page($page, $data);
 
         $this->load->view('templates/header');
         $this->load->view('classes/'.$page, $data);
@@ -33,7 +43,7 @@ class Classes extends CI_Controller{
 
                     $class_name = $this->input->post('class_name', TRUE);
                     $description = $this->input->post('description');
-                    $invite = bin2hex(openssl_random_pseudo_bytes(10));
+                    $invite = bin2hex(openssl_random_pseudo_bytes(6));
                     $school = $this->input->post('school');
                     $data = array(
                         'class_name'=> $class_name,
@@ -43,15 +53,14 @@ class Classes extends CI_Controller{
                         
                     );
                     $user_id = $_SESSION['Profile']['user_id'];
-                    $data['class_id'] = $this->classes_model->insertclasses($data, $user_id);
-                    $this->session->set_userdata('classes',$data);
-                    echo $data;
+                    $this->classes_model->insertclasses($data, $user_id);
+                    
                     $this->session->set_flashdata('success','Classes successfully created!');
-                    redirect(base_url('classes/index'));
+                    $this->view('create');
                 }
             else{
 				$this->session->set_flashdata('error','Class Name is Required');
-				redirect(base_url('classes/index'));
+    			$this->view('create');
 			}
         }
     }
@@ -59,10 +68,39 @@ class Classes extends CI_Controller{
 
     function show($class_id){
         $data['class'] = $this->classes_model->showClass($class_id);
+        $data['title'] = ucfirst('show');
 
         $this->load->view('templates/header');
         $this->load->view('classes/show', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function join(){
+        if ($_SERVER['REQUEST_METHOD']=='POST'){
+            $this->form_validation->set_rules('invite','Invite', 'required');
+
+            if($this->form_validation->run()==TRUE){
+
+                $class_code = $this->input->post('join_input', TRUE);
+                $class = $this->classes_model->verifyCode($class_code);
+                $user_id = $_SESSION['Profile']['user_id'];
+
+                if($check != false){
+                    $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
+                    $this->session->set_flashdata('success','Classes successfully joined!');
+                    redirect(base_url('classes/index'));
+                }
+                else{   
+                    $this->session->set_flashdata('error','Valid class code required!');
+                    redirect(base_url('classes/index'));
+                }
+            }
+            else{
+                $this->session->set_flashdata('error','Valid class code required!');
+                redirect(base_url('classes/index'));
+            }
+
+        }
     }
 }
 

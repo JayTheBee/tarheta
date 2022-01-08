@@ -8,7 +8,6 @@ class classes_model extends CI_Model {
 		$class_id = $this->db->insert_id();
 		$this->userEnroll($class_id, $user_id, 'CREATOR');
 		$this->db->trans_complete();
-        return $class_id;
 
 	}
 
@@ -45,5 +44,16 @@ class classes_model extends CI_Model {
             $this->db->set('role', $role);
             $this->db->insert('enroll');
             $this->db->trans_complete();
-        }
+    }
+
+    function verifyCode($code){
+    	$query = $this->db->query("SELECT * FROM classes WHERE invite_code='$code'");
+    	if($query->num_rows()==1){
+    		return $query->row();
+    	}else{
+    		return false;
+    	}
+    }
+
+
 }
