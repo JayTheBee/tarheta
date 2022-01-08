@@ -37,7 +37,8 @@ class classes_model extends CI_Model {
 	    return $query->row_array();
 	}
 
-    private function userEnroll($class_id, $user_id, $role){
+	//Changed to public since it is needed for the join class
+    function userEnroll($class_id, $user_id, $role){
             $this->db->trans_start();
             $this->db->set('class_id', $class_id);	
             $this->db->set('user_id', $user_id);

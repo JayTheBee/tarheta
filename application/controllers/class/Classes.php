@@ -81,16 +81,16 @@ class Classes extends CI_Controller{
 
             if($this->form_validation->run()==TRUE){
 
-                $class_code = $this->input->post('join_input', TRUE);
+                $class_code = $this->input->post('invite', TRUE);
                 $class = $this->classes_model->verifyCode($class_code);
                 $user_id = $_SESSION['Profile']['user_id'];
 
-                if($check != false){
+                if($class != false){
                     $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
                     $this->session->set_flashdata('success','Classes successfully joined!');
                     redirect(base_url('classes/index'));
                 }
-                else{   
+                else{
                     $this->session->set_flashdata('error','Valid class code required!');
                     redirect(base_url('classes/index'));
                 }
@@ -99,8 +99,8 @@ class Classes extends CI_Controller{
                 $this->session->set_flashdata('error','Valid class code required!');
                 redirect(base_url('classes/index'));
             }
-
         }
+        $this->view('join');
     }
 }
 
