@@ -42,7 +42,7 @@ CREATE TABLE `classes` (
   `class_name` varchar(255) NOT NULL,
   `school` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `creator_id` timestamp,
+  `creation_date` timestamp,
   `invite_code` varchar(255) NOT NULL,
   `invitations` enum('YES','NO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
