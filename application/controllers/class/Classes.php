@@ -84,20 +84,26 @@ class Classes extends CI_Controller{
                 $class_code = $this->input->post('invite', TRUE);
                 $class = $this->classes_model->verifyCode($class_code);
                 $user_id = $_SESSION['Profile']['user_id'];
-
+                $email_check = $this->classes_model->emailCheck($user_id);
                 if($class != false){
-                    $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
-                    $this->session->set_flashdata('success','Classes successfully joined!');
-                    redirect(base_url('classes/index'));
+                    if(!$email_check){
+                        $this->session->set_flashdata('error','Verified email required!');
+                        redirect(base_url('classes/join'));
+                    }
+                    else{
+                        $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
+                        $this->session->set_flashdata('success','Classes successfully joined!');
+                        redirect(base_url('classes/index'));       
+                    }
                 }
                 else{
                     $this->session->set_flashdata('error','Valid class code required!');
-                    redirect(base_url('classes/index'));
+                    redirect(base_url('classes/join'));
                 }
             }
             else{
                 $this->session->set_flashdata('error','Valid class code required!');
-                redirect(base_url('classes/index'));
+                redirect(base_url('classes/join'));
             }
         }
         $this->view('join');
