@@ -11,11 +11,33 @@
 
                 <p>show members</p>
 
-                <p>invite</p>
-
+                <div class="text-right">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>
+                            </div>
+                    <div id="InvModal" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST" autocomplete="off" action="<?=base_url('class/classes/invite')?>">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">INVITE USERS</h5>
+                                    </div>
+                                    <div class="modal-body">                        
+                                        <div class="mb-3">
+                                            <input type="text" placeholder="Enter Email" class="form-control" name="email">
+                                        </div>                       
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>  
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> 
+                    </div>
 
                 <p>rankings</p>
             </div>    
         </div>  
     </div>  
-</div>
+</div>             
+ 

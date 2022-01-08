@@ -5,6 +5,7 @@ class Classes extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
+        $this->load->library('email');
         $this->load->library('form_validation');
         $this->load->helper('security');
         $this->load->model('classes_model');
@@ -108,5 +109,31 @@ class Classes extends CI_Controller{
         }
         $this->view('join');
     }
-}
 
+    public function invite(){
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$this->form_validation->set_rules('email','Email','required|valid_email');
+			
+            if($this->form_validation->run()==TRUE){
+
+				$email = $this->input->post('email', TRUE);
+				$this->load->model('classes_model');
+				$status = $this->classes_model->classes_inv();
+                if($status){
+                    $this->session->set_flashdata('success', 'Users Invited');
+                    redirect(base_url('classes/index'));
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', 'User not found');
+                    redirect(base_url('classes/index'));
+                }
+            }
+            else
+            {
+                $this->session->set_flashdata('error', 'User not found');
+                redirect(base_url('classes/index'));
+            }
+        }
+    }				
+}   
