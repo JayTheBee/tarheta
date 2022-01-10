@@ -18,6 +18,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form method="POST" autocomplete="off" action="<?=base_url('class/classes/invite')?>">
+                                    <input type="hidden" id='class-name' name='class-name' value='<?php echo $class['class_name']?>'>
+                                    <input type="hidden" id='class-id' name='class-id' value='<?php echo $class['id']?>'>
                                     <div class="modal-header">
                                         <h5 class="modal-title">INVITE USERS</h5>
                                     </div>

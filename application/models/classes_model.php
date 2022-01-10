@@ -65,10 +65,10 @@ class classes_model extends CI_Model {
     	}
     }
 
-	function classes_inv(){
+	function classes_inv($email){
 		$query = $this->db->query("SELECT * FROM users WHERE email='$email'");
 		if($query->num_rows()==1){
-			$user_id = $query->row()->{'id'};
+			return $query->row_array();
 		}
 		else{
 			return FALSE; 

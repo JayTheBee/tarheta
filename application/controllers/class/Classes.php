@@ -115,11 +115,23 @@ class Classes extends CI_Controller{
 			$this->form_validation->set_rules('email','Email','required|valid_email');
 			
             if($this->form_validation->run()==TRUE){
-
 				$email = $this->input->post('email', TRUE);
-				$this->load->model('classes_model');
-				$status = $this->classes_model->classes_inv();
+                $class_name = $this->input->post('class-name', TRUE);
+                $class_id = $this->input->post('class-id', TRUE);
+				$status = $this->classes_model->classes_inv($email);
+
                 if($status){
+                    
+                    $data = array(
+						'subject' => "Tarheta | Class Invite",
+						'header' => "Join ".$class_name . " Class",
+						'username' => $status['username'],
+						'body' => "Please click the the button to join the class",
+						'button' => "Join",
+						'link' => base_url()."class/classes/enroll_user/". $status['id'] ."/" .$class_id,
+					);
+                    $this->email->send_email($data, 'templates/email', $email);
+
                     $this->session->set_flashdata('success', 'Users Invited');
                     redirect(base_url('classes/index'));
                 }
@@ -135,5 +147,21 @@ class Classes extends CI_Controller{
                 redirect(base_url('classes/index'));
             }
         }
-    }				
+    }	
+    
+    
+    public function enroll_user(){
+        $data = $this->segmentURL();
+        $this->classes_model->userEnroll($data['class_id'], $data['user_id'], 'MEMBER');
+        $this->show($data['class_id']);
+    }
+
+
+    private function segmentURL(){
+		$segmentedURL = array(
+			'user_id' => $this->uri->segment(4),
+			'class_id' => $this->uri->segment(5),
+		);
+		return $segmentedURL;
+	}
 }   
