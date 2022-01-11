@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->library('form_validation');
             $this->load->helper('security');
             $this->load->model('flashcard_model');
+            $this->load->model('tags_model');
         }
 
         
@@ -16,10 +17,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
+                $data['categories'] = $this->flashcard_model->get_categories();
+                $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
+                echo "<pre>";
+                print_r($data);
+                echo "<\pre>";
+                exit();
             }
             if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
                 $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+            }
+            if($page == 'create'){
+                $data['categories'] = $this->tags_model->fetchCategoryList();
             }
             
             return $data;
@@ -44,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Function wherein it displays the specific flashcard from the flashcards tab.
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
-            
+            $data['category'] = $this->tags_model->fetchCategory($data['flashcard']['id']);
             if ($this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/show', $data);
@@ -99,20 +109,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $visibility = $this->input->post('visibility', TRUE);
             $time_open = $this->input->post('time-open', TRUE);
             $time_close = $this->input->post('time-close', TRUE);
-    
-            $data = array (
-                'creator_id' => $_SESSION['Profile']['user_id'],
-                'name' => $name,
-                'description' => $description,
-                'type' => $type,
-                'visibility' => $visibility,
-                'timeopen' => $time_open,
-                'timeclose' => $time_close
-            );
-    
-            $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
-            $this->session->set_userdata('Current_Flashcard',$data);
-            return $data['flashcard_id'];
+            $category = $this->input->post('category', TRUE);
+
+            $cat_check = $this->tags_model->checkCategory($category);
+
+            if(!$cat_check){
+                 $this->view('create');
+            }else{ 
+                $data = array (
+                    'creator_id' => $_SESSION['Profile']['user_id'],
+                    'name' => $name,
+                    'description' => $description,
+                    'type' => $type,
+                    'visibility' => $visibility,
+                    'timeopen' => $time_open,
+                    'timeclose' => $time_close
+                );
+                $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
+                $this->tags_model->insertCategory($cat_check->id, $data['flashcard_id']);
+                $this->session->set_userdata('Current_Flashcard',$data);
+                return $data['flashcard_id'];
+            }
         }
 
 
@@ -124,7 +141,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $this->form_validation->set_rules('visibility','Visibility');
                 $this->form_validation->set_rules('time-open', 'Time-open');
                 $this->form_validation->set_rules('time-close', 'Time-close');
-                
+                $this->form_validation->set_rules('category', 'Subjects');
+               
                 
                 if($this->form_validation->run()==TRUE){
                     $flashcard_id = $this->create_flashcards_clean();
@@ -287,9 +305,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){
-            // $data['flashcard'] = $this->flashcard_model->get_flashcard_data($flashcard_id);
-            // $data['questions'] = $this->flashcard_model->get_questions($flashcard_id);
-            // $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
             $data = $this->flashcard_model->get_data($flashcard_id);
 
             if ($_SERVER['REQUEST_METHOD']=='POST'){

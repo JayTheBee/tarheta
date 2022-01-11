@@ -52,9 +52,17 @@ class classes_model extends CI_Model {
     	if($query->num_rows()==1){
     		return $query->row();
     	}else{
-    		return false;
+    		return FALSE;
     	}
     }
 
+    function emailCheck($user_id){
+    	$query = $this->db->query("SELECT * FROM users WHERE id='$user_id' AND active='Active'");
+    	if($query->num_rows()==1){
+    		return TRUE;
+    	}else{
+    		return FALSE;
+    	}
+    }
 
 }

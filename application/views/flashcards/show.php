@@ -11,6 +11,11 @@
                 <p>Creator ID: <?php echo $flashcard['creator_id']?> </p>
                 <p>Visibility: <?php echo $flashcard['visibility'] ?></p>
                 <p>Flashcard Type: <?php echo $flashcard['type'] ?></p>
+                <p>Tags:
+                    <?php foreach($category as $cat): ?>
+                        <?php echo $cat['name']; ?>
+                    <?php endforeach; ?>
+                </p>
                 <?php if($flashcard['type'] == 'QUIZ'): ?>
                     <p>Time Open: <?php echo $flashcard['timeopen'] ?></p>
                     <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
