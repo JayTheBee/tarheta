@@ -252,7 +252,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 redirect(base_url('flashcards/index'));
             }
         }
+        //Reopen Clean
+        private function reopen_clean($reopen){
+    
+            $time_open = $this->input->post('time-open', TRUE);
+            $time_close = $this->input->post('time-close', TRUE);
+    
+            $data = array (
 
+                'timeopen' => $time_open,
+                'timeclose' => $time_close
+            );
+    
+            $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
+            $this->session->set_userdata('reopen',$data);
+            return $data['flashcard_id'];
+        }
+        //Reopen
+        public function reopen($reopen){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $this->form_validation->set_rules('time-open', 'Time-open');
+                $this->form_validation->set_rules('time-close', 'Time-close');
+                
+                
+                if($this->form_validation->run()==TRUE){
+                    $flashcard_id = $this->reopen_clean();
+                    redirect(base_url('flashcards/reopen/'.$flashcard_id));
+                }
+                else{
+                    $this->view('reopen');
+                }
+            }
+        }
 
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){
@@ -298,6 +329,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo "false";
             }
         }
+
+        
 
         private function assign_points($judgement, $total_points){
             if($judgement == 'CORRECT')

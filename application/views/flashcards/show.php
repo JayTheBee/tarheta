@@ -47,6 +47,11 @@
                     </button> -->
                 <?php //endif; ?>
                 
+                <!-- Reopen -->
+                <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                    Reopen
+                    </button>
+
                 <!-- Flash data -->
                 <?php
                     if($this->session->flashdata('success')){?>
