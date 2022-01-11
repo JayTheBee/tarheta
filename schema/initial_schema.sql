@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5  
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2022 at 09:35 AM
+-- Generation Time: Jan 08, 2022 at 04:23 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- PHP Version: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category_list`
+--
+
+CREATE TABLE `category_list` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `classes`
+--
+
+CREATE TABLE `classes` (
+  `id` int(11) NOT NULL,
+  `class_name` varchar(255) NOT NULL,
+  `school` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `creator_id` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `invite_code` varchar(255) NOT NULL,
+  `invitations` enum('YES','NO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_ranking`
 --
 
 CREATE TABLE `class_ranking` (
@@ -33,18 +72,6 @@ CREATE TABLE `class_ranking` (
   `user_id` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
   `total_points` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
-CREATE TABLE `classes` (
-  `id` int(11) NOT NULL,
-  `class_name` varchar(255) NOT NULL,
-  `school` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `creator_id` timestamp,
-  `invite_code` varchar(255) NOT NULL,
-  `invitations` enum('YES','NO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -58,10 +85,11 @@ CREATE TABLE `enroll` (
   `class_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `role` enum('MEMBER','CREATOR') NOT NULL,
-  `join_date` timestamp
+  `join_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `flashcards`
 --
@@ -102,11 +130,11 @@ CREATE TABLE `flashcards_questions` (
 -- Table structure for table `flashcards_user_access`
 --
 
-  CREATE TABLE `flashcards_user_access` (
-    `id` int(11) NOT NULL,
-    `flashcard_id` int(11) NOT NULL,
-    `user_id` int(11) NOT NULL
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `flashcards_user_access` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -238,15 +266,27 @@ CREATE TABLE `user_types` (
 --
 
 --
--- Indexes for table `class_ranking`
+-- Indexes for table `categories`
 --
-ALTER TABLE `class_ranking`
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category_list`
+--
+ALTER TABLE `category_list`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `class_ranking`
+--
+ALTER TABLE `class_ranking`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -328,15 +368,27 @@ ALTER TABLE `user_types`
 --
 
 --
--- AUTO_INCREMENT for table `class_ranking`
+-- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `class_ranking`
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category_list`
+--
+ALTER TABLE `category_list`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `class_ranking`
+--
+ALTER TABLE `class_ranking`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

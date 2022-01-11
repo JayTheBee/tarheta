@@ -12,6 +12,9 @@
                 <p>show members</p>
 
                 <p>invite</p>
+
+
+                <p>rankings</p>
             </div>    
         </div>  
     </div>  

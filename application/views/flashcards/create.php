@@ -46,6 +46,19 @@
                                         <input type="datetime-local" name="time-close" class="form-control" id="time-close">
                                     </div>
                                 </div>
+                                <div class="form-group col-md-2">
+                                    <label for="category">Subjects</label>
+                                    <select id="category" name="category" class="form-control">
+                                      <!--   <option value="">Category 1</option>
+                                        <option value="">Category 2</option> -->
+                                    <?php 
+                                        foreach($categories as $row){ 
+                                            echo '<option value="'.$row->name.'">'.$row->name.'</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                    <p>needs a script to dynamically add more input fields</p>
+                                </div>
                             </div>
 
                             <div class="text-center">
