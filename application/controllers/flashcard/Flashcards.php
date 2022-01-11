@@ -17,6 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
+                $data['categories'] = $this->flashcard_model->get_categories();
+                $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
+                echo "<pre>";
+                print_r($data);
+                echo "<\pre>";
+                exit();
             }
             if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);

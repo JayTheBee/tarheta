@@ -6,9 +6,6 @@
             $this->db->insert('flashcards', $data);
             $flashcard_id = $this->db->insert_id();
 
-            // $this->db->set('user_id', $data['creator_id']);
-            // $this->db->set('flashcard_id', $flashcard_id);
-            // $this->db->insert('flashcards_user_access');
             $this->insert_flashcard_user_access($flashcard_id, $data['creator_id']);
             $this->db->trans_complete();
             return $flashcard_id;
@@ -241,6 +238,19 @@
                 }
             }
             return $data;
+        }
+
+
+        public function get_categories(){
+            $query = $this->db->get('categories');
+            return $query->result_array();
+        }
+
+
+        public function get_category_list($flashcards){
+            $this->db->join('category_list', 'category_list.category_id = categories.id');
+            $query = $this->db->get('categories');
+            return $query->result_array();
         }
     }
 ?>

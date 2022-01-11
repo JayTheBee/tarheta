@@ -9,21 +9,20 @@
                     <option value="SUBJECT">Browse by Subject</option>
                 </select>
 
+                <!-- Visibility Drop Down Menu -->
                 <select id="visibility" name="visibility" class="form-control">
                     <option value="PUBLIC">Public</option>
                     <option value="PRIVATE">Private</option>
                 </select>
 
+                <!-- Category Drop Down Meny -->
                 <select id="subject" name="subject" class="form-control">
-                    <option value="CHEM">Chemistry</option>
-                    <option value="CALC">Calculus</option>
-                    <option value="LINEARALGEBRA">Linear Algebra</option>
-                    <option value="PHYSICS">Physics</option>
-                    <option value="SCIENCE">Science</option>
-                    <option value="BIOLOGY">Biology</option>
-                    <option value="ENGINEERING">Engineering</option>
-                    <option value="SPANISH">Spanish</option>
+                    <!-- Looping through the available categories -->
+                    <?php foreach($categories as $category): ?>
+                        <option value='<?php echo($category['id'])?>'> <?php echo($category['name'])?> </option>
+                    <?php endforeach;?>
                 </select>
+
             <div class="card" style="margin-top: 5rem">
                 <div class="card-header text-center">
                     Flashcards
@@ -36,10 +35,6 @@
                         <p><?php echo $flashcard['visibility']; ?></p>
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
                         </button>
-                        <!-- <?php //echo base_url("flashcards/show/".$flashcard["id"])?>
-                            <button class="btn btn-primary" type="submit">View</button>
-                        </form> -->
-                        <!-- <button href="">View</button> -->
                         <br><br>
                     <?php endforeach; ?>
                 </div>
