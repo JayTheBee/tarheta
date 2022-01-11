@@ -13,8 +13,10 @@ class Scorings extends CI_Controller{
     
     public function score_user($user_id, $flashcard_id){
         $questions = $this->flashcard_model->get_questions($flashcard_id);
-        $data['user_scores'] = $this->scoring_model->get_user_score($flashcard_id, $user_id, $questions);
+        $data = $this->scoring_model->get_user_score($flashcard_id, $user_id, $questions);
 
+        //$data['questions'] = $questions;
+        $this->scoring_model->update_user_score($flashcard_id, $user_id, $data);
         redirect(base_url('flashcards/result/'.$user_id."/".$flashcard_id));
     }
 
