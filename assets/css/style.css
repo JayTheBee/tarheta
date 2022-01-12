@@ -585,3 +585,36 @@ div p {
 		margin: 10rem 50rem 0 40rem;
 	}
 }
+
+.question {
+	margin: 10rem 2rem 0 2rem;
+	position: relative;
+	width: 45rem;
+	z-index: 5;
+}
+.slide{
+	position: absolute;
+	width: 295px;
+	height: 213px;
+	left: 1119px;
+	top: 158px;
+}
+.addquestion{
+	position: absolute;
+	width: 224px;
+height: 58px;
+left: 1180px;
+top: 394px;
+	
+}
+.btn-bd-choose1{
+	background-color: #A2795E;
+	color: #fff;
+	font-size: 1.5rem;
+	width: 11rem;
+	border-radius: 7%;
+}
+.btn-bd-choose1:hover {
+	background-color: #18606e;
+	border-color: #e4be91;
+}
