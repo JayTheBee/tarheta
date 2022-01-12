@@ -8,6 +8,7 @@
             $data['correct_num'] = 0;
             $data['wrong_num'] = 0;
             $data['unanswered_num'] = 0;
+            $data['attempt'] = 0;
 
             foreach($questions as $question){
                 $question_id = $question['id'];
@@ -17,6 +18,11 @@
                         $this->insert_question_stat($question_id);
                     $judgement = $query->row()->{'judgement'};
                     $data['user_score'] += $query->row()->{'points'};
+
+                    $query_attempt = $query->row()->{'attempt'};
+                    $data['attempt'] = ((int)$query_attempt > (int)$data['attempt']) ? $query_attempt : $data['attempt'];
+                    $data['timestamp'] = $query->row()->{'timestamp'};
+
                     $data = $this->check_judgement($judgement, $data, $question_id, $save);
                 }
             }
@@ -106,6 +112,44 @@
             $this->db->where($condition);
 
             $this->db->update('flashcard_statistic');
+            
+            $this->db->trans_complete();
+        }
+
+
+        public function update_user_score($flashcard_id, $user_id, $data){
+            $query = $this->db->query("SELECT * FROM user_scores WHERE flashcard_id='$flashcard_id' AND user_id='$user_id'");
+            
+            if($query->num_rows() != 0){
+                $this->update_latest_user_score($flashcard_id, $user_id);
+            }
+
+            $data2 = array(
+                'user_id' => $user_id,
+                'flashcard_id' => $flashcard_id,
+                'score' => $data['user_score'],
+                'timestamp' => $data['timestamp'],
+                'attempt' => $data['attempt'],
+                'latest' => 'YES',
+            );
+            $this->save_user_score($data2);
+        }
+
+        private function save_user_score($data){
+            $this->db->trans_start();
+            $this->db->insert('user_scores', $data);
+            $this->db->trans_complete();
+        }
+
+
+        private function update_latest_user_score($flashcard_id, $user_id){
+            $this->db->trans_start();
+
+            $this->db->from('user_scores');
+            $this->db->set('latest', 'NO');
+            $condition = array('flashcard_id' => $flashcard_id, 'user_id' => $user_id, 'latest' => 'YES');
+            $this->db->where($condition);
+            $this->db->update('user_scores');
             
             $this->db->trans_complete();
         }
