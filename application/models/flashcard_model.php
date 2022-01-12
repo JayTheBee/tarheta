@@ -175,6 +175,11 @@
             $this->db->set('class_id', $class_id);
             $this->db->insert('flashcard_class_access');
             $this->db->trans_complete();
+
+            $classMem = $this->classes_model->getMembers($class_id);
+            foreach($classMem as $members){
+                $this->insert_flashcard_user_access($flashcard_id, $members['user_id']);
+            }
         }
 
 

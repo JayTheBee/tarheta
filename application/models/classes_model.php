@@ -32,6 +32,24 @@ class classes_model extends CI_Model {
 	}
 
 
+	function getMembers($class_id){
+
+        $query = $this->db->query("SELECT * FROM enroll WHERE class_id='$class_id'");
+        $class = $query->result_array();
+        
+        $result = array();
+        
+        foreach($class as $members){
+            $id = $members['user_id'];
+	        //Getting the user's classes
+	        $query = $this->db->query("SELECT * FROM profile WHERE id='$id'");
+	        if($query->num_rows()==1){
+	            array_push($result, $query->row_array());
+	        };
+        }
+        return $result;
+	}
+
 	function showClass($class_id){
         $query = $this->db->query("SELECT * FROM classes WHERE id='$class_id'");
 	    return $query->row_array();
