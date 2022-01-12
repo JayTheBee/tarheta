@@ -39,8 +39,23 @@
                 </div>
 
                 <p>rankings</p>
-                <p>class flashcards</p>
-                
+
+                <p>CLASS FLASHCARDS</p>
+                <?php if(empty($assignedFlashcards)): ?>
+                    <p>No Flashcards Yet!</p>
+                <?php else: ?>       
+                    <?php foreach($assignedFlashcards as $flashcard): ?>
+                        <h5><?php echo $flashcard['name']; ?></h5>
+                        <h6>Description: <?php echo $flashcard['description']; ?></h6>
+                        <p><?php echo $flashcard['visibility']; ?></p>
+                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View</button>
+                        <br><br>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+
+
+
                 <p>assign flashcards</p>
                 <div class="text-right">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AsgnModal">Assign Flashcards</button>

@@ -70,6 +70,7 @@ class Classes extends CI_Controller{
 
     function show($class_id){
         $data['class'] = $this->classes_model->showClass($class_id);
+        $data['assignedFlashcards'] = $this->flashcard_model->getClassFlashcard($class_id);
         $data['createdFlashcards'] = $this->flashcard_model->getCreatedFlashcards($_SESSION['Profile']['user_id']);
         $data['title'] = ucfirst('show');
 

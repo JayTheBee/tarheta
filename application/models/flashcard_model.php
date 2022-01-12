@@ -43,6 +43,22 @@
 
             return $result;
         }
+        function getClassFlashcard($class_id){
+            $query = $this->db->query("SELECT * FROM flashcard_class_access WHERE class_id='$class_id'");
+            $flashcards = $query->result_array();
+            
+            $result = array();
+
+            //Getting the user's private and public flashcards
+           foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id'");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+            return $result;            
+        }
 
         public function getCreatedFlashcards($user_id){
             $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");

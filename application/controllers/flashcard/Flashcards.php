@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         private function check_access($flashcard_id){
             if (isset($_SESSION['UserLoginSession']) && isset($_SESSION['Profile'])){
                 // Gets all the flashcards that the current user has access to
-                $flashcards = $this->flashcard_model->get_flashcards();
+                $flashcards = $this->flashcard_model->get_flashcards($_SESSION['Profile']['user_id']);
 
                 // Check if the requested flashcard is in the list of accessible flashcards of the user
                 foreach($flashcards as $card){
