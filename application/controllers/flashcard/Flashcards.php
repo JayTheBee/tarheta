@@ -16,13 +16,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         private function check_page($page, $data){
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
-                $data['flashcards'] = $this->flashcard_model->get_flashcards();
+                $data['flashcards'] = $this->flashcard_model->get_flashcards($_SESSION['Profile']['user_id']);
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                echo "<pre>";
-                print_r($data);
-                echo "<\pre>";
-                exit();
+                // echo "<pre>";
+                // print_r($data);
+                // echo "<\pre>";
+                // exit();
             }
             if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
@@ -256,18 +256,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         public function answer($flashcard_id){
             $data = $this->get_data($flashcard_id);
-
-            if ($this->check_access($flashcard_id)){
-                $this->session->set_userdata('Current_Answering',$data['flashcard']);
-                $this->session->set_userdata('Current_Number', 0);
-                // shuffle($_SESSION['Current_Answering']);
-                // shuffle($data['questions']);
-                $this->load->view('templates/header');
-                $this->load->view('flashcards/answer', $data);
-                $this->load->view('templates/footer');
-            }
-            else{
+            if(!$data){
                 redirect(base_url('flashcards/index'));
+            }else{        
+                if ($this->check_access($flashcard_id)){
+                    $this->session->set_userdata('Current_Answering',$data['flashcard']);
+                    $this->session->set_userdata('Current_Number', 0);
+                    // shuffle($_SESSION['Current_Answering']);
+                    // shuffle($data['questions']);
+                    $this->load->view('templates/header');
+                    $this->load->view('flashcards/answer', $data);
+                    $this->load->view('templates/footer');
+                }
+                else{
+                    redirect(base_url('flashcards/index'));
+                }
             }
         }
 

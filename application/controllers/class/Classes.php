@@ -9,6 +9,7 @@ class Classes extends CI_Controller{
         $this->load->library('form_validation');
         $this->load->helper('security');
         $this->load->model('classes_model');
+        $this->load->model('flashcard_model');
     }
 
     function check_page($page, $data){
@@ -69,6 +70,7 @@ class Classes extends CI_Controller{
 
     function show($class_id){
         $data['class'] = $this->classes_model->showClass($class_id);
+        $data['createdFlashcards'] = $this->flashcard_model->getCreatedFlashcards($_SESSION['Profile']['user_id']);
         $data['title'] = ucfirst('show');
 
         $this->load->view('templates/header');
@@ -86,6 +88,7 @@ class Classes extends CI_Controller{
                 $class = $this->classes_model->verifyCode($class_code);
                 $user_id = $_SESSION['Profile']['user_id'];
                 $email_check = $this->classes_model->emailCheck($user_id);
+
                 if(!$class){
                     $this->session->set_flashdata('error','Valid class code required!');
                     redirect(base_url('classes/join'));
@@ -133,23 +136,48 @@ class Classes extends CI_Controller{
                     $this->email->send_email($data, 'templates/email', $email);
 
                     $this->session->set_flashdata('success', 'Users Invited');
-                    redirect(base_url('classes/index'));
+                    redirect(base_url('classes/show/'.$class_id));
                 }
                 else
                 {
                     $this->session->set_flashdata('error', 'User not found');
-                    redirect(base_url('classes/index'));
+                    redirect(base_url('classes/show/'.$class_id));
                 }
             }
             else
             {
                 $this->session->set_flashdata('error', 'User not found');
-                redirect(base_url('classes/index'));
+                redirect(base_url('classes/show/'.$class_id));
             }
         }
     }	
     
-    
+    public function assignFlashcards(){
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $this->form_validation->set_rules('flashcard','Flashcards','required');
+
+            if($this->form_validation->run()==TRUE){
+                $class_id = $this->input->post('class-id', TRUE);
+                $selFlashcard =  $this->input->post('flashcard', TRUE);
+                $check = $this->flashcard_model->verify_flashcard_data($selFlashcard);
+
+                if($check){
+                    $this->flashcard_model->insert_flashcard_class_access($selFlashcard, $class_id);
+                    $this->session->set_flashdata('success', 'Flashcard assigned');
+                    redirect(base_url('classes/show/'.$class_id)); 
+
+                }else{
+                    $this->session->set_flashdata('error', 'Flashcard not found!');
+                    redirect(base_url('classes/show/'.$class_id)); 
+                }
+            }else{
+                $this->session->set_flashdata('error', 'Please enter valid input!');
+                redirect(base_url('classes/show/'.$class_id));
+            }
+        }        
+    }
+
+
     public function enroll_user(){
         $data = $this->segmentURL();
         $this->classes_model->userEnroll($data['class_id'], $data['user_id'], 'MEMBER');
