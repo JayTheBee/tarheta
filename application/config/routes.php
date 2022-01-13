@@ -75,6 +75,10 @@ $route['classes/create_classes'] = 'class/classes/create_classes';
 $route['classes/show/(:any)'] = 'class/classes/show/$1';
 $route['classes/(:any)'] = 'class/classes/view/$1';
 
+$route['profile/notif/(:any)'] = 'user/profile/notif/$1';
+$route['profile/(:any)'] = 'user/profile/view/$1';
+
+
 $route['default_controller'] = 'pages/view';
 $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';

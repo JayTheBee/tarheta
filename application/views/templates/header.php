@@ -34,6 +34,9 @@
                         <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
                       </li>
                       <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>profile/notif">Notifications</a>
+                      </li>                      
+                      <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/index">Classes</a>
                       </li>
                       <li class="nav-item">
