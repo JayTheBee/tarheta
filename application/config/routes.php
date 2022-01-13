@@ -68,6 +68,7 @@ $route['flashcards/questions'] = 'flashcard/flashcards/questions';
 $route['flashcards/save_question'] = 'flashcard/flashcards/save_question';
 $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards';
 $route['flashcards/reopen/(:any)'] = 'flashcard/flashcards/reopen/$1';
+$route['flashcards/updateTime/(:any)'] = 'flashcard/flashcards/updateTime/$1';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
 $route['classes/join'] = 'class/classes/join';

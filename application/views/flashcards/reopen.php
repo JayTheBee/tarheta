@@ -5,35 +5,11 @@
             <div class="">
             <div class="card" style="margin-top: 5rem">
                     <div class="card-header text-center">
-                        CREATE A FLASHCARD
+                        TEST REOPEN
                     </div>
                     <div class="card-body">
-                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/create_flashcards')?>">
+                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/updateTime/'. $flashcard['id'])?>">
 
-                            <div class="mb-2">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" placeholder="Flashcard name" name="name" class="form-control" id="name" aria-describedby="name">
-                                <?php echo form_error("name", '<p class="text-danger">','</p>');?> 
-                            </div>
-                            <div class="mb-2">
-                                <label for="description" class="form-label">Description</label>
-                                <input type="text" placeholder="Flashcard description" name="description" class="form-control" id="description">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-2">
-                                    <label for="type">Type</label>
-                                    <select id="type" name="type" class="form-control" onchange="showTimeFields('time-fields', this)">
-                                        <option value="QUIZ">Quiz</option>
-                                        <option value="REVIEWER">Reviewer</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="visibility">Visibility</label>
-                                    <select id="visibility" name="visibility" class="form-control">
-                                        <option value="PRIVATE">Private</option>
-                                        <option value="PUBLIC">Public</option>
-                                    </select>
-                                </div>
 
                                 <div id='time-fields' >
                                     <div class="form-group col-mb-2">
@@ -48,7 +24,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary" name='reopen'>Reopen</button>
                             </div>
                             
 
@@ -70,9 +46,3 @@
     </div>
 
 </div>
-
-<script>
-    function showTimeFields(divId, element){
-        document.getElementById(divId).style.display = element.value == "REVIEWER" ? 'none' : 'block';
-    }
-</script>

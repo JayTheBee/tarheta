@@ -19,10 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                echo "<pre>";
-                print_r($data);
-                echo "<\pre>";
-                exit();
             }
             if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
@@ -55,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
             $data['category'] = $this->tags_model->fetchCategory($data['flashcard']['id']);
+
             if ($this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/show', $data);
@@ -175,8 +172,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         public function save_question(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
-                $this->form_validation->set_rules('question','Question','required');
-                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required');
+                $this->form_validation->set_rules('question','Question','required'); 
+                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required'); 
 
                 if($this->form_validation->run()==TRUE){
                     $this->clean_question();
@@ -270,36 +267,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 redirect(base_url('flashcards/index'));
             }
         }
-        //Reopen Clean
-        private function reopen_clean($reopen){
-    
-            $time_open = $this->input->post('time-open', TRUE);
-            $time_close = $this->input->post('time-close', TRUE);
-    
-            $data = array (
-
-                'timeopen' => $time_open,
-                'timeclose' => $time_close
-            );
-    
-            $data['flashcard_id'] = $this->flashcard_model->insert_flashcard($data);
-            $this->session->set_userdata('reopen',$data);
-            return $data['flashcard_id'];
-        }
         //Reopen
-        public function reopen($reopen){
+        public function reopen($flashcard_id){
+            $data = $this->get_data($flashcard_id);
+             //echo ("<pre>");
+            // var_dump($data);
+            // echo ("</pre>");
+            // exit;
+            $this->load->view('templates/header');
+            $this->load->view('flashcards/reopen',$data);
+            $this->load->view('templates/footer');
+        }
+
+        //Update Time for Reopen
+        public function updateTime($flashcard_id){
+            //echo $flashcard_id;
+            //exit();
+            $this->form_validation->set_rules('time-open', 'Time-open','required');
+            $this->form_validation->set_rules('time-close', 'Time-close','required');
+
             if ($_SERVER['REQUEST_METHOD']=='POST'){
-                $this->form_validation->set_rules('time-open', 'Time-open');
-                $this->form_validation->set_rules('time-close', 'Time-close');
-                
-                
+          
                 if($this->form_validation->run()==TRUE){
-                    $flashcard_id = $this->reopen_clean();
-                    redirect(base_url('flashcards/reopen/'.$flashcard_id));
+                    $time_open = $this->input->post('time-open', TRUE);
+                    $time_close =$this->input->post('time-close', TRUE);
+
+                    $data = array(
+                        'timeopen' => $time_open,
+                        'timeclose' => $time_close,
+                    );
+
+                    $this->flashcard_model->timeUpdate($data, $flashcard_id);
                 }
-                else{
-                    $this->view('reopen');
-                }
+
+            redirect(base_url('flashcards/index'));
             }
         }
 
