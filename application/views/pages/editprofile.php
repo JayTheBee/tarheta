@@ -41,6 +41,14 @@
                         class="form-control" id="course" aria-describedby="name"
                     > 
                     </div>
+                    <div class="form-group col-md-2">
+                    <label for="avatar">Avatar</label>
+                                    <select id="avatar" name="avatar" class="form-group">
+                                        <option value="Default">Default</option>
+                                        <option value="Dog">Dog</option>
+                                        <option value="Cat">Cat</option>
+                                    </select>
+                                </div>
                 <div class="text-center">
                         <button type="submit" class="btn btn-primary">Confirm</button>
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("profile"); ?>'" >Back

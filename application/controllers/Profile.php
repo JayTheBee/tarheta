@@ -8,13 +8,15 @@ class Profile extends CI_Controller {
 			/* IDK ha pero feel ko nde need na lahat required kasi pano pag name 
 				lang or school gusto iupdate ng user pero iwan ko lang dito just in case
 			*/
-			/*$this->form_validation->set_rules('firstname','Firstname');
+			/*$this->form_validation->set_rules('avatar','avatar');
+			$this->form_validation->set_rules('firstname','Firstname');
 			$this->form_validation->set_rules('lastname','Lastname');
 			$this->form_validation->set_rules('birthdate', 'Birthdate');
             $this->form_validation->set_rules('school', 'School');
 			$this->form_validation->set_rules('course', 'Course');*/
 
 			$this->load->helper('security');
+			$avatar = $this->input->post('avatar', TRUE);
 			$firstname = $this->input->post('firstname', TRUE);
 			$lastname = $this->input->post('lastname', TRUE);
 			$birthdate = $this->input->post('birthdate',TRUE);
@@ -22,6 +24,7 @@ class Profile extends CI_Controller {
 			$course = $this->input->post('course',TRUE);
 
 			$data = array(
+				'avatar'=>$avatar,
 				'firstname'=>$firstname,
 				'lastname'=>$lastname,
 				'birthdate'=>$birthdate,

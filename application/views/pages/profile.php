@@ -10,15 +10,14 @@
                 <div class="card-header text-center"> Profile </div>
 
                 <div class="card-body">
+                <img src="assets/images/<?php echo $_SESSION['Profile']['avatar'];?>.png" style="width:30%" class="avatar"><br>
                     <?php
                         if($this->session->userdata('UserLoginSession')){
                             $udata = $this->session->userdata('UserLoginSession');
-
                             echo 'Welcome'.' '.$udata['username'];
                         }
                         //jediboy: unnecessary checks
                     ?>
-
                     <br><br>
                     <p>First Name: 
                         <?php echo $_SESSION['Profile']['firstname']; ?>
@@ -48,5 +47,4 @@
             </div>
             <div class="col-md-4"></div>
         </div>
-
     </div>
