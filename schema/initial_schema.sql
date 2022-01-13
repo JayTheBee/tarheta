@@ -175,6 +175,7 @@ CREATE TABLE `flashcard_statistic` (
 CREATE TABLE `profile` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+	`avatar` enum('DEFAULT','CAT','DOG') NOT NULL,
   `birthdate` date NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
