@@ -17,6 +17,7 @@
                     <?php endforeach; ?>
                 </p>
                 <?php if($flashcard['type'] == 'QUIZ'): ?>
+                    <p>Quiz Type: <?php echo $flashcard['qtype'] ?></p>
                     <p>Time Open: <?php echo $flashcard['timeopen'] ?></p>
                     <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
                 <?php endif; ?>
@@ -51,6 +52,13 @@
                     Answer
                     </button> -->
                 <?php //endif; ?>
+
+                <!-- View Result Button -->
+                <?php if($is_answered == TRUE):?>
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
+                    Results
+                    </button>
+                <?php endif; ?>
                 
                 <!-- Flash data -->
                 <?php

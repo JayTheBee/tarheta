@@ -28,6 +28,10 @@
                     Flashcards
                 </div>
                 
+                <!-- 
+                    Needs some ajax fuction to show the specific flashcards based on the filter
+                    in the category drop down menu. Right now that's future Ramon's problem.
+                -->
                 <div class="card-body">
                     <?php foreach($flashcards as $flashcard): ?>
                         <h5><?php echo $flashcard['name']; ?></h5>
@@ -50,13 +54,13 @@
         reset();
     });
 
-
+    // This fuction just hides the other drop down menus
     function reset(){
         document.getElementById('visibility').style.display = 'none';
         document.getElementById('subject').style.display = 'none';
     }
 
-
+    // This function does the check on which drop down menu will apeear
     function show(element){
         reset();
         if(element.value == "CLASS")
@@ -67,6 +71,7 @@
             showOptions('subject');
     }
 
+    // Handles showing the specific drop down that is passed
     function showOptions(divId){
         document.getElementById(divId).style.display = (document.getElementById(divId).style.display == 'none') ? 'block':'none';
     }

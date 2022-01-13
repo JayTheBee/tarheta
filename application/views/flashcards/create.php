@@ -23,11 +23,21 @@
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="type">Type</label>
-                                    <select id="type" name="type" class="form-control" onchange="showTimeFields('time-fields', this)">
+                                    <select id="type" name="type" class="form-control" onchange="showQuizFields('quiz-type', 'time-fields', this)">
                                         <option value="QUIZ">Quiz</option>
                                         <option value="REVIEWER">Reviewer</option>
                                     </select>
                                 </div>
+
+                                <div class="form-group col-md-2" id='quiz-type'>
+                                    <label for="qtype">Quiz Type</label>
+                                    <select id="qtype" name="qtype" class="form-control">
+                                        <option value="POP">Pop</option>
+                                        <option value="EXAM">Exam</option>
+                                        <option value="ASSIGNMENT">Assignment</option>
+                                    </select>
+                                </div>
+
                                 <div class="form-group col-md-2">
                                     <label for="visibility">Visibility</label>
                                     <select id="visibility" name="visibility" class="form-control">
@@ -46,6 +56,7 @@
                                         <input type="datetime-local" name="time-close" class="form-control" id="time-close">
                                     </div>
                                 </div>
+
                                 <div class="form-group col-md-2">
                                     <label for="category">Subjects</label>
                                     <select id="category" name="category" class="form-control">
@@ -86,7 +97,8 @@
 </div>
 
 <script>
-    function showTimeFields(divId, element){
-        document.getElementById(divId).style.display = element.value == "REVIEWER" ? 'none' : 'block';
+    function showQuizFields(divID1, divID2, element){
+        document.getElementById(divID1).style.display = element.value == "REVIEWER" ? 'none' : 'block';
+        document.getElementById(divID2).style.display = element.value == "REVIEWER" ? 'none' : 'block';
     }
 </script>

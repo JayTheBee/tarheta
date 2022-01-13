@@ -7,31 +7,32 @@
 
                 <!-- Flash data -->
                 <?php
-                    if($this->session->flashdata('success')){?>
+                    if($this->session->flashdata('success')):?>
                         <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                <?php } ?>
+                <?php endif; ?>
                 
                 <?php
-                    if($this->session->flashdata('error')){?>
+                    if($this->session->flashdata('error')):?>
                         <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                <?php } ?>
+                <?php endif; ?>
             </div>
             
             <!-- Where the answers will be displayed -->
             <div class="card-body text-center">
                 <form action="" method="POST" id="question-answer" class="form-group">
+                    <!-- Container ng Multiple choices and Identification input -->
                     <div class="form-row" id="choices-container">
                         
                     </div>
+
+                    <!-- Container ng True or False choices -->
                     <div class="form-group col-md-2" id='truefalse-container'>
                                         
                     </div>
-                    <!-- 
-                        Commented muna since ayaw ko pa muna ifigure out yung pag
-                        handle pag back ng user sa previous answered questions
-                        That's future ramon's problem
-                    -->
-                    <!-- <button type="button" id='previous'><-</button> -->
+
+                    <?php if($flashcard['qtype']=='ASSIGNMENT'):?>
+                        <button type="button" id='previous'><-</button>
+                    <?php endif; ?>
                     <button type="submit" id='next' value='<?php $_SESSION['Current_Number']?>'>-></button>
                 </form>
             </div>
@@ -49,24 +50,34 @@
         $('#question-answer').submit(function(e){
             e.preventDefault();
             var answer = get_user_answer();
+            var controller_link = '<?php echo base_url();?>flashcards/submit-answer';
             $.ajax({
                 type:"post",
-                url:'<?php echo base_url();?>flashcards/submit-answer',
+                url: controller_link,
                 data:
                 {
                     answer:answer, 
                     user_id: <?php echo $_SESSION['Profile']['user_id']; ?>,
                     question_id: flashcard_data['questions'][current_number]['id'],
                     points: flashcard_data['questions'][current_number]['total_points'],
+                    qtype: flashcard_data['flashcard']['qtype'],
                 },
                 success:function(data)
                 {
-                    // console.log(data);
-                    /* 
-                    Task mo ay gumawa ng view kung saan ipapakita yung total score sa quiz/reviewer
-                    then yung answer history (correct and wrong parang gForms)
-                    tas isa rin view na score lang ang ipapakita
+                    /*
+                        With regard to the pop quiz I think it is tedious when you prompt
+                        the user for a confirmation when submitting their answer. I think
+                        it is a unnecessary extra click. However, if it is really necessary
+                        then i'll add it. 
                     */
+                    if(flashcard_data['flashcard']['qtype']=='POP'){
+                        if(data == 'true')
+                            alert("ANSWER CORRECT");
+                        else
+                            alert("WRONG");
+                    }
+                    //console.log(data);
+
                     next_number();
                 },
                 error:function(data)
@@ -83,7 +94,7 @@
             dataType: 'json',
             success:function(data){
                 flashcard_data = data;
-                console.log(flashcard_data);
+                //console.log(flashcard_data);
                 $('#question').append(data['questions'][current_number]['question']);
                 get_choices();
             }
@@ -107,9 +118,10 @@
             set_question();
         }
         else{
-            // Placeholder for the redirect to the results page
-            // or maybe a button na view results then dun palang magreredirect?
-            window.location.replace('<?php echo base_url();?>flashcards/score-user/<?php echo $_SESSION['Profile']['user_id']?>/<?php echo $_SESSION['Current_Answering']['id']?>');
+            if(flashcard_data['flashcard']['qtype'] != 'ASSIGNMENT')
+                window.location.replace('<?php echo base_url();?>flashcards/score-user/<?php echo $_SESSION['Profile']['user_id']?>/<?php echo $_SESSION['Current_Answering']['id']?>');
+            else
+                window.location.replace('<?php echo base_url();?>flashcards/show/<?php echo $_SESSION['Current_Answering']['id']?>');
         }
     }
 

@@ -19,10 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                echo "<pre>";
-                print_r($data);
-                echo "<\pre>";
-                exit();
             }
             if ($page == 'edit'){
                 $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
@@ -55,6 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
             $data['category'] = $this->tags_model->fetchCategory($data['flashcard']['id']);
+            if(count($data['questions']) != 0){
+                $question_id = $data['questions'][0]['id'];
+                $user_id = $_SESSION['Profile']['user_id'];
+                $data['is_answered'] = $this->flashcard_model->check_already_answered($question_id, $user_id);
+            }
+            else{
+                $data['is_answered'] = FALSE;
+            }
+            
             if ($this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/show', $data);
@@ -110,6 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $time_open = $this->input->post('time-open', TRUE);
             $time_close = $this->input->post('time-close', TRUE);
             $category = $this->input->post('category', TRUE);
+            $qtype = ($type == 'QUIZ') ? $this->input->post('qtype', TRUE) : 'NULL';
 
             $cat_check = $this->tags_model->checkCategory($category);
 
@@ -122,6 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     'description' => $description,
                     'type' => $type,
                     'visibility' => $visibility,
+                    'qtype' => $qtype,
                     'timeopen' => $time_open,
                     'timeclose' => $time_close
                 );
@@ -146,13 +153,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
                 if($this->form_validation->run()==TRUE){
                     $flashcard_id = $this->create_flashcards_clean();
-                    // $this->view('edit');
                     redirect(base_url('flashcards/edit/'.$flashcard_id));
                 }
                 else{
                     $this->view('create');
                 }
-                // $this->view('index');
             }
         }
 
@@ -181,9 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if($this->form_validation->run()==TRUE){
                     $this->clean_question();
                 }
-                // $this->view('edit');
                 redirect(base_url('flashcards/edit/'.$_SESSION['Current_Flashcard']['flashcard_id']));
-
             }
         }
 
@@ -288,11 +291,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $question_id = $this->input->post('question_id', TRUE);
                 $answer = $this->input->post('answer', TRUE);
                 $total_points = $this->input->post('points', TRUE);
+                $qtype = $this->input->post('qtype', TRUE);
 
                 $judgement = $this->flashcard_model->check_answer($question_id, $answer);
                 $points = $this->assign_points($judgement, $total_points);
                 $datetime = time();
-                $attempt = (int)$this->flashcard_model->check_attempts($question_id, $user_id) + 1;
+                $attempt = (int)$this->flashcard_model->check_attempts($question_id, $user_id);
+                $attempt = ($qtype != "ASSIGNMENT") ? $attempt + 1 : $attempt; 
 
                 $data = array(
                     'user_id' => $user_id,
