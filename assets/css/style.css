@@ -477,6 +477,149 @@ div p {
 }
 /*end of sign up*/
 
+/* start of create-flashcard navigation bar */
+.container .brand-des {
+    font-family: 'Poppins', sans-serif;
+	color: black;
+	font-weight: bolder;
+	font-size: 1.8rem;
+}
+#navbarSupportedContent ul li a {
+	color: #8e7a74;
+}
+.navbar-light {
+	background-color: #52888A;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.create-nav {
+	box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 100%;
+    justify-content: space-between;
+    height: 3.2rem;
+    z-index: 10;
+    padding: 0px 1rem;
+    align-items: center;
+    display: flex;
+    position: relative;
+}
+.design {
+	display: flex
+}
+.nav {
+	box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 60%;
+    justify-content: flex-start;
+    align-items: center;
+}
+.nav-button {
+    height: 48px;
+    /* width: 20px; */
+    border-radius: 4px;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    /* cursor: pointer; */
+    overflow: hidden;
+    width: 45%;
+    max-width: 320px;
+    border: 2px solid black;    
+}
+.text {
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    color: black;
+    font-weight: 200;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 1rem;
+}
+.settings-button{  
+    height: 2rem; 
+    display: inline-block;       
+    margin: 0.3rem;     
+    padding: 7px 13px;      
+    border-radius: 2px;  
+    background-color: #FFFFFF;  
+    opacity: 60%;    
+    position: relative;
+} 
+.settings {
+    display: flex;
+    margin-top: -5%;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.right-nav {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 47.5%;
+    justify-content: flex-end;
+    align-items: center;
+}
+.buttons {
+    width: initial;
+    margin: 0px;
+    border: 0px;
+    display: inline-block;
+    vertical-align: bottom;
+    background: white;
+    opacity: 60%;
+
+    color: black;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    min-width: 42px;
+    min-height: 42px;
+    height: 42px;
+    padding: 0px 16px 4px;
+    line-height: 42px;
+    position: relative;
+}
+.preview {
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 0px 4px;
+    padding: 0px 8px;
+}
+.line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 16px;
+}
+.line-between {
+    background-color: black;
+    height: 40px;
+    width: 1px;
+}
+.exit-button {
+    margin-right: 0.5rem;
+    display: block;
+    box-shadow: rgb(0 0 0 / 15%) 0px 2px 4px 0px;
+}
+.save-button {
+    background-color: #E4BE91;
+    opacity: 100%;
+    /* cursor: not-allowed; */
+    box-shadow: rgb(0 0 0 / 15%) 0px 2px 4px 0px;
+}
+/* end of create-flashcard navigation bar */
+
+
 /* START OF MEDIA QUERIES */
 @media only screen and (max-width: 980px) {
 	.img-size-girl {
@@ -586,6 +729,7 @@ div p {
 	}
 }
 
+/* jon  */
 .question {
 	margin: 10rem 2rem 0 2rem;
 	position: relative;
