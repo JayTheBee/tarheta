@@ -118,7 +118,7 @@
             set_question();
         }
         else{
-            if(flashcard_data['flashcard']['qtype'] != 'ASSIGNMENT')
+            if(flashcard_data['flashcard']['qtype'] != 'ASSIGNMENT' && flashcard_data['flashcard']['qtype'] != 'EXAM')
                 window.location.replace('<?php echo base_url();?>flashcards/score-user/<?php echo $_SESSION['Profile']['user_id']?>/<?php echo $_SESSION['Current_Answering']['id']?>');
             else
                 window.location.replace('<?php echo base_url();?>flashcards/show/<?php echo $_SESSION['Current_Answering']['id']?>');

@@ -51,7 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
             $data['category'] = $this->tags_model->fetchCategory($data['flashcard']['id']);
-            
+
+            // Setting the variable for the view to check if the user already answered the flashcard
             if(count($data['questions']) != 0){
                 $question_id = $data['questions'][0]['id'];
                 $user_id = $_SESSION['Profile']['user_id'];
@@ -60,7 +61,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             else{
                 $data['is_answered'] = FALSE;
             }
-            
 
             if ($this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
@@ -312,6 +312,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }
 
+        
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){
             $data = $this->flashcard_model->get_data($flashcard_id);
@@ -321,6 +322,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             return $data;
         }
+
 
         public function submit_answer(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
@@ -356,7 +358,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }
 
-        
 
         private function assign_points($judgement, $total_points){
             if($judgement == 'CORRECT')

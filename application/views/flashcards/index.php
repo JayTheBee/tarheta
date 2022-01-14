@@ -37,6 +37,13 @@
                         <h5><?php echo $flashcard['name']; ?></h5>
                         <h6>Description: <?php echo $flashcard['description']; ?></h6>
                         <p><?php echo $flashcard['visibility']; ?></p>
+                        <p><?php echo $flashcard['qtype']; ?></p>
+                        <p>
+                            <?php if ($flashcard['type'] == "REVIEWER"):
+                                echo $flashcard['type'];
+                            ?>
+                            <?php endif;?>
+                        </p>                 
                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
                         </button>
                         <br><br>

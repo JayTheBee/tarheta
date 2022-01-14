@@ -30,4 +30,14 @@ class Scorings extends CI_Controller{
         $this->load->view('flashcards/result', $data);
         $this->load->view('templates/footer');
     }
+
+
+    public function score($user_id, $flashcard_id){
+        $questions = $this->flashcard_model->get_data($flashcard_id);
+        $data['user_scores'] = $this->scoring_model->get_user_score($flashcard_id, $user_id, $questions,FALSE);
+
+        $this->load->view('templates/header');
+        $this->load->view('flashcards/score', $data);
+        $this->load->view('templates/footer');
+    }
 }

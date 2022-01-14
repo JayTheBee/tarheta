@@ -40,10 +40,15 @@
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >
                     Edit
                     </button>
+
+                    <!-- Reopen -->
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                        Reopen
+                    </button>
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <?php if($flashcard['type']=="QUIZ" && strtotime($flashcard['timeopen']) <= time() && strtotime($flashcard['timeclose']) > time()): ?>
+                <?php if(($flashcard['type']=="QUIZ" && (strtotime($flashcard['timeopen']) <= time() && strtotime($flashcard['timeclose']) >= time()))): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
@@ -54,17 +59,14 @@
                 <?php endif; ?>
 
                 <!-- View Result Button -->
-                <?php if($is_answered == TRUE):?>
+                <?php if(
+                    ($is_answered == TRUE && ($flashcard['qtype'] == "POP")) 
+                    || (($flashcard['qtype'] != "POP") &&  strtotime($flashcard['timeclose']) < time())
+                ):?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
                     Results
                     </button>
-                    </button> 
                 <?php endif; ?>
-                
-                <!-- Reopen -->
-                <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
-                    Reopen
-                    </button>
 
                 <!-- Flash data -->
                 <?php
