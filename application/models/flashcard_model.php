@@ -252,5 +252,22 @@
             $query = $this->db->get('categories');
             return $query->result_array();
         }
+         
+        public function timeUpdate($data, $flashcard_id){
+            $this->db->trans_start();
+
+            $this->db->from('flashcards');
+
+            $this->db->set('timeopen', $data['timeopen']);
+            $this->db->set('timeclose', $data['timeclose']);
+
+            $this->db->where('id', $flashcard_id);
+
+            $this->db->update('flashcards',$data);
+            
+            $this->db->trans_complete();
+        }
+        
+
     }
 ?>

@@ -43,23 +43,29 @@
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <?php //if($flashcard['type']=="QUIZ" && $flashcard['timeopen'] <= time() && $flashcard['timeclose'] > time()): ?>
+                <?php if($flashcard['type']=="QUIZ" && strtotime($flashcard['timeopen']) <= time() && strtotime($flashcard['timeclose']) > time()): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
-                <?php //elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
-                    <!-- <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
+                <?php elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
+                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
-                    </button> -->
-                <?php //endif; ?>
+                    </button>
+                <?php endif; ?>
 
                 <!-- View Result Button -->
                 <?php if($is_answered == TRUE):?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
                     Results
                     </button>
+                    </button> 
                 <?php endif; ?>
                 
+                <!-- Reopen -->
+                <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                    Reopen
+                    </button>
+
                 <!-- Flash data -->
                 <?php
                     if($this->session->flashdata('success')){?>

@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function show($flashcard_id){
             $data = $this->get_data($flashcard_id);
             $data['category'] = $this->tags_model->fetchCategory($data['flashcard']['id']);
+            
             if(count($data['questions']) != 0){
                 $question_id = $data['questions'][0]['id'];
                 $user_id = $_SESSION['Profile']['user_id'];
@@ -60,6 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['is_answered'] = FALSE;
             }
             
+
             if ($this->check_access($flashcard_id)){
                 $this->load->view('templates/header');
                 $this->load->view('flashcards/show', $data);
@@ -180,8 +182,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         public function save_question(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
-                $this->form_validation->set_rules('question','Question','required');
-                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required');
+                $this->form_validation->set_rules('question','Question','required'); 
+                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required'); 
 
                 if($this->form_validation->run()==TRUE){
                     $this->clean_question();
@@ -273,7 +275,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 redirect(base_url('flashcards/index'));
             }
         }
+        //Reopen
+        public function reopen($flashcard_id){
+            $data = $this->get_data($flashcard_id);
+             //echo ("<pre>");
+            // var_dump($data);
+            // echo ("</pre>");
+            // exit;
+            $this->load->view('templates/header');
+            $this->load->view('flashcards/reopen',$data);
+            $this->load->view('templates/footer');
+        }
 
+        //Update Time for Reopen
+        public function updateTime($flashcard_id){
+            //echo $flashcard_id;
+            //exit();
+            $this->form_validation->set_rules('time-open', 'Time-open','required');
+            $this->form_validation->set_rules('time-close', 'Time-close','required');
+
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+          
+                if($this->form_validation->run()==TRUE){
+                    $time_open = $this->input->post('time-open', TRUE);
+                    $time_close =$this->input->post('time-close', TRUE);
+
+                    $data = array(
+                        'timeopen' => $time_open,
+                        'timeclose' => $time_close,
+                    );
+
+                    $this->flashcard_model->timeUpdate($data, $flashcard_id);
+                }
+
+            redirect(base_url('flashcards/index'));
+            }
+        }
 
         // This is a public function since it will be used by the ajax
         public function get_data($flashcard_id){
@@ -318,6 +355,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo "false";
             }
         }
+
+        
 
         private function assign_points($judgement, $total_points){
             if($judgement == 'CORRECT')
