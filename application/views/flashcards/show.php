@@ -22,6 +22,11 @@
                     <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
                 <?php endif; ?>
 
+                <?php 
+                    $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
+                    //echo form_open("flashcards/edit/".$flashcard['id'])
+                ?>
+
                 <!-- Share Button -->
                 <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
                     <div class="text-center">
@@ -31,18 +36,21 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- Edit Button -->
+                <!-- Flashcard Creator Available Buttons -->
                 <?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
-                    <?php 
-                        $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
-                        //echo form_open("flashcards/edit/".$flashcard['id'])
-                    ?>
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >
-                    Edit
+
+                    <!-- Edit Flashcard Details -->
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/flashcard/".$flashcard["id"]); ?>'" >
+                    Edit Flashcard
+                    </button>
+
+                    <!-- Edit Questions -->
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/questions/".$flashcard["id"]); ?>'" >
+                    Edit Questions
                     </button>
 
                     <!-- Reopen -->
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
                         Reopen
                     </button>
                 <?php endif; ?>
@@ -63,7 +71,7 @@
                     ($is_answered == TRUE && ($flashcard['qtype'] == "POP")) 
                     || (($flashcard['qtype'] != "POP") &&  strtotime($flashcard['timeclose']) < time())
                 ):?>
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
+                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
                     Results
                     </button>
                 <?php endif; ?>

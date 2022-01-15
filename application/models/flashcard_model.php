@@ -11,6 +11,25 @@
             return $flashcard_id;
         }
 
+        
+        public function update_flashcard($data){
+            $this->db->trans_start();
+            $this->db->from('flashcards');
+
+            $this->db->set('name', $data['flashcard']['name']);
+            $this->db->set('description', $data['flashcard']['description']);
+            $this->db->set('type', $data['flashcard']['type']);
+            $this->db->set('visibility', $data['flashcard']['visibility']);
+            $this->db->set('qtype', $data['flashcard']['qtype']);
+            $this->db->set('timeopen', $data['flashcard']['timeopen']);
+            $this->db->set('timeclose', $data['flashcard']['timeclose']);
+
+            $this->db->where('id', $data['flashcard_id']);
+            $this->db->update('flashcards');
+
+            $this->db->trans_complete();
+        }
+
 
         public function get_flashcards(){
             $user_id = $_SESSION['Profile']['user_id'];
@@ -228,6 +247,7 @@
             return $data;
         }
 
+
         public function get_user_answers($flashcard_id, $user_id, $questions){
             $data = array();
             foreach($questions as $question){
@@ -252,7 +272,8 @@
             $query = $this->db->get('categories');
             return $query->result_array();
         }
-         
+        
+
         public function timeUpdate($data, $flashcard_id){
             $this->db->trans_start();
 
