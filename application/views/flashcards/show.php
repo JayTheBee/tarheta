@@ -56,7 +56,12 @@
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <?php if(($flashcard['type']=="QUIZ" && (strtotime($flashcard['timeopen']) <= time() && strtotime($flashcard['timeclose']) >= time()))): ?>
+                <!-- 
+                    May issue sa if statement sa comparison ng time IDK kung sa timezone eme ata ito
+                    https://stackoverflow.com/questions/6158726/php-compare-time
+                    First comment sa first answer.
+                -->
+                <?php if(($flashcard['type']=="QUIZ" && (strtotime($flashcard['timeopen']) > time() && strtotime($flashcard['timeclose']) > time()))): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
