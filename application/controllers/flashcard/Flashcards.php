@@ -475,5 +475,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return 0;
         }
 
+        /**
+         * XSS Filtering for the Flashcard set input
+         */
+        private function create_set_clean(){
+            $name = $this->input->post('name', TRUE);
+            $description = $this->input->post('description', TRUE);
+            $color = $this->input->post('color', TRUE);
+
+            $data = array (
+                'name' => $name,
+                'description' => $description,
+                'color' => $color,
+            );
+
+            return $data;
+        }
+
+        /**
+         * Create Set
+         */
+        public function create_set(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $this->form_validation->set_rules('name','Name','required');
+                $this->form_validation->set_rules('description','Description','required');
+                $this->form_validation->set_rules('color','Color','required');
+
+                if($this->form_validation->run()==TRUE){
+                    $data = $this->create_set_clean();
+                    $this->flashcard_model->set_flashcards($data);
+                    redirect(base_url('flashcards/index/'));
+                }
+
+                $this->view('create-set');
+            }
+        }
+
         
     }

@@ -289,6 +289,17 @@
             $this->db->trans_complete();
         }
         
+        public function set_flashcards($data)
+        {
+            $this->db->trans_start();
+            $this->db->set('name', $data['name']);
+            $this->db->set('description', $data['description']);
+            $this->db->set('color', $data['color']);
+            $this->db->insert('flashcard_sets', $data);
+            $this->db->trans_complete();
+
+        }
+
 
     }
 ?>
