@@ -7,8 +7,8 @@
                 <div class="card-header text-center"> Notifications  </div>
 
                 <div class="card-body">
-                    <p><?php echo $notifs['body'] ?> </p> 
-                    <?php echo form_open("class/classes/enroll_user/".$_SESSION['Profile']['id'] ."/" .$notifs['class_id'])?>
+                    <p><?php echo $notifs->text ?> </p> 
+                    <?php echo form_open("class/classes/enroll_user/".$_SESSION['Profile']['id'] ."/" .$notifs->class_id)?>
                         <button class="btn btn-primary" type="submit">wanna join?</button>
                     <?php echo form_close()?>
 

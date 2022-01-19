@@ -28,9 +28,10 @@
 
         function getRef($notif_id){
             $query = $this->db->query("SELECT * FROM notification WHERE id='$notif_id'");
-            $notif = $query->result_array();
-            if($query->num_rows()==1){
-                $id = $notif['reference_id'];
+            $notif = $query->row();
+
+            if(isset($notif)){
+                $id = $notif->reference_id;
                 $query2 = $this->db->query("SELECT * FROM notification_reference WHERE id='$id'");
                 return $query2->row();
             }
