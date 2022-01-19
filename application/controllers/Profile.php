@@ -42,5 +42,14 @@ class Profile extends CI_Controller {
 		}
 
 	}
+	function read($notif_id){
+        $data['notifs'] = $this->notification_model->getRef($notif_id);
+
+        $data['title'] = ucfirst('notif_show');
+
+        $this->load->view('templates/header');
+        $this->load->view('pages/notif_show', $data);
+        $this->load->view('templates/footer');
+	}
 }
 ?>

@@ -17,9 +17,15 @@
                     <?php endforeach; ?>
                 </p>
                 <?php if($flashcard['type'] == 'QUIZ'): ?>
+                    <p>Quiz Type: <?php echo $flashcard['qtype'] ?></p>
                     <p>Time Open: <?php echo $flashcard['timeopen'] ?></p>
                     <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
                 <?php endif; ?>
+
+                <?php 
+                    $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
+                    //echo form_open("flashcards/edit/".$flashcard['id'])
+                ?>
 
                 <!-- Share Button -->
                 <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
@@ -30,28 +36,51 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- Edit Button -->
+                <!-- Flashcard Creator Available Buttons -->
                 <?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
-                    <?php 
-                        $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
-                        //echo form_open("flashcards/edit/".$flashcard['id'])
-                    ?>
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/".$flashcard["id"]); ?>'" >
-                    Edit
+
+                    <!-- Edit Flashcard Details -->
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/flashcard/".$flashcard["id"]); ?>'" >
+                    Edit Flashcard
+                    </button>
+
+                    <!-- Edit Questions -->
+                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/questions/".$flashcard["id"]); ?>'" >
+                    Edit Questions
+                    </button>
+
+                    <!-- Reopen -->
+                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                        Reopen
                     </button>
                 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <?php //if($flashcard['type']=="QUIZ" && $flashcard['timeopen'] <= time() && $flashcard['timeclose'] > time()): ?>
+                <!-- 
+                    May issue sa if statement sa comparison ng time IDK kung sa timezone eme ata ito
+                    https://stackoverflow.com/questions/6158726/php-compare-time
+                    First comment sa first answer.
+                -->
+                <?php if(($flashcard['type']=="QUIZ" && (strtotime($flashcard['timeopen']) > time() && strtotime($flashcard['timeclose']) > time()))): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
-                <?php //elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
-                    <!-- <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
+                <?php elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
+                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
-                    </button> -->
-                <?php //endif; ?>
-                
+                    </button>
+                <?php endif; ?>
+
+                <!-- View Result Button -->
+                <?php if(
+                    ($is_answered == TRUE && ($flashcard['qtype'] == "POP")) 
+                    || (($flashcard['qtype'] != "POP") &&  strtotime($flashcard['timeclose']) < time())
+                ):?>
+                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
+                    Results
+                    </button>
+                <?php endif; ?>
+
                 <!-- Flash data -->
                 <?php
                     if($this->session->flashdata('success')){?>

@@ -61,13 +61,19 @@ $route['flashcards/submit-answer'] = 'flashcard/flashcards/submit_answer';
 $route['flashcards/get-data/(:any)'] = 'flashcard/flashcards/get_data/$1';
 $route['flashcards/answer/(:any)'] = 'flashcard/flashcards/answer/$1';
 $route['flashcards/delete-question/(:any)'] = 'flashcard/flashcards/delete_question/$1';
-$route['flashcards/edit/(:any)'] = 'flashcard/flashcards/edit/$1';
+
+$route['flashcards/edit/(:any)/(:any)'] = 'flashcard/flashcards/edit/$1/$2';
+$route['flashcards/update/flashcard/(:any)'] = 'flashcard/flashcards/update_flashcard/$1';
+
 $route['flashcards/share/(:any)'] = 'flashcard/flashcards/share/$1';
 $route['flashcards/show/(:any)'] = 'flashcard/flashcards/show/$1';
 $route['flashcards/questions'] = 'flashcard/flashcards/questions';
 $route['flashcards/save_question'] = 'flashcard/flashcards/save_question';
 $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards';
+$route['flashcards/reopen/(:any)'] = 'flashcard/flashcards/reopen/$1';
+$route['flashcards/updateTime/(:any)'] = 'flashcard/flashcards/updateTime/$1';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
+
 
 $route['classes/join'] = 'class/classes/join';
 $route['classes/index/'] = 'class/classes/index/';

@@ -10,6 +10,7 @@ class Classes extends CI_Controller{
         $this->load->helper('security');
         $this->load->model('classes_model');
         $this->load->model('flashcard_model');
+        $this->load->model('notification_model');
     }
 
     function check_page($page, $data){
@@ -29,7 +30,6 @@ class Classes extends CI_Controller{
 
         $data['title'] = ucfirst($page);
         $data = $this->check_page($page, $data);
-
         $this->load->view('templates/header');
         $this->load->view('classes/'.$page, $data);
         $this->load->view('templates/footer');
@@ -126,17 +126,10 @@ class Classes extends CI_Controller{
 				$status = $this->classes_model->classes_inv($email);
 
                 if($status){
-                    
-                    $data = array(
-						'subject' => "Tarheta | Class Invite",
-						'header' => "Join ".$class_name . " Class",
-						'username' => $status['username'],
-						'body' => "Please click the the button to join the class",
-						'button' => "Join",
-						'link' => base_url()."class/classes/enroll_user/". $status['id'] ."/" .$class_id,
-					);
-                    $this->email->send_email($data, 'templates/email', $email);
-
+                
+                    $text = 'You have been invited to the '.$class_name.'!';
+                    $refID = $this->notification_model->reference($text, $class_id, NULL);
+                    $this->notification_model->notify('class.invite', $refID, $status['id']);
                     $this->session->set_flashdata('success', 'Users Invited');
                     redirect(base_url('classes/show/'.$class_id));
                 }
