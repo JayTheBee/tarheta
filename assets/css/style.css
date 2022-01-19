@@ -5,7 +5,10 @@ body {
 	overflow-x: hidden;
 	font-family: "Poppins", sans-serif;
 }
-
+section{
+	width: 100vw;
+	height: auto;
+}
 .indention {
 	padding-left: 25rem;
 }
@@ -112,6 +115,7 @@ body {
 	height: 34rem;
 	width: 56rem;
 	z-index: 2;
+	/* position: relative; */
 }
 .features-img {
 	height: 13rem;
@@ -211,7 +215,7 @@ div p {
 }
 .wave-size-2 {
 	width: 100vw;
-	height: 87vh;
+	height: 87%;
 	z-index: 1;
 }
 .contact {
@@ -737,11 +741,11 @@ div p {
 	z-index: 5;
 }
 .slide{
-	position: absolute;
-	width: 295px;
-	height: 213px;
-	left: 1119px;
-	top: 158px;
+	/* position: absolute; */
+	/* width: 295px; */
+	/* height: 213px; */
+	/* left: 1119px; */
+	/* top: 158px; */
 }
 .addquestion{
 	position: absolute;
