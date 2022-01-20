@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /* Scoring routes */
 $route['flashcards/score-user/(:any)/(:any)'] = 'flashcard/scorings/score_user/$1/$2';
+$route['flashcards/ranking/(:any)/(:any)'] = "flashcard/scorings/ranking/$1/$2";
 
 
 /* Flashcards routes */

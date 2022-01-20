@@ -241,5 +241,42 @@
             $this->db->trans_complete();
         }
 
+        /**
+         * Query the data in the user_scores and get the users that answered a specific flashcard.
+         * 
+         * This function also gets the username of the user and appends it to the query.
+         * 
+         * KEYS:
+         * 'flashcard' = data about the specific flashcard via $flashcard_id.
+         * 'users' = all the users that have answered the flashcard.
+         */
+        public function get_ranking($flashcard_id, $latest = FALSE){
+            if ($latest)
+                $query = $this->db->query("SELECT * FROM user_scores WHERE flashcard_id = $flashcard_id AND latest='YES'");
+            else
+                $query = $this->db->query("SELECT * FROM user_scores WHERE flashcard_id = $flashcard_id AND attempt=1");
+            
+            if ($query->num_rows() != 0){
+                $results = $query->result_array();
+                foreach ($results as $key => $user_score){
+                    $user = $this->db->get_where('users', array('id' => $user_score['user_id']));
+                    $results[$key]['username'] = $user->row('username');
+                }
+
+                // Comment by 'Mark Amery' (437 upvotes) - https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
+                // Sorting the flashcard rank ascending.
+                usort($results, function ($item1, $item2){
+                    if ($item1['flashcard_rank'] == $item2['flashcard_rank']) return 0;
+                    return ($item1['flashcard_rank'] > $item2['flashcard_rank']) ? 1 : -1;
+                });
+
+                return $results;
+            }
+            else{
+                return array();
+            }
+            
+        }
+
     }
 ?>

@@ -27,33 +27,38 @@
                     //echo form_open("flashcards/edit/".$flashcard['id'])
                 ?>
 
-                <!-- Share Button -->
-                <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
-                            Assign/Share
-                        </button>
-                    </div>
-                <?php endif; ?>
+<!-- Flashcard Creator Available Buttons -->
+<?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
+                <div class="text-center">
+                    <!-- Share Button -->
+                    <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
 
-                <!-- Flashcard Creator Available Buttons -->
-                <?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
+                                Assign/Share
+                            </button>
+                    <?php endif; ?>
 
                     <!-- Edit Flashcard Details -->
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/flashcard/".$flashcard["id"]); ?>'" >
-                    Edit Flashcard
-                    </button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/flashcard/".$flashcard["id"]); ?>'" >
+                        Edit Flashcard
+                        </button>
 
                     <!-- Edit Questions -->
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/questions/".$flashcard["id"]); ?>'" >
-                    Edit Questions
-                    </button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/edit/questions/".$flashcard["id"]); ?>'" >
+                        Edit Questions
+                        </button>
 
                     <!-- Reopen -->
-                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
-                        Reopen
-                    </button>
-                <?php endif; ?>
+                        <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
+                            Reopen
+                        </button>
+                    
+                    <!-- Ranking -->
+                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo site_url("flashcards/ranking/" .(($flashcard['qtype']=='POP' || $flashcard['qtype']=='ASSIGNMENT')?'first':'latest') ."/" .$flashcard["id"]); ?>'">
+                        Ranking
+                        </button>
+                </div>
+<?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
                 <!-- 
@@ -160,8 +165,6 @@
 </div>
 
 <script>
-    // var answers = document.getElementsByClassName("showme");
-    // var revealAnswers = document.getElementsByClassName("answerbtn");
     function revealAnswersFunction(e) {
         var all =document.getElementsByClassName('showanswer');
         for(let i=0;i<all.length;i++){
