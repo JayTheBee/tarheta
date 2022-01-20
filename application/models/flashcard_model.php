@@ -288,7 +288,31 @@
             
             $this->db->trans_complete();
         }
-        
+        // Database flascard_sets 
+        public function set_flashcards($data)
+        {
+            $this->db->trans_start();
+            $this->db->set('name', $data['name']);
+            $this->db->set('user_id', $data['user_id']);
+            $this->db->set('description', $data['description']);
+            $this->db->set('color', $data['color']);
+            $this->db->insert('flashcard_sets', $data);
+            $this->db->trans_complete();
 
+        }
+        
+        //Function where it returns an array containing all the sets of flashcard
+        public function get_sets($user_id){
+            $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
+            return $query->result_array();
+        }
+
+        function insertFlashcardSets($set_id, $flashcard_id){
+            $this->db->trans_start();
+            $this->db->set('flashcard_id', $flashcard_id);
+            $this->db->set('set_id', $set_id);
+            $this->db->insert('flashcard_set_list');
+            $this->db->trans_complete();
+        }
     }
 ?>
