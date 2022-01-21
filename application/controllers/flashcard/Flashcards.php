@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * 
          * Called in view($page = 'index', $data = array());
          */
-        private function check_page($page, $data){
+        private function _check_page($page, $data){
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $data['title'] = ucfirst($page);
 
-            $data = $this->check_page($page, $data);
+            $data = $this->_check_page($page, $data);
 
             $this->load->view('templates/header');
             $this->load->view('flashcards/'.$page, $data);
