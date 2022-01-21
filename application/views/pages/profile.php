@@ -11,8 +11,8 @@
 
                 <div class="card-body">
                     <?php
-                        if($this->session->userdata('UserLoginSession')){
-                            $udata = $this->session->userdata('UserLoginSession');
+                        if($this->session->userdata('sess_login')){
+                            $udata = $this->session->userdata('sess_login');
 
                             echo 'Welcome'.' '.$udata['username'];
                         }
@@ -21,28 +21,35 @@
 
                     <br><br>
                     <p>First Name: 
-                        <?php echo $_SESSION['Profile']['firstname']; ?>
+                        <?php echo $_SESSION['sess_profile']['firstname']; ?>
                     </p>
                     <p>Last Name: 
-                        <?php echo $_SESSION['Profile']['lastname']; ?>
+                        <?php echo $_SESSION['sess_profile']['lastname']; ?>
                     </p>
                     <p>Birthday: 
-                        <?php echo $_SESSION['Profile']['birthdate']; ?>
+                        <?php echo $_SESSION['sess_profile']['birthdate']; ?>
                     </p>
                     <p>School: 
-                        <?php echo $_SESSION['Profile']['school']; ?>
+                        <?php echo $_SESSION['sess_profile']['school']; ?>
                     </p>
                     <p>Course: 
-                        <?php echo $_SESSION['Profile']['course']; ?>
+                        <?php echo $_SESSION['sess_profile']['course']; ?>
                     </p>
                     <br>
 
                     <div class="justify-content-center d-flex flex-column ">
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("editprofile"); ?>'" >Edit Profile
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("auth/logins/logout"); ?>'" >Logout
-                        </button>
+                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo base_url("editprofile")?>'">Edit Profile</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url("auth/logins/logout")?>'">Logout</button>
                     </div>
+                   <?php
+                        if($this->session->flashdata('success')){?>
+                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                    <?php } ?>
+                    
+                    <?php
+                    if($this->session->flashdata('error')){?>
+                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                    <?php } ?>
                 </div>
             </div>
             </div>

@@ -2,53 +2,64 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profile extends CI_Controller {
-    function editprofile(){
+	public function __construct(){
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->load->helper('security');
+		$this->load->model('user_model');
+		$this->load->model('profile_model');
+	}
+    /**
+    * Main function for editing profile. Validates input, filters xss, and checks for empty inputs.
+    *
+    * @param       none
+    * @return      none
+    */
+    public function edit_profile(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 
-			/* IDK ha pero feel ko nde need na lahat required kasi pano pag name 
-				lang or school gusto iupdate ng user pero iwan ko lang dito just in case
-			*/
-			/*$this->form_validation->set_rules('firstname','Firstname');
-			$this->form_validation->set_rules('lastname','Lastname');
-			$this->form_validation->set_rules('birthdate', 'Birthdate');
-            $this->form_validation->set_rules('school', 'School');
-			$this->form_validation->set_rules('course', 'Course');*/
+			$this->form_validation->set_rules('firstname', 'First Name','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('lastname', 'Last Name','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('birthdate', 'Birthday','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('school', 'School','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('course', 'Course','trim|alpha_numeric_spaces');
 
-			$data = array(
-				'id'=>$_SESSION['Profile']['id'],
-				'user_id'=>$_SESSION['Profile']['user_id'],
-				'firstname'=>"",
-				'lastname'=>"",
-				'birthdate'=>"",
-				'school'=>"",
-				'course'=>"",
-			);
-			$this->load->helper('security');
-			if(!empty($this->input->post('firstname'))){
-				$data['firstname'] = $this->input->post('firstname', TRUE);
+			if($this->form_validation->run()){
+				$firstnamevar = $this->input->post('firstname', TRUE);
+				$lastnamevar = $this->input->post('lastname', TRUE);
+				$birthdatevar = $this->input->post('birthdate',TRUE);
+				$schoolvar = $this->input->post('school', TRUE);
+				$coursevar = $this->input->post('course', TRUE);
+
+				$data = $_SESSION['sess_profile'];
+
+				if(!empty($firstnamevar)){
+					$data['firstname'] = $firstnamevar;
+				}
+				if(!empty($lastnamevar)){
+					$data['lastname'] = $lastnamevar;	
+				}
+				if(!empty($birthdatevar)){
+					$data['birthdate'] = $birthdatevar;					
+				}
+				if(!empty($schoolvar)){
+					$data['school'] = $schoolvar;					
+				}
+				if(!empty($coursevar)){
+					$data['course'] = $coursevar;
+				}
+
+				$uservar = $_SESSION['sess_login']['username'];
+				$this->profile_model->edit_profiledb($data, $uservar);
+				$this->session->set_userdata('sess_profile', $data);
+				$this->session->set_flashdata('success', 'Profile updated successfully');
+			}else{
+				$this->session->set_flashdata('error','Please enter valid information');
 			}
-			if(!empty($this->input->post('lastname'))){
-				$data['lastname'] = $this->input->post('lastname', TRUE);	
-				
-			}
-			if(!empty($this->input->post('birthdate'))){
-				$data['birthdate'] = $this->input->post('birthdate',TRUE);
-				
-			}
-			if(!empty($this->input->post('school'))){
-				$data['school'] = $this->input->post('school',TRUE);
-				
-			}
-			if(!empty($this->input->post('course'))){
-				$data['course'] = $this->input->post('course',TRUE);	
-			}
-			$user = $_SESSION['UserLoginSession']['username'];
-			$this->load->model('profile_model');
-			$this->profile_model->editprofile($data, $user);
-			$this->session->set_userdata('Profile',$data);
-			$this->session->set_flashdata('success', 'Profile updated successfully');
-			redirect(base_url('profile'));
+		}else{
+			$this->session->set_flashdata('error','Please enter valid information');
 		}
+		redirect(base_url('profile'));
 
 	}
 }

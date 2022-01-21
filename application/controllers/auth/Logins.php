@@ -2,16 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Logins extends CI_Controller{
-    //jediboy: Modified function visibility for POLP. A function should always be private unless needed to be called on externally such as for views
-	//jediboy: Added class constructs
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->helper('security');
 		$this->load->model('user_model');
+		$this->load->model('profile_model');
 	}
 
-    private function view($page = 'home'){
+    /**
+    * Staple view function for controllers
+    *
+    * @param       string  $page  		 page views title
+    * @return      none
+    */
+    private function _view($page = 'home'){
 		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
 			show_404();
 		}
@@ -23,60 +29,80 @@ class Logins extends CI_Controller{
 		$this->load->view('templates/footer');
 	}
 
-    //jediboy: refactored
-	private function login_redirect($status, $username, $email, $password){
-		$username = $status->username;
-		$email = $status->email;
+    /**
+    * Sets session data after confirming user login
+    *
+    * @param       obj  	 $status_arg  			 db query
+    * @param       string  	 $password_arg  		 password
+    * @return      none
+    */
+	private function _login_redirect($status_arg, $password_arg){
+		$usernamevar = $status_arg->username;
+		$emailvar = $status_arg->email;
+
 		$session_data = array(
-			'username'=>$username,
-			'email'=>$email,
-			'password'=>password_hash($password, PASSWORD_DEFAULT),
+			'username'=> $usernamevar ,
+			'email'=> $emailvar,
+			'password'=>password_hash($password_arg, PASSWORD_DEFAULT),
 		);
 
-		$query = $this->user_model->getProfile($email);
-		$query2 = $this->user_model->getType($email);
-		$profile = (array) $query; //Typecasting from object to array
-		$type = (array) $query2;
-		$this->session->set_userdata('UserType', $type);
-		$this->session->set_userdata('Profile', $profile);
-		$this->session->set_userdata('UserLoginSession', $session_data);
+		$queryvar = $this->profile_model->get_profile($emailvar);
+		$query2var = $this->user_model->get_type($emailvar);
+		$profilevar = (array) $queryvar; 
+		$typevar = (array) $query2var;
+
+		$this->session->set_userdata('sess_user_type', $typevar);
+		$this->session->set_userdata('sess_profile', $profilevar);
+		$this->session->set_userdata('sess_login', $session_data);
 		
 		redirect(base_url('profile'));
 	}
 
+    /**
+    * Confirms user login and sets error flash if false
+    *
+    * @param       none
+    * @return      none
+    */
+
     public function login(){
+
 		if($_SERVER['REQUEST_METHOD']=='POST'){
+
 			$this->form_validation->set_rules('email','Email','required|valid_email');
 			$this->form_validation->set_rules('password','Password','required');
 
-			if($this->form_validation->run()==TRUE){
-				$email = $this->input->post('email', TRUE);
-				$username = $this->input->post('username', TRUE);
-				$password = $this->input->post('password',TRUE);
-				$status = $this->user_model->passCheck($password,$email);
+			if($this->form_validation->run()){
+				$emailvar = $this->input->post('email', TRUE);
+				$passwordvar = $this->input->post('password', TRUE);
 
-				if($status!=false){
-					$this->login_redirect($status, $username, $email, $password);
+				$statusvar = $this->user_model->user_check($passwordvar, $emailvar);
+
+				if($statusvar){
+					$this->_login_redirect($statusvar, $passwordvar);
 				}
 				else{
-					$this->session->set_flashdata('error', 'Incorrect Email or Password');
-					$this->view('login');
-					// redirect(base_url('login'));
+					$this->session->set_flashdata('error', 'Incorrect email or password!');
+					$this->_view('login');
 				}
 			}
 			else{
-				$this->session->set_flashdata('error','Fill all the required fields');
-				$this->view('login');
-				// redirect(base_url('login'));
+				$this->session->set_flashdata('error','Fill all the required fields!');
+				$this->_view('login');
 			}
 		}
 	}
 	
-
+    /**
+    * Removes session data and redirects to home page
+    *
+    * @param       none
+    * @return      none
+    */
 	public function logout(){
-		unset($_SESSION['UserLoginSession']);
-		unset($_SESSION['Profile']);
-		unset($_SESSION['UserType']);
+		unset($_SESSION['sess_login']);
+		unset($_SESSION['sess_profile']);
+		unset($_SESSION['sess_user_type']);
 		redirect(base_url());
 	}
 }

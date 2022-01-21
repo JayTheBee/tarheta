@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Signups extends CI_Controller{
-    //jediboy: Modified function visibility for POLP. A function should always be private unless needed to be called on externally such as for views
-	//jediboy: Added class constructs
+
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->library('email');
@@ -12,7 +12,13 @@ class Signups extends CI_Controller{
 		$this->load->model('user_model');
 	}
 
-    private function view($page = 'home'){
+    /**
+    * Staple view function for controllers
+    *
+    * @param       string  $page  		 page views title
+    * @return      none
+    */
+    private function _view($page = 'home'){
 		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
 			show_404();
 		}
@@ -24,7 +30,14 @@ class Signups extends CI_Controller{
 		$this->load->view('templates/footer');
 	}
 
-    private function captcha() {
+
+    /**
+    * recaptcha inner function
+    *
+    * @param       none
+    * @return      captcha response
+    */
+    private function _captcha() {
 		if (($_SERVER['REQUEST_METHOD']=='POST' && $_POST['g-recaptcha-response'] != "")){
 			$secret = env('RCAPTCHA_SECRET_KEY');// Secret key. Nasakin ung keys. si ramon kasi ung sa .env - ryle
 			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
@@ -32,7 +45,14 @@ class Signups extends CI_Controller{
 		}
 	}
 
-    private function segmentURL(){
+
+    /**
+    * url segmenting that helps with routing and recognizing arguments
+    *
+    * @param       none
+    * @return      array 	$segmentedURL		function arguments
+    */
+    private function _segment_url(){
 		$segmentedURL = array(
 			'username' => $this->uri->segment(4),
 			'code' => $this->uri->segment(5),
@@ -40,99 +60,135 @@ class Signups extends CI_Controller{
 		return $segmentedURL;
 	}
 
-    //jediboy: refactored
-	private function signup_clean(){
-		$data2 = array(
-			'type' => $_SESSION['usertype'],
+    
+
+    /**
+    * Function for validating inputs
+    *
+    * @param       none
+    * @return      none
+    */
+	private function _signup_clean(){
+		$data2var = array(
+			'type' => $_SESSION['sess_user_type'],
 		);
 
-		$username = $this->input->post('username', TRUE);
-		$email = $this->input->post('email', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$usernamevar = $this->input->post('username', TRUE);
+		$emailvar = $this->input->post('email', TRUE);
+		$passwordvar = $this->input->post('password', TRUE);
 
-		$code = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
+		$tokenvar = bin2hex(openssl_random_pseudo_bytes(10)); // Jedi okay na ba tong pang generate ng active_token or may better way ba?
 		// $code2 = bin2hex(openssl_random_pseudo_bytes(10));	jedi:ito dapat removed
 		//$datetime = new DateTime('tomorrow'); // @ryle pa fix Time not setting. 0:0:0 nagsasave sa DB
 		// $datetime = time(); // hindi na 0:0:0 ung time. -ryle
 
-		$data = array (
-			'username'=>$username,
-			'email'=>$email,
-			'password'=>password_hash($password, PASSWORD_DEFAULT),
-			'active_token' => $code,
+		$datavar = array (
+			'username'=>$usernamevar,
+			'email'=>$emailvar,
+			'password'=>password_hash($passwordvar, PASSWORD_DEFAULT),
+			'active_token' => $tokenvar,
 			// 'reset_token' => $code2,	jedi: ito rin dapat removed
 			// 'reset_exp' =>  date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60)
 		);
 
-		$this->user_model->insertuser($data, $data2);
-		$this->email_verify($username, $code, $email);
+		$this->user_model->insert_user($datavar, $data2var);
+		$this->_email_verify($usernamevar, $tokenvar, $emailvar);
 	}
 
-    //jediboy:refactored
+
+    /**
+    * Main function for signups
+    *
+    * @param       none
+    * @return      none
+    */
 	public function signup(){
 
-		if ($this->captcha()) { // '-> success' throws an error
+		if ($this->_captcha()) { // '-> success' throws an error
 				
 				$this->form_validation->set_rules('username','Username','required|is_unique[users.username]'); //<- is_unique[dbTableName.FieldToBeChecked]
 				$this->form_validation->set_rules('email','Email','required|is_unique[users.email]|valid_email');
 				$this->form_validation->set_rules('password','Password','required');
 				$this->form_validation->set_rules('confirm_password','Confrim Password','required|matches[password]');
 
-				if($this->form_validation->run()==TRUE){
-					$this->signup_clean();
+				if($this->form_validation->run()){
+					$this->_signup_clean();
+
+				}else{
+					$this->session->set_flashdata('error','Please enter valid information');
 				}
-				$this->view('signup');
-				// $this->load->view('templates/header');
-				// $this->load->view('pages/signup');
-				// $this->load->view('templates/footer');
+
+				$this->_view('signup');
 		}
 		else{
 			$this->session->set_flashdata('error','reCaptcha is Required.');
-			$this->view('signup');
+			$this->_view('signup');
 		}
 	}
 
-    //jediboy:refactored
-	private function email_verify($username, $code, $email){
-
+    /**
+    * Function for verifying email and sending email verification
+    *
+    * @param       string  		$username_arg  		 	username
+    * @param       string   	$token_arg  	 		email verification token
+    * @param       string 		$email_arg  		 	user email
+    * @return      none
+    */
+	private function _email_verify($username_arg, $token_arg, $email_arg){
 		$this->session->set_flashdata('success','Successfully Created. You can now login.');
-		$mail = array(
+		$mailvar = array(
 			'subject' => "Tarheta | Activeate Account",
 			'header' => "Activate your account",
-			'username' => $username,
+			'username' => $username_arg,
 			'body' => "Please click the the button to activate your account",
 			'button' => "Activate",
-			'link' => base_url()."/auth/signups/verify/".$username."/".$code,
+			'link' => base_url()."/auth/signups/verify/".$username_arg."/".$token_arg,
 		);
 
-		$this->email->send_email($mail, 'templates/email', $email);
+		$this->email->send_email($mailvar, 'templates/email', $email_arg);
 		redirect(base_url('login'));
 	}
 
-    public function setTeacher(){
-		$_SESSION['usertype'] = "TEACHER";
+    /**
+    * Set session data user type as TEACHER 
+    *
+    * @param       none
+    * @return      none
+    */
+    public function set_teacher(){
+		$_SESSION['sess_user_type'] = "TEACHER";
 		redirect(base_url('signup'));
 	}
 
-	public function setStudent(){
-		$_SESSION['usertype'] = "STUDENT";
+    /**
+    * Set session data user type as STUDENT 
+    *
+    * @param       none
+    * @return      none
+    */
+	public function set_student(){
+		$_SESSION['sess_user_type'] = "STUDENT";
 		redirect(base_url('signup'));
 	}
 
+
+   /**
+    * public function for email verification
+    *
+    * @param       none
+    * @return      none
+    */
 	public function verify(){
-		$url = $this->segmentURL();
+		$url = $this->_segment_url();
 		$data = array(
 			'active' => "Verified",
 			'active_timestamp' => date('Y-m-d H:i:s', time()), 
 		);
 
 		
-		$query = $this->user_model->verifyAccount($data, $url['username'], $url['code']);
-		if($query){
-			$this->view('verified');
-			// $this->load->view('templates/header');
-			// $this->load->view('pages/verified');
-			// $this->load->view('templates/footer');
+		$queryvar = $this->user_model->verify_account($data, $url['username'], $url['code']);
+		if($queryvar){
+			$this->_view('verified');
 		}
 	}
 }
