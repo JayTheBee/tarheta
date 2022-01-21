@@ -1,148 +1,177 @@
 <?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-    class user_model extends CI_Model{
-        
-        public function insertuser($data,$data2){
+    class User_model extends CI_Model{
+
+        /**
+        * Inserts new user inside database
+        *
+        * @param       array  $data_arg    Information for users table
+        * @param       array  $data2_arg   Information for user_types table
+        * @return      none
+        */
+        public function insert_user($data_arg, $data2_arg){
 
             $this->db->trans_start();
-            $this->db->insert('users', $data);
-            $user_id = $this->db->insert_id();
-
-            $data2['user_id'] = $user_id;
-            $this->db->insert('user_types', $data2);
+            $this->db->insert('users', $data_arg);
+            $user_idvar = $this->db->insert_id();
+            $data2_arg['user_id'] = $user_idvar;
+            $this->db->insert('user_types', $data2_arg);
 
             // $this->db->from('profile');  /* This is commented out since it works without it, but just in case.*/
-            $this->db->set('user_id', $user_id);
+            $this->db->set('user_id', $user_idvar);
             $this->db->insert('profile');
 
             $this->db->trans_complete();
 
-            unset($_SESSION['usertype']);
+            unset($_SESSION['sess_user_type']); 
         }
 
-        // function editprofile($data, $user){
-        //     echo($user_id);
-        //     exit();
-        //     $query = $this->db->query("SELECT * FROM users WHERE username='$user'");
-        //     $user_id = $query->row()->{'id'};
-            
-        //     $this->db->trans_start();
-        //     $this->db->from('profile');
-        //     $this->db->set('birthdate', $data['birthdate']);
-        //     $this->db->set('firstname', $data['firstname']);
-        //     $this->db->set('lastname', $data['lastname']);
-        //     $this->db->set('school', $data['school']);
-        //     $this->db->set('course', $data['course']);
-        //     $this->db->where('user_id', $user_id);
-            
-        //     $this->db->update('profile');
-        //     return $this->db->trans_complete();
-        //     return $this->db->update('profile',$data);
-	    // }
-
-        public function emailCheck($email){
-            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
-            if($query->num_rows()==1){
-                return $query->row();
+        /**
+        * Checks if email exists within users table
+        *
+        * @param       string  $email_arg    user email
+        * @return      query result or FALSE
+        */
+        public function email_check($email_arg){
+            $queryvar = $this->db->query("SELECT * FROM users WHERE email='$email_arg'");
+            if($queryvar->num_rows()==1){
+                return $queryvar->row();
             }
             else{
-                return false;
+                return FALSE;
             }
         }
 
+        /**
+        * Checks if password and email matches a user in users table
+        *
+        * @param       string  $email_arg        user email
+        * @param       string  $password_arg     user password unhashed
+        * @return      query result or FALSE
+        */
+        public function user_check($password_arg, $email_arg){
+            $queryvar = $this->db->query("SELECT * FROM users WHERE email='$email_arg'");
 
-        public function passCheck($password,$email){
-            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
-
-            if($query->num_rows()==1)
+            if($queryvar->num_rows()==1)
             {
                 /*
                     Sinnce pinalitan yung form of hashing may default rin syang pang verify. Read Here:
                     https://www.php.net/manual/en/function.password-verify.php
                 */
-                if (password_verify($password, $query->row('password'))){
-                    return $query->row();
+                if(password_verify($password_arg, $queryvar->row('password'))){
+                    return $queryvar->row();
                 }
                 else{
-                    return false;
+                    return FALSE;
                 }
             }
             else{
-                return false;
+                return FALSE;
             }
         }
 
+        /**
+        * Makes user email verified in the database
+        *
+        * @param       string  $username_arg        username
+        * @param       string  $token_arg           email activation token
+        * @param       array   $data_arg            email activation array
+        * @return      transaction result or FALSE
+        */
+        public function verify_account($data_arg, $username_arg, $token_arg){
 
-        public function verifyAccount($data, $username, $code){
-            $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND active_token='$code'");
-            if($query->num_rows() > 0){
-                //return $this->db->update('users', $data);
+            $queryvar = $this->db->query("SELECT * FROM users WHERE username='$username_arg' AND active_token='$token_arg'");
+            if($queryvar->num_rows() == 1){
+                
                 $this->db->trans_start();
                 $this->db->from('users');
-                $this->db->set('active', $data['active']);
-                $this->db->set('active_timestamp', $data['active_timestamp']);
-                $this->db->where('username', $username);
+                $this->db->set('active', $data_arg['active']);
+                $this->db->set('active_timestamp', $data_arg['active_timestamp']);
+                $this->db->where('username', $username_arg);
                 $this->db->update('users');
+
                 return $this->db->trans_complete();
+            }else{
+                return FALSE;
             }
         }
 
-        public function codeCheck($username, $code){
-            $query = $this->db->query("SELECT * FROM users WHERE username='$username' AND reset_token='$code'");
-            if(($query->num_rows() > 0) && (strtotime($query->row('reset_exp')) > time())){ //Checks if the reset_exp > current time meaning it is still valid
-                return true;
+
+        /**
+        * Checks if reset password token is true
+        *
+        * @param       string  $username_arg        username
+        * @param       string  $token_arg           reset password token
+        * @return      bool
+        */
+
+        public function reset_token_check($username_arg, $token_arg){
+            $queryvar = $this->db->query("SELECT * FROM users WHERE username='$username_arg' AND reset_token='$token_arg'");
+            if(($queryvar->num_rows() > 0) && (strtotime($queryvar->row('reset_exp')) > time())){ //Checks if the reset_exp > current time meaning it is still valid
+                return TRUE;
             }
             else{
-                return false;
+                return FALSE;
             }
         }
 
-        public function updatePassword($username,$password){
+        /**
+        * Updates password after reset password check
+        *
+        * @param       string  $username_arg        username
+        * @param       string  $password_arg        user password hashed
+        * @return      none
+        */
+        public function update_password($username_arg, $password_arg){
             $this->db->trans_start();
             $this->db->from('users');
-            $this->db->set('password', $password);
-            $this->db->set('reset_token', 'NULL', false);
-            $this->db->set('reset_exp', 'NULL', false);
-            $this->db->where('username', $username);
+            $this->db->set('password', $password_arg);
+            $this->db->set('reset_token', 'NULL', FALSE);
+            $this->db->set('reset_exp', 'NULL', FALSE);
+            $this->db->where('username', $username_arg);
             $this->db->update('users');
             $this->db->trans_complete();
         }
 
-        public function getProfile($email){
-            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
-            $id = $query->row()->{'id'};
-            if($query->num_rows()==1){
-                $query2 = $this->db->query("SELECT * FROM profile WHERE user_id='$id'");
-                return $query2->row();
+        /**
+        * Gets user type
+        *
+        * @param       string  $email_arg           user email
+        * @return      query result or FALSE
+        */
+        public function get_type($email_arg){
+            $queryvar = $this->db->query("SELECT * FROM users WHERE email='$email_arg'");
+            $idvar = $queryvar->row()->{'id'};
+
+            if($queryvar->num_rows()==1){
+                $query2var = $this->db->query("SELECT * FROM user_types WHERE user_id='$idvar'");
+                return $query2var->row();
             }
             else{
-                return false;
+                return FALSE;
             }
         }
 
-        public function getType($email){
-            $query = $this->db->query("SELECT * FROM users WHERE email='$email'");
-            $id = $query->row()->{'id'};
-            if($query->num_rows()==1){
-                $query2 = $this->db->query("SELECT * FROM user_types WHERE user_id='$id'");
-                return $query2->row();
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function genNewResetToken($id){
+        /**
+        * Generates new token for reseting password 
+        *
+        * @param       int     $id_arg              user id
+        * @return      cryptographically secure token
+        */
+        public function gen_new_token($id_arg){
             $datetime = time(); //Sets the new expiry +24 Hours
-            $newToken = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token
+            $new_token = bin2hex(openssl_random_pseudo_bytes(10)); //Generating new reset token
+
             $this->db->trans_start();
             $this->db->from('users');
-            $this->db->set('reset_token', $newToken);
+            $this->db->set('reset_token', $new_token);
             $this->db->set('reset_exp', date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60)); // 17 hours Validity. -ryle
-            $this->db->where('id', $id);
+            $this->db->where('id', $id_arg);
             $this->db->update('users');
             $this->db->trans_complete();
-            return $newToken;
+
+            return $new_token;
         }
     }
 

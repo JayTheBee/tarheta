@@ -31,14 +31,15 @@
         }
 
 
-        public function get_flashcards($user_id){
+        public function get_flashcards(){
+            $user_id = $_SESSION['Profile']['user_id'];
             $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
             $flashcards = $query->result_array();
             
             $result = array();
 
             //Getting the user's private and public flashcards
-           foreach($flashcards as $flashcard){
+            foreach($flashcards as $flashcard){
                 $id = $flashcard['flashcard_id'];
                 $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND creator_id='$user_id'");
                 if($query->num_rows()==1){
@@ -55,57 +56,26 @@
                 };
             }
 
-
             //Getting the other public flashcards that is not created by the user
             $query = $this->db->query("SELECT * FROM flashcards WHERE visibility='PUBLIC' AND creator_id <> '$user_id'");
             $result = array_merge($result, $query->result_array());
 
             return $result;
         }
-        function getClassFlashcard($class_id){
-            $query = $this->db->query("SELECT * FROM flashcard_class_access WHERE class_id='$class_id'");
-            $flashcards = $query->result_array();
-            
-            $result = array();
-
-            //Getting the user's private and public flashcards
-           foreach($flashcards as $flashcard){
-                $id = $flashcard['flashcard_id'];
-                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id'");
-                if($query->num_rows()==1){
-                    array_push($result, $query->row_array());
-                };
-            }
-            return $result;            
-        }
-
-        public function getCreatedFlashcards($user_id){
-            $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
-            $flashcards = $query->result_array();
-            
-            $result = array();
-
-            //Getting the user's private and public flashcards
-           foreach($flashcards as $flashcard){
-                $id = $flashcard['flashcard_id'];
-                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND creator_id='$user_id'");
-                if($query->num_rows()==1){
-                    array_push($result, $query->row_array());
-                };
-            }
-            return $result;
-        }
 
 
+        public function get_flashcard_data($flashcard_id){
 
-        public function verify_flashcard_data($flashcard_id){
-            $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");   
-            if($query->num_rows()==1){
-                return $query->row_array();
-            }
-            else{
-                return FALSE; 
-            }
+            $this->db->select("flashcards.*, flashcards_user_access.user_id, flashcard_set_list.set_id, flashcard_sets.name AS set_name, flashcard_sets.color AS set_color, flashcard_sets.description AS set_description"); 
+            $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
+            $this->db->join('flashcard_set_list', 'flashcard_set_list.flashcard_id = flashcards.id');
+            $this->db->join('flashcard_sets', 'flashcard_sets.id = flashcard_set_list.set_id');
+
+            $query = $this->db->get_where('flashcards', array('flashcards.id' => $flashcard_id));
+
+            return $query->row_array();
+            // $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");
+            // return $query->row_array();
         }
 
 
@@ -186,19 +156,6 @@
             $this->db->set('user_id', $user_id);
             $this->db->insert('flashcards_user_access');
             $this->db->trans_complete();
-        }
-
-        function insert_flashcard_class_access($flashcard_id, $class_id){
-            $this->db->trans_start();
-            $this->db->set('flashcard_id', $flashcard_id);
-            $this->db->set('class_id', $class_id);
-            $this->db->insert('flashcard_class_access');
-            $this->db->trans_complete();
-
-            $classMem = $this->classes_model->getMembers($class_id);
-            foreach($classMem as $members){
-                $this->insert_flashcard_user_access($flashcard_id, $members['user_id']);
-            }
         }
 
 
@@ -292,11 +249,7 @@
 
 
         public function get_data($flashcard_id){
-            $data['flashcard'] = $this->verify_flashcard_data($flashcard_id);
-            if(!$data['flashcard']){
-                return FALSE;
-            }
-
+            $data['flashcard'] = $this->get_flashcard_data($flashcard_id);
             $data['questions'] = $this->get_questions($flashcard_id);
             $data['multi_choices'] = $this->get_choices($data['questions']);
 
@@ -344,7 +297,34 @@
             
             $this->db->trans_complete();
         }
-        
+        // Database flascard_sets 
+        public function set_flashcards($data)
+        {
+            $this->db->trans_start();
+            $this->db->set('name', $data['name']);
+            $this->db->set('user_id', $data['user_id']);
+            $this->db->set('description', $data['description']);
+            $this->db->set('color', $data['color']);
+            $this->db->insert('flashcard_sets', $data);
+            $this->db->trans_complete();
 
+        }
+        
+        //Function where it returns an array containing all the sets of flashcard
+        public function get_sets($user_id){
+            $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
+            if ($query->num_rows() != 0)
+                return $query->result_array();
+            else
+                return FALSE;
+        }
+
+        function insertFlashcardSets($set_id, $flashcard_id){
+            $this->db->trans_start();
+            $this->db->set('flashcard_id', $flashcard_id);
+            $this->db->set('set_id', $set_id);
+            $this->db->insert('flashcard_set_list');
+            $this->db->trans_complete();
+        }
     }
 ?>

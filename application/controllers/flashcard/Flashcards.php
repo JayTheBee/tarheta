@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->helper('security');
             $this->load->model('flashcard_model');
             $this->load->model('tags_model');
+            $this->load->model('set_model');
         }
 
         
@@ -18,23 +19,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * 
          * Called in view($page = 'index', $data = array());
          */
-        private function check_page($page, $data){
+        private function _check_page($page, $data){
             if ($page == "index"){
                 $data['title'] = "View Flashcards";
-                $data['flashcards'] = $this->flashcard_model->get_flashcards($_SESSION['Profile']['user_id']);
+                $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                // echo "<pre>";
-                // print_r($data);
-                // echo "<\pre>";
-                // exit();
-            }
-            if ($page == 'edit'){
-                $data['questions'] = $this->flashcard_model->get_questions($_SESSION['Current_Flashcard']['flashcard_id']);
-                $data['multi_choices'] = $this->flashcard_model->get_choices($data['questions']);
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+                $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['Profile']['user_id']);
             }
             if($page == 'create'){
                 $data['categories'] = $this->tags_model->fetchCategoryList();
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
             }
             
             return $data;
@@ -51,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $data['title'] = ucfirst($page);
 
-            $data = $this->check_page($page, $data);
+            $data = $this->_check_page($page, $data);
 
             $this->load->view('templates/header');
             $this->load->view('flashcards/'.$page, $data);
@@ -96,6 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data = $this->get_data($flashcard_id);
             $data['categories'] = $this->tags_model->fetchCategoryList();
             $data['category'] = $this->tags_model->fetchCategory($flashcard_id);
+            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
             
             if ($data['flashcard']['creator_id'] == $_SESSION['Profile']['user_id'] && $this->check_access($flashcard_id)){
                 $this->view('edit-'.$type, $data);
@@ -113,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         private function check_access($flashcard_id){
             if (isset($_SESSION['UserLoginSession']) && isset($_SESSION['Profile'])){
                 // Gets all the flashcards that the current user has access to
-                $flashcards = $this->flashcard_model->get_flashcards($_SESSION['Profile']['user_id']);
+                $flashcards = $this->flashcard_model->get_flashcards();
 
                 // Check if the requested flashcard is in the list of accessible flashcards of the user
                 foreach($flashcards as $card){
@@ -186,6 +183,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $category = $this->input->post('category', TRUE);
                     $cat_check = $this->tags_model->checkCategory($category);
                     $this->tags_model->insertCategory($cat_check->id, $data['flashcard_id']);
+                    $set_id = $this->input->post('sets', TRUE);
+                    $this->flashcard_model->insertFlashcardSets($set_id, $data['flashcard_id']);
+
                     $this->session->set_userdata('Current_Flashcard',$data);
 
                     redirect(base_url('flashcards/edit/questions/'.$data['flashcard_id']));
@@ -209,10 +209,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if($this->form_validation->run()==TRUE){
                     $data['flashcard'] = $this->create_flashcards_clean();
                     $data['flashcard_id'] = $flashcard_id;
+                    $set_id = $this->input->post('sets', TRUE);
 
                     // ISSUE - category not yet updating when updating flashcard details
 
                     $this->flashcard_model->update_flashcard($data);
+                    $this->set_model->update_set_list($flashcard_id, $set_id);
                     redirect(base_url('flashcards/show/'.$flashcard_id));
                 }
             }
@@ -481,6 +483,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return $total_points;
             else
                 return 0;
+        }
+
+        /**
+         * XSS Filtering for the Flashcard set input
+         */
+        private function create_set_clean(){
+            $name = $this->input->post('name', TRUE);
+            $description = $this->input->post('description', TRUE);
+            $color = $this->input->post('color', TRUE);
+            $user_id = $_SESSION['Profile']['user_id'];
+
+            $data = array (
+                'name' => $name,
+                'user_id' => $user_id,
+                'description' => $description,
+                'color' => $color,
+            );
+
+            return $data;
+        }
+
+        /**
+         * Create Set
+         */
+        public function create_set(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $this->form_validation->set_rules('name','Name','required');
+                $this->form_validation->set_rules('description','Description','required');
+                $this->form_validation->set_rules('color','Color','required');
+
+                if($this->form_validation->run()==TRUE){
+                    $data = $this->create_set_clean();
+                    $this->flashcard_model->set_flashcards($data);
+                    redirect(base_url('flashcards/index/'));
+                }
+
+                $this->view('create-set');
+            }
         }
 
         

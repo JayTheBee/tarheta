@@ -71,10 +71,16 @@ class Scorings extends CI_Controller{
     }
 
 
-    public function ranking($user_id, $flashcard_id){
+    public function ranking($latest, $flashcard_id){
         $data = $this->flashcard_model->get_data($flashcard_id);
-        $data['user_scores'] = $this->scoring_model->get_user_score($flashcard_id, $user_id, $data['questions'],FALSE);
+        unset($data['questions']);
+        unset($data['multi_choices']);
 
-        $result = $this->scoring_model->update_flashcard_ranks($flashcard_id, $user_id, $data['user_scores']['user_score']);
+        // Converting string to bool
+        $latest = ($latest === "latest") ? TRUE : FALSE;
+        
+        $data['users'] = $this->scoring_model->get_ranking($flashcard_id, $latest);
+
+        $this->view('ranking', $data);
     }
 }

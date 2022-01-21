@@ -28,19 +28,19 @@
         private function checkSessions($page, $data){
             switch($page){
                 case 'editprofile':
-                    if (!isset($_SESSION['UserLoginSession'])){
+                    if (!isset($_SESSION['sess_login'])){
                         $this->session->set_flashdata('error', 'Please Login First');
                         redirect(base_url('login'));
                     }
                     break;
                 case 'profile':
-                    if (!isset($_SESSION['UserLoginSession'])){
+                    if (!isset($_SESSION['sess_login'])){
                         $this->session->set_flashdata('error', 'Please Login First');
                         redirect(base_url('login'));
                     }
                     break;
                 case 'reset-password':
-                    if (!isset($_SESSION['resetpassword'])){
+                    if (!isset($_SESSION['sess_reset_pass'])){
                         redirect(base_url('home'));
                     }
                     break;
@@ -50,7 +50,7 @@
                     break;
                 case 'signup':
                     $this->isUserLogedIn('home');
-                    if (!isset($_SESSION['usertype'])){
+                    if (!isset($_SESSION['sess_user_type'])){
                         redirect(base_url('account-type'));
                     }
                     break;
@@ -78,12 +78,12 @@
         }
 
         private function unsetUserType(){
-            if (isset($_SESSION['usertype'])){
-                unset($_SESSION['usertype']);
+            if (isset($_SESSION['sess_user_type'])){
+                unset($_SESSION['sess_user_type']);
             }
         }
         private function isUserLogedIn($redirect){
-            if (isset($_SESSION['UserLoginSession'])){
+            if (isset($_SESSION['sess_login'])){
                 $this->unsetUserType();
                 redirect(base_url($redirect));
             }

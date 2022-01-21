@@ -9,11 +9,10 @@
                     Login
                 </div>
                 <div class="card-body">
-                    <form method="POST" autocomplete="off" action="<?=base_url('auth/logins/login')?>">
-
+                     <?php echo form_open(base_url("auth/logins/login"))?>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" name="email" class="form-label">Email</label>
-                            <input type="email" placeholder="Email Address" name="email" value="<?php echo set_value('email'); ?>" class="form-control" id="email" aria-describedby="emailHelp">
+                            <input type="email" placeholder="Email Address" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" name="password" class="form-label">Password</label>
@@ -30,6 +29,8 @@
                             <br><br>
                             <a href="">Don't have an account? Sign up</a>
                         </div>
+                      <?php echo form_close()?>  
+
                         <?php
                             if($this->session->flashdata('success')){?>
                                 <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
@@ -40,14 +41,12 @@
                             <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                         <?php } ?>
 
-                    </form> 
-
                     <div id="myModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="POST" autocomplete="off" action="<?=base_url('auth/resetpasswords/sendPassReset')?>">
+                                <?php echo form_open(base_url("auth/reset_passwords/send_pass_email"))?>
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Password reset.</h5>
+                                        <h5 class="modal-title">Reset Password</h5>
                                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
                                     </div>
                                     <div class="modal-body">                        
@@ -60,7 +59,7 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
-                                </form>
+                                <?php echo form_close()?> 
                             </div>
                         </div> 
                     </div>
