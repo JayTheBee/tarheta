@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col-6">
-                    <div class="img-size-girl my-5 pt-2">
+                    <div class="img-size-girl mx-5 pt-2">
                         <img src="<?php echo base_url("assets/images/home/home-girl.png"); ?>">
                     </div>
                 </div>

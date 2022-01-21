@@ -32,12 +32,6 @@
                         <span class="text">Enter tarheta title…</span>
                         <span class="settings-button mh-75 d-inline-block">
                             <span class="settings">Settings</span>
-                            <span class="sc-cyYBgJ kqUWjo">
-                                <span class="sc-eCssSg cAELPS" style="display: inline-block; vertical-align: middle; width: 32px; height: 32px;">
-                                    <svg id="settings" data-functional-selector="icon" viewBox="0 0 32 32" focusable="false" stroke="none" stroke-width="0">
-                                    </svg>
-                                </span>
-                            </span>
                         </span>
                     </button>
                 </div>
