@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2022 at 02:32 AM
+-- Generation Time: Jan 21, 2022 at 03:34 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -44,7 +44,8 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (5, 'Science'),
 (6, 'Biology'),
 (7, 'Engineering'),
-(8, 'Spanish');
+(8, 'Spanish'),
+(9, 'RYle');
 
 -- --------------------------------------------------------
 
@@ -164,6 +165,32 @@ CREATE TABLE `flashcard_multiple_choice` (
   `choiceB` text NOT NULL,
   `choiceC` text NOT NULL,
   `choiceD` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flashcard_sets`
+--
+
+CREATE TABLE `flashcard_sets` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `color` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flashcard_set_list`
+--
+
+CREATE TABLE `flashcard_set_list` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `set_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -336,6 +363,18 @@ ALTER TABLE `flashcard_multiple_choice`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `flashcard_sets`
+--
+ALTER TABLE `flashcard_sets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `flashcard_set_list`
+--
+ALTER TABLE `flashcard_set_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `flashcard_statistic`
 --
 ALTER TABLE `flashcard_statistic`
@@ -387,7 +426,7 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `category_list`
@@ -435,6 +474,18 @@ ALTER TABLE `flashcards_user_access`
 -- AUTO_INCREMENT for table `flashcard_multiple_choice`
 --
 ALTER TABLE `flashcard_multiple_choice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `flashcard_sets`
+--
+ALTER TABLE `flashcard_sets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `flashcard_set_list`
+--
+ALTER TABLE `flashcard_set_list`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

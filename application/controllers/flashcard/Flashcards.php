@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->helper('security');
             $this->load->model('flashcard_model');
             $this->load->model('tags_model');
+            $this->load->model('set_model');
         }
 
         
@@ -24,6 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+                $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['Profile']['user_id']);
             }
             if($page == 'create'){
                 $data['categories'] = $this->tags_model->fetchCategoryList();
@@ -89,6 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data = $this->get_data($flashcard_id);
             $data['categories'] = $this->tags_model->fetchCategoryList();
             $data['category'] = $this->tags_model->fetchCategory($flashcard_id);
+            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
             
             if ($data['flashcard']['creator_id'] == $_SESSION['Profile']['user_id'] && $this->check_access($flashcard_id)){
                 $this->view('edit-'.$type, $data);
@@ -205,10 +209,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if($this->form_validation->run()==TRUE){
                     $data['flashcard'] = $this->create_flashcards_clean();
                     $data['flashcard_id'] = $flashcard_id;
+                    $set_id = $this->input->post('sets', TRUE);
 
                     // ISSUE - category not yet updating when updating flashcard details
 
                     $this->flashcard_model->update_flashcard($data);
+                    $this->set_model->update_set_list($flashcard_id, $set_id);
                     redirect(base_url('flashcards/show/'.$flashcard_id));
                 }
             }

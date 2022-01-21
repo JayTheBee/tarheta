@@ -65,8 +65,17 @@
 
 
         public function get_flashcard_data($flashcard_id){
-            $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");
+
+            $this->db->select("flashcards.*, flashcards_user_access.user_id, flashcard_set_list.set_id, flashcard_sets.name AS set_name, flashcard_sets.color AS set_color, flashcard_sets.description AS set_description"); 
+            $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
+            $this->db->join('flashcard_set_list', 'flashcard_set_list.flashcard_id = flashcards.id');
+            $this->db->join('flashcard_sets', 'flashcard_sets.id = flashcard_set_list.set_id');
+
+            $query = $this->db->get_where('flashcards', array('flashcards.id' => $flashcard_id));
+
             return $query->row_array();
+            // $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");
+            // return $query->row_array();
         }
 
 
@@ -304,7 +313,10 @@
         //Function where it returns an array containing all the sets of flashcard
         public function get_sets($user_id){
             $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
-            return $query->result_array();
+            if ($query->num_rows() != 0)
+                return $query->result_array();
+            else
+                return FALSE;
         }
 
         function insertFlashcardSets($set_id, $flashcard_id){

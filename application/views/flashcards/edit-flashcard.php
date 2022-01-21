@@ -74,6 +74,17 @@
                         </select>
                         <h6>Before editing please manually add a category to the DB and select it here</h6>
                     </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="sets">Flashcard Sets</label>
+                        <select id="sets" name="sets" class="form-control">
+                        <?php 
+                            foreach($sets as $row){ 
+                                echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                            }
+                        ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -106,6 +117,7 @@
         <?php endif; ?>
 
         $("#visibility").val('<?php echo $flashcard['visibility']?>');
+        $("#sets").val('<?php echo $flashcard['set_id']?>');
         
         // IDK what to do here yet.
         // $("#category").val('');
