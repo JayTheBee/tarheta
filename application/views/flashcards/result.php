@@ -5,6 +5,8 @@
             <div class="card-header text-center">
                 <h3><?php echo $flashcard['name']; ?></h3>
                 <p><?php echo $flashcard['description'] ?></p>
+                <h5><?php echo $user_scores['user_score']?>/<?php echo $flashcard['total_score']?></h5>
+                <h6>Attempt : <?php echo $user_answers[0]['attempt']?></h6>
                 
                 <!-- Flash data -->
                 <?php
@@ -35,10 +37,10 @@
                             <?php endforeach; ?>
                         <!-- Displays if the question type is True or False -->
                         <?php elseif($question['question_type'] == 'TRUEFALSE'):?>
-                            <p>TRUE/FALSE</p>
+                            <p>[ TRUE/FALSE ]</p>
                         <!-- Displays if the question type is Identification -->
                         <?php elseif($question['question_type'] == 'IDENTIFICATION'):?>
-                            <p>TEXT BOX GO BRRRRR</p>
+                            <p>[ IDENTIFICATION ]</p>
                         <?php endif; ?>    
                         
                         <!-- AREA WHERE THE USER'S ANSWER WILL GO -->

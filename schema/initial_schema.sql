@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2022 at 04:23 PM
+-- Generation Time: Jan 20, 2022 at 02:32 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- PHP Version: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,6 +31,20 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'PE'),
+(2, 'Calculus'),
+(3, 'Linear Algebra'),
+(4, 'Physics'),
+(5, 'Science'),
+(6, 'Biology'),
+(7, 'Engineering'),
+(8, 'Spanish');
 
 -- --------------------------------------------------------
 
@@ -101,6 +115,7 @@ CREATE TABLE `flashcards` (
   `description` varchar(255) NOT NULL,
   `type` enum('QUIZ','REVIEWER') NOT NULL,
   `visibility` enum('PRIVATE','PUBLIC') NOT NULL,
+  `qtype` enum('POP','EXAM','ASSIGNMENT') DEFAULT NULL,
   `total_score` int(11) NOT NULL,
   `timeopen` datetime NOT NULL,
   `timeclose` datetime NOT NULL,
@@ -175,6 +190,7 @@ CREATE TABLE `flashcard_statistic` (
 CREATE TABLE `profile` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `avatar` enum('DEFAULT','CAT','DOG') NOT NULL,
   `birthdate` date NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
@@ -371,7 +387,7 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category_list`
