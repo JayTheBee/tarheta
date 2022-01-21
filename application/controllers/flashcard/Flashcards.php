@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             if($page == 'create'){
                 $data['categories'] = $this->tags_model->fetchCategoryList();
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
             }
             
             return $data;
@@ -186,6 +187,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $category = $this->input->post('category', TRUE);
                     $cat_check = $this->tags_model->checkCategory($category);
                     $this->tags_model->insertCategory($cat_check->id, $data['flashcard_id']);
+                    $set_id = $this->input->post('sets', TRUE);
+                    $this->flashcard_model->insertFlashcardSets($set_id, $data['flashcard_id']);
+
                     $this->session->set_userdata('Current_Flashcard',$data);
 
                     redirect(base_url('flashcards/edit/questions/'.$data['flashcard_id']));
@@ -481,6 +485,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return $total_points;
             else
                 return 0;
+        }
+
+        /**
+         * XSS Filtering for the Flashcard set input
+         */
+        private function create_set_clean(){
+            $name = $this->input->post('name', TRUE);
+            $description = $this->input->post('description', TRUE);
+            $color = $this->input->post('color', TRUE);
+            $user_id = $_SESSION['Profile']['user_id'];
+
+            $data = array (
+                'name' => $name,
+                'user_id' => $user_id,
+                'description' => $description,
+                'color' => $color,
+            );
+
+            return $data;
+        }
+
+        /**
+         * Create Set
+         */
+        public function create_set(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $this->form_validation->set_rules('name','Name','required');
+                $this->form_validation->set_rules('description','Description','required');
+                $this->form_validation->set_rules('color','Color','required');
+
+                if($this->form_validation->run()==TRUE){
+                    $data = $this->create_set_clean();
+                    $this->flashcard_model->set_flashcards($data);
+                    redirect(base_url('flashcards/index/'));
+                }
+
+                $this->view('create-set');
+            }
         }
 
         

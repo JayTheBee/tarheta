@@ -50,6 +50,9 @@
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>flashcards/index">Flashcard</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url(); ?>flashcards/create-set">+Create Set</a>
+                      </li>
 <?php endif; ?>
                 </ul>
                 </div>

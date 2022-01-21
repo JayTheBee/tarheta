@@ -70,6 +70,16 @@
                                     </select>
                                     <p>needs a script to dynamically add more input fields</p>
                                 </div>
+                                <div class="form-group col-md-2">
+                                    <label for="sets">Flashcard Sets</label>
+                                    <select id="sets" name="sets" class="form-control">
+                                    <?php 
+                                        foreach($sets as $row){ 
+                                            echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="text-center">
