@@ -131,7 +131,7 @@
                             <p class="card-text text-center">loryvigrace.leogo@tup.edu.ph</p>
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/Lgleogo"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                                <a href="#" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                                <a href="<?php echo "https://github.com/loryvi"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
                                 <i class="fab fa-linkedin fa-lg"></i>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/knonan2"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/kenblader"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
+                                <a href="<?php echo "https://www.linkedin.com/in/kenshiro-nonan-8ab77622a/"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
@@ -162,22 +162,21 @@
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/agpalaban.red"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/Tarun1-afk"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
-                            </div>
+                                <a href="<?php echo "https://www.linkedin.com/in/dan-matthew-tarun-8bb06b22b/"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card h-100">
-                        <img src="<?php echo base_url("assets/images/developers/standin.png"); ?>" class="card-img-top" alt="...">
+                        <img src="<?php echo base_url("assets/images/developers/ryl.jpg"); ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title text-center">RYLEDALE TORRES</h5>
                             <p class="card-text text-center">ryledale.torres@tup.edu.ph</p>
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/rylgeeel"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/ryldale"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
+                                <a href="<?php echo "https://www.linkedin.com/in/ryldale-torres-65509122b/"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
@@ -185,14 +184,14 @@
 
                 <div class="col">
                     <div class="card h-100">
-                        <img src="<?php echo base_url("assets/images/developers/standin.png"); ?>" class="card-img-top" alt="...">
+                        <img src="<?php echo base_url("assets/images/developers/jon.jpg"); ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title text-center">JON PATRIX VELASCO</h5>
                             <p class="card-text text-center">jonpatrix.velasco@tup.edu.ph</p>
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/madkiller11"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                                <a href="#" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
+                                <a href="<?php echo "https://github.com/jon-velasco"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                                <a href="<?php echo "https://www.linkedin.com/in/jon-velasco-732092229/"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
@@ -207,11 +206,11 @@
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/KRZante"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/krzante"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
+                                <a href="<?php echo "https://www.linkedin.com/in/ramon-zante-b6009022b"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
     </div>
