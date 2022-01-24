@@ -24,7 +24,6 @@
                     <br>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Create Class</button>
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("profile"); ?>'" >Back </button>
                     </div>
                     <?php
                         if($this->session->flashdata('success')){?>

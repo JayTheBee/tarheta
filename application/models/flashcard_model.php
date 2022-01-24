@@ -32,7 +32,7 @@
 
 
         public function get_flashcards(){
-            $user_id = $_SESSION['Profile']['user_id'];
+            $user_id = $_SESSION['sess_profile']['user_id'];
             $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
             $flashcards = $query->result_array();
             

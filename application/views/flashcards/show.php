@@ -28,7 +28,7 @@
                 ?>
 
 <!-- Flashcard Creator Available Buttons -->
-<?php if($flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
+<?php if($flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
                 <div class="text-center">
                     <!-- Share Button -->
                     <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
@@ -81,7 +81,7 @@
                     ($is_answered == TRUE && ($flashcard['qtype'] == "POP")) 
                     || (($flashcard['qtype'] != "POP") &&  strtotime($flashcard['timeclose']) < time())
                 ):?>
-                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['Profile']['user_id']."/".$flashcard["id"]); ?>'">
+                    <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['sess_profile']['user_id']."/".$flashcard["id"]); ?>'">
                     Results
                     </button>
                 <?php endif; ?>

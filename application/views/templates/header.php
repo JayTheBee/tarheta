@@ -42,7 +42,7 @@
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/join">Join Class</a>
                       </li>
-        <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER') : ?>
+        <?php if($_SESSION['sess_user_type'] = "TEACHER") : ?>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/create">+ Create Class</a>
                       </li>

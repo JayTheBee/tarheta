@@ -17,15 +17,15 @@ class Profile extends CI_Controller {
     */
     public function edit_profile(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
-
+  
 			$this->form_validation->set_rules('firstname', 'First Name','trim|alpha_numeric_spaces');
 			$this->form_validation->set_rules('lastname', 'Last Name','trim|alpha_numeric_spaces');
-			$this->form_validation->set_rules('birthdate', 'Birthday','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('birthdate', 'Birthday');
 			$this->form_validation->set_rules('school', 'School','trim|alpha_numeric_spaces');
 			$this->form_validation->set_rules('course', 'Course','trim|alpha_numeric_spaces');
 
 			if($this->form_validation->run()){
-				$avatar = $this->input->post('avatar', TRUE);
+				$avatarvar = $this->input->post('avatar', TRUE);
 				$firstnamevar = $this->input->post('firstname', TRUE);
 				$lastnamevar = $this->input->post('lastname', TRUE);
 				$birthdatevar = $this->input->post('birthdate',TRUE);

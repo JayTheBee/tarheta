@@ -25,12 +25,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
-                $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['Profile']['user_id']);
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['sess_profile']['user_id']);
+                $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
             }
             if($page == 'create'){
                 $data['categories'] = $this->tags_model->fetchCategoryList();
-                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['sess_profile']['user_id']);
             }
             
             return $data;
@@ -92,9 +92,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data = $this->get_data($flashcard_id);
             $data['categories'] = $this->tags_model->fetchCategoryList();
             $data['category'] = $this->tags_model->fetchCategory($flashcard_id);
-            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['sess_profile']['user_id']);
             
-            if ($data['flashcard']['creator_id'] == $_SESSION['Profile']['user_id'] && $this->check_access($flashcard_id)){
+            if ($data['flashcard']['creator_id'] == $_SESSION['sess_profile']['user_id'] && $this->check_access($flashcard_id)){
                 $this->view('edit-'.$type, $data);
             }
             else{
@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * Function that prevents the user from accessing flashcards by manually typing the URL.
          */
         private function check_access($flashcard_id){
-            if (isset($_SESSION['UserLoginSession']) && isset($_SESSION['Profile'])){
+            if (isset($_SESSION['sess_login']) && isset($_SESSION['sess_profile'])){
                 // Gets all the flashcards that the current user has access to
                 $flashcards = $this->flashcard_model->get_flashcards();
 
@@ -149,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  $this->view('create');
             }else{ 
                 $data = array (
-                    'creator_id' => $_SESSION['Profile']['user_id'],
+                    'creator_id' => $_SESSION['sess_profile']['user_id'],
                     'name' => $name,
                     'description' => $description,
                     'type' => $type,

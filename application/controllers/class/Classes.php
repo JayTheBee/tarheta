@@ -54,7 +54,7 @@ class Classes extends CI_Controller{
                         'school'=> $school,
                         
                     );
-                    $user_id = $_SESSION['Profile']['user_id'];
+                    $user_id = $_SESSION['sess_profile']['user_id'];
                     $this->classes_model->insertclasses($data, $user_id);
                     
                     $this->session->set_flashdata('success','Classes successfully created!');
@@ -72,7 +72,7 @@ class Classes extends CI_Controller{
         $data['class'] = $this->classes_model->showClass($class_id);
         $data['classMembers'] = $this->classes_model->getMembers($class_id);
         $data['assignedFlashcards'] = $this->flashcard_model->getClassFlashcard($class_id);
-        $data['createdFlashcards'] = $this->flashcard_model->getCreatedFlashcards($_SESSION['Profile']['user_id']);
+        $data['createdFlashcards'] = $this->flashcard_model->getCreatedFlashcards($_SESSION['sess_profile']['user_id']);
         $data['title'] = ucfirst('show');
 
         $this->load->view('templates/header');
@@ -88,7 +88,7 @@ class Classes extends CI_Controller{
 
                 $class_code = $this->input->post('invite', TRUE);
                 $class = $this->classes_model->verifyCode($class_code);
-                $user_id = $_SESSION['Profile']['user_id'];
+                $user_id = $_SESSION['sess_profile']['user_id'];
                 $email_check = $this->classes_model->emailCheck($user_id);
 
                 if(!$class){
