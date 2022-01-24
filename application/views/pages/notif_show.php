@@ -8,10 +8,15 @@
 
                 <div class="card-body">
                     <p><?php echo $notifs->text ?> </p> 
-                    <?php echo form_open("class/classes/enroll_user/".$_SESSION['Profile']['id'] ."/" .$notifs->class_id)?>
+                <?php if($flag==1): ?>
+                    <?php echo form_open("class/classes/enroll_user/".$_SESSION['sess_profile']['id'] ."/" .$notifs->class_id)?>
                         <button class="btn btn-primary" type="submit">wanna join?</button>
                     <?php echo form_close()?>
-
+                   <?php echo form_open("class/classes/enroll_user/".$_SESSION['sess_profile']['id'] ."/" .$notifs->class_id)?>
+                        <button class="btn btn-primary" type="submit">decline?</button>
+                    <?php echo form_close()?>
+                <?php else: ?>
+                <?php endif; ?>
                 </div>
             </div>
             </div>

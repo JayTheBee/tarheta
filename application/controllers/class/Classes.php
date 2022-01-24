@@ -13,7 +13,7 @@ class Classes extends CI_Controller{
         $this->load->model('notification_model');
     }
 
-    function check_page($page, $data){
+    private function _check_page($page, $data){
         if($page == 'index'){
             $data['result'] = $this->classes_model->getClass();
         }
@@ -29,7 +29,7 @@ class Classes extends CI_Controller{
         }
 
         $data['title'] = ucfirst($page);
-        $data = $this->check_page($page, $data);
+        $data = $this->_check_page($page, $data);
         $this->load->view('templates/header');
         $this->load->view('classes/'.$page, $data);
         $this->load->view('templates/footer');
@@ -68,7 +68,7 @@ class Classes extends CI_Controller{
     }
 
 
-    function show($class_id){
+    public function show($class_id){
         $data['class'] = $this->classes_model->showClass($class_id);
         $data['classMembers'] = $this->classes_model->getMembers($class_id);
         $data['assignedFlashcards'] = $this->flashcard_model->getClassFlashcard($class_id);

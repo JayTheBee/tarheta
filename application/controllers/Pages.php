@@ -16,7 +16,7 @@
             }
 
             $data['title'] = ucfirst($page);
-            $data = $this->checkSessions($page, $data);
+            $data = $this->_check_session($page, $data);
 
 
             $this->load->view('templates/header');
@@ -25,8 +25,8 @@
         }
 
         /* Function to check if the user has access to the specified page via SESSION else redirects them */
-        private function checkSessions($page, $data){
-            switch($page){
+        private function _check_session($page_arg, $data_arg){
+            switch($page_arg){
                 case 'editprofile':
                     if (!isset($_SESSION['sess_login'])){
                         $this->session->set_flashdata('error', 'Please Login First');
@@ -45,46 +45,39 @@
                     }
                     break;
                 case 'login':
-                    $this->unsetUserType();
-                    $this->isUserLogedIn('profile');
+                    $this->_unset_type();
+                    $this->_login_check('profile');
                     break;
                 case 'signup':
-                    $this->isUserLogedIn('home');
+                    $this->_login_check('home');
                     if (!isset($_SESSION['sess_user_type'])){
                         redirect(base_url('account-type'));
                     }
                     break;
                 case 'account-type':
-                    $this->isUserLogedIn('home');
+                    $this->_login_check('home');
                     break;
-                // case 'notif':
-                //     if (!isset($_SESSION['UserLoginSession'])){
-                //         $this->session->set_flashdata('error', 'Please Login First');
-                //         redirect(base_url('login'));
-                //     }
-                //     $data['notifications'] = $this->notification_model->getNotifs($_SESSION['Profile']['user_id']);
-                //     break;
+                case 'notif':
+                    if (!isset($_SESSION['sess_login'])){
+                        $this->session->set_flashdata('error', 'Please Login First');
+                        redirect(base_url('login'));
+                    }
+                    $data_arg['notifications'] = $this->notification_model->get_notifications($_SESSION['sess_profile']['user_id']);
+                    break;
                 default:
                     break;
             }
-
-            if($page == 'notif'){
-              $data['notifications'] = $this->notification_model->getNotifs($_SESSION['Profile']['user_id']);
-            }
-            // if($page == 'join'){
-
-            // }
-            return $data;
+            return $data_arg;
         }
 
-        private function unsetUserType(){
+        private function _unset_type(){
             if (isset($_SESSION['sess_user_type'])){
                 unset($_SESSION['sess_user_type']);
             }
         }
-        private function isUserLogedIn($redirect){
+        private function _login_check($redirect){
             if (isset($_SESSION['sess_login'])){
-                $this->unsetUserType();
+                $this->_unset_type();
                 redirect(base_url($redirect));
             }
         }
