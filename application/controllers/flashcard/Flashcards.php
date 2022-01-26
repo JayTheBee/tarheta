@@ -25,12 +25,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data['flashcards'] = $this->flashcard_model->get_flashcards();
                 $data['categories'] = $this->flashcard_model->get_categories();
                 $data['category_list'] = $this->flashcard_model->get_category_list($data['flashcards']);
-                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
-                $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['Profile']['user_id']);
+                $data['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
+                // $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
             }
             if($page == 'create'){
                 $data['categories'] = $this->tags_model->fetchCategoryList();
-                $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+                $data['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
             }
             
             return $data;
@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // Setting the variable for the view to check if the user already answered the flashcard
             if(count($data['questions']) != 0){
                 $question_id = $data['questions'][0]['id'];
-                $user_id = $_SESSION['Profile']['user_id'];
+                $user_id = $_SESSION['sess_profile']['user_id'];
                 $data['is_answered'] = $this->flashcard_model->check_already_answered($question_id, $user_id);
             }
             else{
@@ -92,9 +92,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data = $this->get_data($flashcard_id);
             $data['categories'] = $this->tags_model->fetchCategoryList();
             $data['category'] = $this->tags_model->fetchCategory($flashcard_id);
-            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['Profile']['user_id']);
+            $data['sets'] = $this->flashcard_model->get_sets($_SESSION['sess_profile']['user_id']);
             
-            if ($data['flashcard']['creator_id'] == $_SESSION['Profile']['user_id'] && $this->check_access($flashcard_id)){
+            if ($data['flashcard']['creator_id'] == $_SESSION['sess_profile']['user_id'] && $this->check_access($flashcard_id)){
                 $this->view('edit-'.$type, $data);
             }
             else{
@@ -108,10 +108,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * Function that prevents the user from accessing flashcards by manually typing the URL.
          */
         private function check_access($flashcard_id){
-            if (isset($_SESSION['UserLoginSession']) && isset($_SESSION['Profile'])){
+            if (isset($_SESSION['sess_login']) && isset($_SESSION['sess_profile'])){
                 // Gets all the flashcards that the current user has access to
                 $flashcards = $this->flashcard_model->get_flashcards();
-
                 // Check if the requested flashcard is in the list of accessible flashcards of the user
                 foreach($flashcards as $card){
                     if ($card['id'] == $flashcard_id)
@@ -149,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  $this->view('create');
             }else{ 
                 $data = array (
-                    'creator_id' => $_SESSION['Profile']['user_id'],
+                    'creator_id' => $_SESSION['sess_profile']['user_id'],
                     'name' => $name,
                     'description' => $description,
                     'type' => $type,
@@ -184,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $cat_check = $this->tags_model->checkCategory($category);
                     $this->tags_model->insertCategory($cat_check->id, $data['flashcard_id']);
                     $set_id = $this->input->post('sets', TRUE);
-                    $this->flashcard_model->insertFlashcardSets($set_id, $data['flashcard_id']);
+                    $this->set_model->insertFlashcardSets($set_id, $data['flashcard_id']);
 
                     $this->session->set_userdata('Current_Flashcard',$data);
 
@@ -425,8 +424,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * 'questions' => Array of all the questions bound to the flashcard ID.
          * 'multi-choices' => Array of the multiple answer choices for the questions that requires it.
          */
-        public function get_data($flashcard_id){
-            $data = $this->flashcard_model->get_data($flashcard_id);
+        public function get_data($flashcard_id, $has_sets_arg=FALSE){
+            $data = $this->flashcard_model->get_data($flashcard_id, $has_sets_arg);
 
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 echo json_encode($data);
@@ -485,43 +484,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return 0;
         }
 
-        /**
-         * XSS Filtering for the Flashcard set input
-         */
-        private function create_set_clean(){
-            $name = $this->input->post('name', TRUE);
-            $description = $this->input->post('description', TRUE);
-            $color = $this->input->post('color', TRUE);
-            $user_id = $_SESSION['Profile']['user_id'];
-
-            $data = array (
-                'name' => $name,
-                'user_id' => $user_id,
-                'description' => $description,
-                'color' => $color,
-            );
-
-            return $data;
-        }
-
-        /**
-         * Create Set
-         */
-        public function create_set(){
-            if ($_SERVER['REQUEST_METHOD']=='POST'){
-                $this->form_validation->set_rules('name','Name','required');
-                $this->form_validation->set_rules('description','Description','required');
-                $this->form_validation->set_rules('color','Color','required');
-
-                if($this->form_validation->run()==TRUE){
-                    $data = $this->create_set_clean();
-                    $this->flashcard_model->set_flashcards($data);
-                    redirect(base_url('flashcards/index/'));
-                }
-
-                $this->view('create-set');
-            }
-        }
-
-        
     }

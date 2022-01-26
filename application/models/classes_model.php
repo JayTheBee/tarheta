@@ -14,7 +14,7 @@ class classes_model extends CI_Model {
 
 	//fucntion to check for access first
 	function getClass(){
-        $user_id = $_SESSION['Profile']['user_id'];
+        $user_id = $_SESSION['sess_profile']['user_id'];
         $query = $this->db->query("SELECT * FROM enroll WHERE user_id='$user_id'");
         $access = $query->result_array();
         

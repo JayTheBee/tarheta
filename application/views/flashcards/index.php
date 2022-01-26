@@ -7,49 +7,19 @@
         <br>
         <h3>BROWSE BY SET</h3>
         <!-- SETS NAV BAR -->
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <!-- Looping through all the retrieved SETS -->
-                <?php foreach ($sets as $key => $set): ?>
-                    <button class="nav-link <?php echo ($key == 0) ? 'active':'';?>" id="nav-<?php echo $set['id']?>-set" data-bs-toggle="tab" data-bs-target="#nav-set-<?php echo $set['id'];?>" type="button" role="tab" aria-controls="nav-set-<?php echo $set['id'];?>" aria-selected="true">
-                        <?php echo $set['name']; ?> 
-                    </button>
-                <?php endforeach; ?>
-            </div>
-        </nav>
-
-        <!-- SETS TAB CONTENTS -->
-        <div class="tab-content" id="nav-tabContent">
-
+        <div class="container-fluid overflow-scroll">
+            <div class="row flex-row flex-nowrap">
             <?php foreach ($sets as $key => $set): ?>
-                <div class="tab-pane fade <?php echo ($key == 0) ? "show active":"";?>" id="nav-set-<?php echo $set['id'];?>" role="tabpanel"  aria-labelledby="nav-<?php echo $set['id']?>-set">
-                    <h6>----------------------------------------------------</h6>
+                <div class="col-3">
+                    <h6>----------------------------------</h6>
                     <h5>Set Name: <?php echo $set['name']?></h5>
                     <h6>Set Description: <?php echo $set['description']?></h6>
                     <h6>Set Color: <?php echo $set['color']?></h6>
-                    <h6>----------------------------------------------------</h6>
-                    <br>
-
-                    <?php foreach ($flashcards_with_set as $card): ?>
-                        <?php if ($card['set_name'] == $set['name'] && $card['user_id'] == $_SESSION['Profile']['user_id']): ?>
-                            <h5><?php echo $card['name']; ?></h5>
-                            <h6>Description: <?php echo $card['description']; ?></h6>
-                            <?php echo $card['visibility']; ?></p>
-                            <p><?php echo $card['qtype']; ?></p>
-                            <p>
-                                <?php if ($card['type'] == "REVIEWER"):
-                                    echo $card['type'];
-                                ?>
-                                <?php endif;?>
-                            </p>                 
-                            <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$card["id"]); ?>'" >View
-                            </button>
-                            <br><br>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <button type='button' class='btn btn-primary' onclick="window.location='<?php echo site_url("flashcards/show-set/".$set["id"]); ?>'">View</button>
+                    <h6>----------------------------------</h6>
                 </div>
             <?php endforeach; ?>
-            
+            </div>
         </div>
 <?php endif; ?>
         <br><br>
