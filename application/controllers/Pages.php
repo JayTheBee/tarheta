@@ -13,7 +13,14 @@
 
             $this->checkSessions($page);
 
-            $this->load->view('templates/header');
+            // Lory sumasabog yung home page pag nakalogin si user since
+            // nde pa formated yung 'header-logged' sa templates
+            if(isset($_SESSION['sess_login']))
+                $headervar = 'header-logged';
+            else
+                $headervar = 'header';
+
+            $this->load->view('templates/'.$headervar);
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
         }

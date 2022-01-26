@@ -20,7 +20,7 @@ class Scorings extends CI_Controller{
 
         $data['title'] = ucfirst($page);
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header-logged');
         $this->load->view('flashcards/'.$page, $data);
         $this->load->view('templates/footer');
     }

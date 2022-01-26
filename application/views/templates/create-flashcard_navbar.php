@@ -14,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- my css -->
     <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
-    <!-- Poppins -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
@@ -24,24 +23,41 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-bg fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div width="1" class="create-nav design">
+                <div width="0.525" class="nav design">
+                    <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+                    <button data-functional-selector="top-bar__kahoot-summary-button" aria-label="Enter tarheta title..." class="nav-button">
+                        <span class="text">Enter tarheta title…</span>
+                        <span class="settings-button mh-75 d-inline-block">
+                            <span class="settings">Settings</span>
+                        </span>
+                    </button>
+                </div>
+                <div width="0.475" class="right-nav design">
+                    <button type="button" id="topbar-preview-button" class="buttons preview">
+                        <i class="fas fa-eye"></i>
+                        <span>&nbsp;Preview</span>
+                    </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item animation navigation-link mx-4"><a class="nav-link" href="<?php echo base_url("home/#home-page-1"); ?>">HOME</a></li>
-                    <li class="nav-item animation navigation-link mx-4"><a class="nav-link" href="<?php echo base_url("home/#home-page-2"); ?>">FEATURES</a></li>
-                    <li class="nav-item animation navigation-link mx-4"><a class="nav-link" href="<?php echo base_url("home/#home-page-3"); ?>">ABOUT US</a></li>
-                    <li class="nav-item animation navigation-link mx-4"><a class="nav-link" href="<?php echo base_url("home/#home-page-4"); ?>">CONTACT</a></li>
-                </ul>
-                <div class="ms-auto">
-                    <a class="btn btn-bd-login rounded-pill text-decoration-underline" href="<?php echo base_url(); ?>login"><span class="button-login-text">LOG IN</span></a>
+                    <div class="line">
+                        <div class="line-between">
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="buttons exit-button" data-functional-selector="top-bar__exit-button">
+                        Exit
+                    </button>
+
+                    <button type="approve" class="buttons save-button" data-functional-selector="top-bar__save-button">
+                        Save
+                    </button>
                 </div>
             </div>
+
+
         </div>
     </nav>
     <!-- end of navbar -->

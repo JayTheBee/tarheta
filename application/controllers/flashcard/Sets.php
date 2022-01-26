@@ -20,7 +20,7 @@ class Sets extends CI_Controller{
 
         // $data = $this->_check_page($page, $data);
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header-logged');
         $this->load->view('flashcards/'.$page_arg, $data_arg);
         $this->load->view('templates/footer');
     }

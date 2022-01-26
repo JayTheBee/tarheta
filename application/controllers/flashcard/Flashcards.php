@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $data = $this->_check_page($page, $data);
 
-            $this->load->view('templates/header');
+            $this->load->view('templates/header-logged');
             $this->load->view('flashcards/'.$page, $data);
             $this->load->view('templates/footer');
         }
