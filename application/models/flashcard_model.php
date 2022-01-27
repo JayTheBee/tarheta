@@ -64,6 +64,23 @@
             return $result;
         }
 
+        public function get_created_flashcards(){
+            $user_id = $_SESSION['sess_profile']['user_id'];
+            $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
+            $flashcards = $query->result_array();
+            
+            $result = array();
+
+            //Getting the user's private and public flashcards
+            foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND creator_id='$user_id'");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+           return $result;
+        }
 
         public function get_flashcard_data($flashcard_id){
 
@@ -161,6 +178,34 @@
             $this->db->trans_complete();
         }
 
+        public function insert_flashcard_class_access($flashcard_id, $class_id){
+            $this->db->trans_start();
+            $this->db->set('flashcard_id', $flashcard_id);
+            $this->db->set('class_id', $class_id);
+            $this->db->insert('flashcard_class_access');
+            $this->db->trans_complete();
+
+            $classMem = $this->classes_model->getMembers($class_id);
+            foreach($classMem as $members){
+                $this->insert_flashcard_user_access($flashcard_id, $members['user_id']);
+            }
+        }
+        public function get_class_flashcard($class_id_arg){
+            $query = $this->db->query("SELECT * FROM flashcard_class_access WHERE class_id='$class_id_arg'");
+            $flashcards = $query->result_array();
+
+            $result = array();
+
+            //Getting the user's private and public flashcards
+           foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id'");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+            return $result;            
+        }
 
         public function delete_question($question_id){
             $this->db->query("DELETE FROM flashcards_questions WHERE id = $question_id");

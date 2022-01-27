@@ -75,7 +75,7 @@ class classes_model extends CI_Model {
     }
 
     function verify_class($user_id_arg, $class_id_arg){
-    	$query = $this->db->query("SELECT * FROM enroll WHERE class_id='$class_id_arg' AND user_id='$user_id_arg");
+    	$query = $this->db->query("SELECT * FROM enroll WHERE class_id='$class_id_arg' AND user_id='$user_id_arg'");
     	if($query->num_rows()==1){
     		return TRUE;
     	}else{
