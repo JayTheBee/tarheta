@@ -136,7 +136,7 @@
                     <div class="add-button">
                         <div class="add-question">
                             <span aria-expanded="false">
-                                <button type="button" onclick="duplicate()" data-functional-selector="add-question-button" class="question-design">
+                                <button type="button" id="button-click" data-functional-selector="add-question-button" class="question-design">
                                     <span>Add question</span>
                                 </button>
                             </span>
@@ -151,7 +151,7 @@
             <img src="<?php echo base_url("assets/images/create-flashcard/Vector 15.png"); ?>" class="position-absolute img-responsive wave" alt="...">
 
             <div class="body-design">
-                <main class="content">
+                <main class="content" id="multiple-choice-question">
                     <div class="question-box">
                         <div class="idk">
                             <form autocomplete="off">
@@ -304,6 +304,203 @@
                 </main>
 
 
+                <main class="content" id="true-or-false-question" style="display: none;">
+                    <div class="question-box">
+                        <div class="idk">
+                            <form autocomplete="off">
+                                <div class="mb-3">
+                                    <!-- maximum count of character = 64 -->
+                                    <!-- additional feature dapat: countdown kung ilang chars pa natitira -->
+                                    <input type="text" aria-label="Question title. Click to change the title." onchange="myFunction()" class="form-control question-name align-placeholder" id="question-name-box" placeholder="Type your question here..." maxlength="64">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="insert-image insert-styles">
+                        <div class="box-design insert-size">
+                            <div class="insert-padding">
+                                <div data-functional-selector="media-details" aria-live="assertive" role="status" class="box-style">
+                                    <div class="insert-box-style" style="max-width: 27.0938rem; max-height: 18.0625rem;">
+                                        <div tabindex="0" class="image-box" aria-label="Add image or youtube video to the current question.">
+                                            <!-- hindi pa nakakapagupload ng image -->
+
+                                            <div class="content-design" onclick="document.getElementById('fileInput').click();">
+                                                <input class="position-image-here" id="fileInput" type="file" style="display: none;">
+                                                <img src="" id="img" class="image-design preview">
+
+                                                </input>
+                                                <div class="top-content">
+                                                    <div class="cute-image">
+
+                                                    </div>
+                                                    <!-- <input id="fileInput" type="file" style="display:none;" /> -->
+
+                                                    <button type="approve" class="button-style squared" data-functional-selector="media-library-info-view__add-media-button">
+                                                        <div class="icon-custom" aria-expanded="false">
+                                                            <span class="icon-design">
+                                                                <i class="fas fa-plus"></i>
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                    <p class="insert-find">Find and insert media</p>
+                                                </div>
+                                                <div class="drop-here">
+                                                    <p aria-live="polite" role="status" class="drop-style">or drop an image here to upload</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="TF-choices-design">
+                        <div class="customize">
+                            <div class="TF-choices-box" style="width: 100%;">
+
+                                <div class="choiceA boxes">
+                                    <div class="box-A">
+                                        <span class="style" style="display: inline-block; vertical-align: middle;">
+                                            <p class="text-ABCD">A.</p>
+                                        </span>
+                                    </div>
+                                    <div class="answer">
+                                        <span class="answer-here">
+                                            <div class="answer-add-style">
+                                                <input type="text" placeholder="TRUE" class="input-style" disabled="disabled">
+
+                                            </div>
+                                        </span>
+                                        <!-- <div class="insert-image-answer">
+                                            <div class="answer-image">
+                                                <span onclick="document.getElementById('fileInput').click();" style="display: inline-block; vertical-align: middle; width: 32px; height: 32px;">
+                                                    <i class="fas fa-file-image fa-lg"></i> </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                </div>
+                                <div class="choiceB boxes">
+                                    <div class="box-B">
+                                        <span class="style" style="display: inline-block; vertical-align: middle;">
+                                            <p class="text-ABCD">B.</p>
+                                        </span>
+                                    </div>
+                                    <div class="answer">
+                                        <span class="answer-here">
+                                            <div class="answer-add-style">
+                                                <input type="text" placeholder="FALSE" class="input-style" disabled="disabled">
+
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="try">
+                        <input autocomplete="off" type="text" aria-label="Correct answer title. Click to change the title." class="form-control question-name align-placeholder" id="question-name-box" placeholder="Type the letter of the correct answer here..." maxlength="64">
+                    </div>
+                </main>
+
+                <main class="content" id="identification-question" style="display: none;">
+                    <div class="question-box">
+                        <div class="idk">
+                            <form autocomplete="off">
+                                <div class="mb-3">
+                                    <!-- maximum count of character = 64 -->
+                                    <!-- additional feature dapat: countdown kung ilang chars pa natitira -->
+                                    <input type="text" aria-label="Question title. Click to change the title." onchange="myFunction()" class="form-control question-name align-placeholder" id="question-name-box" placeholder="Type your question here..." maxlength="64">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="insert-image insert-styles">
+                        <div class="box-design insert-size">
+                            <div class="insert-padding">
+                                <div data-functional-selector="media-details" aria-live="assertive" role="status" class="box-style">
+                                    <div class="insert-box-style" style="max-width: 27.0938rem; max-height: 18.0625rem;">
+                                        <div tabindex="0" class="image-box" aria-label="Add image or youtube video to the current question.">
+                                            <!-- hindi pa nakakapagupload ng image -->
+
+                                            <div class="content-design" onclick="document.getElementById('fileInput').click();">
+                                                <input class="position-image-here" id="fileInput" type="file" style="display: none;">
+                                                <img src="" id="img" class="image-design preview">
+
+                                                </input>
+                                                <div class="top-content">
+                                                    <div class="cute-image">
+
+                                                    </div>
+                                                    <!-- <input id="fileInput" type="file" style="display:none;" /> -->
+
+                                                    <button type="approve" class="button-style squared" data-functional-selector="media-library-info-view__add-media-button">
+                                                        <div class="icon-custom" aria-expanded="false">
+                                                            <span class="icon-design">
+                                                                <i class="fas fa-plus"></i>
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                    <p class="insert-find">Find and insert media</p>
+                                                </div>
+                                                <div class="drop-here">
+                                                    <p aria-live="polite" role="status" class="drop-style">or drop an image here to upload</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="choices-design">
+                        <div class="customize">
+                            <div class="choices-box" style="width: 100%;">
+
+                                <!-- <div class="choiceA boxes">
+                                    <div class="box-A">
+                                        <span class="style" style="display: inline-block; vertical-align: middle;">
+                                            <p class="text-ABCD">A.</p>
+                                        </span>
+                                    </div>
+                                    <div class="answer">
+                                        <span class="answer-here">
+                                            <div class="answer-add-style">
+                                                <input type="text" placeholder="Type Answer 1 here..." class="input-style">
+
+                                            </div>
+                                        </span>
+                                        <div class="insert-image-answer">
+                                            <div class="answer-image">
+                                                <span onclick="document.getElementById('fileInput').click();" style="display: inline-block; vertical-align: middle; width: 32px; height: 32px;">
+                                                    <i class="fas fa-file-image fa-lg"></i> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> -->
+                                <input autocomplete="off" type="text" aria-label="Correct answer title. Click to change the title." class="form-control question-name align-placeholder" id="IDEN-name-box" placeholder="Type the correct answer here..." maxlength="64">
+
+                                <h5 class="other-ans">Other accepted answers:</h5>
+                                <input autocomplete="off" type="text" aria-label="Correct answer title. Click to change the title." class="form-control question-name align-placeholder" id="IDEN-name-box" placeholder="Type an answer here..." maxlength="64">
+                                <input autocomplete="off" type="text" aria-label="Correct answer title. Click to change the title." class="form-control question-name align-placeholder" id="IDEN-name-box" placeholder="Type an answer here..." maxlength="64">
+                                <input autocomplete="off" type="text" aria-label="Correct answer title. Click to change the title." class="form-control question-name align-placeholder" id="IDEN-name-box" placeholder="Type an answer here..." maxlength="64">
+
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+
 
 
                 <aside class="button-open" id="right-sidebar">
@@ -334,7 +531,7 @@
                                 </span>
                                 <span class="quest-type">Question type</span>
                                 <div style="margin-top: 8px">
-                                    <select class="boxes-styles" onchange="handleSelect(this)">
+                                    <select class="boxes-styles" id="options" onchange="optionCheck()">
                                         <option selected="selected" value="createFlashcard-default" class="dropdown-item text-center">Multiple Choice</option>
                                         <option value="createFlashcard-TrueorFalse" class="dropdown-item text-center">True or False</option>
                                         <option value="createFlashcard-Identification" class="dropdown-item text-center">Identification</option>
@@ -355,6 +552,7 @@
                                 <span class="quest-type">Time Limit</span>
                                 <div style="margin-top: 8px">
                                     <select class="boxes-styles">
+                                        <option class="dropdown-item text-center">5 seconds</option>
                                         <option class="dropdown-item text-center">10 seconds</option>
                                         <option class="dropdown-item text-center">20 seconds</option>
                                         <option class="dropdown-item text-center">30 seconds</option>
@@ -428,30 +626,73 @@
             </div>
         </main>
 
-        <div id="myModal" class="modal fade" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form method="POST" autocomplete="off">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete question</h5>
-                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <!-- <label class="form-label">Email</label>  -->
-                                <p>Are you sure you want to delete this question? This action can't be undone.</p>
+        <!-- start of choose question modal -->
+        <div id="myDiv" class="sc-kCqIgV iuuRjG" data-popper-reference-hidden="false" data-popper-escaped="true" data-popper-placement="right" style="width: 25rem; max-width: calc(100% - 14.75rem); padding-top: 4.5rem; position: absolute; inset: 0px auto auto 0px; transform: translate(216px, 0px); padding-bottom: 1rem;">
+            <div tabindex="0" data-functional-selector="add-question-dialog" class="sc-jrUCRe fPSzwE">
+                <div class="sc-lbnagl hCrMPS">
+                    <div data-functional-selector="create-block-popup-menu" aria-label="Add question" role="dialog" aria-modal="true" class="sc-trqNE cvKrHj">
+                        <div class="sc-kwWPDW bKKtKM">
+                            <div class="sc-cVMLIT jtslMX">
+                                <section class="sc-gTEgmx fpGZmQ">
+                                    <h2 class="sc-kVThDm fFgEqg">Choose question type to add:</h2>
+                                    <div class="sc-jhcxUd exKMRQ">
+                                        <button data-functional-selector="create-button__quiz" aria-label="Quiz" class="sc-bktsjm gOvpUq">
+                                            <div class="sc-igdLn eFuxbc">
+                                                <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/60/000000/external-quiz-online-learning-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png" alt="Quiz" class="sc-iVFPNg fyiKXj" />
+                                            </div>
+                                            <div class="sc-bDCewv kseOBZ">
+                                                <h3 class="sc-hTsBph cTvoQZ">Quiz</h3>
+                                            </div>
+                                        </button>
+                                        <button data-functional-selector="create-button__true-false" aria-label="True or false" class="sc-bktsjm gOvpUq">
+                                            <div class="sc-igdLn eFuxbc">
+                                                <img src="https://img.icons8.com/clouds/100/000000/question-mark.png" alt="True or false" class="sc-iVFPNg fyiKXj" />
+                                            </div>
+                                            <div class="sc-bDCewv kseOBZ">
+                                                <h3 class="sc-hTsBph cTvoQZ">True or false</h3>
+                                            </div>
+                                        </button>
+                                        <button data-functional-selector="create-button__open-ended" aria-label="Type answer" class="sc-bktsjm gOvpUq">
+                                            <div class="sc-igdLn eFuxbc">
+                                                <img src="https://img.icons8.com/clouds/100/000000/find-user-male.png" alt="Identification" class="sc-iVFPNg fyiKXj" />
+                                            </div>
+                                            <div class="sc-bDCewv kseOBZ">
+                                                <h3 class="sc-hTsBph cTvoQZ">Type answer</h3>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </section>
                             </div>
                         </div>
-                        <div class="modal-footer" data-functional-selector="dialog-actions">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary del" onclick="Remove(this)">Delete</button>
-                            <!-- onclick="Remove(this)" -->
-                        </div>
-                    </form>
+                    </div>
+                    <div class="sc-hdvFCH bibWjt" style="position: absolute; transform: translate(0px, 218px); top: 0px;"></div>
                 </div>
-            </div>
-        </div>
+                <!-- end of choose question modal -->
 
+                <!-- delete confirmation modal -->
+                <div id="myModal" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form method="POST" autocomplete="off">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete question</h5>
+                                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <!-- <label class="form-label">Email</label>  -->
+                                        <p>Are you sure you want to delete this question? This action can't be undone.</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" data-functional-selector="dialog-actions">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary del" onclick="Remove(this)">Delete</button>
+                                    <!-- onclick="Remove(this)" -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
     </section>
 
     <script>
@@ -532,6 +773,33 @@
             var x = document.getElementById("question-name-box");
             var div = document.getElementById('transfer');
             div.innerHTML = x.value;
+
+        }
+
+        // open choose question popup on button click
+        $('#button-click').click(function() {
+            $('#myDiv').toggle('slow', function() {
+                // Animation complete.
+            });
+        });
+
+        function optionCheck() {
+            var option = document.getElementById("options").value;
+            if (option == "createFlashcard-TrueorFalse") {
+                document.getElementById("true-or-false-question").style.display = "flex";
+                document.getElementById("multiple-choice-question").style.display = "none";
+                document.getElementById("identification-question").style.display = "none";
+            }
+            if (option == "createFlashcard-Identification") {
+                document.getElementById("true-or-false-question").style.display = "none";
+                document.getElementById("multiple-choice-question").style.display = "none";
+                document.getElementById("identification-question").style.display = "flex";
+            }
+            if (option == "createFlashcard-default") {
+                document.getElementById("multiple-choice-question").style.display = "flex";
+                document.getElementById("true-or-false-question").style.display = "none";
+                document.getElementById("identification-question").style.display = "none";
+            }
 
         }
     </script>

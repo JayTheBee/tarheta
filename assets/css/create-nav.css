@@ -554,7 +554,7 @@ body{
     width: 100%;
     display: flex;
     position: relative;
-    flex: 1 1 0%;
+    flex: 4 1 0%;
     justify-content: center;
 }
 .choices-box {
@@ -996,6 +996,7 @@ body{
     flex-direction: column;
     position: relative;
     margin-top: 1rem;
+    /* position: absolute; */
 }
 
 /* small content */
@@ -1096,4 +1097,149 @@ body{
 }
 .choices-small-ver:nth-child(2n) {
     margin-left: auto;
+}
+
+
+/*  */
+.choose-type {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hCrMPS {
+    background-color: rgb(242, 242, 242);
+    height: 100%;
+    border-radius: 0.25rem;
+}
+.cvKrHj {
+    display: flex;
+    width: auto;
+    height: calc(100% - 4.75rem);
+    box-sizing: border-box;
+    transform-origin: left center;
+    flex-wrap: nowrap;
+    background-color: rgb(255, 255, 255);
+    padding-top: 1rem;
+    border-radius: 0.25rem;
+}
+.bKKtKM {
+    display: flex;
+    flex: 1 1 0%;
+    padding: 0px 1rem 1rem;
+}
+.jtslMX {
+    padding-right: 0.75rem;
+    padding-bottom: 0.25rem;
+    display: flex;
+    flex: 1 0 calc(54% - 0.75rem);
+    flex-direction: column;
+    max-height: calc((((100vh - 3.5rem) - 1rem) - 1rem) - 4.75rem);
+    overflow-y: auto;
+}
+.fpGZmQ {
+    vertical-align: top;
+    margin: 0px;
+    width: 100%;
+}
+.fFgEqg {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: rgb(110, 110, 110);
+    margin-bottom: 0.5rem;
+}
+.exKMRQ {
+    display: flex;
+    flex-direction: column;
+}
+.exKMRQ > button {
+    margin: 0.25rem 0px;
+}
+.gOvpUq {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(242, 242, 242);
+    border: none;
+    border-radius: 0.25rem;
+    position: relative;
+    z-index: 10000;
+    padding: 0.5rem 0.75rem;
+    line-height: 1;
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 2px 0px;
+    transition: background 0.5s ease 0s;
+}
+.eFuxbc {
+    flex: 0 0 auto;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: auto;
+    margin-right: 1rem;
+}
+.fyiKXj {
+    display: inline-block;
+    height: auto;
+    width: 2rem;
+    max-width: 100%;
+}
+.kseOBZ {
+    width: 100%;
+}
+.cTvoQZ {
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.71;
+    letter-spacing: 0.2px;
+    text-align: left;
+}
+.bibWjt {
+    width: 1rem;
+    height: 1rem;
+    z-index: -1;
+    left: -0.5rem;
+}
+#myDiv {
+    display: none;
+}
+
+.TF-choices-design {
+    display: flex;
+    align-items: stretch;
+    /* flex: 4 1 0%; */
+    /* height: 8rem; */
+}
+.TF-choices-box {
+    display: flex;
+    /* flex: 4 1 0%; */
+    flex-wrap: wrap;
+    height: 8rem;
+    align-content: stretch
+}
+
+#IDEN-name-box {
+    width: 59rem;
+    eight: auto;
+    position: relative;
+    border-radius: 0.25rem;
+    box-shadow: rgb(0 0 0 / 15%) 0px -4px 0px 0px inset;
+    height: 3.3rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    margin-bottom: 1rem;
+}
+.other-ans {
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100vw;
+    /* margin-top: 1.5rem; */
+    margin-bottom: 1.5rem;
 }
