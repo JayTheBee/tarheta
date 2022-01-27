@@ -11,6 +11,7 @@ class Classes extends CI_Controller{
         $this->load->model('classes_model');
         $this->load->model('flashcard_model');
         $this->load->model('notification_model');
+        $this->load->model('user_model');
     }
 
     private function _check_page($page, $data){
@@ -89,7 +90,7 @@ class Classes extends CI_Controller{
                 $class_code = $this->input->post('invite', TRUE);
                 $class = $this->classes_model->verifyCode($class_code);
                 $user_id = $_SESSION['sess_profile']['user_id'];
-                $email_check = $this->classes_model->emailCheck($user_id);
+                $email_check = $this->user_model->user_active_check($user_id);
 
                 if(!$class){
                     $this->session->set_flashdata('error','Valid class code required!');
@@ -123,15 +124,25 @@ class Classes extends CI_Controller{
 				$email = $this->input->post('email', TRUE);
                 $class_name = $this->input->post('class-name', TRUE);
                 $class_id = $this->input->post('class-id', TRUE);
-				$status = $this->classes_model->classes_inv($email);
+
+				$user_check = $this->user_model->email_check($email);
 
                 if($status){
-                
-                    $text = 'You have been invited to the '.$class_name.'!';
-                    $refID = $this->notification_model->reference($text, $class_id, NULL);
-                    $this->notification_model->notify('class.invite', $refID, $status['id']);
-                    $this->session->set_flashdata('success', 'Users Invited');
-                    redirect(base_url('classes/show/'.$class_id));
+                    
+                    $class_check = $this->class_model->verify_class($user_check['id'], $class_id);
+
+                    if($class_check){
+                        $this->session->set_flashdata('error', 'User is already in this class!');
+                        redirect(base_url('classes/show/'.$class_id));
+
+                    }else{
+
+                        $text = 'You have been invited to the '.$class_name.'!';
+                        $refID = $this->notification_model->reference($text, $class_id, NULL, 'NAN');
+                        $this->notification_model->notify('class.invite', $refID, $user_check['id']);
+                        $this->session->set_flashdata('success', 'Users Invited');
+                        redirect(base_url('classes/show/'.$class_id));
+                    }
                 }
                 else
                 {
@@ -147,7 +158,7 @@ class Classes extends CI_Controller{
         }
     }	
     
-    public function assignFlashcards(){
+    public function assign_flashcards(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $this->form_validation->set_rules('flashcard','Flashcards','required');
 
@@ -174,13 +185,13 @@ class Classes extends CI_Controller{
 
 
     public function enroll_user(){
-        $data = $this->segmentURL();
+        $data = $this->segment_url();
         $this->classes_model->userEnroll($data['class_id'], $data['user_id'], 'MEMBER');
         $this->show($data['class_id']);
     }
 
 
-    private function segmentURL(){
+    private function segment_url(){
 		$segmentedURL = array(
 			'user_id' => $this->uri->segment(4),
 			'class_id' => $this->uri->segment(5),

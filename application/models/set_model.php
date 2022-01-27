@@ -38,4 +38,74 @@ class set_model extends CI_Model {
 
         $this->db->trans_complete();
     }
+
+
+    //Function where it returns an array containing all the sets of flashcard
+    public function get_sets($user_id){
+        $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
+        if ($query->num_rows() != 0)
+            return $query->result_array();
+        else
+            return FALSE;
+    }
+
+
+    /**
+     * Function to get a singular set detail via set_id_arg
+     */
+    public function get($set_id_arg){
+        $user_idvar = $_SESSION['sess_profile']['user_id'];
+        $query = $this->db->get_where('flashcard_sets', array('flashcard_sets.id' => $set_id_arg, 'flashcard_sets.user_id' => $user_idvar));
+        
+        if ($query->num_rows() != 0)
+            return $query->row_array();
+        else
+            return FALSE;
+    }
+
+
+    function insertFlashcardSets($set_id, $flashcard_id){
+        $this->db->trans_start();
+        $this->db->set('flashcard_id', $flashcard_id);
+        $this->db->set('set_id', $set_id);
+        $this->db->insert('flashcard_set_list');
+        $this->db->trans_complete();
+    }
+
+    /**
+     * Function to check if the logged in user is the one who created the set
+     */
+    public function check_set($set_id_arg){
+        $query = $this->get($set_id_arg);
+        
+        if ($query != FALSE)
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+
+    /**
+     * Function update flashcard set details
+     */
+    public function update_set_datails($data_arg, $set_id_arg){
+        $this->db->from('flashcard_sets');
+
+        $this->db->set('name', $data_arg['name']);
+        $this->db->set('description', $data_arg['description']);
+        $this->db->set('color', $data_arg['color']);
+        $this->db->where('id', $set_id_arg);
+
+        $this->db->update('flashcard_sets');
+    }
+
+
+    /**
+     * Function to delete a specific set in the DB
+     */
+    public function delete($set_id_arg){
+        $this->db->where('id', $set_id_arg);
+        $this->db->delete('flashcard_sets');
+        
+    }
 }

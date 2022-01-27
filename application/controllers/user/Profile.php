@@ -68,7 +68,7 @@ class Profile extends CI_Controller {
 	}	
 	
 	public function read($notif_id, $active){
-        $data['notifs'] = $this->notification_model->getRef($notif_id);
+        $data['notifs'] = $this->notification_model->get_reference($notif_id);
 
         $data['title'] = ucfirst('notif_show');
         $data['flag'] = $active;

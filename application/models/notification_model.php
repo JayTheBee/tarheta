@@ -11,11 +11,12 @@
             $this->db->trans_complete();
         } 
         
-        public function reference($text_arg, $class_id_arg, $flashcard_id_arg){
+        public function reference($text_arg, $class_id_arg, $flashcard_id_arg, $response_arg){
             $this->db->trans_start();
             $this->db->set('text', $text_arg);
             $this->db->set('class_id', $class_id_arg);
             $this->db->set('flashcard_id', $flashcard_id_arg);
+            $this->db->set('response', $response_arg);
             $this->db->insert('notification_reference');
             $notify_id = $this->db->insert_id();
             $this->db->trans_complete();   

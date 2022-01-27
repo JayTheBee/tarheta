@@ -31,7 +31,7 @@
 <?php if($flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
                 <div class="text-center">
                     <!-- Share Button -->
-                    <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['Profile']['user_id']):?>
+                    <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
 
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
                                 Assign/Share
@@ -70,7 +70,7 @@
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
-                <?php elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['Profile']['user_id']):?>
+                <?php elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['sess_profile']['user_id']):?>
                      <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>

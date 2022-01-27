@@ -173,6 +173,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             return $new_token;
         }
+        public function user_active_check($user_id){
+            $query = $this->db->query("SELECT * FROM users WHERE id='$user_id' AND active='Active'");
+            if($query->num_rows()==1){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
     }
 
 ?>
