@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap');
+
+body {
+   height: 100%;
+   overflow: hidden;
+   font-family: 'Poppins', sans-serif;
+}
+
+/* Flashcard Multiple Choice*/
+.flashcard-bg {
+    background-color: #E4BE91;
+    color: #fff;
+    height: 100vh;
+}
+
+.flashcard-wave {
+    width: 100vw;
+    left: 0;
+    z-index: 1;
+    height: 100vh;
+}
+
+.flashcardBg-design {
+    overflow: hidden;
+    height: 100%;
+    z-index: 2;
+}
+
+.fcQuestion-box{
+    background-color: #52888A;
+    box-shadow: rgb(0 0 0 / 40%) 0px 8px 4px;
+    border-radius: 2px;
+    align-items: center;
+    padding: 16px 32px;
+    margin-bottom: 1rem;
+    margin-top: 5.5rem;
+}
+
+.fcQuestion-design{
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.fcQuestion{
+    line-height: 1.25;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+    white-space: pre-wrap;
+    font-size: 2rem;
+}
+
+.fcTimeMedia-pos{
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0px;
+    width: auto;
+    /* padding-left: calc(env(safe-area-inset-left) + 1rem); */
+}
+
+.fcTimeMedia-design{
+    display: flex;
+    align-items: center;
+    flex: 8 1 0px;
+    min-height: 0px;
+    position: relative;
+}
+
+.fcTimer-pos{
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fcTimer{
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    height: 7rem;
+    background: #A2795E;
+    border-radius: 100%;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+}
+
+.fcMedia {
+    width: 75%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0%;
+    opacity: 1;
+    margin: 0px auto;
+}
+
+.fcMedia {
+    object-fit: contain;
+}
+
+.fcChoices-pos{
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-left: calc(env(safe-area-inset-left) + 1rem);
+    flex: 4 1 0%;
+    flex-wrap: wrap;
+    height: 100%;
+    align-content: stretch;
+    z-index: 2;
+}
+
+.boxes {
+    padding: 0px 0.25rem;
+}
+
+.text-ABCD {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.fcText-answers {
+    font-size: calc(0.5rem + 2.82933vmin);
+    font-weight: 300;
+    line-height: 1.25;
+    color: rgb(0 0 0 / 50%);
+    flex: 1 1 calc((100% - 128px) - 0.625rem);
+    padding: 0px 0.3125rem;
+    text-align: start;
+    z-index: 90;
+}
+
+.fcChoice-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.fcChoice {
+    align-items: center;
+    width: calc(50% - 3rem);
+    padding: 0.3125rem;
+    box-shadow: rgb(0 0 0 / 30%) 0px -0.25rem 0px 0px inset;
+    box-sizing: border-box;
+    position: relative;
+    overflow: visible;
+    justify-content: flex-start;
+    display: flex;
+    flex: 1 0 auto;
+    transition: box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s;
+    border-radius: 4px;
+    min-height: 2.25rem;
+    max-width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 1rem;
+}
+
+.fcChoice:nth-of-type(1) {
+    margin-right: 0.5rem;
+}
+
+.fcBox {
+    flex: 0 0 auto;
+    border-radius: 4px;
+    height: calc(100% - 1rem);
+    width: 4rem;
+    margin: 0px 0.25rem 0.25rem;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fcBoxA-color{
+    background-color: #B2937E;
+}
+
+.fcBoxB-color {
+    background-color: #426D6E;
+}   
+
+.fcBoxC-color {
+    background-color: #528A72;
+}
+
+.fcBoxD-color {
+    background-color: #CA5E5E;
+}
+
+.fcNext-button {
+    background-color: #A2795E;
+    color: #fff;
+    opacity: 100%;
+    box-shadow: rgb(0 0 0 / 15%) 0px 2px 4px 0px;
+    margin-top: 1rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+/* End of Flashcard Multiple Choice*/
+
+/* Flashcard Identification*/
+.inputDes{
+    width: 100%;
+    text-align: center;
+}
+/* End of Flashcard Identification*/
+
+/* Teacher Flashcard Multiple Choice*/
+.Answer-pos {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.Answer-des {
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 2px;
+    font-style: normal;
+    color: #fff;
+    margin-top: 2rem;
+    background-color: #A2795E;
+    width: 25%;
+}
+
+.Answer-no {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 0.5vmin 2vmin;
+    border-radius: 3rem;
+}
+
+.Answer-word {
+    border-radius: 1.2rem;
+}
+/* End of Teacher Flashcard Multiple Choice*/
+
+/* End of Flashcard */
