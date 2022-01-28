@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\controllers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application</a></li>
+         <li class="breadcrumb-item"><a href="index.html">controllers</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="auth/Signups.php.html#4">Signups</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#4">Classes</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#4">Flashcards</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#4">Scorings</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#4">Sets</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#4">Profile</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#4">Reset_passwords</a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Pages.php.html#6">Pages</a></td><td class="text-right">67%</td></tr>
+       <tr><td><a href="auth/Logins.php.html#4">Logins</a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="flashcard/Flashcards.php.html#4">Flashcards</a></td><td class="text-right">2970</td></tr>
+       <tr><td><a href="class/Classes.php.html#4">Classes</a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="user/Profile.php.html#4">Profile</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="auth/Signups.php.html#4">Signups</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#4">Sets</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#4">Reset_passwords</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#4">Scorings</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Pages.php.html#6">Pages</a></td><td class="text-right">35</td></tr>
+       <tr><td><a href="auth/Logins.php.html#4">Logins</a></td><td class="text-right">9</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="auth/Logins.php.html#102"><abbr title="Logins::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#21"><abbr title="Reset_passwords::_view">_view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#39"><abbr title="Reset_passwords::_segment_url">_segment_url</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#54"><abbr title="Reset_passwords::reset_main">reset_main</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#85"><abbr title="Reset_passwords::token_check">token_check</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#7"><abbr title="Signups::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#22"><abbr title="Signups::_view">_view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#41"><abbr title="Signups::_captcha">_captcha</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#56"><abbr title="Signups::_segment_url">_segment_url</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#73"><abbr title="Signups::_signup_clean">_signup_clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#107"><abbr title="Signups::signup">signup</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#139"><abbr title="Signups::_email_verify">_email_verify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#160"><abbr title="Signups::set_teacher">set_teacher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#171"><abbr title="Signups::set_student">set_student</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Signups.php.html#183"><abbr title="Signups::verify">verify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#6"><abbr title="Classes::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#18"><abbr title="Classes::_check_page">_check_page</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#28"><abbr title="Classes::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#40"><abbr title="Classes::create_classes">create_classes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#73"><abbr title="Classes::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#85"><abbr title="Classes::join">join</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#120"><abbr title="Classes::invite">invite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#162"><abbr title="Classes::assign_flashcards">assign_flashcards</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#188"><abbr title="Classes::enroll_user">enroll_user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="class/Classes.php.html#195"><abbr title="Classes::segment_url">segment_url</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#6"><abbr title="Flashcards::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#22"><abbr title="Flashcards::_check_page">_check_page</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#43"><abbr title="Flashcards::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#61"><abbr title="Flashcards::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#91"><abbr title="Flashcards::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#110"><abbr title="Flashcards::check_access">check_access</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#134"><abbr title="Flashcards::create_flashcards_clean">create_flashcards_clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#172"><abbr title="Flashcards::create_flashcards">create_flashcards</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#203"><abbr title="Flashcards::update_flashcard">update_flashcard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#228"><abbr title="Flashcards::set_flashcard_rules">set_flashcard_rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#243"><abbr title="Flashcards::questions">questions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#261"><abbr title="Flashcards::save_question">save_question</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#280"><abbr title="Flashcards::clean_question">clean_question</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#316"><abbr title="Flashcards::save_choices">save_choices</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#338"><abbr title="Flashcards::share">share</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#354"><abbr title="Flashcards::delete_question">delete_question</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#363"><abbr title="Flashcards::answer">answer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#383"><abbr title="Flashcards::reopen">reopen</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#394"><abbr title="Flashcards::updateTime">updateTime</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#427"><abbr title="Flashcards::get_data">get_data</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#441"><abbr title="Flashcards::submit_answer">submit_answer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#480"><abbr title="Flashcards::assign_points">assign_points</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#5"><abbr title="Scorings::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#16"><abbr title="Scorings::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#35"><abbr title="Scorings::score_user">score_user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#51"><abbr title="Scorings::result">result</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#66"><abbr title="Scorings::score">score</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#74"><abbr title="Scorings::ranking">ranking</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#5"><abbr title="Sets::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#14"><abbr title="Sets::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#31"><abbr title="Sets::create_set_clean">create_set_clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#50"><abbr title="Sets::create_set">create_set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#68"><abbr title="Sets::edit_set">edit_set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#84"><abbr title="Sets::update_set">update_set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#98"><abbr title="Sets::set_rules">set_rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#108"><abbr title="Sets::delete_set">delete_set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#119"><abbr title="Sets::show_set">show_set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#5"><abbr title="Profile::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#14"><abbr title="Profile::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#29"><abbr title="Profile::edit_profile">edit_profile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#81"><abbr title="Profile::check_notif">check_notif</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#90"><abbr title="Profile::read">read</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="user/Profile.php.html#101"><abbr title="Profile::notif_redirects">notif_redirects</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#107"><abbr title="Reset_passwords::send_pass_email">send_pass_email</abbr></a></td><td class="text-right">22%</td></tr>
+       <tr><td><a href="Pages.php.html#78"><abbr title="Pages::_login_check">_login_check</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Pages.php.html#28"><abbr title="Pages::_check_session">_check_session</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Pages.php.html#73"><abbr title="Pages::_unset_type">_unset_type</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="auth/Logins.php.html#20"><abbr title="Logins::_view">_view</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="auth/Logins.php.html#68"><abbr title="Logins::login">login</abbr></a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="user/Profile.php.html#29"><abbr title="Profile::edit_profile">edit_profile</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="class/Classes.php.html#85"><abbr title="Classes::join">join</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="class/Classes.php.html#120"><abbr title="Classes::invite">invite</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#110"><abbr title="Flashcards::check_access">check_access</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="user/Profile.php.html#81"><abbr title="Profile::check_notif">check_notif</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Pages.php.html#28"><abbr title="Pages::_check_session">_check_session</abbr></a></td><td class="text-right">26</td></tr>
+       <tr><td><a href="class/Classes.php.html#162"><abbr title="Classes::assign_flashcards">assign_flashcards</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#441"><abbr title="Flashcards::submit_answer">submit_answer</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="user/Profile.php.html#101"><abbr title="Profile::notif_redirects">notif_redirects</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="auth/Signups.php.html#41"><abbr title="Signups::_captcha">_captcha</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="auth/Signups.php.html#107"><abbr title="Signups::signup">signup</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="class/Classes.php.html#40"><abbr title="Classes::create_classes">create_classes</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#22"><abbr title="Flashcards::_check_page">_check_page</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#61"><abbr title="Flashcards::show">show</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#91"><abbr title="Flashcards::edit">edit</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#134"><abbr title="Flashcards::create_flashcards_clean">create_flashcards_clean</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#172"><abbr title="Flashcards::create_flashcards">create_flashcards</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#203"><abbr title="Flashcards::update_flashcard">update_flashcard</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#243"><abbr title="Flashcards::questions">questions</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#261"><abbr title="Flashcards::save_question">save_question</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#280"><abbr title="Flashcards::clean_question">clean_question</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#394"><abbr title="Flashcards::updateTime">updateTime</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#50"><abbr title="Sets::create_set">create_set</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#107"><abbr title="Reset_passwords::send_pass_email">send_pass_email</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#21"><abbr title="Reset_passwords::_view">_view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#54"><abbr title="Reset_passwords::reset_main">reset_main</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="auth/Reset_passwords.php.html#85"><abbr title="Reset_passwords::token_check">token_check</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="auth/Signups.php.html#22"><abbr title="Signups::_view">_view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="auth/Signups.php.html#183"><abbr title="Signups::verify">verify</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="class/Classes.php.html#18"><abbr title="Classes::_check_page">_check_page</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="class/Classes.php.html#28"><abbr title="Classes::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#43"><abbr title="Flashcards::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#338"><abbr title="Flashcards::share">share</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#363"><abbr title="Flashcards::answer">answer</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#427"><abbr title="Flashcards::get_data">get_data</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Flashcards.php.html#480"><abbr title="Flashcards::assign_points">assign_points</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#16"><abbr title="Scorings::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Scorings.php.html#74"><abbr title="Scorings::ranking">ranking</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#14"><abbr title="Sets::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#68"><abbr title="Sets::edit_set">edit_set</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#84"><abbr title="Sets::update_set">update_set</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#108"><abbr title="Sets::delete_set">delete_set</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="flashcard/Sets.php.html#119"><abbr title="Sets::show_set">show_set</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="user/Profile.php.html#14"><abbr title="Profile::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="auth/Logins.php.html#68"><abbr title="Logins::login">login</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Pages.php.html#78"><abbr title="Pages::_login_check">_login_check</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Pages.php.html#73"><abbr title="Pages::_unset_type">_unset_type</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="auth/Logins.php.html#20"><abbr title="Logins::_view">_view</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.10</a> using <a href="https://secure.php.net/" target="_top">PHP 8.0.10</a> and <a href="https://phpunit.de/">PHPUnit 9.5.10</a> at Fri Jan 28 13:24:49 CET 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([6,0,1,0,0,0,0,1,0,1,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([68,0,0,1,0,0,1,2,0,2,1,4], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[67.9245283018868,21,"<a href=\"Pages.php.html#6\">Pages<\/a>"],[80.85106382978722,9,"<a href=\"auth\/Logins.php.html#4\">Logins<\/a>"],[18.333333333333332,12,"<a href=\"auth\/Reset_passwords.php.html#4\">Reset_passwords<\/a>"],[0,16,"<a href=\"auth\/Signups.php.html#4\">Signups<\/a>"],[0,25,"<a href=\"class\/Classes.php.html#4\">Classes<\/a>"],[0,54,"<a href=\"flashcard\/Flashcards.php.html#4\">Flashcards<\/a>"],[0,8,"<a href=\"flashcard\/Scorings.php.html#4\">Scorings<\/a>"],[0,16,"<a href=\"flashcard\/Sets.php.html#4\">Sets<\/a>"],[0,22,"<a href=\"user\/Profile.php.html#4\">Profile<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Pages.php.html#8\">Pages::__construct<\/a>"],[100,2,"<a href=\"Pages.php.html#13\">Pages::view<\/a>"],[60,14,"<a href=\"Pages.php.html#28\">Pages::_check_session<\/a>"],[66.66666666666666,2,"<a href=\"Pages.php.html#73\">Pages::_unset_type<\/a>"],[50,2,"<a href=\"Pages.php.html#78\">Pages::_login_check<\/a>"],[100,1,"<a href=\"auth\/Logins.php.html#6\">Logins::__construct<\/a>"],[85.71428571428571,2,"<a href=\"auth\/Logins.php.html#20\">Logins::_view<\/a>"],[93.33333333333333,1,"<a href=\"auth\/Logins.php.html#39\">Logins::_login_redirect<\/a>"],[85.71428571428571,4,"<a href=\"auth\/Logins.php.html#68\">Logins::login<\/a>"],[0,1,"<a href=\"auth\/Logins.php.html#102\">Logins::logout<\/a>"],[100,1,"<a href=\"auth\/Reset_passwords.php.html#6\">Reset_passwords::__construct<\/a>"],[0,2,"<a href=\"auth\/Reset_passwords.php.html#21\">Reset_passwords::_view<\/a>"],[0,1,"<a href=\"auth\/Reset_passwords.php.html#39\">Reset_passwords::_segment_url<\/a>"],[0,2,"<a href=\"auth\/Reset_passwords.php.html#54\">Reset_passwords::reset_main<\/a>"],[0,2,"<a href=\"auth\/Reset_passwords.php.html#85\">Reset_passwords::token_check<\/a>"],[22.727272727272727,4,"<a href=\"auth\/Reset_passwords.php.html#107\">Reset_passwords::send_pass_email<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#7\">Signups::__construct<\/a>"],[0,2,"<a href=\"auth\/Signups.php.html#22\">Signups::_view<\/a>"],[0,3,"<a href=\"auth\/Signups.php.html#41\">Signups::_captcha<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#56\">Signups::_segment_url<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#73\">Signups::_signup_clean<\/a>"],[0,3,"<a href=\"auth\/Signups.php.html#107\">Signups::signup<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#139\">Signups::_email_verify<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#160\">Signups::set_teacher<\/a>"],[0,1,"<a href=\"auth\/Signups.php.html#171\">Signups::set_student<\/a>"],[0,2,"<a href=\"auth\/Signups.php.html#183\">Signups::verify<\/a>"],[0,1,"<a href=\"class\/Classes.php.html#6\">Classes::__construct<\/a>"],[0,2,"<a href=\"class\/Classes.php.html#18\">Classes::_check_page<\/a>"],[0,2,"<a href=\"class\/Classes.php.html#28\">Classes::view<\/a>"],[0,3,"<a href=\"class\/Classes.php.html#40\">Classes::create_classes<\/a>"],[0,1,"<a href=\"class\/Classes.php.html#73\">Classes::show<\/a>"],[0,5,"<a href=\"class\/Classes.php.html#85\">Classes::join<\/a>"],[0,5,"<a href=\"class\/Classes.php.html#120\">Classes::invite<\/a>"],[0,4,"<a href=\"class\/Classes.php.html#162\">Classes::assign_flashcards<\/a>"],[0,1,"<a href=\"class\/Classes.php.html#188\">Classes::enroll_user<\/a>"],[0,1,"<a href=\"class\/Classes.php.html#195\">Classes::segment_url<\/a>"],[0,1,"<a href=\"flashcard\/Flashcards.php.html#6\">Flashcards::__construct<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#22\">Flashcards::_check_page<\/a>"],[0,2,"<a href=\"flashcard\/Flashcards.php.html#43\">Flashcards::view<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#61\">Flashcards::show<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#91\">Flashcards::edit<\/a>"],[0,5,"<a href=\"flashcard\/Flashcards.php.html#110\">Flashcards::check_access<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#134\">Flashcards::create_flashcards_clean<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#172\">Flashcards::create_flashcards<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#203\">Flashcards::update_flashcard<\/a>"],[0,1,"<a href=\"flashcard\/Flashcards.php.html#228\">Flashcards::set_flashcard_rules<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#243\">Flashcards::questions<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#261\">Flashcards::save_question<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#280\">Flashcards::clean_question<\/a>"],[0,1,"<a href=\"flashcard\/Flashcards.php.html#316\">Flashcards::save_choices<\/a>"],[0,2,"<a href=\"flashcard\/Flashcards.php.html#338\">Flashcards::share<\/a>"],[0,1,"<a href=\"flashcard\/Flashcards.php.html#354\">Flashcards::delete_question<\/a>"],[0,2,"<a href=\"flashcard\/Flashcards.php.html#363\">Flashcards::answer<\/a>"],[0,1,"<a href=\"flashcard\/Flashcards.php.html#383\">Flashcards::reopen<\/a>"],[0,3,"<a href=\"flashcard\/Flashcards.php.html#394\">Flashcards::updateTime<\/a>"],[0,2,"<a href=\"flashcard\/Flashcards.php.html#427\">Flashcards::get_data<\/a>"],[0,4,"<a href=\"flashcard\/Flashcards.php.html#441\">Flashcards::submit_answer<\/a>"],[0,2,"<a href=\"flashcard\/Flashcards.php.html#480\">Flashcards::assign_points<\/a>"],[0,1,"<a href=\"flashcard\/Scorings.php.html#5\">Scorings::__construct<\/a>"],[0,2,"<a href=\"flashcard\/Scorings.php.html#16\">Scorings::view<\/a>"],[0,1,"<a href=\"flashcard\/Scorings.php.html#35\">Scorings::score_user<\/a>"],[0,1,"<a href=\"flashcard\/Scorings.php.html#51\">Scorings::result<\/a>"],[0,1,"<a href=\"flashcard\/Scorings.php.html#66\">Scorings::score<\/a>"],[0,2,"<a href=\"flashcard\/Scorings.php.html#74\">Scorings::ranking<\/a>"],[0,1,"<a href=\"flashcard\/Sets.php.html#5\">Sets::__construct<\/a>"],[0,2,"<a href=\"flashcard\/Sets.php.html#14\">Sets::view<\/a>"],[0,1,"<a href=\"flashcard\/Sets.php.html#31\">Sets::create_set_clean<\/a>"],[0,3,"<a href=\"flashcard\/Sets.php.html#50\">Sets::create_set<\/a>"],[0,2,"<a href=\"flashcard\/Sets.php.html#68\">Sets::edit_set<\/a>"],[0,2,"<a href=\"flashcard\/Sets.php.html#84\">Sets::update_set<\/a>"],[0,1,"<a href=\"flashcard\/Sets.php.html#98\">Sets::set_rules<\/a>"],[0,2,"<a href=\"flashcard\/Sets.php.html#108\">Sets::delete_set<\/a>"],[0,2,"<a href=\"flashcard\/Sets.php.html#119\">Sets::show_set<\/a>"],[0,1,"<a href=\"user\/Profile.php.html#5\">Profile::__construct<\/a>"],[0,2,"<a href=\"user\/Profile.php.html#14\">Profile::view<\/a>"],[0,9,"<a href=\"user\/Profile.php.html#29\">Profile::edit_profile<\/a>"],[0,5,"<a href=\"user\/Profile.php.html#81\">Profile::check_notif<\/a>"],[0,1,"<a href=\"user\/Profile.php.html#90\">Profile::read<\/a>"],[0,4,"<a href=\"user\/Profile.php.html#101\">Profile::notif_redirects<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

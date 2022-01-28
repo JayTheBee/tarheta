@@ -10,5 +10,4 @@ application/logs/*
 !application/*/.htaccess
 
 composer.lock
-application/tests/build/*
 .phpunit.result.cache 
