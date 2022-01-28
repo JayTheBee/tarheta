@@ -132,7 +132,7 @@
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/Lgleogo"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/loryvi"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-                                <i class="fab fa-linkedin fa-lg"></i>
+                                <a href="<?php echo "https://www.linkedin.com/in/loryvi/"; ?>" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
@@ -171,8 +171,8 @@
                     <div class="card h-100">
                         <img src="<?php echo base_url("assets/images/developers/ryl.jpg"); ?>" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title text-center">RYLEDALE TORRES</h5>
-                            <p class="card-text text-center">ryledale.torres@tup.edu.ph</p>
+                            <h5 class="card-title text-center">RYLDALE TORRES</h5>
+                            <p class="card-text text-center">ryldale.torres@tup.edu.ph</p>
                             <div class="text-center">
                                 <a href="<?php echo "https://www.facebook.com/rylgeeel"; ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
                                 <a href="<?php echo "https://github.com/ryldale"; ?>" target="_blank"><i class="fab fa-github fa-lg"></i></a>
