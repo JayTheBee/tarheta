@@ -98,5 +98,22 @@ class Profile extends CI_Controller {
         $this->load->view('pages/notif_show', $data);
         $this->load->view('templates/footer');
 	}
+	public function notif_redirects($context_arg, $notif_id_arg){
+		$this->notification_model->mark_read($notif_id_arg);
+		switch($context_arg){
+			case'password.reset':
+				$this->session->set_flashdata('success','Password has been reset properly!');
+				$this->view("profile");
+			break;
+			case'user.verify':
+				$this->session->set_flashdata('success','Email has been verified!');
+				$this->view("home");
+			break;
+			default:
+				$this->session->set_flashdata('error','Notification error!');
+				$this->view("profile");
+			break;
+		}
+	}	
 }
 ?>

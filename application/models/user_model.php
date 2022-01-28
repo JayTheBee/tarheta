@@ -21,10 +21,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // $this->db->from('profile');  /* This is commented out since it works without it, but just in case.*/
             $this->db->set('user_id', $user_idvar);
             $this->db->insert('profile');
-
             $this->db->trans_complete();
-
             unset($_SESSION['sess_user_type']); 
+            return $user_idvar;
         }
 
         /**

@@ -25,6 +25,15 @@
                         }
                         // Pang check ko lang ito ng current SESSION DATA
                     ?>
+                   <?php
+                        if($this->session->flashdata('success')){?>
+                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                    <?php } ?>
+                    
+                    <?php
+                    if($this->session->flashdata('error')){?>
+                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                    <?php } ?>
 
 
                 </div>
