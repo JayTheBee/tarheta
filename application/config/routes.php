@@ -89,6 +89,7 @@ $route['classes/create_classes'] = 'class/classes/create_classes';
 $route['classes/show/(:any)'] = 'class/classes/show/$1';
 $route['classes/(:any)'] = 'class/classes/view/$1';
 
+$route['logins/login'] = 'auth/logins/login';
 
 $route['assets']= 'assets/'; 
 $route['default_controller'] = 'pages/view';

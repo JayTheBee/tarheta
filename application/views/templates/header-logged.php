@@ -10,11 +10,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <!-- Lagay ko na ito dito pero sa login ko palang need para sa forgot pass modal popup -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- my css -->
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
+    <!-- Poppins -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+    </style>
 
     <title>Sprint Demo</title>
-  </head>
+</head>
   <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -47,9 +53,6 @@
                         <a class="nav-link" href="<?php echo base_url(); ?>flashcards/create-set">+Create Set</a>
                       </li>
                 </ul>
-                <div class="ms-auto">
-                    <a class="btn btn-bd-login rounded-pill text-decoration-underline" href="<?php echo base_url(); ?>login"><span class="button-login-text">LOG IN</span></a>
-                </div>
             </div>
         </div>
     </nav>

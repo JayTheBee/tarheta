@@ -11,12 +11,12 @@
             <div class="row flex-row flex-nowrap">
             <?php foreach ($sets as $key => $set): ?>
                 <div class="col-3">
-                    <h6>----------------------------------</h6>
+                    <h6>-----------------------</h6>
                     <h5>Set Name: <?php echo $set['name']?></h5>
                     <h6>Set Description: <?php echo $set['description']?></h6>
                     <h6>Set Color: <?php echo $set['color']?></h6>
                     <button type='button' class='btn btn-primary' onclick="window.location='<?php echo site_url("flashcards/show-set/".$set["id"]); ?>'">View</button>
-                    <h6>----------------------------------</h6>
+                    <h6>-----------------------</h6>
                 </div>
             <?php endforeach; ?>
             </div>
@@ -71,44 +71,58 @@
         <div class="tab-content" id="nav-tabContent">
             <!-- PRIVATE TAB CONTENT -->
             <div class="tab-pane fade show active" id="nav-private" role="tabpanel" aria-labelledby="nav-private-tab">
-                <?php foreach($flashcards as $flashcard): ?>
-                    <?php if ($flashcard['visibility'] == 'PRIVATE'): ?>
-                        <h5><?php echo $flashcard['name']; ?></h5>
-                        <h6>Description: <?php echo $flashcard['description']; ?></h6>
-                        <!-- <p><?php //echo $flashcard['visibility']; ?></p> -->
-                        <p><?php echo $flashcard['qtype']; ?></p>
-                        <p>
-                            <?php if ($flashcard['type'] == "REVIEWER"):
-                                echo $flashcard['type'];
-                            ?>
-                            <?php endif;?>
-                        </p>                 
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
-                        </button>
-                        <br><br>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                <div class="container-fluid overflow-scroll">
+                    <div class="row flex-row flex-nowrap">
+                        <?php foreach($flashcards as $flashcard): ?>
+                            <?php if ($flashcard['visibility'] == 'PRIVATE'): ?>
+                                <div class="col-4">
+                                    <h6>-----------------------</h6>
+                                    <h5><?php echo $flashcard['name']; ?></h5>
+                                    <h6>Description: <?php echo $flashcard['description']; ?></h6>
+                                    <!-- <p><?php //echo $flashcard['visibility']; ?></p> -->
+                                    <p><?php echo $flashcard['qtype']; ?></p>
+                                    <p>
+                                        <?php if ($flashcard['type'] == "REVIEWER"):
+                                            echo $flashcard['type'];
+                                        ?>
+                                        <?php endif;?>
+                                    </p>                 
+                                    <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
+                                    </button>
+                                    <h6>-----------------------</h6>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
 
             <!-- PUBLIC TAB CONTENT -->
             <div class="tab-pane fade" id="nav-public" role="tabpanel" aria-labelledby="nav-public-tab">
-                <?php foreach($flashcards as $flashcard): ?>
-                    <?php if ($flashcard['visibility'] == 'PUBLIC'): ?>
-                        <h5><?php echo $flashcard['name']; ?></h5>
-                        <h6>Description: <?php echo $flashcard['description']; ?></h6>
-                        <!-- <p><?php //echo $flashcard['visibility']; ?></p> -->
-                        <p><?php echo $flashcard['qtype']; ?></p>
-                        <p>
-                            <?php if ($flashcard['type'] == "REVIEWER"):
-                                echo $flashcard['type'];
-                            ?>
-                            <?php endif;?>
-                        </p>                 
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
-                        </button>
-                        <br><br>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+            <div class="container-fluid overflow-scroll">
+                    <div class="row flex-row flex-nowrap">
+                        <?php foreach($flashcards as $flashcard): ?>
+                            <?php if ($flashcard['visibility'] == 'PUBLIC'): ?>
+                                <div class="col-4">
+                                    <h6>-----------------------</h6>
+                                    <h5><?php echo $flashcard['name']; ?></h5>
+                                    <h6>Description: <?php echo $flashcard['description']; ?></h6>
+                                    <!-- <p><?php //echo $flashcard['visibility']; ?></p> -->
+                                    <p><?php echo $flashcard['qtype']; ?></p>
+                                    <p>
+                                        <?php if ($flashcard['type'] == "REVIEWER"):
+                                            echo $flashcard['type'];
+                                        ?>
+                                        <?php endif;?>
+                                    </p>                 
+                                    <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
+                                    </button>
+                                    <h6>-----------------------</h6>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
         </div>
 

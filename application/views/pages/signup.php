@@ -13,9 +13,9 @@
         <div class="container">
              <div class="d-flex flex-column align-items-center justify-content-center">
                 <h2 class="signup-text position-absolute">Welcome to Tarheta</h2>
-                <p class="signup-p text-center">You are signing up as a <?php echo $_SESSION['usertype'];?><br>Please use a valid school or work email address</p>
+                <p class="signup-p text-center">You are signing up as a <?php echo $_SESSION['sess_user_type'];?><br>Please use a valid school or work email address</p>
 
-                <form method="POST" autocomplete="off" action="<?=base_url('signups/signup')?>" class="form-inline">
+                <form method="POST" autocomplete="off" action="<?=base_url('auth/signups/signup')?>" class="form-inline">
                     <div class="container form-group d-flex flex-column align-items-center justify-content-center">
                         <!--username-->
                             <input type="text" class="form-control form-control-lg username position-absolute username"  placeholder="Username" name="username" value="<?php echo set_value('username'); ?>" class="form-control" id="username" aria-describedby="name">
