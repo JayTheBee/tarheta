@@ -34,7 +34,7 @@
     <div id="myModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" autocomplete="off" action="<?= base_url('resetpasswords/sendPassReset') ?>">
+                <form method="POST" autocomplete="off" action="<?= base_url('auth/reset_passwords/send_pass_email') ?>">
                     <div class="modal-header">
                         <h5 class="modal-title">Password reset.</h5>
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
