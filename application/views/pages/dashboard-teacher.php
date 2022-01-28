@@ -5,7 +5,7 @@
 
 .dashboard-body {
   font-family: "Poppins";
-  margin: 1cm 0 0 0;
+  margin:0;
 }
 
 .ds-transparent-bg {
@@ -75,6 +75,7 @@
 
 .crtcls {
   color: #fff;
+  text-decoration: none;
 }
 .ds-flashcard .flscrds div {
   width: 20rem;
@@ -85,8 +86,14 @@
   text-align: center;
 }
 
+.boxPos {
+	z-index: 2;
+	width: 100vw;
+	height: 100vh;
+}
+
 .ds-wave {
-  width: 100vw;
+  width: 100%;
 	left: 0;
 	z-index: 1;
 	height: 100vh;
@@ -104,9 +111,9 @@
 
 </style>
 </head>
-<div style="background-color: #52888a;">
+<div style="background-color: #52888a;" class="m-0">
 
-<img src="<?php echo base_url("./assets/images/dashboard/bg.png"); ?>" alt="" class="position-absolute waveSize">
+<img src="<?php echo base_url("./assets/images/dashboard/bg.png"); ?>" alt="" class="position-absolute ds-wave">
   <img src="<?php echo base_url("./assets/images/dashboard/teacher-bg.png"); ?>" alt="" class="ds-pic-bg tchrbg">
   <div class="dashboard-body boxPos position-relative d-flex justify-content-center "> 
   <div class="ds-transparent-bg">
@@ -114,14 +121,14 @@
                 <a>RECENT SETS</a>
                 <div class="text-center"> <!--DIV PAG WALA PANG SETS/folders-->
                     <span>You don't have any sets yet</span> 
-                    <span>Sets you create or study will be displayed here. If you want to create a new set, click <a href="#">here.</a></span>
+                    <span>Sets you create or study will be displayed here. If you want to create a new set, click <a href="<?php echo base_url(); ?>flashcards/create-set">here.</a></span>
                 </div>
             </div>
 
             <div class="ds-classes sets">
                 <a>CLASSES</a>
                 <div>
-                    <button class="ds-class-btn crtcls">Create Class + </button>
+                    <button class="ds-class-btn"><a class="crtcls" href="<?php echo base_url(); ?>classes/create">Create Class + </a></button>
                 </div>
             </div>
 
@@ -130,7 +137,7 @@
                 <div class="d-flex flscrds">
                   <div>Flashcard here</div>
                   <div>flashcard here</div>
-                  <div>more flashcard</div>
+                  <div class="text-center fs-3"><a href="<?php echo base_url(); ?>flashcards/index">more flashcard ... </a></div>
                 </div>  
             </div>
 
