@@ -13,21 +13,70 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- my css -->
-    <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/dashboard.css"); ?>">
     <!-- Poppins -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
 
-    <title>Sprint Demo</title>
+    <title>Tarheta</title>
 </head>
   <body>
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+      <div class="container">
+        <div class="create-nav design">
+            <div class="ds-nav-1 design">
+              <span class="navbar-brand brand-des mb-0 h1">Tarheta</span>
+              <a class="ds-nav-btn dsdsgn" href="<?php echo base_url('dashboard-student'); ?>">HOME</a>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle ds-nav-create dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  CREATE
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="<?php echo base_url(); ?>flashcards/create">Flashcard</a></li>
+                  <li><a class="dropdown-item" href="<?php echo base_url(); ?>flashcards/create-set">Sets</a></li>
+                  <li><a class="dropdown-item" href="<?php echo base_url(); ?>classes/create">Class</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="right-nav design">
+                <form class="form-inline my-2 my-lg-0">
+                   <input class="form-control mr-sm-2 ds-nav-search dsdsgn" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="#"
+                  id="topbar-notification"
+                  class="buttons preview dsdsgn">
+                  <span class="fas fa-bell ds-nav-bell"><span class="badge">0</span></span>
+                 
+                </a>
+            
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle ds-nav-user dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle" style="color:#e4be91; font-size: 1.6em; "></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="<?php echo base_url('profile'); ?>">Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url("auth/logins/logout")?>'">Logout</button></a></li>
+                  </ul>
+                  </div>
+
+               
+
+
+            </div>
+      </div>
+    </nav> 
+    
+    
+<!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!--
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">Home</a>
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('dashboard-teacher'); ?>">Home</a>
                     </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>profile">Profile</a>
@@ -38,6 +87,8 @@
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/join">Join Class</a>
                       </li>
+
+
 <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER') : ?>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url(); ?>classes/create">+ Create Class</a>
@@ -56,7 +107,6 @@
             </div>
         </div>
     </nav>
-    <!-- end of navbar -->
+    end of navbar -->
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ 
