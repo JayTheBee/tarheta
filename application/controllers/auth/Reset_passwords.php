@@ -61,7 +61,9 @@ class Reset_passwords extends CI_Controller{
 
 	
 			$this->user_model->update_password($_SESSION['sess_reset_pass'], $passwordvar);
-
+            $text = 'Your password has been reset!';
+            $refID = $this->notification_model->reference($text, NULL, NULL, NULL);
+            $this->notification_model->notify('password.reset', $refID, $url['id']);
 			$this->session->set_flashdata('success','Password changed successfully.');
 
 			unset($_SESSION['sess_reset_pass']);

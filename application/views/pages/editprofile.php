@@ -74,11 +74,32 @@
                         <input type="text" name="school" class="form-control" id="school" aria-describedby="name"> 
                     </div>
                     <div class="form-group">
-                    <label>Course </label> 
-                    <input type="text" placeholder="<?php echo $_SESSION['Profile']['course'];?>"
-                        name="course" value="<?php echo $_SESSION['Profile']['course'];?>"
-                        class="form-control" id="course" aria-describedby="name"
-                    > 
+                        <label name="course" class="form-label">Course</label> 
+                        <input type="text" name="course" class="form-control" id="course" aria-describedby="name"> 
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="avatar">Avatar</label>
+                        <select id="avatar" name="avatar" class="form-group">
+                            <option value="Default">Default</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Cat">Cat</option>
+                        </select>
+                    </div>
+                <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo base_url("profile"); ?>'" >Back </button>
+                    </div>
+                <?php echo form_close()?> 
+                    <?php
+                        if($this->session->flashdata('success')){?>
+                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                    <?php } ?>
+                    
+                    <?php
+                    if($this->session->flashdata('error')){?>
+                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                    <?php } ?>
+               
                 </div>
                 <div class="pf-btns text-center">
                         <button class="btn pf-confirm" type="submit" >Confirm</button>

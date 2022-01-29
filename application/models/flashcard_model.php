@@ -64,6 +64,23 @@
             return $result;
         }
 
+        public function get_created_flashcards(){
+            $user_id = $_SESSION['sess_profile']['user_id'];
+            $query = $this->db->query("SELECT * FROM flashcards_user_access WHERE user_id='$user_id'");
+            $flashcards = $query->result_array();
+            
+            $result = array();
+
+            //Getting the user's private and public flashcards
+            foreach($flashcards as $flashcard){
+                $id = $flashcard['flashcard_id'];
+                $query = $this->db->query("SELECT * FROM flashcards WHERE id='$id' AND creator_id='$user_id'");
+                if($query->num_rows()==1){
+                    array_push($result, $query->row_array());
+                };
+            }
+           return $result;
+        }
 
         public function get_flashcard_data($flashcard_id){
 

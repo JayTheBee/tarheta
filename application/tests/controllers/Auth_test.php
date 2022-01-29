@@ -9,7 +9,7 @@ class Auth_test extends TestCase {
             'email' => 'tarheta_test@mail.com',
             'password' => 'testpass'
         ];
-        $response = $this->request('POST', 'logins/login', $credential);
+        $response = $this->request('POST', 'auth/logins/login', $credential);
         echo $response;
         $this->assertRedirect(base_url('profile'));
     }
@@ -18,12 +18,12 @@ class Auth_test extends TestCase {
             'email' => 'tarheta_wrong_test@mail.com',
             'password' => 'wrongpass'
         ];
-        $response = $this->request('POST', 'logins/login', $credential);
-        $this->assertStringContainsString('Incorrect Email or Password', $response);
+        $response = $this->request('POST', 'auth/logins/login', $credential);
+        $this->assertStringContainsString('Incorrect email or password!', $response);
     }
     public function test_resetpassword_true(){
         $email = 'tarheta_test@mail.com';
-        $response = $this->request('POST', 'resetpasswords/sendPassReset', $email);
+        $response = $this->request('POST', 'auth/reset_passwords/send_pass_email', $email);
         $this->assertRedirect(base_url('login'));
     }   
     // public function test_resetpassword_false(){

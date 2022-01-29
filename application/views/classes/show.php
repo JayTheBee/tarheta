@@ -18,7 +18,7 @@
                 <div id="AsgnModal" class="modal fade" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="POST" autocomplete="off" action="<?=base_url('class/classes/assignFlashcards')?>">
+                            <form method="POST" autocomplete="off" action="<?=base_url('class/classes/assign_flashcards')?>">
                                  <input type="hidden" id='class-id' name='class-id' value='<?php echo $class['id']?>'>
                                 <div class="modal-header">
                                     <h5 class="modal-title">Assign Flashcards</h5>

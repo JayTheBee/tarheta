@@ -10,6 +10,7 @@ class Signups extends CI_Controller{
 		$this->load->library('form_validation');
 		$this->load->helper('security');
 		$this->load->model('user_model');
+		$this->load->model('notification_model');
 	}
 
     /**
@@ -56,6 +57,7 @@ class Signups extends CI_Controller{
 		$segmentedURL = array(
 			'username' => $this->uri->segment(4),
 			'code' => $this->uri->segment(5),
+			'id'=> $this->uri->segment(6),
 		);
 		return $segmentedURL;
 	}
@@ -91,8 +93,8 @@ class Signups extends CI_Controller{
 			// 'reset_exp' =>  date('Y-m-d H:i:s', $datetime + 1 * 24 * 60 * 60)
 		);
 
-		$this->user_model->insert_user($datavar, $data2var);
-		$this->_email_verify($usernamevar, $tokenvar, $emailvar);
+		$user_idvar = $this->user_model->insert_user($datavar, $data2var);
+		$this->_email_verify($usernamevar, $tokenvar, $emailvar, $user_idvar);
 	}
 
 
@@ -134,7 +136,7 @@ class Signups extends CI_Controller{
     * @param       string 		$email_arg  		 	user email
     * @return      none
     */
-	private function _email_verify($username_arg, $token_arg, $email_arg){
+	private function _email_verify($username_arg, $token_arg, $email_arg, $user_id_arg){
 		$this->session->set_flashdata('success','Successfully Created. You can now login.');
 		$mailvar = array(
 			'subject' => "Tarheta | Activeate Account",
@@ -142,7 +144,7 @@ class Signups extends CI_Controller{
 			'username' => $username_arg,
 			'body' => "Please click the the button to activate your account",
 			'button' => "Activate",
-			'link' => base_url()."/auth/signups/verify/".$username_arg."/".$token_arg,
+			'link' => base_url()."/auth/signups/verify/".$username_arg."/".$token_arg."/".$user_id_arg,
 		);
 
 		$this->email->send_email($mailvar, 'templates/email', $email_arg);
@@ -188,6 +190,9 @@ class Signups extends CI_Controller{
 		
 		$queryvar = $this->user_model->verify_account($data, $url['username'], $url['code']);
 		if($queryvar){
+            $text = 'Your account has been verified!';
+            $refID = $this->notification_model->reference($text, NULL, NULL, NULL);
+            $this->notification_model->notify('user.verify', $refID, $url['id']);
 			$this->_view('verified');
 		}
 	}

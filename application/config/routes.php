@@ -73,13 +73,7 @@ $route['flashcards/save_question'] = 'flashcard/flashcards/save_question';
 $route['flashcards/create_flashcards'] = 'flashcard/flashcards/create_flashcards';
 $route['flashcards/reopen/(:any)'] = 'flashcard/flashcards/reopen/$1';
 $route['flashcards/updateTime/(:any)'] = 'flashcard/flashcards/updateTime/$1';
-
-$route['flashcards/create_set'] = 'flashcard/sets/create_set/';
-$route['flashcards/edit-set/(:any)'] = 'flashcard/sets/edit_set/$1';
-$route['flashcards/update-set/(:any)'] = 'flashcard/sets/update_set/$1';
-$route['flashcards/delete-set/(:any)'] = 'flashcard/sets/delete_set/$1';
-$route['flashcards/show-set/(:any)'] = 'flashcard/sets/show_set/$1';
-
+$route['flashcards/create_set'] = 'flashcard/flashcards/create_set/';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
 
@@ -90,6 +84,9 @@ $route['classes/show/(:any)'] = 'class/classes/show/$1';
 $route['classes/(:any)'] = 'class/classes/view/$1';
 
 $route['logins/login'] = 'auth/logins/login';
+$route['profile/notif/(:any)'] = 'user/profile/notif/$1';
+$route['profile/(:any)'] = 'user/profile/view/$1';
+
 
 $route['assets']= 'assets/'; 
 $route['default_controller'] = 'pages/view';

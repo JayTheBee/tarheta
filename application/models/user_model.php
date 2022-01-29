@@ -21,10 +21,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // $this->db->from('profile');  /* This is commented out since it works without it, but just in case.*/
             $this->db->set('user_id', $user_idvar);
             $this->db->insert('profile');
-
             $this->db->trans_complete();
-
             unset($_SESSION['sess_user_type']); 
+            return $user_idvar;
         }
 
         /**
@@ -172,6 +171,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->trans_complete();
 
             return $new_token;
+        }
+        public function user_active_check($user_id){
+            $query = $this->db->query("SELECT * FROM users WHERE id='$user_id' AND active='Active'");
+            if($query->num_rows()==1){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
         }
     }
 

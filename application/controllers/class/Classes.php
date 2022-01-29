@@ -10,9 +10,12 @@ class Classes extends CI_Controller{
         $this->load->helper('security');
         $this->load->model('classes_model');
         $this->load->model('flashcard_model');
+        $this->load->model('notification_model');
+        $this->load->model('user_model');
+        $this->load->model('classes_model');
     }
 
-    function check_page($page, $data){
+    private function _check_page($page, $data){
         if($page == 'index'){
             $data['result'] = $this->classes_model->getClass();
         }
@@ -28,9 +31,8 @@ class Classes extends CI_Controller{
         }
 
         $data['title'] = ucfirst($page);
-        $data = $this->check_page($page, $data);
-
-        $this->load->view('templates/header-logged');
+        $data = $this->_check_page($page, $data);
+        $this->load->view('templates/header');
         $this->load->view('classes/'.$page, $data);
         $this->load->view('templates/footer');
     }
@@ -54,7 +56,7 @@ class Classes extends CI_Controller{
                         'school'=> $school,
                         
                     );
-                    $user_id = $_SESSION['Profile']['user_id'];
+                    $user_id = $_SESSION['sess_profile']['user_id'];
                     $this->classes_model->insertclasses($data, $user_id);
                     
                     $this->session->set_flashdata('success','Classes successfully created!');
@@ -68,11 +70,11 @@ class Classes extends CI_Controller{
     }
 
 
-    function show($class_id){
+    public function show($class_id){
         $data['class'] = $this->classes_model->showClass($class_id);
         $data['classMembers'] = $this->classes_model->getMembers($class_id);
-        $data['assignedFlashcards'] = $this->flashcard_model->getClassFlashcard($class_id);
-        $data['createdFlashcards'] = $this->flashcard_model->getCreatedFlashcards($_SESSION['Profile']['user_id']);
+        $data['assignedFlashcards'] = $this->flashcard_model->get_class_flashcard($class_id);
+        $data['createdFlashcards'] = $this->flashcard_model->get_created_flashcards();
         $data['title'] = ucfirst('show');
 
         $this->load->view('templates/header');
@@ -88,8 +90,8 @@ class Classes extends CI_Controller{
 
                 $class_code = $this->input->post('invite', TRUE);
                 $class = $this->classes_model->verifyCode($class_code);
-                $user_id = $_SESSION['Profile']['user_id'];
-                $email_check = $this->classes_model->emailCheck($user_id);
+                $user_id = $_SESSION['sess_profile']['user_id'];
+                $email_check = $this->user_model->user_active_check($user_id);
 
                 if(!$class){
                     $this->session->set_flashdata('error','Valid class code required!');
@@ -123,22 +125,25 @@ class Classes extends CI_Controller{
 				$email = $this->input->post('email', TRUE);
                 $class_name = $this->input->post('class-name', TRUE);
                 $class_id = $this->input->post('class-id', TRUE);
-				$status = $this->classes_model->classes_inv($email);
 
-                if($status){
+				$user_check = $this->user_model->email_check($email);
+
+                if($user_check){
                     
-                    $data = array(
-						'subject' => "Tarheta | Class Invite",
-						'header' => "Join ".$class_name . " Class",
-						'username' => $status['username'],
-						'body' => "Please click the the button to join the class",
-						'button' => "Join",
-						'link' => base_url()."class/classes/enroll_user/". $status['id'] ."/" .$class_id,
-					);
-                    $this->email->send_email($data, 'templates/email', $email);
+                    $class_check = $this->classes_model->verify_class($user_check->id, $class_id);
 
-                    $this->session->set_flashdata('success', 'Users Invited');
-                    redirect(base_url('classes/show/'.$class_id));
+                    if($class_check){
+                        $this->session->set_flashdata('error', 'User is already in this class!');
+                        redirect(base_url('classes/show/'.$class_id));
+
+                    }else{
+
+                        $text = 'You have been invited to the '.$class_name.'!';
+                        $refID = $this->notification_model->reference($text, $class_id, NULL, NULL);
+                        $this->notification_model->notify('class.invite', $refID, $user_check->id);
+                        $this->session->set_flashdata('success', 'Users Invited');
+                        redirect(base_url('classes/show/'.$class_id));
+                    }
                 }
                 else
                 {
@@ -154,7 +159,7 @@ class Classes extends CI_Controller{
         }
     }	
     
-    public function assignFlashcards(){
+    public function assign_flashcards(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $this->form_validation->set_rules('flashcard','Flashcards','required');
 
@@ -181,13 +186,13 @@ class Classes extends CI_Controller{
 
 
     public function enroll_user(){
-        $data = $this->segmentURL();
+        $data = $this->segment_url();
         $this->classes_model->userEnroll($data['class_id'], $data['user_id'], 'MEMBER');
         $this->show($data['class_id']);
     }
 
 
-    private function segmentURL(){
+    private function segment_url(){
 		$segmentedURL = array(
 			'user_id' => $this->uri->segment(4),
 			'class_id' => $this->uri->segment(5),
