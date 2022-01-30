@@ -27,6 +27,9 @@ class set_model extends CI_Model {
     }
 
 
+    /**
+     * Function to update a specific flashcard set row.
+     */
     public function update_set_list($flashcard_id, $set_id){
         $this->db->trans_start();
         $this->db->from('flashcard_set_list');
@@ -40,7 +43,9 @@ class set_model extends CI_Model {
     }
 
 
-    //Function where it returns an array containing all the sets of flashcard
+    /**
+     * Function where it returns an array containing all the sets of flashcard
+     */
     public function get_sets($user_id){
         $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
         if ($query->num_rows() != 0)
@@ -64,7 +69,10 @@ class set_model extends CI_Model {
     }
 
 
-    function insertFlashcardSets($set_id, $flashcard_id){
+    /**
+     * Function to insert a new flashcard set row.
+     */
+    function insert_flashcard_sets($set_id, $flashcard_id){
         $this->db->trans_start();
         $this->db->set('flashcard_id', $flashcard_id);
         $this->db->set('set_id', $set_id);
@@ -72,6 +80,7 @@ class set_model extends CI_Model {
         $this->db->trans_complete();
     }
 
+    
     /**
      * Function to check if the logged in user is the one who created the set
      */

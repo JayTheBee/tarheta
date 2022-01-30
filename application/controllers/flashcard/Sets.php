@@ -11,7 +11,10 @@ class Sets extends CI_Controller{
         $this->load->model('set_model');
     }
 
-    public function view($page_arg = 'index', $data_arg = array()){
+    /**
+     * Function to handle viewing a specific page
+     */
+    private function _view($page_arg = 'index', $data_arg = array()){
         if(!file_exists(APPPATH.'views/flashcards/'.$page_arg.'.php')){
             show_404();
         }
@@ -25,39 +28,41 @@ class Sets extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+
     /**
      * XSS Filtering for the Flashcard set input
      */
-    private function create_set_clean(){
-        $namevar = $this->input->post('name', TRUE);
-        $descriptionvar = $this->input->post('description', TRUE);
-        $colorvar = $this->input->post('color', TRUE);
-        $user_idvar = $_SESSION['sess_profile']['user_id'];
+    private function _create_set_clean(){
+        $name_var = $this->input->post('name', TRUE);
+        $description_var = $this->input->post('description', TRUE);
+        $color_var = $this->input->post('color', TRUE);
+        $user_id_var = $_SESSION['sess_profile']['user_id'];
 
-        $datavar = array (
-            'name' => $namevar,
-            'user_id' => $user_idvar,
-            'description' => $descriptionvar,
-            'color' => $colorvar,
+        $data_var = array (
+            'name' => $name_var,
+            'user_id' => $user_id_var,
+            'description' => $description_var,
+            'color' => $color_var,
         );
 
-        return $datavar;
+        return $data_var;
     }
+
 
     /**
      * Create Set
      */
     public function create_set(){
         if ($_SERVER['REQUEST_METHOD']=='POST'){
-            $this->set_rules();
+            $this->_set_rules();
 
             if($this->form_validation->run()==TRUE){
-                $datavar = $this->create_set_clean();
-                $this->flashcard_model->set_flashcards($datavar);
+                $data_var = $this->_create_set_clean();
+                $this->flashcard_model->set_flashcards($data_var);
                 redirect(base_url('flashcards/index/'));
             }
 
-            $this->view('create-set');
+            $this->_view('create-set');
         }
     }
     
@@ -67,8 +72,8 @@ class Sets extends CI_Controller{
      */
     public function edit_set($set_id_arg){
         if($this->set_model->check_set($set_id_arg)){
-            $data['set_id'] = $set_id_arg;
-            $this->view('edit-set', $data);
+            $data_var['set_id'] = $set_id_arg;
+            $this->_view('edit-set', $data_var);
         }   
         else{
             redirect(base_url('flashcards/index/'));
@@ -82,10 +87,10 @@ class Sets extends CI_Controller{
      * set details
      */
     public function update_set($set_id_arg){
-        $this->set_rules();
+        $this->_set_rules();
         if($this->form_validation->run()==TRUE){
-            $datavar = $this->create_set_clean();
-            $this->set_model->update_set_datails($datavar, $set_id_arg);
+            $data_var = $this->_create_set_clean();
+            $this->set_model->update_set_datails($data_var, $set_id_arg);
             redirect(base_url('flashcards/index/'));
         }
     }
@@ -95,7 +100,7 @@ class Sets extends CI_Controller{
      * Function to set the validation rules for
      * creating and editing a flashcard set
      */
-    private function set_rules(){
+    private function _set_rules(){
         $this->form_validation->set_rules('name','Name','required');
         $this->form_validation->set_rules('description','Description','required');
         $this->form_validation->set_rules('color','Color','required');
@@ -118,9 +123,9 @@ class Sets extends CI_Controller{
      */
     public function show_set($set_id_arg){
         if($this->set_model->check_set($set_id_arg)){
-            $datavar['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
-            $datavar['set'] = $this->set_model->get($set_id_arg);
-            $this->view('show-set', $datavar);
+            $data_var['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
+            $data_var['set'] = $this->set_model->get($set_id_arg);
+            $this->_view('show-set', $data_var);
         }
         else{
             redirect(base_url('flashcards/index/'));

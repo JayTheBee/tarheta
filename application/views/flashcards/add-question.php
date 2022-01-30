@@ -16,13 +16,13 @@
                                 <input type="text" placeholder="Enter Question" name="question" class="form-control" id="question" aria-describedby="name">
                             </div>
 <!-- Answer for IDENTIFICATION -->
-<?php if ((isset($_SESSION['Current_Question'])) && ($_SESSION['Current_Question']['question_type']=='IDENTIFICATION')): ?>
+<?php if ((isset($_SESSION['sess_current_question'])) && ($_SESSION['sess_current_question']['question_type']=='IDENTIFICATION')): ?>
                             <div   div class="mb-2">
                                 <label for="exampleQuestion1" class="form-label">ANSWER</label>
                                 <input type="text" placeholder="Enter Answer" name="identification-answer" class="form-control" id="identification-answer" aria-describedby="name">
                             </div>
 <!-- Answer for TRUEFALSE -->
-<?php elseif ((isset($_SESSION['Current_Question'])) && ($_SESSION['Current_Question']['question_type']=='TRUEFALSE')): ?>
+<?php elseif ((isset($_SESSION['sess_current_question'])) && ($_SESSION['sess_current_question']['question_type']=='TRUEFALSE')): ?>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <!-- Pwede daw na wag muna JS rekta controller then load new php file sa view -->
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
 <!-- Answer for CHOICE -->
-<?php elseif ((isset($_SESSION['Current_Question'])) && ($_SESSION['Current_Question']['question_type']=='CHOICE')): ?>
+<?php elseif ((isset($_SESSION['sess_current_question'])) && ($_SESSION['sess_current_question']['question_type']=='CHOICE')): ?>
                             <div class="mb-2">
                                 <input type='radio' name='choice-answer' value='a'>
                                 <label for="exampleQuestion1" class="form-label">A</label> 

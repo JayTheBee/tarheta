@@ -11,15 +11,22 @@ class Profile extends CI_Controller {
 		$this->load->model('classes_model');
 		$this->load->model('notification_model');
 	}
-        public function view($page){
-            if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
-                show_404();
-            }
-            $data['title'] = ucfirst($page);
-            $this->load->view('templates/header');
-            $this->load->view('pages/'.$page, $data);
-            $this->load->view('templates/footer');
-        }
+
+
+	/**
+	 * Main function to handle loading the view file
+	 */
+	public function view($page){
+		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
+			show_404();
+		}
+		$data['title'] = ucfirst($page);
+		$this->load->view('templates/header');
+		$this->load->view('pages/'.$page, $data);
+		$this->load->view('templates/footer');
+	}
+
+
     /**
     * Main function for editing profile. Validates input, filters xss, and checks for empty inputs.
     *
@@ -78,6 +85,10 @@ class Profile extends CI_Controller {
 
 	}	
 	
+
+	/**
+	 * 
+	 */
 	public function check_notif($context_arg, $response_arg, $user_arg, $class_arg, $ref_id_arg){
 		if($context_arg=='class.invite' && $response_arg == 'ACCEPT'){
 	        $this->notification_model->change_response($ref_id_arg, $response_arg);
@@ -87,6 +98,11 @@ class Profile extends CI_Controller {
 		} 
 		$this->view('profile');
 	}
+
+
+	/**
+	 * 
+	 */
 	public function read($notif_id, $active, $context_arg){
         $data['notifs'] = $this->notification_model->get_reference($notif_id);
         $this->notification_model->mark_read($notif_id);
@@ -98,6 +114,11 @@ class Profile extends CI_Controller {
         $this->load->view('pages/notif_show', $data);
         $this->load->view('templates/footer');
 	}
+
+
+	/**
+	 * 
+	 */
 	public function notif_redirects($context_arg, $notif_id_arg){
 		$this->notification_model->mark_read($notif_id_arg);
 		switch($context_arg){

@@ -8,7 +8,7 @@
                         TEST REOPEN
                     </div>
                     <div class="card-body">
-                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/updateTime/'. $flashcard['id'])?>">
+                        <form method="POST" autocomplete="off" action="<?=base_url('flashcards/update-time/'. $flashcard['id'])?>">
 
 
                                 <div id='time-fields' >

@@ -23,7 +23,7 @@
                 <?php endif; ?>
 
                 <?php 
-                    $_SESSION['Current_Flashcard']['flashcard_id'] = $flashcard['id'];
+                    $_SESSION['sess_current_flashcard']['flashcard_id'] = $flashcard['id'];
                     //echo form_open("flashcards/edit/".$flashcard['id'])
                 ?>
 
@@ -61,17 +61,15 @@
 <?php endif; ?>
                 
                 <!-- Answer Quiz Button -->
-                <!-- 
-                    May issue sa if statement sa comparison ng time IDK kung sa timezone eme ata ito
-                    https://stackoverflow.com/questions/6158726/php-compare-time
-                    First comment sa first answer.
-                -->
-                <?php if(($flashcard['type']=="QUIZ" && (strtotime($flashcard['timeopen']) > time() && strtotime($flashcard['timeclose']) > time()))): ?>
+                <?php
+                    // https://stackoverflow.com/questions/961074/how-do-i-compare-two-datetime-objects-in-php-5-2-8
+                    $timenow_var = new DateTime("now");
+                    $timeopen_var = new DateTime($flashcard['timeopen']);
+                    $timeclose_var = new DateTime($flashcard['timeclose']);
+                ?>
+
+                <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timeopen_var) || ($flashcard['type']=="REVIEWER")): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
-                    Answer
-                    </button>
-                <?php elseif($flashcard['type']=="REVIEWER" && $flashcard['creator_id'] == $_SESSION['sess_profile']['user_id']):?>
-                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer
                     </button>
                 <?php endif; ?>
@@ -127,7 +125,7 @@
                         <?php endif; ?>    
                         
                         <!-- Shows answer button when type is reviewer-->
-                        <?php if($flashcard['type'] == 'REVIEWER'):?>
+                        <?php if($flashcard['type'] == 'REVIEWER' || $flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
                             <div class="answer"> 
                                 <button class="btn btn-success" onclick="revealAnswersFunction(this)">Click/Tap To Reveal Answers: </button>
                                 <div class="showanswer" style="display:none"><?php echo $question['answer']; ?> </div>

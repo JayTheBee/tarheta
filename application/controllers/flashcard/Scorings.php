@@ -13,15 +13,15 @@ class Scorings extends CI_Controller{
     /**
      * Function to call a specific view file.
      */
-    private function view($page = 'index', $data = array()){
-        if(!file_exists(APPPATH.'views/flashcards/'.$page.'.php')){
+    private function view($page_arg = 'index', $data_arg = array()){
+        if(!file_exists(APPPATH.'views/flashcards/'.$page_arg.'.php')){
             show_404();
         }
 
-        $data['title'] = ucfirst($page);
+        $data_arg['title'] = ucfirst($page_arg);
 
         $this->load->view('templates/header-logged');
-        $this->load->view('flashcards/'.$page, $data);
+        $this->load->view('flashcards/'.$page_arg, $data_arg);
         $this->load->view('templates/footer');
     }
 
@@ -32,13 +32,12 @@ class Scorings extends CI_Controller{
      * This function also handles calling the scoring_model functions to save relevant
      * information from the user's answering session.
      */
-    public function score_user($user_id, $flashcard_id){
-        $questions = $this->flashcard_model->get_questions($flashcard_id);
-        $data = $this->scoring_model->get_user_score($flashcard_id, $user_id, $questions);
+    public function score_user($user_id_arg, $flashcard_id_arg){
+        $questions_var = $this->flashcard_model->get_questions($flashcard_id_arg);
+        $data_var = $this->scoring_model->get_user_score($flashcard_id_arg, $user_id_arg, $questions_var);
 
-        //$data['questions'] = $questions;
-        $this->scoring_model->update_user_score($flashcard_id, $user_id, $data);
-        redirect(base_url('flashcards/result/'.$user_id."/".$flashcard_id));
+        $this->scoring_model->update_user_score($flashcard_id_arg, $user_id_arg, $data_var);
+        redirect(base_url('flashcards/result/'.$user_id_arg."/".$flashcard_id_arg));
     }
 
     
@@ -48,12 +47,12 @@ class Scorings extends CI_Controller{
      * 
      * This function also call the function to load the result.php view. 
      */
-    public function result($user_id, $flashcard_id){
-        $data = $this->flashcard_model->get_data($flashcard_id);
-        $data['user_scores'] = $this->scoring_model->get_user_score($flashcard_id, $user_id, $data['questions'],FALSE);
-        $data['user_answers'] = $this->flashcard_model->get_user_answers($flashcard_id, $user_id, $data['questions']);
+    public function result($user_id_arg, $flashcard_id_arg){
+        $data_var = $this->flashcard_model->get_data($flashcard_id_arg);
+        $data_var['user_scores'] = $this->scoring_model->get_user_score($flashcard_id_arg, $user_id_arg, $data_var['questions'],FALSE);
+        $data_var['user_answers'] = $this->flashcard_model->get_user_answers($flashcard_id_arg, $user_id_arg, $data_var['questions']);
         
-        $this->view('result', $data);
+        $this->view('result', $data_var);
     }
 
 
@@ -63,24 +62,30 @@ class Scorings extends CI_Controller{
      * 
      * This function also call the function to load the score.php view.
      */
-    public function score($user_id, $flashcard_id){
-        $questions = $this->flashcard_model->get_data($flashcard_id);
-        $data['user_scores'] = $this->scoring_model->get_user_score($flashcard_id, $user_id, $questions,FALSE);
+    public function score($user_id_arg, $flashcard_id_arg){
+        $questions_var = $this->flashcard_model->get_data($flashcard_id_arg);
+        $data_var['user_scores'] = $this->scoring_model->get_user_score($flashcard_id_arg, $user_id_arg, $questions_var,FALSE);
 
-        $this->view('score', $data);
+        $this->view('score', $data_var);
     }
 
-
-    public function ranking($latest, $flashcard_id){
-        $data = $this->flashcard_model->get_data($flashcard_id);
-        unset($data['questions']);
-        unset($data['multi_choices']);
+    /**
+     * Function to get all the data needed to display the rankings
+     * of the user on a specific falshcard
+     */
+    public function ranking($latest_arg, $flashcard_id_arg){
+        $data_var = $this->flashcard_model->get_data($flashcard_id_arg);
+        // Just reused a funciton in the flashcard_model but
+        // It also gets the questions and multiple choices so
+        // I have unset those keys so that It will not be passed to the view.
+        unset($data_var['questions']);
+        unset($data_var['multi_choices']);
 
         // Converting string to bool
-        $latest = ($latest === "latest") ? TRUE : FALSE;
+        $latest_arg = ($latest_arg === "latest") ? TRUE : FALSE;
         
-        $data['users'] = $this->scoring_model->get_ranking($flashcard_id, $latest);
+        $data_var['users'] = $this->scoring_model->get_ranking($flashcard_id_arg, $latest_arg);
 
-        $this->view('ranking', $data);
+        $this->view('ranking', $data_var);
     }
 }

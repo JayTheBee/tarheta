@@ -56,8 +56,8 @@
                 <form method="POST" autocomplete="off" action="<?=base_url('profile/editprofile')?>">
                     <div class="form-group">
                     <label>First Name </label> 
-                    <input type="text" placeholder="<?php echo $_SESSION["Profile"]['firstname'];?>"
-                        name="firstname" value="<?php echo $_SESSION["Profile"]['firstname'];?>"
+                    <input type="text" placeholder="<?php echo $_SESSION['sess_profile']['firstname'];?>"
+                        name="firstname" value="<?php echo $_SESSION['sess_profile']['firstname'];?>"
                         class="form-control pf-edit-fn" id="firstname" aria-describedby="name"
                     > 
                 </div>

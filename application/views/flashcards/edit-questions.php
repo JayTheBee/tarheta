@@ -61,13 +61,13 @@
 
                         
                         <!--<?php 
-                        // echo form_open("flashcards/show/".$_SESSION['Current_Flashcard']['flashcard_id'])
+                        // echo form_open("flashcards/show/".$_SESSION['sess_current_flashcard']['flashcard_id'])
                         ?>
                             <button class="btn btn-primary" type="submit">Save</button>
                         </form> -->
                         <button 
                             type="button" class="btn btn-primary" 
-                            onclick="window.location='<?php echo site_url("flashcards/show/".$_SESSION['Current_Flashcard']['flashcard_id']); ?>'"
+                            onclick="window.location='<?php echo site_url("flashcards/show/".$_SESSION['sess_current_flashcard']['flashcard_id']); ?>'"
                         >
                             Done
                         </button>
