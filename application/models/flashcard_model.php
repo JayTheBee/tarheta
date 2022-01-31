@@ -205,7 +205,7 @@
             if($query_var->num_rows()==0)
                 $this->insert_flashcard_user_access($flashcard_id_arg, $user_id_var); //Insert new user access
 
-            return TRUE;
+            return $user_id_var;
         }
 
 
@@ -460,14 +460,14 @@
 
         }
         
-        // //Function where it returns an array containing all the sets of flashcard
-        // public function get_sets($user_id){
-        //     $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
-        //     if ($query->num_rows() != 0)
-        //         return $query->result_array();
-        //     else
-        //         return FALSE;
-        // }
+        //Function where it returns an array containing all the sets of flashcard
+        public function get_sets($user_id){
+            $query = $this->db->query("SELECT * FROM flashcard_sets WHERE user_id='$user_id'");
+            if ($query->num_rows() != 0)
+                return $query->result_array();
+            else
+                return FALSE;
+        }
 
         // function insert_flashcard_sets($set_id, $flashcard_id){
         //     $this->db->trans_start();

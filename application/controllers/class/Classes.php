@@ -170,6 +170,11 @@ class Classes extends CI_Controller{
 
                 if($check){
                     $this->flashcard_model->insert_flashcard_class_access($selFlashcard, $class_id);
+
+                    $text = 'Your class has been assigned a flashcard!';
+                    $refID = $this->notification_model->reference($text, $class_id, $selFlashcard, NULL);
+                    $this->notification_model->notify_class('flashcard.class', $refID, $class_id);
+
                     $this->session->set_flashdata('success', 'Flashcard assigned');
                     redirect(base_url('classes/show/'.$class_id)); 
 

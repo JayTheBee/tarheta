@@ -10,6 +10,7 @@ class Profile extends CI_Controller {
 		$this->load->model('profile_model');
 		$this->load->model('classes_model');
 		$this->load->model('notification_model');
+		$this->load->helper('url');
 	}
 
 
@@ -129,6 +130,15 @@ class Profile extends CI_Controller {
 			case'user.verify':
 				$this->session->set_flashdata('success','Email has been verified!');
 				$this->view("home");
+			break;
+			case'flashcard.class':
+				redirect(base_url("classes/index"));
+			break;
+			case'flashcard.user':
+				redirect(base_url("flashcards/index"));
+			break;
+			case'flashcard.reopen':
+				redirect(base_url("flashcards/index"));
 			break;
 			default:
 				$this->session->set_flashdata('error','Notification error!');

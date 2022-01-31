@@ -62,6 +62,18 @@ CREATE TABLE `category_list` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `flashcard_class_access`
+--
+
+CREATE TABLE `flashcard_class_access` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `classes`
 --
 
@@ -290,6 +302,35 @@ CREATE TABLE `user_scores` (
   `flashcard_rank` int(11) DEFAULT NULL,
   `attempt` int(11) NOT NULL,
   `latest` enum('YES','NO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `context` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_reference`
+--
+
+CREATE TABLE `notification_reference` (
+  `id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `flashcard_id` int(11) DEFAULT NULL,
+  `response` enum('ACCEPT','DECLINE','NAN','') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

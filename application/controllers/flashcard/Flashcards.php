@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->load->helper('security');
             $this->load->model('flashcard_model');
             $this->load->model('tags_model');
+            $this->load->model('notification_model');
             $this->load->model('set_model');
         }
 
@@ -140,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $time_open_var = $this->input->post('time-open', TRUE);
             $time_close_var = $this->input->post('time-close', TRUE);
             $category_var = $this->input->post('category', TRUE);
-            $qtype_var = ($type == 'QUIZ') ? $this->input->post('qtype', TRUE) : 'NULL';
+            $qtype_var = ($type_var == 'QUIZ') ? $this->input->post('qtype', TRUE) : 'NULL';
 
             $cat_check_var = $this->tags_model->checkCategory($category_var);
 
@@ -338,6 +339,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $status_var = $this->flashcard_model->flashcard_share($flashcard_id_arg, $email_var);
             if($status_var){
                 $this->session->set_flashdata('success', 'Shared');
+                $text = 'Your have been assigned a flashcard!';
+                $refID = $this->notification_model->reference($text, NULL, $flashcard_id_arg, NULL);
+                $this->notification_model->notify('flashcard.user', $refID, $status_var);
+                    
             }
             else{
                 $this->session->set_flashdata('error', 'User not found');
@@ -405,6 +410,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     );
 
                     $this->flashcard_model->time_update($data_var, $flashcard_id_arg);
+                    $text = 'Flashcard has been reopened!';
+                    $refID = $this->notification_model->reference($text, NULL, $flashcard_id_arg, NULL);
+                    $this->notification_model->notify_flashcard_access('flashcard.reopen', $refID, $flashcard_id_arg);
+            
                 }
 
             redirect(base_url('flashcards/show/'.$flashcard_id_arg));

@@ -10,6 +10,24 @@
             $this->db->insert('notification');
             $this->db->trans_complete();
         } 
+
+        public function notify_class($context_arg, $ref_id_arg, $class_id_arg){
+            $query_var = $this->db->query("SELECT * FROM enroll WHERE class_id='$class_id_arg'");
+            $user_var = $query_var->result_array();
+            foreach($user_var as $user){
+                $id_var = $user['user_id'];
+                $this->notify($context_arg, $ref_id_arg, $id_var);
+            }
+        }
+
+        public function notify_flashcard_access($context_arg, $ref_id_arg, $flashcard_id_arg){
+            $query_var = $this->db->query("SELECT * FROM flashcards_user_access WHERE flashcard_id='$flashcard_id_arg'");
+            $user_var = $query_var->result_array();
+            foreach($user_var as $user){
+                $id_var = $user['user_id'];
+                $this->notify($context_arg, $ref_id_arg, $id_var);
+            }
+        }
         
         public function reference($text_arg, $class_id_arg, $flashcard_id_arg, $response_arg){
             $this->db->trans_start();
