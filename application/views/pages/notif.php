@@ -32,6 +32,10 @@
                                 <?php echo form_close()?>
                             <?php break; ?>
                             <?php case 'password.reset':?>
+                                <p>Your password has been reset</p>
+                                <?php echo form_open("user/profile/notif_redirects/".$row['context']."/".$row['id'])?>
+                                    <button class="btn btn-primary" type="submit">Read</button>
+                                <?php echo form_close()?>
                             <?php break; ?>
                             <?case 'flashcard.class':?>
                             <?php break; ?>
