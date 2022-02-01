@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2022 at 03:34 AM
+-- Generation Time: Feb 01, 2022 at 04:09 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -70,7 +70,7 @@ CREATE TABLE `classes` (
   `class_name` varchar(255) NOT NULL,
   `school` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `invite_code` varchar(255) NOT NULL,
   `invitations` enum('YES','NO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -137,6 +137,7 @@ CREATE TABLE `flashcards_questions` (
   `question_type` enum('CHOICE','IDENTIFICATION','TRUEFALSE') NOT NULL,
   `question` text NOT NULL,
   `answer` text NOT NULL,
+  `time` int(11) NOT NULL,
   `total_points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
