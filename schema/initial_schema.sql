@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2022 at 03:34 AM
+-- Generation Time: Feb 01, 2022 at 03:42 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- PHP Version: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -57,18 +57,6 @@ CREATE TABLE `category_list` (
   `id` int(11) NOT NULL,
   `flashcard_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `flashcard_class_access`
---
-
-CREATE TABLE `flashcard_class_access` (
-  `id` int(11) NOT NULL,
-  `flashcard_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -167,6 +155,18 @@ CREATE TABLE `flashcards_user_access` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `flashcard_class_access`
+--
+
+CREATE TABLE `flashcard_class_access` (
+  `id` int(11) NOT NULL,
+  `flashcard_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `flashcard_multiple_choice`
 --
 
@@ -218,6 +218,35 @@ CREATE TABLE `flashcard_statistic` (
   `correct` decimal(10,0) NOT NULL,
   `wrong` decimal(10,0) NOT NULL,
   `unanswered` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `context` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_reference`
+--
+
+CREATE TABLE `notification_reference` (
+  `id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `flashcard_id` int(11) DEFAULT NULL,
+  `response` enum('ACCEPT','DECLINE','NAN','') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -307,35 +336,6 @@ CREATE TABLE `user_scores` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
---
-
-CREATE TABLE `notification` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `reference_id` int(11) NOT NULL,
-  `context` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notification_reference`
---
-
-CREATE TABLE `notification_reference` (
-  `id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `class_id` int(11) DEFAULT NULL,
-  `flashcard_id` int(11) DEFAULT NULL,
-  `response` enum('ACCEPT','DECLINE','NAN','') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_types`
 --
 
@@ -359,7 +359,9 @@ ALTER TABLE `categories`
 -- Indexes for table `category_list`
 --
 ALTER TABLE `category_list`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `flashcard_id` (`flashcard_id`);
 
 --
 -- Indexes for table `classes`
@@ -377,7 +379,9 @@ ALTER TABLE `class_ranking`
 -- Indexes for table `enroll`
 --
 ALTER TABLE `enroll`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `flashcards`
@@ -389,13 +393,24 @@ ALTER TABLE `flashcards`
 -- Indexes for table `flashcards_questions`
 --
 ALTER TABLE `flashcards_questions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `choice_id` (`choice_id`);
 
 --
 -- Indexes for table `flashcards_user_access`
 --
 ALTER TABLE `flashcards_user_access`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `flashcard_class_access`
+--
+ALTER TABLE `flashcard_class_access`
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `class_id` (`class_id`);
 
 --
 -- Indexes for table `flashcard_multiple_choice`
@@ -407,19 +422,40 @@ ALTER TABLE `flashcard_multiple_choice`
 -- Indexes for table `flashcard_sets`
 --
 ALTER TABLE `flashcard_sets`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `flashcard_set_list`
 --
 ALTER TABLE `flashcard_set_list`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `set_id` (`set_id`);
 
 --
 -- Indexes for table `flashcard_statistic`
 --
 ALTER TABLE `flashcard_statistic`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reference_id` (`reference_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `notification_reference`
+--
+ALTER TABLE `notification_reference`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `flashcard_id` (`flashcard_id`);
 
 --
 -- Indexes for table `profile`
@@ -432,7 +468,8 @@ ALTER TABLE `profile`
 -- Indexes for table `question_statistic`
 --
 ALTER TABLE `question_statistic`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
 
 --
 -- Indexes for table `users`
@@ -444,13 +481,17 @@ ALTER TABLE `users`
 -- Indexes for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `user_scores`
 --
 ALTER TABLE `user_scores`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `flashcard_id` (`flashcard_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `user_types`
@@ -536,6 +577,18 @@ ALTER TABLE `flashcard_statistic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notification_reference`
+--
+ALTER TABLE `notification_reference`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
@@ -576,10 +629,99 @@ ALTER TABLE `user_types`
 --
 
 --
+-- Constraints for table `category_list`
+--
+ALTER TABLE `category_list`
+  ADD CONSTRAINT `category_list_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `category_list_ibfk_2` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `enroll`
+--
+ALTER TABLE `enroll`
+  ADD CONSTRAINT `enroll_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enroll_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcards_questions`
+--
+ALTER TABLE `flashcards_questions`
+  ADD CONSTRAINT `flashcards_questions_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flashcards_questions_ibfk_2` FOREIGN KEY (`choice_id`) REFERENCES `flashcard_multiple_choice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcards_user_access`
+--
+ALTER TABLE `flashcards_user_access`
+  ADD CONSTRAINT `flashcards_user_access_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flashcards_user_access_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcard_class_access`
+--
+ALTER TABLE `flashcard_class_access`
+  ADD CONSTRAINT `flashcard_class_access_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flashcard_class_access_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcard_sets`
+--
+ALTER TABLE `flashcard_sets`
+  ADD CONSTRAINT `flashcard_sets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcard_set_list`
+--
+ALTER TABLE `flashcard_set_list`
+  ADD CONSTRAINT `flashcard_set_list_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flashcard_set_list_ibfk_2` FOREIGN KEY (`set_id`) REFERENCES `flashcard_sets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flashcard_statistic`
+--
+ALTER TABLE `flashcard_statistic`
+  ADD CONSTRAINT `flashcard_statistic_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `flashcard_statistic_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`reference_id`) REFERENCES `notification_reference` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification_reference`
+--
+ALTER TABLE `notification_reference`
+  ADD CONSTRAINT `notification_reference_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_reference_ibfk_2` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`);
+
+--
 -- Constraints for table `profile`
 --
 ALTER TABLE `profile`
   ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `question_statistic`
+--
+ALTER TABLE `question_statistic`
+  ADD CONSTRAINT `question_statistic_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `flashcards_questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_answers`
+--
+ALTER TABLE `user_answers`
+  ADD CONSTRAINT `user_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `flashcards_questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_answers_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_scores`
+--
+ALTER TABLE `user_scores`
+  ADD CONSTRAINT `user_scores_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_scores_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_types`
