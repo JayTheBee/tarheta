@@ -123,7 +123,7 @@ class Sets extends CI_Controller{
      */
     public function show_set($set_id_arg){
         if($this->set_model->check_set($set_id_arg)){
-            $data_var['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
+            $data_var['flashcards_with_set'] = $this->set_model->get_flashcards_with_set($_SESSION['sess_profile']['user_id']);
             $data_var['set'] = $this->set_model->get($set_id_arg);
             $this->_view('show-set', $data_var);
         }

@@ -78,6 +78,7 @@
                     <div class="form-group col-md-2">
                         <label for="sets">Flashcard Sets</label>
                         <select id="sets" name="sets" class="form-control">
+                            <option selected="selected" value='-1'> </option>
                         <?php 
                             foreach($sets as $row){ 
                                 echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
@@ -117,7 +118,10 @@
         <?php endif; ?>
 
         $("#visibility").val('<?php echo $flashcard['visibility']?>');
-        $("#sets").val('<?php echo $flashcard['set_id']?>');
+
+       
+        $("#sets").val("<?php echo (array_key_exists('set_id', $flashcard)) ? $flashcard['set_id'] : ''?>");
+        
         
         // IDK what to do here yet.
         // $("#category").val('');

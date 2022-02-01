@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data_arg['categories'] = $this->flashcard_model->get_categories();
                 $data_arg['category_list'] = $this->flashcard_model->get_category_list($data_arg['flashcards']);
                 $data_arg['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
-                // $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
+                // $data['flashcards_with_set'] = $this->set_model->get_flashcards_with_set($_SESSION['sess_profile']['user_id']);
             }
             if($page_arg == 'create'){
                 $data_arg['categories'] = $this->tags_model->fetchCategoryList();
@@ -91,6 +91,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          */
         public function edit($type_arg, $flashcard_id_arg){
             $data_var = $this->get_data($flashcard_id_arg);
+            if ($this->set_model->check_if_has_set($flashcard_id_arg)){
+                $data_var['flashcard'] = $this->set_model->get_flashcard_with_set($flashcard_id_arg);
+            }
+
             $data_var['categories'] = $this->tags_model->fetchCategoryList();
             $data_var['category'] = $this->tags_model->fetchCategory($flashcard_id_arg);
             $data_var['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
@@ -301,7 +305,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // After saving the question get it's ID and save it in $question_id
 
             // $question_id will be used when saving the choices if the question is of a CHOICE type.
-            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE'){
+            if($question_type_var == 'CHOICE'){
                 $this->_save_choices($question_id_var);
             }
 
@@ -434,8 +438,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * 'questions' => Array of all the questions bound to the flashcard ID.
          * 'multi-choices' => Array of the multiple answer choices for the questions that requires it.
          */
-        public function get_data($flashcard_id_arg, $has_sets_arg=FALSE){
-            $data_var = $this->flashcard_model->get_data($flashcard_id_arg, $has_sets_arg);
+        public function get_data($flashcard_id_arg){
+            $data_var = $this->flashcard_model->get_data($flashcard_id_arg);
 
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 echo json_encode($data_var);

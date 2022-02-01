@@ -100,7 +100,6 @@
          * 
          */
         public function get_flashcard_data($flashcard_id_arg){
-
             $this->db->select("flashcards.*, flashcards_user_access.user_id"); 
             $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
             // if ($has_sets_arg){

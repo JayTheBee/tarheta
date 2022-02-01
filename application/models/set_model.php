@@ -11,19 +11,41 @@ class set_model extends CI_Model {
      * 'set_description' from flashcard_sets. 
      * 'set_color' from flashcard_sets. 
      */
-    public function get_flashcard_with_set($user_id){
+    public function get_flashcards_with_set($user_id){
         // Starting to learn the proper query building and would rework the other functions if there is time.
-        $this->db->select("flashcards.*, flashcards_user_access.user_id, flashcard_set_list.set_id, flashcard_sets.name AS set_name, flashcard_sets.color AS set_color, flashcard_sets.description AS set_description"); 
-        $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
-        $this->db->join('flashcard_set_list', 'flashcard_set_list.flashcard_id = flashcards.id');
-        $this->db->join('flashcard_sets', 'flashcard_sets.id = flashcard_set_list.set_id');
+        // $this->db->select("flashcards.*, flashcards_user_access.user_id, flashcard_set_list.set_id, flashcard_sets.name AS set_name, flashcard_sets.color AS set_color, flashcard_sets.description AS set_description"); 
+        // $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
+        // $this->db->join('flashcard_set_list', 'flashcard_set_list.flashcard_id = flashcards.id');
+        // $this->db->join('flashcard_sets', 'flashcard_sets.id = flashcard_set_list.set_id');
+        $this->_join_flashcard();
         $query = $this->db->get('flashcards');
 
         // echo "<pre>";
         // var_dump($query->result_array());
         // echo "</pre>";
         // exit();
+        
         return $query->result_array();
+    }
+
+
+    /**
+     * Reusable joining for getting an array of flashcards and singular flashcard
+     */
+    private function _join_flashcard(){
+        $this->db->select("flashcards.*, flashcards_user_access.user_id, flashcard_set_list.set_id, flashcard_sets.name AS set_name, flashcard_sets.color AS set_color, flashcard_sets.description AS set_description"); 
+        $this->db->join('flashcards_user_access', 'flashcards_user_access.flashcard_id = flashcards.id');
+        $this->db->join('flashcard_set_list', 'flashcard_set_list.flashcard_id = flashcards.id');
+        $this->db->join('flashcard_sets', 'flashcard_sets.id = flashcard_set_list.set_id');
+    }
+
+
+    public function get_flashcard_with_set($flashcard_id_arg){
+        $this->_join_flashcard();
+        $query_var = $this->db->get_where('flashcards', array('flashcards.id' => $flashcard_id_arg));
+
+        if ($query_var->num_rows() != 0)
+            return $query_var->row_array();
     }
 
 
@@ -32,12 +54,17 @@ class set_model extends CI_Model {
      */
     public function update_set_list($flashcard_id, $set_id){
         $this->db->trans_start();
-        $this->db->from('flashcard_set_list');
+        
+        $query_var = $this->db->get_where('flashcard_set_list', array('flashcard_id'=>$flashcard_id));
 
-        $this->db->set('set_id', $set_id);
-        $this->db->where('flashcard_id', $flashcard_id);
-
-        $this->db->update('flashcard_set_list');
+        if ($query_var->num_rows() != 0){
+            $this->db->from('flashcard_set_list');
+            $this->db->set('set_id', $set_id);
+            $this->db->where('flashcard_id', $flashcard_id);
+            $this->db->update('flashcard_set_list');
+        }
+        else
+            $this->insert_flashcard_sets($set_id, $flashcard_id);
 
         $this->db->trans_complete();
     }
@@ -115,6 +142,19 @@ class set_model extends CI_Model {
     public function delete($set_id_arg){
         $this->db->where('id', $set_id_arg);
         $this->db->delete('flashcard_sets');
-        
     }
+
+
+    /**
+     * Function to check if a flashcard is in a set
+     */
+    public function check_if_has_set($flashcard_id_arg){
+        $query_var = $this->db->get_where('flashcard_set_list', array('flashcard_id' => $flashcard_id_arg));
+
+        if ($query_var->num_rows() != 0 && $query_var->row('set_id') != -1)
+            return TRUE;
+        else
+            return FALSE;
+
+    }    
 }
