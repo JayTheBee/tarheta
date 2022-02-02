@@ -44,8 +44,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (5, 'Science'),
 (6, 'Biology'),
 (7, 'Engineering'),
-(8, 'Spanish'),
-(9, 'RYle');
+(8, 'Spanish');
 
 -- --------------------------------------------------------
 
