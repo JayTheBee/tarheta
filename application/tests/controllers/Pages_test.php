@@ -6,7 +6,7 @@
 class Pages_test extends TestCase {
 	public function test_home(){
 		$output = $this->request('GET', '/');
-		$this->assertStringContainsString('<div class="card-header text-center"> Home Page </div>', $output);
+		$this->assertStringContainsString('Study Anywhere, Anytime & Grow Your Skills', $output);
 	}
 	public function test_404(){
 		$this->request('GET', 'notfound');

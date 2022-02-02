@@ -10,5 +10,6 @@ application/config/database.php
 !application/logs/index.html
 !application/*/.htaccess
 
+
 composer.lock
 .phpunit.result.cache 
