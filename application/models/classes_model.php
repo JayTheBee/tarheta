@@ -83,7 +83,4 @@ class classes_model extends CI_Model {
     	}
     }
 
-
-
-
 }
