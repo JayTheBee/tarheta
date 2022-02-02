@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $data_arg['categories'] = $this->flashcard_model->get_categories();
                 $data_arg['category_list'] = $this->flashcard_model->get_category_list($data_arg['flashcards']);
                 $data_arg['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
-                // $data['flashcards_with_set'] = $this->set_model->get_flashcard_with_set($_SESSION['sess_profile']['user_id']);
+                // $data['flashcards_with_set'] = $this->set_model->get_flashcards_with_set($_SESSION['sess_profile']['user_id']);
             }
             if($page_arg == 'create'){
                 $data_arg['categories'] = $this->tags_model->fetchCategoryList();
@@ -91,12 +91,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          */
         public function edit($type_arg, $flashcard_id_arg){
             $data_var = $this->get_data($flashcard_id_arg);
+            if ($this->set_model->check_if_has_set($flashcard_id_arg)){
+                $data_var['flashcard'] = $this->set_model->get_flashcard_with_set($flashcard_id_arg);
+            }
+
             $data_var['categories'] = $this->tags_model->fetchCategoryList();
             $data_var['category'] = $this->tags_model->fetchCategory($flashcard_id_arg);
-            $data_var['sets'] = $this->flashcard_model->get_sets($_SESSION['sess_profile']['user_id']);
+            $data_var['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
             
             if ($data_var['flashcard']['creator_id'] == $_SESSION['sess_profile']['user_id'] && $this->_check_access($flashcard_id_arg)){
-                $this->view('edit-'.$type_arg, $data_var);
+                $this->view('edit-'.$type_arg.'-current', $data_var);
             }
             else{
                 redirect(base_url('flashcards/index'));
@@ -245,7 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 if($this->form_validation->run()==TRUE){
                     $_SESSION['sess_current_question']['question_type'] = $this->input->post('question-type', TRUE);
-                    $this->view('add-question');
+                    $this->view('add-question-default');
                 }
                 else{
                     $this->view('edit');
@@ -259,8 +263,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          */
         public function save_question(){
             if ($_SERVER['REQUEST_METHOD']=='POST'){
-                $this->form_validation->set_rules('question','Question','required'); 
-                $this->form_validation->set_rules('numpoints', 'NumPoints', 'required'); 
+                $this->form_validation->set_rules('question','Question','required');
 
                 if($this->form_validation->run()==TRUE){
                     $this->_clean_question();
@@ -279,26 +282,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         private function _clean_question(){
 
             $question_var = $this->input->post('question', TRUE);
-            $answer_var = $this->input->post(strtolower($_SESSION['sess_current_question']['question_type'])."-answer", TRUE);
-            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE'){
-                $answer_var = $this->input->post(strtolower($_SESSION['sess_current_question']['question_type'])."-answer-".$answer, TRUE);
-            }
-            $numpoints_var = $this->input->post('numpoints', TRUE);
+            $question_type_var = $this->input->post('question-type', TRUE);
+
+            $answer_var = $this->input->post(strtolower($question_type_var)."-answer", TRUE);
+            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE')
+                $answer_var = $this->input->post(strtolower($question_type_var)."-answer-".$answer_var, TRUE);
+
+            $numpoints_var = $this->input->post('points-show', TRUE);
+            $time_var = $this->input->post('time-show', TRUE);
 
             $data_var = array(
                 'flashcard_id' => $_SESSION['sess_current_flashcard']['flashcard_id'],
                 'choice_id' => -1,
-                'question_type' => $_SESSION['sess_current_question']['question_type'],
+                'question_type' => $question_type_var,
                 'question' => $question_var,
                 'answer' => $answer_var,
-                'total_points' => $numpoints_var
+                'time' => $time_var,
+                'total_points' => (int) $numpoints_var
             );
 
             $question_id_var = $this->flashcard_model->insert_question($data_var);
             // After saving the question get it's ID and save it in $question_id
 
             // $question_id will be used when saving the choices if the question is of a CHOICE type.
-            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE'){
+            if($question_type_var == 'CHOICE'){
                 $this->_save_choices($question_id_var);
             }
 
@@ -431,8 +438,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          * 'questions' => Array of all the questions bound to the flashcard ID.
          * 'multi-choices' => Array of the multiple answer choices for the questions that requires it.
          */
-        public function get_data($flashcard_id_arg, $has_sets_arg=FALSE){
-            $data_var = $this->flashcard_model->get_data($flashcard_id_arg, $has_sets_arg);
+        public function get_data($flashcard_id_arg){
+            $data_var = $this->flashcard_model->get_data($flashcard_id_arg);
 
             if ($_SERVER['REQUEST_METHOD']=='POST'){
                 echo json_encode($data_var);

@@ -67,7 +67,9 @@
                     $timeopen_var = new DateTime($flashcard['timeopen']);
                     $timeclose_var = new DateTime($flashcard['timeclose']);
                 ?>
-
+                <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
+                Answer to be removed
+                </button>
                 <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timeopen_var) || ($flashcard['type']=="REVIEWER")): ?>
                     <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                     Answer

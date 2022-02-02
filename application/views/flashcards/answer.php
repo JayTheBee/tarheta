@@ -1,6 +1,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="container">
     <div class="card" style="margin-top: 5rem">
+            <body>
+                <h5>Time Remaining: <span id="time">00:00</span></h5>
+            </body>
             <div class="card-header text-center">
                 <!-- Where the question will be displayed -->
                 <h5 id='question'></h5>
@@ -43,6 +46,8 @@
 <script type="text/javascript" language="javascript">
     let flashcard_data;
     let current_number = 0;
+    let html_timer_var = document.querySelector('#time');
+    let question_timer;
     // https://stackoverflow.com/questions/32732808/codeigniter-submit-form-data-without-page-refreshing-with-jquery-ajax
     // https://stackoverflow.com/questions/13406690/jquery-ajax-call-to-php-controller
     // https://www.w3schools.com/jquery/ajax_ajax.asp
@@ -79,6 +84,7 @@
                     //console.log(data);
 
                     next_number();
+                    
                 },
                 error:function(data)
                 {
@@ -94,7 +100,11 @@
             dataType: 'json',
             success:function(data){
                 flashcard_data = data;
-                //console.log(flashcard_data);
+                console.log(flashcard_data);
+                
+                var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
+                start_timer(time_var, html_timer_var);
+                
                 $('#question').append(data['questions'][current_number]['question']);
                 get_choices();
             }
@@ -115,6 +125,11 @@
     function next_number(){
         if (current_number < flashcard_data['questions'].length-1){
             current_number += 1;
+
+            clearInterval(question_timer); //Clearing the current countdown
+            var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
+            start_timer(time_var, html_timer_var);
+
             set_question();
         }
         else{
@@ -224,4 +239,24 @@
         input_body += "</select>";
         $("#truefalse-container").html(input_body);
     };
+
+    // Timer Function https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript
+    // May halong: https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown
+    function start_timer(duration, display) {
+        var timer = duration, minutes, seconds;
+        question_timer = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(question_timer);
+                document.getElementById("next").click();
+            }
+        }, 1000);
+    }
 </script>
