@@ -26,7 +26,7 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-bg fixed-top">
         <div class="container">
-            <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+        <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
