@@ -18,7 +18,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
-
+    <link rel = "icon" href = "<?php echo base_url("assets/images/logo/icon.png");?>" type = "image/x-icon">
     <title>Tarheta</title>
 </head>
   <body>
@@ -26,18 +26,20 @@
       <div class="container">
         <div class="create-nav design">
             <div class="ds-nav-1 design">
-              <span class="navbar-brand brand-des mb-0 h1">Tarheta</span>
+              <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
               <a class="ds-nav-btn dsdsgn" href="<?php echo base_url('dashboard-student'); ?>">HOME</a>
+              <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>flashcards/index">Flashcards</a>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle ds-nav-create dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   CREATE
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="<?php echo base_url(); ?>flashcards/create">Flashcard</a></li>
+                  <li><a class="dropdown-item" href="<?php echo base_url(); ?>flashcards/create/">Flashcard</a></li>
                   <li><a class="dropdown-item" href="<?php echo base_url(); ?>flashcards/create-set">Sets</a></li>
                   <li><a class="dropdown-item" href="<?php echo base_url(); ?>classes/create">Class</a></li>
                 </ul>
               </div>
+
             </div>
             <div class="right-nav design">
                 <form class="form-inline my-2 my-lg-0">
@@ -110,3 +112,4 @@
     end of navbar -->
 
  
+<body>
