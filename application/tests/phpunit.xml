@@ -14,10 +14,6 @@
 		<include>
 			<directory suffix=".php">../controllers</directory>
 			<directory suffix=".php">../models</directory>
-			<directory suffix=".php">../views</directory>
-			<directory suffix=".php">../libraries</directory>
-			<directory suffix=".php">../helpers</directory>
-			<directory suffix=".php">../hooks</directory>
 		</include>
 		<exclude>
 			<directory suffix=".php">../views/errors</directory>
@@ -30,4 +26,8 @@
 	<logging>
 		<junit outputFile="build/logs/junit.xml"/>
 	</logging>
+    <php>
+        <ini name="display_errors" value="On" />
+        <ini name="display_startup_errors" value="On" />
+    </php>
 </phpunit>
