@@ -20,12 +20,12 @@ class tags_model extends CI_Model {
             return $result;
     }
 	function fetchCategoryList(){
-    	$query = $this->db->query("SELECT name FROM categories");
+    	$query = $this->db->query("SELECT name, id FROM categories");
 		return $query->result();
     }
 
     function checkCategory($category){
-        $query = $this->db->query("SELECT id FROM categories WHERE name='$category'");
+        $query = $this->db->query("SELECT id FROM categories WHERE id='$category'");
 	    if ($query->num_rows() == 1){
 	    	return $query->row();
 	    	
@@ -39,5 +39,12 @@ class tags_model extends CI_Model {
         $this->db->set('category_id', $cat_id);
         $this->db->insert('category_list');
         $this->db->trans_complete();
+    }
+
+    public function update_flashcard_category($flashcard_id_arg, $cat_id_arg){
+        $this->db->set('category_id', $cat_id_arg);
+        $this->db->where('flashcard_id', $flashcard_id_arg);
+
+        $this->db->update('category_list');
     }
 }

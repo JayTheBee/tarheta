@@ -620,7 +620,7 @@ label {
               <div class="st-2-save-to">
                 <label class="st-2-label">Save to</label>
                 <select id="sets" name="sets" class="form-control st-2-sv-btn">
-                  <option selected="selected" value='-1'> </option>
+                  <option selected="selected" value='-1'>Select Set</option>
                     <?php 
                         foreach($sets as $row){ 
                             echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
@@ -660,7 +660,7 @@ label {
                   <select  class="st-2-ctgrcl form-select"id="category" name="category">
                     <?php 
                         foreach($categories as $row){ 
-                            echo '<option value="'.$row->name.'">'.$row->name.'</option>';
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
                         }
                     ?>
                   </select>

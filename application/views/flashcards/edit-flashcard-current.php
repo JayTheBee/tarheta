@@ -68,7 +68,7 @@
                             <option value="">Category 2</option> -->
                         <?php 
                             foreach($categories as $row){ 
-                                echo '<option value="'.$row->name.'">'.$row->name.'</option>';
+                                echo '<option value="'.$row->id.'">'.$row->name.'</option>';
                             }
                         ?>
                         </select>
@@ -78,7 +78,7 @@
                     <div class="form-group col-md-2">
                         <label for="sets">Flashcard Sets</label>
                         <select id="sets" name="sets" class="form-control">
-                            <option selected="selected" value='-1'> </option>
+                            <option selected="selected" value='-1'>Select Set</option>
                         <?php 
                             foreach($sets as $row){ 
                                 echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
@@ -119,9 +119,8 @@
 
         $("#visibility").val('<?php echo $flashcard['visibility']?>');
 
-       
-        $("#sets").val("<?php echo (array_key_exists('set_id', $flashcard)) ? $flashcard['set_id'] : ''?>");
-        
+        $("#sets").val("<?php echo (array_key_exists('set_id', $flashcard)) ? $flashcard['set_id'] : '-1'?>");
+        $('#category').val("<?php echo $category[0]['id']?>");
         
         // IDK what to do here yet.
         // $("#category").val('');

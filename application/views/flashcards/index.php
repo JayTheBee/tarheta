@@ -45,7 +45,36 @@
 
             <?php foreach ($categories as $key => $category): ?>
                 <div class="tab-pane fade <?php echo ($key == 0) ? "show active":"";?>" id="nav-category-<?php echo $category['id'];?>" role="tabpanel"  aria-labelledby="nav-<?php echo $category['id']?>-category">
-                    <?php echo $category['name']?>
+                    <div class="container-fluid overflow-scroll">
+                        <div class="row flex-row flex-nowrap">
+                        <!-- Just reused an old variable found in the flashcard controller in the checkpage function  -->
+                        <!-- Slow way. Nice to have a better way xD -->
+                        <?php foreach ($category_list as $cat):?>
+                            <?php if ($cat['name'] == $category['name']):?>
+                                <?php foreach($flashcards as $flashcard): ?>
+                                    <?php if ($flashcard['id'] == $cat['flashcard_id']): ?>
+                                    <div class="col-4">
+                                        <h6>-----------------------</h6>
+                                        <h5><?php echo $flashcard['name']; ?></h5>
+                                        <h6>Description: <?php echo $flashcard['description']; ?></h6>
+                                        <p><?php echo $flashcard['visibility']; ?></p>
+                                        <p><?php echo $flashcard['qtype']; ?></p>
+                                        <p>
+                                            <?php if ($flashcard['type'] == "REVIEWER"):
+                                                echo $flashcard['type'];
+                                            ?>
+                                            <?php endif;?>
+                                        </p>                 
+                                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View
+                                        </button>
+                                        <h6>-----------------------</h6>
+                                    </div>
+                                <?php endif; ?>
+                                <?php endforeach;?>
+                            <?php endif; ?>
+                        <?php endforeach;?>
+                        </div>
+                    </div>
                 </div>
             <?php endforeach; ?>
             

@@ -32,7 +32,7 @@ class Classes extends CI_Controller{
 
         $data['title'] = ucfirst($page);
         $data = $this->_check_page($page, $data);
-        $this->load->view('templates/header');
+        $this->load->view('templates/header-logged');
         $this->load->view('classes/'.$page, $data);
         $this->load->view('templates/footer');
     }
