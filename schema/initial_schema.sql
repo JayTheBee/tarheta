@@ -643,13 +643,6 @@ ALTER TABLE `enroll`
   ADD CONSTRAINT `enroll_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `flashcards_questions`
---
-ALTER TABLE `flashcards_questions`
-  ADD CONSTRAINT `flashcards_questions_ibfk_1` FOREIGN KEY (`flashcard_id`) REFERENCES `flashcards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `flashcards_questions_ibfk_2` FOREIGN KEY (`choice_id`) REFERENCES `flashcard_multiple_choice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `flashcards_user_access`
 --
 ALTER TABLE `flashcards_user_access`
