@@ -27,7 +27,7 @@
         <div class="create-nav design">
             <div class="ds-nav-1 design">
               <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
-              <a class="ds-nav-btn dsdsgn" href="<?php echo base_url('dashboard-student'); ?>">HOME</a>
+              <a class="ds-nav-btn dsdsgn" href="<?php echo base_url('dashboard-student'); ?>">Home</a>
               <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>flashcards/index">Flashcards</a>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle ds-nav-create dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
