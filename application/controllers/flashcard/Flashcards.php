@@ -289,7 +289,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $question_type_var = $this->input->post('question-type', TRUE);
 
             $answer_var = $this->input->post(strtolower($question_type_var)."-answer", TRUE);
-            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE')
+            if($question_type_var == 'CHOICE')
                 $answer_var = $this->input->post(strtolower($question_type_var)."-answer-".$answer_var, TRUE);
 
             $numpoints_var = $this->input->post('points-show', TRUE);
@@ -306,6 +306,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             );
 
             $question_id_var = $this->flashcard_model->insert_question($data_var);
+
+            // SIngit ng function to update flashcards totol points
+            
             // After saving the question get it's ID and save it in $question_id
 
             // $question_id will be used when saving the choices if the question is of a CHOICE type.

@@ -1,52 +1,82 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
-<div class="container">
-    <div class="card" style="margin-top: 5rem">
-            <body>
-                <h5>Time Remaining: <span id="time">00:00</span></h5>
-            </body>
-            <div class="card-header text-center">
-                <!-- Where the question will be displayed -->
-                <h5 id='question'></h5>
+<link rel="stylesheet" href="<?php echo base_url("assets/css/flashcard_style.css"); ?>">
+<style>
+    input[type='radio'] {
+        transform: scale(1.5);
+    }
+</style>
 
-                <!-- Flash data -->
-                <?php
-                    if($this->session->flashdata('success')):?>
-                        <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                <?php endif; ?>
-                
-                <?php
-                    if($this->session->flashdata('error')):?>
-                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                <?php endif; ?>
-            </div>
-            
-            <!-- Where the answers will be displayed -->
-            <div class="card-body text-center">
-                <form action="" method="POST" id="question-answer" class="form-group">
-                    <!-- Container ng Multiple choices and Identification input -->
-                    <div class="form-row" id="choices-container">
-                        
-                    </div>
-
-                    <!-- Container ng True or False choices -->
-                    <div class="form-group col-md-2" id='truefalse-container'>
-                                        
-                    </div>
-
-                    <?php if($flashcard['qtype']=='ASSIGNMENT'):?>
-                        <button type="button" id='previous'><-</button>
-                    <?php endif; ?>
-                    <button type="submit" id='next' value='<?php $_SESSION['Current_Number']?>'>-></button>
-                </form>
+<section class="flashcard-bg">
+    <div class="container flashcardBg-design position-relative">
+        <!-- QUESTION FIELD -->
+        <div class="fcQuestion-box">
+            <div class="fcQuestion-design">
+                <span class="fcQuestion" id='question'>QUESTION</span>
             </div>
         </div>
-</div>
+        
+        <!-- FLASHDATA -->
+        <?php
+            if($this->session->flashdata('success')):?>
+                <p class="fcQuestion-design text-success"> <?=$this->session->flashdata('success')?> </p>
+        <?php endif; ?>
+        <?php
+            if($this->session->flashdata('error')):?>
+                <p class="fcQuestion-design text-danger"> <?=$this->session->flashdata('error')?> </p>
+        <?php endif; ?>
+
+    <?php if($flashcard['qtype']!='ASSIGNMENT'):?>
+        <!-- TIMER DIV -->
+        <div class="fcTimeMedia-pos fcTimeMedia-design">
+            <!-- TIMER -->
+            <div class="fcTimer-pos col-4" data-functional-selector="question-countdown">
+                <div id="countdown" data-functional-selector="question-countdown__count" aria-live="polite" class="fcTimer"> </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+        <form action="" method="POST" id="question-answer" class="form-group">
+            <!-- CHOICES DIV -->
+            <div class="FcChoices-pos">
+                <!-- IDENTIFICATION TEXT BOX CONTAINER DIV -->
+                <div class="d-flex justify-content-center" id="identification-container">
+
+                </div>
+
+                <!-- TRUEFALSE CONTAINER -->
+                <div class="fcChoice-row" id='truefalse-container'>
+                    
+                </div>
+
+                <!-- MULTIPLE CHOICE CONTAINER -->
+                <div id="choices-container">
+                    
+                </div>
+            </div>
+        <?php if($flashcard['qtype']=='ASSIGNMENT'):?>
+            <!-- Prev Button -->
+            <div class="d-flex flex-row-reverse">
+                <button type="button" id='previous' class="buttons fcNext-button">
+                <i class="fas fa-chevron-left"></i>Back 
+                </button>
+            </div>
+        <?php endif;?>
+
+            <!-- Next Button -->
+            <div class="d-flex flex-row-reverse">
+                <button type="submit" id="next" class="buttons fcNext-button">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 
 
 <script type="text/javascript" language="javascript">
     let flashcard_data;
     let current_number = 0;
-    let html_timer_var = document.querySelector('#time');
+    // let html_timer_var = document.querySelector('#time');
     let question_timer;
     // https://stackoverflow.com/questions/32732808/codeigniter-submit-form-data-without-page-refreshing-with-jquery-ajax
     // https://stackoverflow.com/questions/13406690/jquery-ajax-call-to-php-controller
@@ -100,12 +130,14 @@
             dataType: 'json',
             success:function(data){
                 flashcard_data = data;
-                console.log(flashcard_data);
+                // console.log(flashcard_data);
+                if(flashcard_data['flashcard']['qtype'] != 'ASSIGNMENT'){
+                    var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
+                    start_timer(time_var);
+                }
                 
-                var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
-                start_timer(time_var, html_timer_var);
-                
-                $('#question').append(data['questions'][current_number]['question']);
+                // $('#question').append(data['questions'][current_number]['question']);
+                $('.fcQuestion-design span').html(data['questions'][current_number]['question']);
                 get_choices();
             }
         });
@@ -126,9 +158,11 @@
         if (current_number < flashcard_data['questions'].length-1){
             current_number += 1;
 
-            clearInterval(question_timer); //Clearing the current countdown
-            var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
-            start_timer(time_var, html_timer_var);
+            if(flashcard_data['flashcard']['qtype'] != 'ASSIGNMENT'){
+                clearInterval(question_timer); //Clearing the current countdown
+                var time_var = parseInt(flashcard_data['questions'][current_number]['time']);
+                start_timer(time_var);
+            }
 
             set_question();
         }
@@ -143,6 +177,7 @@
 
     function set_question(){
         document.getElementById("question").innerHTML=flashcard_data['questions'][current_number]['question'];
+        document.getElementById("identification-container").innerHTML="";
         document.getElementById("choices-container").innerHTML="";
         document.getElementById("truefalse-container").innerHTML="";
 
@@ -169,8 +204,12 @@
             return ($("#identification-answer").val());
         }
         else if(flashcard_data['questions'][current_number]['question_type'] == "TRUEFALSE"){
-            // Getting the value that the user selected via element id
-            return ($("#truefalse-answer").val());
+            var radios = document.getElementsByTagName('input');
+            // Looping through the true or false radios and finding which is selected
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].type === 'radio' && radios[i].checked)
+                    return (radios[i].value);
+            }
         }
     };
     
@@ -182,6 +221,7 @@
                 set_multi(flashcard_data['questions'][current_number]['choice_id']);
                 break;
             case "IDENTIFICATION":
+                console.log("IDENTIFICATION");
                 set_identification();
                 break;
             case "TRUEFALSE":
@@ -196,24 +236,44 @@
         for (var i = 0; i < flashcard_data['multi_choices'].length; i++){
             if (flashcard_data['multi_choices'][i]['id'] == choice_id){
                 var input_body = "";
-                input_body += "<div class='mb-2'>";
-                input_body += "<input type='radio' name='choice-answer' value='a'>";
-                input_body += "<label id='choice-answer-a' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceA'] + "</label>";
+                // Setting up Choice A
+                input_body += "<div class='fcChoice-row'>";
+                input_body += "<div class='fcChoice boxes' data-functional-selector='answer-0' data-mapped-index='0' dir='ltr'>";
+                input_body += "<div class='fcBox fcBoxA-color'>";
+                input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>A.</p></span>";
+                input_body += "</div>";
+                input_body += "<span data-functional-selector='question-choice-text-0' class='fcText-answers'><span id='choice-answer-a'>" + flashcard_data['multi_choices'][i]['choiceA'] + "</span></span>";
+                input_body += "<input type='radio' name='choice-answer' value='a' class='radio-des'>";
                 input_body += "</div>";
 
-                input_body += "<div class='mb-2'>";
-                input_body += "<input type='radio' name='choice-answer' value='b'>";
-                input_body += "<label id='choice-answer-b' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceB'] + "</label>";
+                // Setting up Choice B
+                input_body += "<div class='fcChoice boxes' data-functional-selector='answer-1' data-mapped-index='1' dir='ltr'>";
+                input_body += "<div class='fcBox fcBoxB-color'>";
+                input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>B.</p></span>";
+                input_body += "</div>";
+                input_body += "<span data-functional-selector='question-choice-text-1' class='fcText-answers'><span id='choice-answer-b'>" + flashcard_data['multi_choices'][i]['choiceB'] + "</span></span>";
+                input_body += "<input type='radio' name='choice-answer' value='b' class='radio-des'>";
+                input_body += "</div>";
                 input_body += "</div>";
 
-                input_body += "<div class='mb-2'>";
-                input_body += "<input type='radio' name='choice-answer' value='c'>";
-                input_body += "<label id='choice-answer-c' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceC'] + "</label>";
+                // Setting up Choice C
+                input_body += "<div class='fcChoice-row'>";
+                input_body += "<div class='fcChoice boxes' data-functional-selector='answer-2' data-mapped-index='2' dir='ltr'>";
+                input_body += "<div class='fcBox fcBoxC-color'>";
+                input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>C.</p></span>";
+                input_body += "</div>";
+                input_body += "<span data-functional-selector='question-choice-text-2' class='fcText-answers'><span id='choice-answer-c'>" + flashcard_data['multi_choices'][i]['choiceC'] + "</span></span>";
+                input_body += "<input type='radio' name='choice-answer' value='c' class='radio-des'>";
                 input_body += "</div>";
 
-                input_body += "<div class='mb-2'>";
-                input_body += "<input type='radio' name='choice-answer' value='d'>";
-                input_body += "<label id='choice-answer-d' for='exampleQuestion1' class='form-label'>" + flashcard_data['multi_choices'][i]['choiceD'] + "</label>";
+                // Setting up Choice B
+                input_body += "<div class='fcChoice boxes' data-functional-selector='answer-3' data-mapped-index='3' dir='ltr'>";
+                input_body += "<div class='fcBox fcBoxD-color'>";
+                input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>D.</p></span>";
+                input_body += "</div>";
+                input_body += "<span data-functional-selector='question-choice-text-3' class='fcText-answers'><span id='choice-answer-d'>" + flashcard_data['multi_choices'][i]['choiceD'] + "</span></span>";
+                input_body += "<input type='radio' name='choice-answer' value='d' class='radio-des'>";
+                input_body += "</div>";
                 input_body += "</div>";
 
                 $("#choices-container").html(input_body);
@@ -225,38 +285,51 @@
     // Sets the identification input box
     function set_identification(){
         var input_body = "";
-        input_body += "<input type='text' placeholder='Enter Answer' name='identification-answer' class='form-control' id='identification-answer' aria-describedby='name'>"
-        $("#choices-container").html(input_body);
+        input_body += "<textarea class='md-input inputDes' name='identification-answer' id='identification-answer' cols='30' placeholder='Enter answer here...'></textarea>"
+        $("#identification-container").html(input_body);
     };
 
 
     // Sets the true or false selection
     function set_truefalse(){
         var input_body = "";
-        input_body += "<select id='truefalse-answer' name='truefalse-answer' class='form-control'>";
-        input_body += "<option value='TRUE'>True</option>";
-        input_body += "<option value='FALSE'>False</option>";
+        input_body += "<div class='fcChoice boxes' data-functional-selector='answer-0' data-mapped-index='0' dir='ltr'>";
+        input_body += "<div class='fcBox fcBoxA-color'>";
+        input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>A.</p></span>";
+        input_body += "</div>";
+        input_body += "<span data-functional-selector='question-choice-text-0' class='fcText-answers'><span>True</span></span>";
+        input_body += "<input type='radio' id='truefalse-answer' name='truefalse-answer' value='TRUE' class='radio-des'>";
+        input_body += "</div>";
+
+        input_body += "<div class='fcChoice boxes' data-functional-selector='answer-1' data-mapped-index='1' dir='ltr'>";
+        input_body += "<div class='fcBox fcBoxB-color'>";
+        input_body += "<span class='style' style='display: inline-block; vertical-align: middle;'><p class='text-ABCD'>B.</p></span>";
+        input_body += "</div>";
+        input_body += "<span data-functional-selector='question-choice-text-1' class='fcText-answers'><span>False</span></span>";
+        input_body += "<input type='radio' id='truefalse-answer' name='truefalse-answer' value='FALSE' class='radio-des'>";
+        input_body += "</div>";
+
+
+
+        input_body += "</select>";
         input_body += "</select>";
         $("#truefalse-container").html(input_body);
     };
 
     // Timer Function https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript
     // May halong: https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown
-    function start_timer(duration, display) {
-        var timer = duration, minutes, seconds;
+    function start_timer(duration) {
+        var timer = duration;
         question_timer = setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+            document.getElementById("countdown").innerHTML = timer + " s";
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
+            if(--timer < -1){
                 clearInterval(question_timer);
+                alert('No Time');
+                document.getElementById("countdown").innerHTML = "";
                 document.getElementById("next").click();
             }
+ 
         }, 1000);
     }
 </script>

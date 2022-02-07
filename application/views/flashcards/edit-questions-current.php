@@ -197,7 +197,7 @@
 
                                                 </div>
                                             </span>
-                                            <input type='radio' name='choice-answer' value='a' class="radio-des">
+                                            <input checked="checked" type='radio' name='choice-answer' value='a' class="radio-des">
                                         </div>
                                     </div>
                                     <div class="choiceB boxes">
@@ -228,7 +228,6 @@
                                             <span class="answer-here">
                                                 <div class="answer-add-style">
                                                     <input type="text" id="choice-answer-c" name="choice-answer-c" placeholder="C Option (required)" class="input-style">
-
                                                 </div>
                                             </span>
                                             <input type='radio' name='choice-answer' value='c' class="radio-des">
@@ -266,12 +265,12 @@
                                             </span>
                                         </div>
                                         <div class="answer">
-                                            <input type='radio' name='truefalse-answer' value='TRUE'>
                                             <span class="answer-here">
                                                 <div class="answer-add-style">
                                                     <input type="text" placeholder="TRUE" class="input-style" disabled="disabled">
                                                 </div>
                                             </span>
+                                            <input checked="checked" type='radio' name='truefalse-answer' value='TRUE' class="radio-des">
                                         </div>
 
                                     </div>
@@ -282,13 +281,13 @@
                                             </span>
                                         </div>
                                         <div class="answer">
-                                            <input type='radio' name='truefalse-answer' value='FALSE'>
                                             <span class="answer-here">
                                                 <div class="answer-add-style">
                                                     <input type="text" placeholder="FALSE" class="input-style" disabled="disabled">
 
                                                 </div>
                                             </span>
+                                            <input type='radio' name='truefalse-answer' value='FALSE' class="radio-des">
                                         </div>
 
                                     </div>
@@ -365,7 +364,7 @@
                                             <option class="dropdown-item text-center" value="5">5 seconds</option>
                                             <option class="dropdown-item text-center" value="10">10 seconds</option>
                                             <option class="dropdown-item text-center" value="20">20 seconds</option>
-                                            <option class="dropdown-item text-center" value="30">30 seconds</option>
+                                            <option selected="selected" class="dropdown-item text-center" value="30">30 seconds</option>
                                             <option class="dropdown-item text-center" value="60">1 minute</option>
                                             <option class="dropdown-item text-center" value="90">1 minute 30 seconds</option>
                                             <option class="dropdown-item text-center" value="120">2 minutes</option>
@@ -406,28 +405,6 @@
                             <!-- END OF POINTS SECTION -->
 
                             <hr class="line-break">
-
-                            <!-- START OF ANSWER OPTIONS -->
-                            <!-- <div class="answer-options-style">
-                            <label class="title-style" id="answer-options">
-                                <span style="display: inline-block; vertical-align: middle; width: 25px; height: 28px;">
-                                    <i class="fas fa-shapes"></i>
-                                </span>
-                                <span class="quest-type">Answer Options</span>
-                                <div style="margin-top: 8px">
-                                    <select class="boxes-styles" id="answer-options-show">
-                                        <option class="dropdown-item text-center" value="four">Single select</option>
-                                        <option class="dropdown-item text-center" value="five">Multi-select</option>
-                                    </select>
-                                </div>
-                                <div id="four-show" class="points-body-2">
-                                    Students can only select one answer.
-                                </div>
-                                <div id="five-show" class="points-body-2">
-                                    Students can select multiple answers.
-                                </div>
-                            </label>
-                        </div> -->
                         </div>
                     </aside>
                 </div>

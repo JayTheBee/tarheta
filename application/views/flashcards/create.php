@@ -629,7 +629,7 @@ label {
                 </select>
               </div>
 
-              <!-- VISIBILITY SELECTION -->
+              <!-- TYPE SELECTION -->
               <div class="form-group st-2-quiz-set">
                 <label for="type" class="st-2-label">Type</label>
                 <div class="st-quizset-select">
@@ -641,7 +641,7 @@ label {
               </div>
 
               <!-- QUIZ TYPE SELECTION -->
-              <div class="form-group st-2-quiz-set">
+              <div class="form-group st-2-quiz-set" id="quiz-type">
                 <label for="qtype" id="quiz-set" class="st-2-label">Quiz Mode:</label>
                 <div class="st-quizset-select">
                   <select class="form-select" aria-label="Default select example" id="qtype" name="qtype">
@@ -680,10 +680,9 @@ label {
               </div>
 
               <!-- TIME OPEN TIME CLOSE SELECTION -->
-              <div class="st-2-save-to">
+              <div class="st-2-save-to" id='time-fields'>
                 <label class="st-2-label">Schedule:</label>
                   
-                <div id='time-fields' >
                   <div class="form-group">
                       <label for="time-open" class="form-label st-2-label">Time Open</label>
                       <input type="datetime-local" name="time-open" class="form-control" id="time-open">
@@ -692,14 +691,13 @@ label {
                     <label for="time-close" class="form-label st-2-label">Time Close</label>
                     <input type="datetime-local" name="time-close" class="form-control" id="time-close">
                   </div>
-                </div>
               </div>
             </div>
           
           </div>
           
           <div class="footer-summary">
-            <button type="button" class="footer-button footer-cancel">
+            <button type="button" class="footer-button footer-cancel" onclick="goPrev()">
               Cancel
             </button>
             <button type="submit" class="footer-button footer-done">
@@ -725,5 +723,9 @@ label {
     function showQuizFields(divID1, divID2, element){
         document.getElementById(divID1).style.display = element.value == "REVIEWER" ? 'none' : 'block';
         document.getElementById(divID2).style.display = element.value == "REVIEWER" ? 'none' : 'block';
+    }
+
+    function goPrev(){
+      window.history.back();
     }
 </script>
