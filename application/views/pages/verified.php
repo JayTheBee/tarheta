@@ -27,7 +27,7 @@
         font-weight: 900;
     }
 
-    .btn{
+    .btnvrfy-login{
         background-color: #175561;
         color: #fff;
         font-size: 1.2em;
@@ -46,7 +46,7 @@
     <p> YAY! </p>
     <img src="<?php echo base_url("assets/images/login/verified.png");?>" width="300" alt="verified account">
     <p>Your Account has been Verified.</p>
-    <button type="button" class="btn " onclick="window.location='<?php echo site_url("login"); ?>'" >LOGIN</button>
+    <button type="button" class="btn btnvrfy-login " onclick="window.location='<?php echo site_url("login"); ?>'" >LOGIN</button>
     </div>
 </div>
 </section>
