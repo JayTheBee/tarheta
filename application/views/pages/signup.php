@@ -1,12 +1,12 @@
     <!-- SIGN UP PAGE -->
     <!-- reCaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<section id="sign up" class="bg-blue">
-    <div class="position-relative">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-center h-100">
-                <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
-            </div>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <section id="sign up" class="bg-blue">
+        <div class="position-relative">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-center h-100">
+                    <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
+                </div>
         </div>
         <div class="container">
              <div class="d-flex flex-column align-items-center justify-content-center">
