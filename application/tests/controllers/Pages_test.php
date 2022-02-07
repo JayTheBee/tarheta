@@ -6,7 +6,7 @@
 class Pages_test extends TestCase {
 	public function test_home(){
 		$output = $this->request('GET', '/');
-		$this->assertStringContainsString('<div class="card-header text-center"> Home Page </div>', $output);
+		$this->assertStringContainsString('Study Anywhere, Anytime & Grow Your Skills', $output);
 	}
 	public function test_404(){
 		$this->request('GET', 'notfound');
@@ -14,7 +14,7 @@ class Pages_test extends TestCase {
 	}
 	public function test_account_type_function(){
 		$output = $this->request('GET', 'account-type');		
-		$this->assertStringContainsString('signups/setTeacher', $output);
+		$this->assertStringContainsString('signups/set_teacher', $output);
 	}
 	public function test_signup_redirect(){
 		$this->request('GET', 'signup');

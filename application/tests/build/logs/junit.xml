@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="20" assertions="24" errors="0" warnings="0" failures="0" skipped="0" time="5.351404">
+    <testsuite name="CodeIgniter Application Test Suite" tests="20" assertions="24" errors="0" warnings="0" failures="0" skipped="0" time="5.351404">
+      <testsuite name="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" tests="11" assertions="14" errors="0" warnings="0" failures="0" skipped="0" time="4.961611">
+        <testcase name="test_Login_true" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="7" assertions="1" time="0.165344"/>
+        <testcase name="test_Login_false" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="15" assertions="1" time="0.032353"/>
+        <testcase name="test_Login_missing" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="23" assertions="1" time="0.045856"/>
+        <testcase name="test_resetpassword_true" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="30" assertions="1" time="0.040064"/>
+        <testcase name="test_resetpassword_false" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="35" assertions="2" time="0.078110"/>
+        <testcase name="test_resetpassword_main_false" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="59" assertions="2" time="0.048489"/>
+        <testcase name="test_signup_false" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="83" assertions="2" time="0.279868"/>
+        <testcase name="test_signup_true" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="112" assertions="1" time="4.127761"/>
+        <testcase name="test_set_account_teacher_true" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="126" assertions="1" time="0.046579"/>
+        <testcase name="test_set_account_student_true" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="132" assertions="1" time="0.040605"/>
+        <testcase name="test_Logout" class="Auth_test" classname="Auth_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Auth_test.php" line="138" assertions="1" time="0.056583"/>
+      </testsuite>
+      <testsuite name="Flashcard_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Flashcard_test.php" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.134525">
+        <testcase name="test_Flaschard_show_fail" class="Flashcard_test" classname="Flashcard_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Flashcard_test.php" line="7" assertions="1" time="0.054592"/>
+        <testcase name="test_Flaschard_show_true" class="Flashcard_test" classname="Flashcard_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Flashcard_test.php" line="12" assertions="1" time="0.041706"/>
+        <testcase name="test_Flaschard_create_false" class="Flashcard_test" classname="Flashcard_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Flashcard_test.php" line="39" assertions="2" time="0.038227"/>
+      </testsuite>
+      <testsuite name="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" tests="6" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.255269">
+        <testcase name="test_home" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="7" assertions="1" time="0.040354"/>
+        <testcase name="test_404" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="11" assertions="1" time="0.036270"/>
+        <testcase name="test_account_type_function" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="15" assertions="1" time="0.048853"/>
+        <testcase name="test_signup_redirect" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="19" assertions="1" time="0.038792"/>
+        <testcase name="test_login_function" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="23" assertions="1" time="0.045552"/>
+        <testcase name="test_profile_redirect" class="Pages_test" classname="Pages_test" file="C:\Users\infot\Important SYS\workspace\SoftwareEngineering\XAMPP\htdocs\repo\application\tests\controllers\Pages_test.php" line="27" assertions="1" time="0.045447"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -10,15 +10,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <!-- Lagay ko na ito dito pero sa login ko palang need para sa forgot pass modal popup -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- my css -->
     <link rel="stylesheet" href="<?php echo base_url("assets/css/style.css"); ?>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
-
-    <title>Sprint Demo</title>
+    <link rel = "icon" href = "<?php echo base_url("assets/images/logo/icon.png");?>" type = "image/x-icon">
+    <title>Tarheta</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
         <div class="container">
             <div width="1" class="create-nav design">
                 <div width="0.525" class="nav design">
-                    <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+                <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
                     <button data-functional-selector="top-bar__kahoot-summary-button" aria-label="Enter tarheta title..." class="nav-button">
                         <span class="text">Enter tarheta title…</span>
                         <span class="settings-button mh-75 d-inline-block">

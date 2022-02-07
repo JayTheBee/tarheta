@@ -1,5 +1,6 @@
     <!-- SIGN UP PAGE -->
     <!-- reCaptcha -->
+<<<<<<< HEAD
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <section id="sign up" class="bg-blue">
         <div class="position-relative">
@@ -7,13 +8,24 @@
                 <div class="d-flex align-items-center justify-content-center h-100">
                     <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
                 </div>
+=======
+    <!-- https://stackoverflow.com/questions/39374880/sub-resource-integrity-value-for-maps-google-com-maps-api-js -->
+    <!-- integrity check not necessary -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<section id="sign up" class="bg-blue">
+    <div class="position-relative">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
+            </div>
+>>>>>>> 07c018caa2d0c08e5e8f0abc56b8085f5520e5ca
         </div>
         <div class="container">
              <div class="d-flex flex-column align-items-center justify-content-center">
                 <h2 class="signup-text position-absolute">Welcome to Tarheta</h2>
-                <p class="signup-p text-center">You are signing up as a <?php echo $_SESSION['usertype'];?><br>Please use a valid school or work email address</p>
+                <p class="signup-p text-center">You are signing up as a <?php echo $_SESSION['sess_user_type'];?><br>Please use a valid school or work email address</p>
 
-                <form method="POST" autocomplete="off" action="<?=base_url('signups/signup')?>" class="form-inline">
+                <form method="POST" autocomplete="off" action="<?=base_url('auth/signups/signup')?>" class="form-inline">
                     <div class="container form-group d-flex flex-column align-items-center justify-content-center">
                         <!--username-->
                             <input type="text" class="form-control form-control-lg username position-absolute username"  placeholder="Username" name="username" value="<?php echo set_value('username'); ?>" class="form-control" id="username" aria-describedby="name">
