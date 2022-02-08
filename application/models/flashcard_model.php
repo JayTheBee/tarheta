@@ -468,6 +468,23 @@
                 return FALSE;
         }
 
+
+        public function update_total_points($flashcard_id_arg, $question_points_arg){
+            $this->db->trans_start();
+            $query_var = $this->db->get_where('flashcards', array('flashcards.id' => $flashcard_id_arg));
+            $this->db->trans_complete();
+            
+            $total_points_var = (int)$question_points_arg + (int)$query_var->row('total_score');
+            
+            $this->db->trans_start();
+            $this->db->from('flashcards');
+            $this->db->set('total_score', $total_points_var);
+            $this->db->where('id', $flashcard_id_arg);
+            $this->db->update('flashcards',$data_arg);
+            $this->db->trans_complete();
+
+        }
+
         // function insert_flashcard_sets($set_id, $flashcard_id){
         //     $this->db->trans_start();
         //     $this->db->set('flashcard_id', $flashcard_id);
