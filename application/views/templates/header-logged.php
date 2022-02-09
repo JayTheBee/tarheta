@@ -24,12 +24,14 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+
     <div class="container">
       <div class="create-nav design">
         <div class="ds-nav-1 design">
           <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png"); ?>" width="120"></span>
           <a class="ds-nav-btn dsdsgn" href="<?php echo base_url('dashboard-student'); ?>">Home</a>
           <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>flashcards/index">Flashcards</a>
+          <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>classes/index">Classes</a>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle ds-nav-create dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               CREATE
@@ -40,6 +42,7 @@
               <li><a class="dropdown-item" href="<?php echo base_url(); ?>classes/create">Class</a></li>
             </ul>
           </div>
+
 
         </div>
         <div class="right-nav design">
@@ -103,6 +106,7 @@
         </div>
     </nav>
     end of navbar -->
+
   <!--Notification Modal-->
   <div id="theModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
