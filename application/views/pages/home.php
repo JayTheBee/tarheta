@@ -6,23 +6,6 @@
             <div class="row positionZ">
                 <div class="col-6 hText-padding-top px-md-4">
                     <div class="d-flex align-content-center flex-column ">
-                        <!-- <div class="modal fade hide" id="notifModal">
-                            <div class="modal-header">
-                                <a class="close" data-dismiss="modal">×</a>
-                                <h3>Notification</h3>
-                            </div>
-                            <div class="modal-body">
-                                <?php
-                                if ($this->session->flashdata('success')) { ?>
-                                    <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
-                                <?php } ?>
-
-                                <?php
-                                if ($this->session->flashdata('error')) { ?>
-                                    <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
-                                <?php } ?>
-                            </div>
-                        </div> -->
                         <div class="home-text">
                             <h1>Study Anywhere, Anytime & Grow Your Skills</h1>
                         </div>
@@ -300,8 +283,3 @@
     </div>
 
 </section>
-<!-- <script>
-    $(document).ready(function(){
-        $("#notifModal").modal('show');
-    });
-</script> -->
