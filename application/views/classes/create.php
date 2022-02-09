@@ -92,6 +92,12 @@
     border-color: #A2795E;
     }
 
+    .crtscs {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 1.2em;
+        font-weight: 600
+    }
 </style>
 </head>
 
@@ -123,12 +129,12 @@
                     </div>
                     <?php
                         if($this->session->flashdata('success')){?>
-                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                            <p class="crtscs text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
                     <?php } ?>
                     
                     <?php
                     if($this->session->flashdata('error')){?>
-                        <p class="text-danger " style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                        <p class="crtscs text-danger " style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                     <?php } ?>
                 </form>
 
