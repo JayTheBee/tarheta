@@ -132,12 +132,14 @@
             <div class="ds-classes sets">
                 <a>CLASSES</a>
                 <div class="ds-class-btn">
-                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="ENTER CLASS CODE" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                   <form method="POST" autocomplete="off" action="<?=site_url('classes/join')?>">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="invite" id ="invite" placeholder="ENTER CLASS CODE" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                        <button class="btn" type="button">JOIN</button>
+                        <button class="btn" type="submit">JOIN</button>
                       </div>
-                </div>
+                    </div>
+                  </form>
             </div>
 
             <div class="ds-flashcard sets">

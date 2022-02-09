@@ -58,6 +58,7 @@
               <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
               <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(($_SESSION['sess_user_type']['type'] == 'STUDENT') ? 'dashboard-student' : 'dashboard-teacher'); ?>">Home</a>
               <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>flashcards/index">Flashcards</a>
+              <a class="ds-nav-btn dsdsgn" href="<?php echo base_url(''); ?>classes/index">Classes</a>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle ds-nav-create dsdsgn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   CREATE
@@ -83,7 +84,8 @@
                   id="topbar-notification"
                   data-toggle="modal" data-target="#theModal"
                   class="buttons preview dsdsgn li-modal">
-                  <span class="fas fa-bell ds-nav-bell"><span class="badge">0</span></span>
+                  <span class="fas fa-bell ds-nav-bell"><span class="badge"><?php echo $notif_count;?></span></span>
+                 
                 </a>
             
                 <div class="dropdown">
@@ -145,7 +147,7 @@
           <div class="modal-content">
           </div>
         </div>
-      </div>
+</div>
       <script>
         $('.li-modal').on('click', function(e){
           e.preventDefault();

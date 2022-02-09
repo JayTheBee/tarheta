@@ -5,22 +5,28 @@
             <div class="card-body">
                 <!-- class id fetch -->
 
-                <p>theres supposed to be a class info here</p>
-                <p>Name: <?php echo $class['class_name']?> </p>
+                <p>Class Name: <?php echo $class['class_name']?> </p>
                 <p>Description: <?php echo $class['description'] ?></p>
                 <p>School: <?php echo $class['school'] ?></p>
+                <p>Invite Code: <?php echo $class['invite_code'] ?></p>
 
-                <p>assign flashcards</p>
                 <div class="text-right">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AsgnModal">Assign Flashcards</button>
                 </div>
-                <p>invite members</p>
+                <?php if($class['invitations'] == 'YES'): ?>
                 <div class="text-right">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>
                 </div>
+                <?php else: ?>
+                    <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER'): ?>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>
+                    </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <br>
 
-
-                <p>CLASS FLASHCARDS</p>
+                <h5>CLASS FLASHCARDS</h5>
                 <?php if(empty($assignedFlashcards)): ?>
                     <p>No Flashcards Yet!</p>
                 <?php else: ?>       
@@ -34,32 +40,23 @@
                 <?php endif; ?>
 
 
-                <p>CLASS MEMNBERS</p>
+                <h5>CLASS MEMBERS</h5>
                 <?php if(empty($classMembers)): ?>
                     <p>No Members Yet!</p>
                 <?php else: ?>       
                     <?php foreach($classMembers as $member): ?>
                         <h5><?php echo $member['firstname'] ;
                                   echo " "; 
-                                  echo $member['lastname'];?></h5>
-                        <h6>Course: <?php echo $member['course']; ?></h6>
+                                  echo $member['lastname'];
+                                  echo $member['course']; ?></h5>
 
                         <br><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
 
-                <p>rankings</p>
+                <h5>CLASS RANKINGS</h5>
 
                 
-                    <?php
-                        if($this->session->flashdata('success')){?>
-                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                    <?php } ?>
-                    
-                    <?php
-                    if($this->session->flashdata('error')){?>
-                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                    <?php } ?>
             </div>    
         </div>  
     </div>  
@@ -113,4 +110,36 @@
             </form>
         </div>
     </div> 
+</div>
+
+<div class="modal" tabindex="-1" id="notifModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <?php
+        if ($this->session->flashdata('success')) { ?>
+            <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+
+        <?php
+        if ($this->session->flashdata('error')) { ?>
+            <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
 </div>
