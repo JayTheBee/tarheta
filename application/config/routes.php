@@ -93,6 +93,8 @@ $route['logins/login'] = 'auth/logins/login';
 $route['profile/notif/(:any)'] = 'user/profile/notif/$1';
 $route['profile/(:any)'] = 'user/profile/view/$1';
 
+$route['search'] = 'flashcard/searches/suggestions';
+$route['open/search'] = 'flashcard/searches/open_search';
 
 $route['assets']= 'assets/'; 
 $route['default_controller'] = 'pages/view';
