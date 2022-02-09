@@ -70,9 +70,8 @@
                         <?php switch($row['context']): 
                             case "class.invite": ?>
                                 <p>You have been invited to a class!</p> 
-                                <button type="button" class="btn-success" onclick="window.location='<?php echo base_url("user/profile/read/".$row['id']."/".$row['active']."/".$row['context'])?>'">Read</button>
                                 <?php echo form_open("user/profile/read/".$row['id']."/".$row['active']."/".$row['context'])?>
-                                    <button class="btn btn-primary" type="submit">Read2</button>
+                                    <button class="btn btn-primary" type="submit">Read</button>
                                 <?php echo form_close()?>    
                             <?php break; ?>
                             <?php case "user.verify":?>

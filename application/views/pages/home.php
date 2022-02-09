@@ -248,23 +248,23 @@
                 </div>
                 <div class="col-md-7">
                     <div class="contact-form">
-                        <form action="#">
+                        <form method="POST" autocomplete="off" action="<?=base_url('user/profile/contact_us')?>">
                             <div class="row">
                                 <div class="col-lg-6 mb-4">
-                                    <input type="text" placeholder="Your Name" class="form-control form-control-lg fs-6 border-0 shadow-sm">
+                                    <input type="text" name="user_name" id="user_name" placeholder="Your Name" class="form-control form-control-lg fs-6 border-0 shadow-sm">
                                 </div>
                                 <div class="col-lg-6 mb-4">
-                                    <input type="email" placeholder="Your Email" class="form-control form-control-lg fs-6 border-0 shadow-sm">
+                                    <input type="email" name="user_email" id="user_email" placeholder="Your Email" class="form-control form-control-lg fs-6 border-0 shadow-sm">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 mb-4">
-                                    <input type="text" placeholder="Subject" class="form-control form-control-lg fs-6 border-0 shadow-sm">
+                                    <input type="text" name="subject" id="subject" placeholder="Subject" class="form-control form-control-lg fs-6 border-0 shadow-sm">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 mb-4">
-                                    <textarea placeholder="Your Message" class="form-control form-control-lg fs=6 border-0 shadow-sm" rows="5"></textarea>
+                                    <textarea placeholder="Your Message" name="message" id="message" class="form-control form-control-lg fs=6 border-0 shadow-sm" rows="5"></textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -283,3 +283,35 @@
     </div>
 
 </section>
+
+<div class="modal" tabindex="-1" id="notifModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <?php
+        if ($this->session->flashdata('success')) { ?>
+            <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+
+        <?php
+        if ($this->session->flashdata('error')) { ?>
+            <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+</div>

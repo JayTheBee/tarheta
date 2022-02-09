@@ -1,4 +1,3 @@
-
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
@@ -11,11 +10,11 @@
                     <p><?php echo $notifs->text ?> </p> 
                     <?php if($notifs->response==NULL): ?>
                         <?php echo form_open("user/profile/check_notif/".$context."/".'ACCEPT'."/".$_SESSION['sess_profile']['user_id']."/".$notifs->class_id."/".$notifs->id)?>
-                            <button class="btn btn-primary" type="submit">wanna join?</button>
+                            <button class="btn btn-primary" type="submit">Join</button>
                         <?php echo form_close()?>
 
                         <?php echo form_open("user/profile/check_notif/".$context."/".'DECLINE'."/".$_SESSION['sess_profile']['user_id']."/".$notifs->class_id."/".$notifs->id)?>
-                            <button class="btn btn-primary" type="submit">decline?</button>
+                            <button class="btn btn-primary" type="submit">Decline</button>
                         <?php echo form_close()?>
 
                     <?php elseif($notifs->response=='ACCEPT'): ?>
