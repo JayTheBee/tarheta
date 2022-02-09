@@ -8,13 +8,22 @@
                 <p>Class Name: <?php echo $class['class_name']?> </p>
                 <p>Description: <?php echo $class['description'] ?></p>
                 <p>School: <?php echo $class['school'] ?></p>
+                <p>Invite Code: <?php echo $class['invite_code'] ?></p>
 
                 <div class="text-right">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AsgnModal">Assign Flashcards</button>
                 </div>
+                <?php if($class['invitations'] == 'YES'): ?>
                 <div class="text-right">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>
                 </div>
+                <?php else: ?>
+                    <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER'): ?>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>
+                    </div>
+                    <?php endif; ?>
+                <?php endif; ?>
                 <br>
 
                 <h5>CLASS FLASHCARDS</h5>
