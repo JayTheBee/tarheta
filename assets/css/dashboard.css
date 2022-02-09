@@ -93,3 +93,15 @@
 	background-color: none;
 }
 /* end of dashboard navigation bar */
+
+.bgbgbg {
+	background-color: #e4be91;
+	overflow-x: hidden;
+	width: 100vw;
+	float: right;
+}
+.bg-waveee {
+	position: absolute;
+	margin-top: -110px;
+	width: 100vw;
+}

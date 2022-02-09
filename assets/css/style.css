@@ -740,6 +740,10 @@ div p {
 	width: 45rem;
 	z-index: 5;
 }
+<<<<<<< HEAD
+
+.addquestion{
+=======
 .slide {
 	/* position: absolute; */
 	/* width: 295px; */
@@ -748,6 +752,7 @@ div p {
 	/* top: 158px; */
 }
 .addquestion {
+>>>>>>> 07c018caa2d0c08e5e8f0abc56b8085f5520e5ca
 	position: absolute;
 	width: 224px;
 	height: 58px;
@@ -764,4 +769,82 @@ div p {
 .btn-bd-choose1:hover {
 	background-color: #18606e;
 	border-color: #e4be91;
+}
+
+.teacherStudent-boy1{
+	
+	position: absolute;
+	width: 588px;
+	height: 622.11px;
+	left: 1022px;
+	top: 446px;
+}
+.secondBox {
+	background-color: rgba(255, 255, 255, 0.2);
+	padding-left: 5rem;
+	border-radius: 15px;
+}
+
+.secondBox p {
+	font-size: 2rem;
+	font-weight: bold;
+	padding-top: 1rem;
+	padding-left: 1rem;
+	
+}
+.secondBox a {
+	font-size: 1rem;
+	font-weight: 300;
+	padding-left: 1rem;
+	padding-top: 5rem;
+	text-align: justify;
+	text-justify: auto;
+	
+}
+.buttonIn {
+	width: 300px;
+	position: relative;
+	
+}
+
+input {
+	background-color: #A2795E;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	outline: none;
+	height: 40px;
+	border-radius: 5px;
+}
+
+button {
+	color: white;
+	background-color: Transparent;
+	background-repeat:no-repeat;
+	position: absolute;
+	top: 0;
+	right: 0px;
+	border: none;
+	top: 2px;
+	height: 30px;
+	cursor: pointer;
+    
+}
+.f1{
+	position: absolute;
+	width: 400px;
+	height: 250px;
+	left: 59px;
+	top: 671px;
+	
+	
+}
+.f2{
+	
+width: 400px;
+height: 250px;
+left: 486px;
+top: 669px;
+padding-right: 60rem;
 }

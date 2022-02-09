@@ -5,6 +5,7 @@ html { height:100%; }
 body{
     min-height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 
 }
 .container .brand-des {
@@ -155,7 +156,7 @@ body{
     position: fixed;
     left: 0px;
     z-index: 101;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,7 +177,7 @@ body{
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
     /* padding-left: 1.5rem;
     padding-right: 1.5rem; */
 }
@@ -328,13 +329,12 @@ body{
     height: 100%;
 }
 .content {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     overflow-x: hidden;
     /* background: rgb(242, 242, 241); */
     flex: 1 1 calc(100% - (2 * clamp(21px, 1vmin, 48px)));
-    margin-top: 4.4rem;
-    padding: 30px clamp(21px, 1vmin, 48px);
+    padding: 30px clamp(21px, 5vmin, 48px);
     /* padding: 1rem 1rem 1rem 1rem; */
     padding-bottom: 1rem;
     margin-left: 13rem;
@@ -353,6 +353,7 @@ body{
 .idk {
     width: 100%;
     height: 3.3rem;
+    margin-top: 5re;
 }
 .align-placeholder {
     display: flex;
@@ -561,7 +562,7 @@ body{
     display: flex;
     flex: 4 1 0%;
     flex-wrap: wrap;
-    height: 100%;
+    height: 18rem;
     align-content: stretch;
 }
 .boxes {
@@ -778,7 +779,7 @@ body{
     box-shadow: rgb(0 0 0 / 15%) -2px 0px 4px 0px;
     background-color: #52888A;
     position: fixed;
-    padding-top: 4.4rem;
+    /* padding-top: 4.4rem; */
     right: 0px;
     z-index: 100;
     height: 100%;
@@ -1107,102 +1108,7 @@ body{
     align-items: center;
     justify-content: center;
 }
-.hCrMPS {
-    background-color: rgb(242, 242, 242);
-    height: 100%;
-    border-radius: 0.25rem;
-}
-.cvKrHj {
-    display: flex;
-    width: auto;
-    height: calc(100% - 4.75rem);
-    box-sizing: border-box;
-    transform-origin: left center;
-    flex-wrap: nowrap;
-    background-color: rgb(255, 255, 255);
-    padding-top: 1rem;
-    border-radius: 0.25rem;
-}
-.bKKtKM {
-    display: flex;
-    flex: 1 1 0%;
-    padding: 0px 1rem 1rem;
-}
-.jtslMX {
-    padding-right: 0.75rem;
-    padding-bottom: 0.25rem;
-    display: flex;
-    flex: 1 0 calc(54% - 0.75rem);
-    flex-direction: column;
-    max-height: calc((((100vh - 3.5rem) - 1rem) - 1rem) - 4.75rem);
-    overflow-y: auto;
-}
-.fpGZmQ {
-    vertical-align: top;
-    margin: 0px;
-    width: 100%;
-}
-.fFgEqg {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    color: rgb(110, 110, 110);
-    margin-bottom: 0.5rem;
-}
-.exKMRQ {
-    display: flex;
-    flex-direction: column;
-}
-.exKMRQ > button {
-    margin: 0.25rem 0px;
-}
-.gOvpUq {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    background: rgb(242, 242, 242);
-    border: none;
-    border-radius: 0.25rem;
-    position: relative;
-    z-index: 10000;
-    padding: 0.5rem 0.75rem;
-    line-height: 1;
-    box-shadow: rgb(0 0 0 / 15%) 0px 1px 2px 0px;
-    transition: background 0.5s ease 0s;
-}
-.eFuxbc {
-    flex: 0 0 auto;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    width: auto;
-    margin-right: 1rem;
-}
-.fyiKXj {
-    display: inline-block;
-    height: auto;
-    width: 2rem;
-    max-width: 100%;
-}
-.kseOBZ {
-    width: 100%;
-}
-.cTvoQZ {
-    font-weight: 700;
-    font-size: 0.875rem;
-    line-height: 1.71;
-    letter-spacing: 0.2px;
-    text-align: left;
-}
-.bibWjt {
-    width: 1rem;
-    height: 1rem;
-    z-index: -1;
-    left: -0.5rem;
-}
+
 #myDiv {
     display: none;
 }
@@ -1242,4 +1148,7 @@ body{
     width: 100vw;
     /* margin-top: 1.5rem; */
     margin-bottom: 1.5rem;
+}
+.radio-des {
+    margin-right: 1.5rem;
 }

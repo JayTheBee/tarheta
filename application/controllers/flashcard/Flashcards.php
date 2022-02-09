@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data_var['category'] = $this->tags_model->fetchCategory($flashcard_id_arg);
             $data_var['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
             
-            if ($data_var['flashcard']['creator_id'] == $_SESSION['sess_profile']['user_id'] && $this->_check_access($flashcard_id_arg)){
+            if ($data_var['flashcard']['creator_id'] == $_SESSION['sess_profile']['user_id']){
                 $this->view('edit-'.$type_arg.'-current', $data_var);
             }
             else{
@@ -186,7 +186,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $this->tags_model->insertCategory($cat_check_var->id, $data_var['flashcard_id']);
                     
                     $set_id_var = $this->input->post('sets', TRUE);
-                    $this->set_model->insert_flashcard_sets($set_id_var, $data_var['flashcard_id']);
+                    if ($set_id_var != -1)
+                        $this->set_model->insert_flashcard_sets($set_id_var, $data_var['flashcard_id']);
 
                     $this->session->set_userdata('sess_current_flashcard',$data_var);
 
@@ -212,11 +213,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $data_var['flashcard'] = $this->_create_flashcards_clean();
                     $data_var['flashcard_id'] = $flashcard_id_arg;
                     $set_id_var = $this->input->post('sets', TRUE);
-
+                    $category_id_var = $this->input->post('category', TRUE);
                     // ISSUE - category not yet updating when updating flashcard details
+                    // var_dump($data_var);
+                    // exit();
 
                     $this->flashcard_model->update_flashcard($data_var);
                     $this->set_model->update_set_list($flashcard_id_arg, $set_id_var);
+                    $this->tags_model->update_flashcard_category($flashcard_id_arg, $category_id_var);
                     redirect(base_url('flashcards/show/'.$flashcard_id_arg));
                 }
             }
@@ -285,7 +289,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $question_type_var = $this->input->post('question-type', TRUE);
 
             $answer_var = $this->input->post(strtolower($question_type_var)."-answer", TRUE);
-            if($_SESSION['sess_current_question']['question_type'] == 'CHOICE')
+            if($question_type_var == 'CHOICE')
                 $answer_var = $this->input->post(strtolower($question_type_var)."-answer-".$answer_var, TRUE);
 
             $numpoints_var = $this->input->post('points-show', TRUE);
@@ -302,6 +306,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             );
 
             $question_id_var = $this->flashcard_model->insert_question($data_var);
+
+            // SIngit ng function to update flashcards totol points
+            
             // After saving the question get it's ID and save it in $question_id
 
             // $question_id will be used when saving the choices if the question is of a CHOICE type.
@@ -335,6 +342,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $choice_id_var = $this->flashcard_model->insert_choices($data_var);
             $this->flashcard_model->set_question_choice_id($choice_id_var, $question_id_arg);
+            return $choice_id_var;
         }
 
 
