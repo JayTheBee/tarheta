@@ -31,8 +31,9 @@ class Classes extends CI_Controller{
         }
 
         $data['title'] = ucfirst($page);
+        $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
         $data = $this->_check_page($page, $data);
-        $this->load->view('templates/header-logged');
+        $this->load->view('templates/header-logged', $data2);
         $this->load->view('classes/'.$page, $data);
         $this->load->view('templates/footer');
     }

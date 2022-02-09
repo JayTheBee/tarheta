@@ -49,10 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->_check_if_logged_in();
 
             $data_arg['title'] = ucfirst($page_arg);
-
+            $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
             $data_arg = $this->_check_page($page_arg, $data_arg);
 
-            $this->load->view('templates/header-logged');
+            $this->load->view('templates/header-logged', $data2);
             $this->load->view('flashcards/'.$page_arg, $data_arg);
             $this->load->view('templates/footer');
         }
