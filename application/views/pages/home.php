@@ -1,5 +1,22 @@
 <!--home-->
 <section id="home-page-1">
+    <div class="modal hide fade" id="myModal">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>Notification</h3>
+        </div>
+        <div class="modal-body">
+            <?php
+            if ($this->session->flashdata('success')) { ?>
+                <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+            <?php } ?>
+
+            <?php
+            if ($this->session->flashdata('error')) { ?>
+                <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+            <?php } ?>
+        </div>
+    </div>
     <div class="home-bg">
         <div class="mx-3">
             <img src="<?php echo base_url("assets/images/home/home_bg.png"); ?>" class="float-left position-absolute wave-size">
@@ -283,3 +300,8 @@
     </div>
 
 </section>
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#myModal').modal('show');
+    });
+</script>
