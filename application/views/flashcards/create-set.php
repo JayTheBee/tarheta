@@ -73,16 +73,24 @@
 }
 
 .crtscs {
-        text-align: center;
-        margin-bottom: 1rem;
-        font-size: 1.2em;
-        font-weight: 600
-    }
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2em;
+    font-weight: 600
+}
 
+.custom-bg-create {
+    background-color: #E4BE91;
+    overflow-x: hidden;
+    background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+    width: 100%;
+    height: 100%;
+}
 </style>
 </head>
 
 <!-- Create Set PAGE -->
+<div class="custom-bg-create">
 <div class="container set-container vh-100">
         <div>
             <div class="card">
@@ -116,4 +124,5 @@
 
             </div>
         </div>
+</div>
 </div>

@@ -2,12 +2,31 @@
     <style>
         .bg-blue {
             background-color: #e4be91;
+            font-family: "Poppins";
         }
 
         .flash-size {
             position: absolute;
             width: 100vw;
             height: 100vh;
+        }
+
+        .shwset{
+        border: 2px solid #A2795E;
+        border-radius: 10px; 
+        margin: 10px 5px 10px 5px;
+        padding: 5px;
+        }
+
+        .shwset button {
+        background-color: #A2795E;
+        }
+
+        .shwflscrd {
+        border: 2px solid #52888A;
+        border-radius: 10px;
+        margin: 10px 5px 10px 5px;
+        padding: 10px;
         }
     </style>
 </head>
@@ -29,13 +48,11 @@
                 <div class="container-fluid overflow-scroll">
                     <div class="row flex-row flex-nowrap">
                         <?php foreach ($sets as $key => $set) : ?>
-                            <div class="col-3">
-                                <h6>-----------------------</h6>
+                            <div class="col-3 shwset d-inline-block text-truncate">
                                 <h5>Set Name: <?php echo $set['name'] ?></h5>
                                 <h6>Set Description: <?php echo $set['description'] ?></h6>
                                 <h6>Set Color: <?php echo $set['color'] ?></h6>
-                                <button type='button' class='btn btn-primary' onclick="window.location='<?php echo site_url("flashcards/show-set/" . $set["id"]); ?>'">View</button>
-                                <h6>-----------------------</h6>
+                                <button type='button' class='btn' onclick="window.location='<?php echo site_url("flashcards/show-set/" . $set["id"]); ?>'">View</button>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -65,15 +82,14 @@
                 <?php foreach ($categories as $key => $category) : ?>
                     <div class="tab-pane fade <?php echo ($key == 0) ? "show active" : ""; ?>" id="nav-category-<?php echo $category['id']; ?>" role="tabpanel" aria-labelledby="nav-<?php echo $category['id'] ?>-category">
                         <div class="container-fluid overflow-scroll">
-                            <div class="row flex-row flex-nowrap">
+                            <div class="row flex-row flex-nowrap ">
                                 <!-- Just reused an old variable found in the flashcard controller in the checkpage function  -->
                                 <!-- Slow way. Nice to have a better way xD -->
                                 <?php foreach ($category_list as $cat) : ?>
                                     <?php if ($cat['name'] == $category['name']) : ?>
                                         <?php foreach ($flashcards as $flashcard) : ?>
                                             <?php if ($flashcard['id'] == $cat['flashcard_id']) : ?>
-                                                <div class="col-4">
-                                                    <h6>-----------------------</h6>
+                                                <div class="col-4 shwflscrd  text-truncate">
                                                     <h5><?php echo $flashcard['name']; ?></h5>
                                                     <h6>Description: <?php echo $flashcard['description']; ?></h6>
                                                     <p><?php echo $flashcard['visibility']; ?></p>
@@ -86,7 +102,6 @@
                                                     </p>
                                                     <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/" . $flashcard["id"]); ?>'">View
                                                     </button>
-                                                    <h6>-----------------------</h6>
                                                 </div>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
@@ -123,8 +138,8 @@
                         <div class="row flex-row flex-nowrap">
                             <?php foreach ($flashcards as $flashcard) : ?>
                                 <?php if ($flashcard['visibility'] == 'PRIVATE') : ?>
-                                    <div class="col-4">
-                                        <h6>-----------------------</h6>
+                                    <div class="col-4 shwflscrd  text-truncate">
+                                        
                                         <h5><?php echo $flashcard['name']; ?></h5>
                                         <h6>Description: <?php echo $flashcard['description']; ?></h6>
                                         <!-- <p><?php //echo $flashcard['visibility']; 
@@ -138,7 +153,7 @@
                                         </p>
                                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/" . $flashcard["id"]); ?>'">View
                                         </button>
-                                        <h6>-----------------------</h6>
+                                       
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
@@ -152,7 +167,7 @@
                         <div class="row flex-row flex-nowrap">
                             <?php foreach ($flashcards as $flashcard) : ?>
                                 <?php if ($flashcard['visibility'] == 'PUBLIC') : ?>
-                                    <div class="col-4">
+                                    <div class="col-4  text-truncate">
                                         <h6>-----------------------</h6>
                                         <h5><?php echo $flashcard['name']; ?></h5>
                                         <h6>Description: <?php echo $flashcard['description']; ?></h6>
