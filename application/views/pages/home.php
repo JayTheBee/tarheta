@@ -11,7 +11,7 @@
                         </div>
                         <div>
                             <!--just to make the get started button not occupying the full width-->
-                            <a class="btn btn-bd-getStarted rounded-pill" href="<?php echo base_url("home/#home-page-2"); ?>" role="button">Get Started ></a>
+                            <a class="btn btn-bd-getStarted rounded-pill" href="<?php echo base_url("home/#home-page-2"); ?>" role="button">Get Started></a>
                         </div>
                     </div>
                 </div>

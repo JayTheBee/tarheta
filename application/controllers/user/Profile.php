@@ -129,7 +129,7 @@ class Profile extends CI_Controller {
 			break;
 			case'user.verify':
 				$this->session->set_flashdata('success','Email has been verified!');
-				$this->view("home");
+				redirect(base_url("dashboard-student"));
 			break;
 			case'flashcard.class':
 				redirect(base_url("classes/index"));
