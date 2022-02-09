@@ -3,6 +3,7 @@
          .editprofile{
             background-color: #52888A;
             background-image: url("<?php echo base_url("./assets/images/login/Vector 7.png"); ?>");
+            background-size: cover;
          }
         .profile-edit{
             position: absolute;
@@ -53,7 +54,7 @@
     <div class="profile-edit container-fluid">
         <div class="card" style="margin-top: 3rem">
             <div class="pf-header text-center"> Profile  </div>
-                <form method="POST" autocomplete="off" action="<?=base_url('profile/editprofile')?>">
+                <form method="POST" autocomplete="off" action="<?=base_url('user/profile/edit_profile')?>">
                     <div class="form-group">
                     <label>First Name </label> 
                     <input type="text" placeholder="<?php echo $_SESSION['sess_profile']['firstname'];?>"
@@ -62,17 +63,25 @@
                     > 
                     </div>
                     <div class="form-group">
-                        <label name="lastname" class="form-label">Last Name</label> 
-                        <input type="text" name="lastname" class="form-control" id="lastname" aria-describedby="name"> 
-                    </div>
+                    <label>Last Name</label> 
+                    <input type="text" placeholder="<?php echo $_SESSION['sess_profile']['lastname'];?>"
+                        name="lastname" value="<?php echo $_SESSION['sess_profile']['lastname'];?>"
+                        class="form-control" id="lastname" aria-describedby="name"
+                    > 
+                </div>
                     <div class="form-group">
-                        <label name="birthdate" class="form-label">Birthday</label> 
-                        <input type="date" name="birthdate" class="form-control" id="birthdate" aria-describedby="name" > 
-                    </div>
+                    <label>Birthday</label> 
+                    <input type="date" name="birthdate" value="<?php echo $_SESSION['sess_profile']['birthdate'];?>"
+                        class="form-control" id="birthdate" aria-describedby="name"
+                    > 
+                </div>
                     <div class="form-group">
-                        <label name="school" class="form-label">School</label> 
-                        <input type="text" name="school" class="form-control" id="school" aria-describedby="name"> 
-                    </div>
+                    <label>School</label> 
+                    <input type="text" placeholder="<?php echo $_SESSION['sess_profile']['school'];?>"
+                        name="school" value="<?php echo $_SESSION['sess_profile']['school'];?>"
+                        class="form-control" id="school" aria-describedby="name"
+                    > 
+                </div>
                     <div class="form-group">
                         <label name="course" class="form-label">Course</label> 
                         <input type="text" name="course" class="form-control" id="course" aria-describedby="name"> 
@@ -85,22 +94,6 @@
                             <option value="Cat">Cat</option>
                         </select>
                     </div>
-                <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Confirm</button>
-                        <button type="button" class="btn btn-success" onclick="window.location='<?php echo base_url("profile"); ?>'" >Back </button>
-                    </div>
-                <?php echo form_close()?> 
-                    <?php
-                        if($this->session->flashdata('success')){?>
-                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
-                    <?php } ?>
-                    
-                    <?php
-                    if($this->session->flashdata('error')){?>
-                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
-                    <?php } ?>
-               
-                </div>
                 <div class="pf-btns text-center">
                         <button class="btn pf-confirm" type="submit" >Confirm</button>
                         <button class="btn btn-secondary"type="button"  onclick="window.location='<?php echo site_url("profile"); ?>'" >Back
@@ -122,3 +115,4 @@
     </div>
 </div>
 <img src="<?php echo base_url("assets/images/accType/teacher_student_boy.png"); ?>" class="position-absolute pf-img" alt="boy">
+                    
