@@ -45,9 +45,10 @@
                 <form class="form-inline my-2 my-lg-0">
                    <input class="form-control mr-sm-2 ds-nav-search dsdsgn" type="search" placeholder="Search" aria-label="Search">
                 </form>
-                <a href="#"
+                <a href="<?php echo base_url('notif'); ?>"
                   id="topbar-notification"
-                  class="buttons preview dsdsgn">
+                  data-toggle="modal" data-target="#theModal"
+                  class="buttons preview dsdsgn li-modal">
                   <span class="fas fa-bell ds-nav-bell"><span class="badge">0</span></span>
                  
                 </a>
@@ -61,15 +62,9 @@
                     <li><a class="dropdown-item" href="#"><button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url("auth/logins/logout")?>'">Logout</button></a></li>
                   </ul>
                   </div>
-
-               
-
-
             </div>
       </div>
-    </nav> 
-    
-    
+    </nav>    
 <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!--
@@ -110,6 +105,16 @@
         </div>
     </nav>
     end of navbar -->
-
- 
-<body>
+<!--Notification Modal-->
+<div id="theModal"class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          </div>
+        </div>
+      </div>
+      <script>
+        $('.li-modal').on('click', function(e){
+          e.preventDefault();
+          $('#theModal').modal('show').find('.modal-content').load($(this).attr('href'));
+        });
+      </script>
