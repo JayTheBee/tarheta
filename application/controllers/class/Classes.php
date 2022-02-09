@@ -41,6 +41,7 @@ class Classes extends CI_Controller{
         if ($_SERVER['REQUEST_METHOD']=='POST'){
             $this->form_validation->set_rules('class_name','Class_Name','required');
             $this->form_validation->set_rules('description','Description');
+            $this->form_validation->set_rules('invite','Description');
             $this->form_validation->set_rules('school','School');
             
             if($this->form_validation->run()==TRUE){
@@ -49,23 +50,29 @@ class Classes extends CI_Controller{
                     $description = $this->input->post('description');
                     $invite = bin2hex(openssl_random_pseudo_bytes(6));
                     $school = $this->input->post('school');
+                    $invitationsvar = $this->input->post('invite');
+                    if($invitationsvar == TRUE){
+                        $invitationsvar = 'YES';
+                    }else{
+                        $invitationsvar = 'NO';
+                    }
+
                     $data = array(
                         'class_name'=> $class_name,
                         'description'=> $description,
                         'invite_code' => $invite,
                         'school'=> $school,
+                        'invitations' => $invitationsvar,
                         
                     );
                     $user_id = $_SESSION['sess_profile']['user_id'];
-                    $this->classes_model->insertclasses($data, $user_id);
-                    
+                    $classvar = $this->classes_model->insertclasses($data, $user_id);
                     $this->session->set_flashdata('success','Classes successfully created!');
-                    $this->view('create');
                 }
             else{
 				$this->session->set_flashdata('error','Class Name is Required');
-    			$this->view('create');
 			}
+            $this->show($classvar);
         }
     }
 
@@ -95,12 +102,12 @@ class Classes extends CI_Controller{
 
                 if(!$class){
                     $this->session->set_flashdata('error','Valid class code required!');
-                    redirect(base_url('classes/join'));
+                    redirect(base_url('dashboard-student'));
                 }
                 else{
                     if(!$email_check){
                         $this->session->set_flashdata('error','Verified email required!');
-                        redirect(base_url('classes/join'));
+                        redirect(base_url('dashboard-student'));
                     }
                     else{
                         $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
@@ -111,10 +118,10 @@ class Classes extends CI_Controller{
             }
             else{
                 $this->session->set_flashdata('error','Valid class code required!');
-                redirect(base_url('classes/join'));
+                redirect(base_url('dashboard-student'));
             }
         }
-        $this->view('join');
+       redirect(base_url('dashboard-student'));
     }
 
     public function invite(){

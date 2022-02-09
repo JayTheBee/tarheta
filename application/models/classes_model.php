@@ -8,6 +8,7 @@ class classes_model extends CI_Model {
 		$class_id = $this->db->insert_id();
 		$this->userEnroll($class_id, $user_id, 'CREATOR');
 		$this->db->trans_complete();
+		return $class_id;
 
 	}
 
