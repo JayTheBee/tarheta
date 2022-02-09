@@ -49,7 +49,7 @@
                   id="topbar-notification"
                   data-toggle="modal" data-target="#theModal"
                   class="buttons preview dsdsgn li-modal">
-                  <span class="fas fa-bell ds-nav-bell"><span class="badge">0</span></span>
+                  <span class="fas fa-bell ds-nav-bell"><span class="badge"><?php echo $notif_count;?></span></span>
                  
                 </a>
             
