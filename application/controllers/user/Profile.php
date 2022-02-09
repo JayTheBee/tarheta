@@ -146,5 +146,50 @@ class Profile extends CI_Controller {
 			break;
 		}
 	}	
+	public function contact_us(){
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+
+			$this->form_validation->set_rules('user_name', 'Your Name','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('user_email', 'Your Email','valid_email');
+			$this->form_validation->set_rules('subject', 'Subject');
+			$this->form_validation->set_rules('message', 'Message');
+
+			if($this->form_validation->run()){
+				$namevar = $this->input->post('user_name', TRUE);
+				$emailvar = $this->input->post('user_email', TRUE);
+				$subjectvar = $this->input->post('subject', TRUE);
+				$messagevar = $this->input->post('message',TRUE);
+
+				if(empty($namevar)){
+					$namevar = 'Anonymous';
+				}
+				if(empty($emailvar)){
+					$emailvar = 'anonymous@anonmail.com';
+				}
+				if(empty($subjectvar)){
+					$subjectvar = 'No subject';
+				}
+				if(empty($messagevar)){
+					$messagevar = 'No message';
+				}
+
+				$this->session->set_flashdata('success','Message sent successfully!');
+				$mailvar = array(
+					'subject' => $namevar." says",
+					'header' => $subjectvar,
+					'body' => $messagevar,
+					'email' => "Contact using: ".$emailvar,
+
+				);
+
+				$this->email->contact_us($mailvar, 'templates/message_us');
+			}else{
+				$this->session->set_flashdata('error','Please enter valid information');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please enter valid information');
+		}
+		redirect(base_url('home'));
+	}
 }
 ?>

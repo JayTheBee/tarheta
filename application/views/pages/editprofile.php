@@ -60,7 +60,7 @@
                         name="firstname" value="<?php echo $_SESSION['sess_profile']['firstname'];?>"
                         class="form-control pf-edit-fn" id="firstname" aria-describedby="name"
                     > 
-                </div>
+                    </div>
                     <div class="form-group">
                         <label name="lastname" class="form-label">Last Name</label> 
                         <input type="text" name="lastname" class="form-control" id="lastname" aria-describedby="name"> 
