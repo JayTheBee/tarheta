@@ -1,34 +1,34 @@
 <!--home-->
 <section id="home-page-1">
-    <div class="modal hide fade" id="myModal">
-        <div class="modal-header">
-            <a class="close" data-dismiss="modal">×</a>
-            <h3>Notification</h3>
-        </div>
-        <div class="modal-body">
-            <?php
-            if ($this->session->flashdata('success')) { ?>
-                <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
-            <?php } ?>
-
-            <?php
-            if ($this->session->flashdata('error')) { ?>
-                <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
-            <?php } ?>
-        </div>
-    </div>
     <div class="home-bg">
         <div class="mx-3">
             <img src="<?php echo base_url("assets/images/home/home_bg.png"); ?>" class="float-left position-absolute wave-size">
             <div class="row positionZ">
                 <div class="col-6 hText-padding-top px-md-4">
                     <div class="d-flex align-content-center flex-column ">
+                        <!-- <div class="modal fade hide" id="notifModal">
+                            <div class="modal-header">
+                                <a class="close" data-dismiss="modal">×</a>
+                                <h3>Notification</h3>
+                            </div>
+                            <div class="modal-body">
+                                <?php
+                                if ($this->session->flashdata('success')) { ?>
+                                    <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+                                <?php } ?>
+
+                                <?php
+                                if ($this->session->flashdata('error')) { ?>
+                                    <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+                                <?php } ?>
+                            </div>
+                        </div> -->
                         <div class="home-text">
                             <h1>Study Anywhere, Anytime & Grow Your Skills</h1>
                         </div>
                         <div>
                             <!--just to make the get started button not occupying the full width-->
-                            <a class="btn btn-bd-getStarted rounded-pill" href="<?php echo base_url("home/#home-page-2"); ?>" role="button">Get Started ></a>
+                            <a class="btn btn-bd-getStarted rounded-pill" href="<?php echo base_url("home/#home-page-2"); ?>" role="button">Get Started></a>
                         </div>
                     </div>
                 </div>
@@ -300,8 +300,8 @@
     </div>
 
 </section>
-<script type="text/javascript">
-    $(window).on('load', function() {
-        $('#myModal').modal('show');
+<!-- <script>
+    $(document).ready(function(){
+        $("#notifModal").modal('show');
     });
-</script>
+</script> -->
