@@ -9,6 +9,7 @@
         padding-bottom: 2rem;
         border-radius: 10px;
         border: 2px solid  #A2795E;
+        background-color: #fff;
     }
 
     .set-container .card-header{
@@ -98,10 +99,18 @@
         font-size: 1.2em;
         font-weight: 600
     }
+
+    .custom-bg-create {
+      background-color: #E4BE91;
+      overflow-x: hidden;
+      background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+      width: 100%;
+      height: 100%;
+    }
 </style>
 </head>
 
-
+<div class="custom-bg-create">
 <div class="container set-container vh-100">
     <div>
             <div class="cardd" style="margin-top: 5rem">
@@ -140,4 +149,5 @@
 
             </div>
     </div>
+</div>
 </div>
