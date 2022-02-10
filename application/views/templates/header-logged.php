@@ -85,7 +85,6 @@
                   data-toggle="modal" data-target="#theModal"
                   class="buttons preview dsdsgn li-modal">
                   <span class="fas fa-bell ds-nav-bell"><span class="badge"><?php echo $notif_count;?></span></span>
-                 
                 </a>
             
                 <div class="dropdown">
