@@ -50,7 +50,7 @@
             <input class="form-control mr-sm-2 ds-nav-search dsdsgn" type="search" placeholder="Search" aria-label="Search">
           </form>
           <a href="<?php echo base_url('notif'); ?>" id="topbar-notification" data-toggle="modal" data-target="#theModal" class="buttons preview dsdsgn li-modal">
-            <span class="fas fa-bell ds-nav-bell"><span class="badge">0</span></span>
+            <span class="fas fa-bell ds-nav-bell"><!--<span class="badge">0</span>--></span>
 
           </a>
 
