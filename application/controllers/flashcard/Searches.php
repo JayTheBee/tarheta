@@ -19,11 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $search_var = $this->input->post('keyword', TRUE);
                 $user_id_var = $_SESSION['sess_profile']['user_id'];
                 $data_var = $this->search_model->get_suggestions($search_var, $user_id_var);
-                            
-                // echo "<pre>";
-                // var_dump ($data_var);
-                // echo "</pre>";
-                // exit();
 
                 echo json_encode($data_var);
             }
