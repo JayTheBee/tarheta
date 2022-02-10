@@ -71,7 +71,7 @@ CREATE TABLE `classes` (
   `description` text NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `invite_code` varchar(255) NOT NULL,
-  `invitations` enum('YES','NO') NOT NULL
+  `invitations` enum('YES','NO') NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

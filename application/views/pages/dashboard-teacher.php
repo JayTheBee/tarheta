@@ -136,3 +136,35 @@
   </div>
 </div>
 </div>
+
+<div class="modal" tabindex="-1" id="notifModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <?php
+        if ($this->session->flashdata('success')) { ?>
+            <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+
+        <?php
+        if ($this->session->flashdata('error')) { ?>
+            <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+</div>

@@ -125,7 +125,7 @@
                         <label class="crt-label">Description </label> 
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input ctr-check" id="invite">
+                        <input type="checkbox" class="form-check-input ctr-check" name= "invite" id="invite">
                         <label class="crt-label" for="add" style="margin-left: 4px">Allow Class to invite new members</label>
                     </div>
                     <div class="form-group">
