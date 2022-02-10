@@ -22,7 +22,8 @@
     <!-- <script src="https://rawgit.com/yuanqing/autosize-input/master/autosize-input.min.js"></script> -->
     <!-- Commented out returns error in browswer console -->
 
-    <title>Sprint Demo</title>
+    <link rel = "icon" href = "<?php echo base_url("assets/images/logo/icon.png");?>" type = "image/x-icon">
+    <title>Tarheta</title>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
         <div class="container">
             <div width="1" class="create-nav design">
                 <div width="0.525" class="nav design">
-                    <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+                <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
                     <button aria-label="Enter tarheta title..." class="nav-button" onclick="window.location='<?php echo site_url('flashcards/edit/flashcard/' . $flashcard['id']); ?>'">
                         <span class="text"><?php echo $flashcard['name'] ?></span>
                         <span class="settings-button mh-75 d-inline-block">
@@ -40,8 +41,9 @@
                     </button>
                 </div>
                 <div width="0.475" class="right-nav design">
-                    <button type="button" id="topbar-preview-button" class="buttons preview">
-                        <i class="fas fa-eye"></i>
+                    
+                    <button type="button" id="topbar-preview-button" class="buttons">
+                    <i class="fas fa-eye"></i>
                         <span>&nbsp;Preview</span>
                     </button>
 
