@@ -77,14 +77,7 @@
   color: #fff;
   text-decoration: none;
 }
-.ds-flashcard .flscrds div {
-  width: 20rem;
-  background-color: #175561;
-  height: 10rem;
-  margin: 1rem 2rem 1rem 2rem ;
-  border-radius: 20px;
-  text-align: center;
-}
+
 
 .boxPos {
 	z-index: 2;
@@ -128,16 +121,15 @@
             <div class="ds-classes sets">
                 <a>CLASSES</a>
                 <div>
-                    <button class="ds-class-btn"><a class="crtcls" href="<?php echo base_url(); ?>classes/create">Create Class + </a></button>
+                    <button class="ds-class-btn" onclick="window.location='classes/create.php';"><a class="crtcls" href="<?php echo base_url(); ?>classes/create">Create Class + </a></button>
                 </div>
             </div>
 
             <div class="ds-flashcard sets">
-                <a>SEE OTHER USERS FLASHCARDS</a>
-                <div class="d-flex flscrds">
-                  <div>Flashcard here</div>
-                  <div>flashcard here</div>
-                  <div class="text-center fs-3"><a href="<?php echo base_url(); ?>flashcards/index">more flashcard ... </a></div>
+                <a>FLASHCARDS</a>
+                <div class="ds-recent m-5" style="color: #000;">
+                  <span>You don't any flashcard yet. <a  href="<?php echo base_url(); ?>flashcards/create">Create a flashcard </a></span> 
+                  <br><span>View flashcards tab <a href="<?php echo base_url(); ?>flashcards/index">here.</a></span>
                 </div>  
             </div>
 
