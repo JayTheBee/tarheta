@@ -1,11 +1,24 @@
 <!-- ACCOUNT TYPE SELECTION PAGE -->
-<div style="background-color: #52888A; height: 100vh">
-    <img src="<?php echo base_url("assets/images/flashcard/flashcard-show_wave.png");?>" class="position-absolute bottom-0" style="width: 100vw;
-	height: 100vh;" alt="wave">
-    <div class="container" >
+<head>
+<style>
+.custom-bg-create {
+      background-color: #E4BE91;
+      overflow-x: hidden;
+      background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+      width: 100%;
+      height: 100%;
+      background-size:cover;
+}
+
+</style>
+</head>
+
+
+<div class="custom-bg-create">
+    <div class="container vh-100 w-100">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="card" style="margin-top: 5rem; background-color: rgba(112,95,89,.9); color: #fff">
+            <div class="card" style="margin: 5rem 0 5rem 0; background-color: rgba(112,95,89,.9); color: #fff">
                 <div class="card-header text-center">
                     <h3><?php echo $flashcard['name']; ?></h3>
                     <p><?php echo $flashcard['description'] ?></p>
