@@ -8,6 +8,7 @@ class Scorings extends CI_Controller{
         $this->load->helper('security');
         $this->load->model('scoring_model');
         $this->load->model('flashcard_model');
+        $this->load->model('notification_model');
     }
 
     /**
@@ -19,8 +20,8 @@ class Scorings extends CI_Controller{
         }
 
         $data_arg['title'] = ucfirst($page_arg);
-
-        $this->load->view('templates/header-logged');
+        $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
+        $this->load->view('templates/header-logged', $data2);
         $this->load->view('flashcards/'.$page_arg, $data_arg);
         $this->load->view('templates/footer');
     }
