@@ -94,6 +94,8 @@
         margin: 10px 5px 10px 5px;
         padding: 10px;
         color: #fff;
+        width: 20rem;
+        margin-right: 30px;
         }
 
 
@@ -155,14 +157,15 @@
                 <div class="tab-pane fade show active" id="nav-flashcard" role="tabpanel" aria-labelledby="nav-flashcard-class">
                     <div class="container-fluid overflow-scroll">
                         <div class="row flex-row flex-nowrap">
-                                <div class="col-4">
-                                        <div class="card-body">
+                                <div class="container">
+                                        <div>
                                             <h5>CLASS FLASHCARDS</h5>
                                             <?php if(empty($assignedFlashcards)): ?>
                                                 <h6>No Flashcards Yet!</h6>
-                                                <?php else: ?>       
+                                                <?php else: ?> 
+                                                <div style="display:flex;" class="flex-wrap  justify-content-center">      
                                                 <?php foreach($assignedFlashcards as $flashcard): ?>
-                                                <div class="shwflscrd  text-truncate">
+                                                <div class="shwflscrd text-truncate" >
                                                     <h5><?php echo $flashcard['name']; ?></h5>
                                                     <h6>Description: <?php echo $flashcard['description']; ?></h6>
                                                     <p><?php echo $flashcard['visibility']; ?></p>
@@ -170,6 +173,7 @@
                                                     <br><br>
                                                 </div>
                                                 <?php endforeach; ?>
+                                                </div>
                                             <?php endif; ?>
                                         </div>
                                 </div>
@@ -183,7 +187,7 @@
             <div class="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-class">
                 <div class="container-fluid overflow-scroll">
                         <div class="row flex-row flex-nowrap">
-                            <div class="col-4 shwflscrd text-truncate">
+                            <div>
                                     <div class="card-body">
                                         <h5>CLASS MEMBERS</h5>
                                         <?php if(empty($classMembers)): ?>
