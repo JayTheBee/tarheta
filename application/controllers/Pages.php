@@ -20,12 +20,14 @@
 
             if(isset($_SESSION['sess_login'])){
                 $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
-                $headervar = 'header-logged';
+                // $headervar = 'header-logged';
+                $this->load->view('templates/header-logged', $data2);
             }else{
-                $headervar = 'header';
+                // $headervar = 'header';
+                $this->load->view('templates/header');
             }
 
-            $this->load->view('templates/'.$headervar, $data2);
+            // $this->load->view('templates/'.$headervar, $data2);
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
         }
