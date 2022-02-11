@@ -577,6 +577,11 @@ ALTER TABLE `flashcard_statistic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `flashcard_class_access`
+--
+ALTER TABLE `flashcard_class_access`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
