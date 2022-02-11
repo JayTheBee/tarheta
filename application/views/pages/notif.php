@@ -105,8 +105,11 @@
                                 <?php echo form_close()?>
                             <?php break; ?>
                             <?php default: ?>
-                                <?php print_r($row)?>
-                                <p>Notification error!</p>
+                                <p>A new flashcard has been assigned!</p>
+                                <?php echo $row['context']?>
+                                <?php echo form_open("user/profile/notif_redirects/".$row['context']."/".$row['id'])?>
+                                    <button class="btn btn-primary" type="submit">Read</button>
+                                <?php echo form_close()?>
                         <?php endswitch; ?>     
                     <?php endforeach; ?>    
                 <?php endif; ?>

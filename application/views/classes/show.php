@@ -181,7 +181,7 @@
                                             <p>No Members Yet!</p>
                                         <?php else: ?>       
                                             <?php foreach($classMembers as $member): ?>
-                                                <h5><?php echo $member['firstname'] ;
+                                                <h5><?php echo 'Name:'.$member['firstname'];
                                                         echo " "; 
                                                         echo $member['lastname'];
                                                         echo $member['course']; ?></h5>

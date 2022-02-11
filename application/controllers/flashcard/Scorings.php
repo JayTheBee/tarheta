@@ -21,7 +21,6 @@ class Scorings extends CI_Controller{
 
         $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
         $data_arg['title'] = ucfirst($page_arg);
-
         $this->load->view('templates/header-logged', $data2);
         $this->load->view('flashcards/'.$page_arg, $data_arg);
         $this->load->view('templates/footer');

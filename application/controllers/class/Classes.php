@@ -85,7 +85,8 @@ class Classes extends CI_Controller{
         $data['createdFlashcards'] = $this->flashcard_model->get_created_flashcards();
         $data['title'] = ucfirst('show');
 
-        $this->load->view('templates/header');
+        $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
+        $this->load->view('templates/header-logged', $data2);
         $this->load->view('classes/show', $data);
         $this->load->view('templates/footer');
     }
