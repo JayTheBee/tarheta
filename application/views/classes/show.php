@@ -88,6 +88,13 @@
         background-color: #A2795E;
     }
 
+     .shwflscrd {
+        background-color: rgb(82 138 112 / 90%);
+        border-radius: 10px;
+        margin: 10px 5px 10px 5px;
+        padding: 10px;
+        color: #fff;
+        }
 
 
 </style>
@@ -148,18 +155,20 @@
                 <div class="tab-pane fade show active" id="nav-flashcard" role="tabpanel" aria-labelledby="nav-flashcard-class">
                     <div class="container-fluid overflow-scroll">
                         <div class="row flex-row flex-nowrap">
-                                <div class="col-4 shwflscrd  text-truncate">
+                                <div class="col-4">
                                         <div class="card-body">
                                             <h5>CLASS FLASHCARDS</h5>
                                             <?php if(empty($assignedFlashcards)): ?>
                                                 <h6>No Flashcards Yet!</h6>
-                                            <?php else: ?>       
+                                                <?php else: ?>       
                                                 <?php foreach($assignedFlashcards as $flashcard): ?>
+                                                <div class="shwflscrd  text-truncate">
                                                     <h5><?php echo $flashcard['name']; ?></h5>
                                                     <h6>Description: <?php echo $flashcard['description']; ?></h6>
                                                     <p><?php echo $flashcard['visibility']; ?></p>
                                                     <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/".$flashcard["id"]); ?>'" >View</button>
                                                     <br><br>
+                                                </div>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </div>
