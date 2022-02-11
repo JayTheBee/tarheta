@@ -218,7 +218,7 @@
 
 <section id="home-page-4" class="h-auto">
     <div class="home-darkbrown-bg">
-        <img src="<?php echo base_url("assets/images/contact/contact-wave.png"); ?>" class="position-absolute wave-size-2 w-100" style="background-size: cover;" alt="...">
+        <img src="<?php echo base_url("assets/images/contact/contact-wave.png"); ?>" class="position-absolute wave-size-2 w-100" style="object-fit: cover;" alt="...">
         <img src="<?php echo base_url("assets/images/contact/friends.png"); ?>" class="position-absolute friends" alt="...">
 
         <div class="container contact py-4">
