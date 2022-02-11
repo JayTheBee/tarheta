@@ -688,7 +688,6 @@
                         }
                     ?>
                   </select>
-                  <p>needs a script to dynamically add more input fields</p>
                 </div>
               </div>
             </div>

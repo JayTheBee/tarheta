@@ -18,6 +18,11 @@
             $data['title'] = ucfirst($page);
             $data = $this->_check_session($page, $data);
 
+            if($page == 'notif'){
+                $this->load->view('pages/'.$page, $data);
+                return;
+            }
+
             if(isset($_SESSION['sess_login'])){
                 $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
                 // $headervar = 'header-logged';
