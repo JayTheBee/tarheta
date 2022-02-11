@@ -265,7 +265,7 @@
   <div id="InvModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" autocomplete="off" action="<?=base_url('class/classes/invite')?>">
+            <form method="POST" autocomplete="off" action="<?=site_url('class/classes/invite')?>">
                 <input type="hidden" id='class-name' name='class-name' value='<?php echo $class['class_name']?>'>
                 <input type="hidden" id='class-id' name='class-id' value='<?php echo $class['id']?>'>
                 <div class="modal-header">

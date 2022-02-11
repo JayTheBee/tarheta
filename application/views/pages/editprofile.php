@@ -84,7 +84,9 @@
                 </div>
                     <div class="form-group">
                         <label name="course" class="form-label">Course</label> 
-                        <input type="text" name="course" class="form-control" id="course" aria-describedby="name"> 
+                        <input type="text" placeholder="<?php echo $_SESSION['sess_profile']['course'];?>"
+                        name="course" value="<?php echo $_SESSION['sess_profile']['course'];?>"
+                        class="form-control" id="course" aria-describedby="name"> 
                     </div>
                     <div class="form-group col-md-2">
                         <label for="avatar">Avatar</label>

@@ -21,8 +21,9 @@ class Profile extends CI_Controller {
 		if(!file_exists(APPPATH.'views/pages/'.$page.'.php')){
 			show_404();
 		}
+		$data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
 		$data['title'] = ucfirst($page);
-		$this->load->view('templates/header');
+		$this->load->view('templates/header-logged', $data2);
 		$this->load->view('pages/'.$page, $data);
 		$this->load->view('templates/footer');
 	}
@@ -111,7 +112,8 @@ class Profile extends CI_Controller {
         $data['title'] = ucfirst('notif_show');
         $data['flag'] = $active;
         $data['context'] = $context_arg;
-        $this->load->view('templates/header');
+        $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
+        $this->load->view('templates/header-logged', $data2);
         $this->load->view('pages/notif_show', $data);
         $this->load->view('templates/footer');
 	}

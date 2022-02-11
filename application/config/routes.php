@@ -83,6 +83,7 @@ $route['flashcards/show-set/(:any)'] = 'flashcard/sets/show_set/$1';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
 
+$route['classes/join/'] = 'class/classes/join/';
 $route['classes/index/'] = 'class/classes/index/';
 $route['classes/create_classes'] = 'class/classes/create_classes';
 $route['classes/show/(:any)'] = 'class/classes/show/$1';

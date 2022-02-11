@@ -84,15 +84,17 @@
                     ?>
                     <br>
                     <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timeopen_var) || ($flashcard['type']=="REVIEWER")): ?>
+                        <?php if (!empty($questions)):?>
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                         Answer
                         </button>
+                        <?php endif;?>
                     <?php endif; ?>
 
                     <!-- View Result Button -->
                     <?php if(
                         ($is_answered == TRUE && ($flashcard['qtype'] == "POP")) 
-                        || (($flashcard['qtype'] != "POP") &&  strtotime($flashcard['timeclose']) < time())
+                        || (($flashcard['qtype'] != "POP") &&  $timeclose_var > $timenow_var && $is_answered == TRUE)
                     ):?>
                         <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/result/".$_SESSION['sess_profile']['user_id']."/".$flashcard["id"]); ?>'">
                         Results

@@ -86,7 +86,7 @@
 <div class="set-container container vh-100 w-100">
     <div>
             <div class="card" style="margin-top: 5rem">
-                <form method="POST" autocomplete="off" action="<?=site_url('classes/join')?>">
+                <form method="POST" autocomplete="off" action="<?=site_url('class/classes/join')?>">
                     <div class="card-header text-right h3">Invites</div>
                     <div class="form-group">
                         <input type="text" placeholder="INVITE CODE" name="invite" class="crt-input" id="Enter Invite Code" aria-describedby="name">
