@@ -129,11 +129,12 @@ class Classes extends CI_Controller{
     public function invite(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$this->form_validation->set_rules('email','Email','required|valid_email');
-			
+
+			$class_id = $this->input->post('class-id', TRUE);
             if($this->form_validation->run()==TRUE){
 				$email = $this->input->post('email', TRUE);
                 $class_name = $this->input->post('class-name', TRUE);
-                $class_id = $this->input->post('class-id', TRUE);
+                
 
 				$user_check = $this->user_model->email_check($email);
 
@@ -172,8 +173,8 @@ class Classes extends CI_Controller{
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $this->form_validation->set_rules('flashcard','Flashcards','required');
 
+            $class_id = $this->input->post('class-id', TRUE);
             if($this->form_validation->run()==TRUE){
-                $class_id = $this->input->post('class-id', TRUE);
                 $selFlashcard =  $this->input->post('flashcard', TRUE);
                 $check = $this->flashcard_model->verify_flashcard_data($selFlashcard);
 
