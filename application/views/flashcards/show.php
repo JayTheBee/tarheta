@@ -37,8 +37,8 @@
                         <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
                     <?php endif; ?>
 
-                    <?php 
-                        //$_SESSION['sess_current_flashcard']['flashcard_id'] = $flashcard['id'];
+                    <?php
+                        $_SESSION['sess_current_flashcard']['flashcard_id'] = $flashcard['id'];
                         //echo form_open("flashcards/edit/".$flashcard['id'])
                     ?>
 
