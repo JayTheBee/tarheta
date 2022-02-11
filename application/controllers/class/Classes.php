@@ -69,11 +69,12 @@ class Classes extends CI_Controller{
                     $user_id = $_SESSION['sess_profile']['user_id'];
                     $classvar = $this->classes_model->insertclasses($data, $user_id);
                     $this->session->set_flashdata('success','Classes successfully created!');
+                    $this->show($classvar);
                 }
             else{
 				$this->session->set_flashdata('error','Class Name is Required');
+                redirect(base_url('classes/create')); 
 			}
-            $this->show($classvar);
         }
     }
 
@@ -93,7 +94,7 @@ class Classes extends CI_Controller{
 
     public function join(){
         if ($_SERVER['REQUEST_METHOD']=='POST'){
-            $this->form_validation->set_rules('invite','Invite', 'required');
+            $this->form_validation->set_rules('invite','INVITE CODE', 'required');
 
             if($this->form_validation->run()==TRUE){
 
@@ -104,31 +105,31 @@ class Classes extends CI_Controller{
 
                 if(!$class){
                     $this->session->set_flashdata('error','Valid class code required!');
-                    redirect(base_url('dashboard-student'));
+                    $this->view('join');
                 }
                 else{
                     if(!$email_check){
                         $this->session->set_flashdata('error','Verified email required!');
-                        redirect(base_url('dashboard-student'));
+                       $this->view('join');
                     }
                     else{
                         $this->classes_model->userEnroll($class->id, $user_id, 'MEMBER');
                         $this->session->set_flashdata('success','Classes successfully joined!');
-                        redirect(base_url('classes/index'));       
+                        $this->show($class->id);       
                     }
                 }
             }
             else{
                 $this->session->set_flashdata('error','Valid class code required!');
-                redirect(base_url('dashboard-student'));
+                $this->view('join');
             }
         }
-       redirect(base_url('dashboard-student'));
+       $this->view('join');
     }
 
     public function invite(){
 		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$this->form_validation->set_rules('email','Email','required|valid_email');
+			$this->form_validation->set_rules('email','Enter Email', 'required|valid_email');
 			
             if($this->form_validation->run()==TRUE){
 				$email = $this->input->post('email', TRUE);
