@@ -24,23 +24,23 @@
                     <p><?php echo $flashcard['description'] ?></p>
                     <!-- <p>Flashcard ID: <?php echo $flashcard['id']?> </p> -->
                     <!-- <p>Creator ID: <?php echo $flashcard['creator_id']?> </p> -->
-                    <!-- <p>Visibility: <?php echo $flashcard['visibility'] ?></p>
-                    <p>Flashcard Type: <?php echo $flashcard['type'] ?></p>
-                    <p>Tags:
+                    <!-- <p>Visibility: <?php echo $flashcard['visibility'] ?></p>-->
+                    <!-- <p>Flashcard Type: <?php echo $flashcard['type'] ?></p> -->
+                    <!-- <p>Tags:
                         <?php foreach($category as $cat): ?>
                             <?php echo $cat['name']; ?>
                         <?php endforeach; ?>
-                    </p>
+                    </p> -->
                     <?php if($flashcard['type'] == 'QUIZ'): ?>
-                        <p>Quiz Type: <?php echo $flashcard['qtype'] ?></p>
+                        <!-- <p>Quiz Type: <?php echo $flashcard['qtype'] ?></p> -->
                         <p>Time Open: <?php echo $flashcard['timeopen'] ?></p>
                         <p>Time Close: <?php echo $flashcard['timeclose'] ?></p>
                     <?php endif; ?>
 
                     <?php 
-                        $_SESSION['sess_current_flashcard']['flashcard_id'] = $flashcard['id'];
+                        //$_SESSION['sess_current_flashcard']['flashcard_id'] = $flashcard['id'];
                         //echo form_open("flashcards/edit/".$flashcard['id'])
-                    ?>  -->
+                    ?>
 
     <!-- Flashcard Creator Available Buttons -->
     <?php if($flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
@@ -83,9 +83,6 @@
                         $timeclose_var = new DateTime($flashcard['timeclose']);
                     ?>
                     <br>
-                    <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
-                    Answer to be removed
-                    </button>
                     <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timeopen_var) || ($flashcard['type']=="REVIEWER")): ?>
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                         Answer

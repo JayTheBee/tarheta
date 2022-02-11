@@ -103,10 +103,10 @@
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
                                                 <?php elseif ($question['question_type'] == 'TRUEFALSE') : ?>
-                                                    <div class="choices-small-ver">True</div>
-                                                    <div class="choices-small-ver">False</div>
+                                                    <div class="choices-small-ver"></div>
+                                                    <div class="choices-small-ver"></div>
                                                 <?php elseif ($question['question_type'] == 'IDENTIFICATION') : ?>
-                                                    <div class="choices-small-ver"><?php echo $question['answer'] ?></div>
+                                                    <div class="choices-small-ver"></div>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
