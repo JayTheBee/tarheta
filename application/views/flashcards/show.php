@@ -49,7 +49,7 @@
                         <?php if($flashcard['visibility'] == 'PRIVATE' && $flashcard['creator_id']== $_SESSION['sess_profile']['user_id']):?>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" data-title="Feedback">
-                                    Assign/Share
+                                    Share
                                 </button>
                         <?php endif; ?>
 
@@ -64,26 +64,30 @@
                             </button>
 
                         <!-- Reopen -->
+                        <?php if ($flashcard['type'] == 'QUIZ'):?>
                             <button type="button" class="btn btn-danger" onclick="window.location='<?php echo site_url("flashcards/reopen/".$flashcard["id"]); ?>'">
                                 Reopen
                             </button>
+                        
                         
                         <!-- Ranking -->
                             <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo site_url("flashcards/ranking/" .(($flashcard['qtype']=='POP' || $flashcard['qtype']=='ASSIGNMENT')?'first':'latest') ."/" .$flashcard["id"]); ?>'">
                             Ranking
                             </button>
+                        <?php endif; ?>
                     </div>
     <?php endif; ?>
                     
                     <!-- Answer Quiz Button -->
                     <?php
                         // https://stackoverflow.com/questions/961074/how-do-i-compare-two-datetime-objects-in-php-5-2-8
-                        $timenow_var = new DateTime("now");
-                        $timeopen_var = new DateTime($flashcard['timeopen']);
-                        $timeclose_var = new DateTime($flashcard['timeclose']);
+                        $timenow_var = (new DateTime("now", new DateTimeZone('Asia/Manila')));
+                        $timeopen_var = (new DateTime($flashcard['timeopen'], new DateTimeZone('Asia/Manila')));
+                        $timeclose_var = (new DateTime($flashcard['timeclose'], new DateTimeZone('Asia/Manila')));
                     ?>
+                    
                     <br>
-                    <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timeopen_var) || ($flashcard['type']=="REVIEWER")): ?>
+                    <?php if(($flashcard['type']=="QUIZ" && $timeopen_var < $timenow_var && $timeclose_var > $timenow_var) || ($flashcard['type']=="REVIEWER")): ?>
                         <?php if (!empty($questions)):?>
                         <button type="button" class="btn btn-primary" onclick="window.location='<?php echo site_url("flashcards/answer/".$flashcard["id"]); ?>'">
                         Answer
