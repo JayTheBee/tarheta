@@ -141,13 +141,11 @@
                     </div>
                   </form>
             </div>
-
             <div class="ds-flashcard sets">
-                <a>SEE OTHER USERS FLASHCARDS</a>
-                <div class="d-flex flscrds">
-                  <div>Flashcard here</div>
-                  <div>flashcard here</div>
-                  <div class="text-center fs-3"><a href="<?php echo base_url(); ?>flashcards/index">more flashcard ... </a></div>
+                <a>FLASHCARDS</a>
+                <div class="ds-recent m-5" style="color: #000;">
+                  <span>You don't any flashcard yet. <a  href="<?php echo base_url(); ?>flashcards/create">Create a flashcard </a></span> 
+                  <br><span>View flashcards tab <a href="<?php echo base_url(); ?>flashcards/index">here.</a></span>
                 </div>  
             </div>
 

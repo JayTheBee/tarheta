@@ -1,3 +1,4 @@
+<head>
 <style>
     .set-container{
         font-family: "Poppins";
@@ -71,10 +72,25 @@
   background-color: #A2795E;
 }
 
-</style>
+.crtscs {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2em;
+    font-weight: 600
+}
 
+.custom-bg-create {
+    background-color: #E4BE91;
+    overflow-x: hidden;
+    background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+    width: 100%;
+    height: 100%;
+}
+</style>
+</head>
 
 <!-- Create Set PAGE -->
+<div class="custom-bg-create">
 <div class="container set-container vh-100">
         <div>
             <div class="card">
@@ -97,15 +113,16 @@
                     </div>
                     <?php
                         if($this->session->flashdata('success')){?>
-                            <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                            <p class="crtscs text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
                     <?php } ?>
                     
                     <?php
                     if($this->session->flashdata('error')){?>
-                        <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                        <p class="crtscs text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
                     <?php } ?>
                 </form>
 
             </div>
         </div>
+</div>
 </div>

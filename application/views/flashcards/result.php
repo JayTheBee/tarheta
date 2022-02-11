@@ -1,7 +1,20 @@
+<head>
+<style>
+    .custom-bg-create {
+    background-color: #E4BE91;
+    overflow-x: hidden;
+    background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+    width: 100%;
+    height: 100%;
+    font-family: "Poppins";
+}
+</style>
+<head>
+<div class="custom-bg-create vh-100 w-100">
 <div class="container">
     <div class="row">
         <div class="col-md-4"></div>
-        <div class="card" style="margin-top: 5rem">
+        <div class="card" style="margin-top: 3rem">
             <div class="card-header text-center">
                 <h3><?php echo $flashcard['name']; ?></h3>
                 <p><?php echo $flashcard['description'] ?></p>
@@ -55,4 +68,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

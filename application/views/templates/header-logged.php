@@ -99,9 +99,9 @@
             </div>
         </div>
       </div>
-    </nav>    
-<!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </nav>
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!--
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -121,7 +121,7 @@
                       </li>
 
 
-<?php if($_SESSION['sess_user_type']['type'] == 'TEACHER') : ?>
+<?php if ($_SESSION['sess_user_type']['type'] == 'TEACHER') : ?>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php //echo base_url(); ?>classes/create">+ Create Class</a>
                       </li>

@@ -4,12 +4,13 @@
         background-color: #52888A;
         padding: 0;
         margin: 0;
+        background-image: url("<?php echo base_url("assets/images/accType/teacher_student_wave.png");?>");
     }
 
     .boxPosvrfy {
         position: absolute;
         width: 50rem;
-        top: 18%;
+        top: 8%;
         left: 20%;
         z-index: 1;
     }
@@ -18,7 +19,6 @@
         background-color: rgba(	112,95,	89, 0.74);
         border-radius: 32px;
         align-items: center;
-        display: flex;
     }
 
     .boxPosvrfy .card p {
@@ -40,7 +40,6 @@
 
 
 <section class="vrfy-container vh-100 w-100">
-<img src="<?php echo base_url("assets/images/accType/teacher_student_wave.png");?>" class="position-absolute bottom-0"alt="wave">
     <div class="boxPosvrfy position-relative justify-content-center">
     <div class="card">
     <p> YAY! </p>
@@ -48,5 +47,5 @@
     <p>Your Account has been Verified.</p>
     <button type="button" class="btn btnvrfy-login " onclick="window.location='<?php echo site_url("login"); ?>'" >LOGIN</button>
     </div>
-</div>
+    </div>
 </section>

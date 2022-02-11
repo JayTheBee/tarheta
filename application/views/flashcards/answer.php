@@ -221,7 +221,6 @@
                 set_multi(flashcard_data['questions'][current_number]['choice_id']);
                 break;
             case "IDENTIFICATION":
-                console.log("IDENTIFICATION");
                 set_identification();
                 break;
             case "TRUEFALSE":

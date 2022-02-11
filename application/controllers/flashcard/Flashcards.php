@@ -482,6 +482,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $qtype_var = $this->input->post('qtype', TRUE);
 
                 $judgement_var = $this->flashcard_model->check_answer($question_id_var, $answer_var);
+                if ($judgement_var == "UNANSWERED")
+                    $answer_var = $judgement_var;
                 $points_var = $this->_assign_points($judgement_var, $total_points_var);
                 $datetime_var = time();
                 $attempt_var = (int)$this->flashcard_model->check_attempts($question_id_var, $user_id_var);

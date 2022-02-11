@@ -9,6 +9,7 @@
         padding-bottom: 2rem;
         border-radius: 10px;
         border: 2px solid  #A2795E;
+        background-color: #fff;
     }
 
     .set-container .card-header{
@@ -98,17 +99,25 @@
         font-size: 1.2em;
         font-weight: 600
     }
+
+    .custom-bg-create {
+      background-color: #E4BE91;
+      overflow-x: hidden;
+      background-image: url("<?php echo base_url('assets/images/contact/contact-wave.png'); ?>");
+      width: 100%;
+      height: 100%;
+    }
 </style>
 </head>
 
-
+<div class="custom-bg-create">
 <div class="container set-container vh-100">
     <div>
             <div class="cardd" style="margin-top: 5rem">
             <div class="card-header text-right h3"> CREATE CLASS </div>
                 <form method="POST" autocomplete="off" action="<?=base_url('classes/create_classes')?>">
                     <div class="form-group">
-                        <input class="crt-input" type="text" placeholder="Enter classname (course, year, section)" name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
+                        <input class="crt-input" maxlength="70" type="text" placeholder="Enter classname (course, year, section). Maximum of 70 characters " name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
                         <label class="crt-label">Class Name</label> 
                     </div>
                     <div class="form-group">
@@ -140,4 +149,5 @@
 
             </div>
     </div>
+</div>
 </div>

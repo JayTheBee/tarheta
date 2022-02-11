@@ -18,14 +18,21 @@
             $data['title'] = ucfirst($page);
             $data = $this->_check_session($page, $data);
 
-            if(isset($_SESSION['sess_login'])){
-                $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
-                $headervar = 'header-logged';
-            }else{
-                $headervar = 'header';
+            if($page == 'notif'){
+                $this->load->view('pages/'.$page, $data);
+                return;
             }
 
-            $this->load->view('templates/'.$headervar, $data2);
+            if(isset($_SESSION['sess_login'])){
+                $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
+                // $headervar = 'header-logged';
+                $this->load->view('templates/header-logged', $data2);
+            }else{
+                // $headervar = 'header';
+                $this->load->view('templates/header');
+            }
+
+            // $this->load->view('templates/'.$headervar, $data2);
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
         }
