@@ -129,8 +129,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->set('reset_token', 'NULL', FALSE);
             $this->db->set('reset_exp', 'NULL', FALSE);
             $this->db->where('username', $username_arg);
-            $this->db->update('users');
-            $idvar =  $this->db->get()->row()->id;
+            $idvar =  $this->db->update('users');
+            
             $this->db->trans_complete();
             return $idvar;
         }
