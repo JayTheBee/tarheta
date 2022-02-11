@@ -167,8 +167,7 @@
                         <div class="row flex-row flex-nowrap">
                             <?php foreach ($flashcards as $flashcard) : ?>
                                 <?php if ($flashcard['visibility'] == 'PUBLIC') : ?>
-                                    <div class="col-4  text-truncate">
-                                        <h6>-----------------------</h6>
+                                    <div class="col-4 shwflscrd text-truncate">
                                         <h5><?php echo $flashcard['name']; ?></h5>
                                         <h6>Description: <?php echo $flashcard['description']; ?></h6>
                                         <!-- <p><?php //echo $flashcard['visibility']; 
@@ -182,7 +181,6 @@
                                         </p>
                                         <button type="button" class="btn btn-success" onclick="window.location='<?php echo site_url("flashcards/show/" . $flashcard["id"]); ?>'">View
                                         </button>
-                                        <h6>-----------------------</h6>
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
