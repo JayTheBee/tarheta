@@ -308,7 +308,7 @@
                 return $this->insert_user_answer($data_arg);
         }
 
-        public function verify_flashcard_data($flashcard_id_arg){                                                                       
+        public function verify_flashcard_access($flashcard_id_arg){                                                                       
             $query = $this->db->query("SELECT * FROM flashcard_class_access WHERE flashcard_id='$flashcard_id_arg'");                                         
             if($query->num_rows()==1){                                                                                               
                 return FALSE;                                                                                             
