@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2022 at 05:47 PM
+-- Generation Time: Feb 11, 2022 at 09:48 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- PHP Version: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -409,6 +409,7 @@ ALTER TABLE `flashcards_user_access`
 -- Indexes for table `flashcard_class_access`
 --
 ALTER TABLE `flashcard_class_access`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `flashcard_id` (`flashcard_id`),
   ADD KEY `class_id` (`class_id`);
 
@@ -553,6 +554,12 @@ ALTER TABLE `flashcards_user_access`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `flashcard_class_access`
+--
+ALTER TABLE `flashcard_class_access`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `flashcard_multiple_choice`
 --
 ALTER TABLE `flashcard_multiple_choice`
@@ -576,11 +583,6 @@ ALTER TABLE `flashcard_set_list`
 ALTER TABLE `flashcard_statistic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `flashcard_class_access`
---
-ALTER TABLE `flashcard_class_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `notification`
 --
