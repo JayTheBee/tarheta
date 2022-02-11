@@ -80,7 +80,9 @@
                     <p class="class-header">Classes</p>
                     <div>
                     <a class="class-link" href="<?php echo base_url(); ?>classes/join">Join Class</a>
-                    <a class="class-link" href="<?php echo base_url(); ?>classes/create">Create Class</a>
+                    <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER'): ?>
+                        <a class="class-link" href="<?php echo base_url(); ?>classes/create">Create Class</a>
+                    <?php endif;?>
                     </div>
                 </div>
                 

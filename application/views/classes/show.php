@@ -113,9 +113,11 @@
                         <div class="icon"> <i class="fas fa-users "></i> <p><?php echo $class['class_name']?></p></div>
                     
                             <div class="btns d-flex mx-4">
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AsgnModal">Assign Flashcards</button>
-                                </div>
+                                <?php if($_SESSION['sess_user_type']['type'] == 'TEACHER'): ?>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AsgnModal">Assign Flashcards</button>
+                                    </div>
+                                <?php endif;?>
                                 <?php if($class['invitations'] == 'YES'): ?>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InvModal">Invite</button>

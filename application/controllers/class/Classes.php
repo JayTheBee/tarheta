@@ -176,7 +176,7 @@ class Classes extends CI_Controller{
             $class_id = $this->input->post('class-id', TRUE);
             if($this->form_validation->run()==TRUE){
                 $selFlashcard =  $this->input->post('flashcard', TRUE);
-                $check = $this->flashcard_model->verify_flashcard_data($selFlashcard);
+                $check = $this->flashcard_model->verify_flashcard_access($selFlashcard);
 
                 if($check){
                     $this->flashcard_model->insert_flashcard_class_access($selFlashcard, $class_id);
@@ -189,7 +189,7 @@ class Classes extends CI_Controller{
                     redirect(base_url('classes/show/'.$class_id)); 
 
                 }else{
-                    $this->session->set_flashdata('error', 'Flashcard not found!');
+                    $this->session->set_flashdata('error', 'Flashcard already assigned!');
                     redirect(base_url('classes/show/'.$class_id)); 
                 }
             }else{
