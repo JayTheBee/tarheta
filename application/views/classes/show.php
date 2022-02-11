@@ -163,7 +163,7 @@
                                             <?php if(empty($assignedFlashcards)): ?>
                                                 <h6>No Flashcards Yet!</h6>
                                                 <?php else: ?> 
-                                                <div style="display:flex;" class="flex-wrap  justify-content-center">      
+                                                <div style="display:flex;" class="flex-wrap container ">      
                                                 <?php foreach($assignedFlashcards as $flashcard): ?>
                                                 <div class="shwflscrd text-truncate" >
                                                     <h5><?php echo $flashcard['name']; ?></h5>
