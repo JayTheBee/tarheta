@@ -9,6 +9,7 @@ class Reset_passwords extends CI_Controller{
 		$this->load->library('form_validation');
 		$this->load->helper('security');
 		$this->load->model('user_model');
+		$this->load->model('notification_model');
 	}
 
     /**

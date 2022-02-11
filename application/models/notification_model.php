@@ -60,6 +60,14 @@
             $queryvar = $this->db->query("SELECT * FROM notification WHERE user_id='$user_id_arg'");
             return $queryvar->result_array();
         }
+        public function get_notif_count($user_id_arg){
+            $queryvar = $this->db->query("SELECT * FROM notification WHERE user_id='$user_id_arg' AND active=1");
+            if($queryvar->num_rows()>=1){
+                return $queryvar->num_rows();
+            }else{
+                return 0;
+            }
+        }
 
         public function get_reference($notif_id_arg){
             $queryvar = $this->db->query("SELECT * FROM notification WHERE id='$notif_id_arg'");

@@ -77,14 +77,7 @@
   color: #fff;
   text-decoration: none;
 }
-.ds-flashcard .flscrds div {
-  width: 20rem;
-  background-color: #175561;
-  height: 10rem;
-  margin: 1rem 2rem 1rem 2rem ;
-  border-radius: 20px;
-  text-align: center;
-}
+
 
 .boxPos {
 	z-index: 2;
@@ -128,19 +121,50 @@
             <div class="ds-classes sets">
                 <a>CLASSES</a>
                 <div>
-                    <button class="ds-class-btn"><a class="crtcls" href="<?php echo base_url(); ?>classes/create">Create Class + </a></button>
+                    <button class="ds-class-btn" onclick="window.location='classes/create.php';"><a class="crtcls" href="<?php echo base_url(); ?>classes/create">Create Class + </a></button>
                 </div>
             </div>
 
             <div class="ds-flashcard sets">
-                <a>SEE OTHER USERS FLASHCARDS</a>
-                <div class="d-flex flscrds">
-                  <div>Flashcard here</div>
-                  <div>flashcard here</div>
-                  <div class="text-center fs-3"><a href="<?php echo base_url(); ?>flashcards/index">more flashcard ... </a></div>
+                <a>FLASHCARDS</a>
+                <div class="ds-recent m-5" style="color: #000;">
+                  <span>You don't any flashcard yet. <a  href="<?php echo base_url(); ?>flashcards/create">Create a flashcard </a></span> 
+                  <br><span>View flashcards tab <a href="<?php echo base_url(); ?>flashcards/index">here.</a></span>
                 </div>  
             </div>
 
   </div>
 </div>
+</div>
+
+<div class="modal" tabindex="-1" id="notifModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <?php
+        if ($this->session->flashdata('success')) { ?>
+            <p class="text-success" style="margin-top:2rem"> <?= $this->session->flashdata('success') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+
+        <?php
+        if ($this->session->flashdata('error')) { ?>
+            <p class="text-danger" style="margin-top:2rem"> <?= $this->session->flashdata('error') ?> </p>
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    $('#notifModal').modal('show');
+                });
+            </script>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
 </div>

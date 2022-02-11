@@ -83,7 +83,6 @@ $route['flashcards/show-set/(:any)'] = 'flashcard/sets/show_set/$1';
 $route['flashcards/(:any)'] = 'flashcard/flashcards/view/$1';
 
 
-$route['classes/join'] = 'class/classes/join';
 $route['classes/index/'] = 'class/classes/index/';
 $route['classes/create_classes'] = 'class/classes/create_classes';
 $route['classes/show/(:any)'] = 'class/classes/show/$1';
@@ -93,6 +92,8 @@ $route['logins/login'] = 'auth/logins/login';
 $route['profile/notif/(:any)'] = 'user/profile/notif/$1';
 $route['profile/(:any)'] = 'user/profile/view/$1';
 
+$route['search'] = 'flashcard/searches/suggestions';
+$route['open/search'] = 'flashcard/searches/open_search';
 
 $route['assets']= 'assets/'; 
 $route['default_controller'] = 'pages/view';

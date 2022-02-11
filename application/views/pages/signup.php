@@ -1,14 +1,13 @@
     <!-- SIGN UP PAGE -->
     <!-- reCaptcha -->
-    <!-- https://stackoverflow.com/questions/39374880/sub-resource-integrity-value-for-maps-google-com-maps-api-js -->
-    <!-- integrity check not necessary -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<section id="sign up" class="bg-blue">
-    <div class="position-relative">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-center h-100">
-                <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
-            </div>
+    <section id="sign up" class="bg-blue">
+        <div class="position-relative">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-center h-100">
+                    <img src="<?php echo base_url("assets/images/login/login-rectangle.png"); ?>" class="position-absolute img-responsive signup-box" alt="...">
+                </div>
+
         </div>
         <div class="container">
              <div class="d-flex flex-column align-items-center justify-content-center">
@@ -30,19 +29,19 @@
                         <input type="password" class="form-control form-control-lg position-absolute confirmpass-sp"  placeholder="Confirm Password" name="confirm_password" class="form-control" id="confirm_password">
                             <?php echo form_error("confirm_password", '<p class="text-danger">','</p>');?> 
                         <!-- Captcha - Site Key-->
-                        <div class="position-absolute g-recaptcha" data-sitekey= <?php echo env("RCAPTCHA_SITE_KEY"); ?> >CAPCTHA API NA DI KO MAKITA</div><br> 
+                        <div class="position-absolute g-recaptcha" data-sitekey= <?php echo env("RCAPTCHA_SITE_KEY"); ?>></div><br> 
                         <!-- SUBMIT BUTTON -->
                         <button type="submit" class="btn submit-sp text-center"><span class="log-text">CREATE ACCOUNT</span></button>
-        
+                        <div class="position-absolute" style="top: 36rem;">
                         <?php
                             if($this->session->flashdata('success')){?>
-                                <p class="text-success" style="margin-top:2rem"> <?=$this->session->flashdata('success')?> </p>
+                                <p class="text-success" style="align-text: center; font-size: 1em;font-weight:bold;"> <?=$this->session->flashdata('success')?> </p>
                         <?php } ?>
                         <?php
                             if($this->session->flashdata('error')){?>
-                                <p class="text-danger" style="margin-top:2rem"> <?=$this->session->flashdata('error')?> </p>
+                                <p class="text-danger" style="align-text: center; font-size: 1em; font-weight:bold;"> <?=$this->session->flashdata('error')?> </p>
                         <?php } ?>
-                       
+                        </div>
                     </div>  
                 </form>
             </div>  

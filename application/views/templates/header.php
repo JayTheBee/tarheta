@@ -18,15 +18,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
-
-    <title>Sprint Demo</title>
+     <link rel = "icon" href = "<?php echo base_url("assets/images/logo/icon.png");?>" type = "image/x-icon">
+    <title>Tarheta</title>
 </head>
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-bg fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-bg sticky-top">
         <div class="container">
-            <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+        <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>

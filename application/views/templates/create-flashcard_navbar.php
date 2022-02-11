@@ -17,8 +17,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
     </style>
-
-    <title>Sprint Demo</title>
+    <link rel = "icon" href = "<?php echo base_url("assets/images/logo/icon.png");?>" type = "image/x-icon">
+    <title>Tarheta</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
         <div class="container">
             <div width="1" class="create-nav design">
                 <div width="0.525" class="nav design">
-                    <span class="navbar-brand brand-des mb-0 h1">LOGO</span> <!-- will eventually change to picture -->
+                <span class="navbar-brand brand-des mb-0"> <img src="<?php echo base_url("assets/images/logo/logo.png");?>" width="120"></span>
                     <button data-functional-selector="top-bar__kahoot-summary-button" aria-label="Enter tarheta title..." class="nav-button">
                         <span class="text">Enter tarheta title…</span>
                         <span class="settings-button mh-75 d-inline-block">
