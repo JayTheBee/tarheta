@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         private function _check_page($page_arg, $data_arg){
             if ($page_arg == "index"){
                 $data_arg['title'] = "View Flashcards";
-                $data_arg['flashcards'] = $this->flashcard_model->get_flashcards();
+                //Nagkakaduplicate pag inassign sa class ang isang flashcard
+                $data_arg['flashcards'] = array_unique($this->flashcard_model->get_flashcards(), SORT_REGULAR);
                 $data_arg['categories'] = $this->flashcard_model->get_categories();
                 $data_arg['category_list'] = $this->flashcard_model->get_category_list($data_arg['flashcards']);
                 $data_arg['sets'] = $this->set_model->get_sets($_SESSION['sess_profile']['user_id']);
