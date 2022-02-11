@@ -46,13 +46,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 show_404();
             }
 
-            $data_arg['title'] = ucfirst($page_arg);
+            $this->_check_if_logged_in();
 
+            $data_arg['title'] = ucfirst($page_arg);
+            $data2['notif_count'] = $this->notification_model->get_notif_count($_SESSION['sess_profile']['user_id']);
             $data_arg = $this->_check_page($page_arg, $data_arg);
 
-            $this->load->view('templates/header-logged');
+            $this->load->view('templates/header-logged', $data2);
             $this->load->view('flashcards/'.$page_arg, $data_arg);
             $this->load->view('templates/footer');
+        }
+        
+        
+        /**
+         * Function to check if the user is logged in to prevent from manually typing the URL
+         */
+        private function _check_if_logged_in(){
+            if (!isset($_SESSION['sess_login'])){
+                $this->session->set_flashdata('error', 'Please Login First');
+                redirect(base_url('login'));
+            }
         }
 
 
@@ -307,7 +320,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $question_id_var = $this->flashcard_model->insert_question($data_var);
 
-            // SIngit ng function to update flashcards totol points
+            $this->flashcard_model->update_total_points($data_var['flashcard_id'], $data_var['total_points']);
             
             // After saving the question get it's ID and save it in $question_id
 
@@ -469,6 +482,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $qtype_var = $this->input->post('qtype', TRUE);
 
                 $judgement_var = $this->flashcard_model->check_answer($question_id_var, $answer_var);
+                if ($judgement_var == "UNANSWERED")
+                    $answer_var = $judgement_var;
                 $points_var = $this->_assign_points($judgement_var, $total_points_var);
                 $datetime_var = time();
                 $attempt_var = (int)$this->flashcard_model->check_attempts($question_id_var, $user_id_var);

@@ -62,7 +62,7 @@
                 if($query_var->num_rows()==1){
                     array_push($result_var, $query_var->row_array());
                 };
-            }
+            } 
 
             //Getting the other public flashcards that is not created by the user
             $query_var = $this->db->query("SELECT * FROM flashcards WHERE visibility='PUBLIC' AND creator_id <> '$user_id_var'");
@@ -308,7 +308,16 @@
                 return $this->insert_user_answer($data_arg);
         }
 
-
+        public function verify_flashcard_data($flashcard_id){                                                                       
+            $query = $this->db->query("SELECT * FROM flashcards WHERE id='$flashcard_id'");                                         
+            if($query->num_rows()==1){                                                                                               
+                return $query->row_array();                                                                                            
+            }                                                                                                                        
+            else{                                                                                                                    
+                return FALSE;                                                           
+            }                                                                                                                       
+         }  
+         
         /**
          * Function to check how much total points would be given.
          */
@@ -466,6 +475,23 @@
                 return $query->result_array();
             else
                 return FALSE;
+        }
+
+
+        public function update_total_points($flashcard_id_arg, $question_points_arg){
+            $this->db->trans_start();
+            $query_var = $this->db->get_where('flashcards', array('flashcards.id' => $flashcard_id_arg));
+            $this->db->trans_complete();
+            
+            $total_points_var = (int)$question_points_arg + (int)$query_var->row('total_score');
+            
+            $this->db->trans_start();
+            $this->db->from('flashcards');
+            $this->db->set('total_score', $total_points_var);
+            $this->db->where('id', $flashcard_id_arg);
+            $this->db->update('flashcards',$data_arg);
+            $this->db->trans_complete();
+
         }
 
         // function insert_flashcard_sets($set_id, $flashcard_id){

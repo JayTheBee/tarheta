@@ -117,7 +117,7 @@
             <div class="card-header text-right h3"> CREATE CLASS </div>
                 <form method="POST" autocomplete="off" action="<?=base_url('classes/create_classes')?>">
                     <div class="form-group">
-                        <input class="crt-input" type="text" placeholder="Enter classname (course, year, section)" name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
+                        <input class="crt-input" maxlength="70" type="text" placeholder="Enter classname (course, year, section). Maximum of 70 characters " name="class_name" value="<?php echo set_value('class_name'); ?>" class="form-control" id="class_name" aria-describedby="name"> 
                         <label class="crt-label">Class Name</label> 
                     </div>
                     <div class="form-group">
@@ -125,7 +125,7 @@
                         <label class="crt-label">Description </label> 
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input ctr-check" id="invite">
+                        <input type="checkbox" class="form-check-input ctr-check" name= "invite" id="invite">
                         <label class="crt-label" for="add" style="margin-left: 4px">Allow Class to invite new members</label>
                     </div>
                     <div class="form-group">

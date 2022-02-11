@@ -72,12 +72,12 @@
                     <?php elseif($notifs->response=='ACCEPT'): ?>
                         <?php echo form_open("classes/show/".$notifs->class_id)?>
                             <button class="btn btn-primary" type="submit">View class</button>
-                        </form>
+                        <?php echo form_close()?>
                     <?php else: ?>    
                         <p>You did not join this class!</p>
-                        <?php echo form_open(base_url("notifs"))?>
+                        <?php echo form_open(base_url("profile"))?>
                             <button class="btn btn-primary" type="submit">Go back</button>
-                        </form>
+                        <?php echo form_close()?>
                     <?php endif; ?>
                 </div>
             </div>
