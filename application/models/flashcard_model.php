@@ -489,7 +489,7 @@
             $this->db->from('flashcards');
             $this->db->set('total_score', $total_points_var);
             $this->db->where('id', $flashcard_id_arg);
-            $this->db->update('flashcards',$data_arg);
+            $this->db->update('flashcards');
             $this->db->trans_complete();
 
         }
