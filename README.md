@@ -73,3 +73,6 @@ Tarheta is a powerful web application designed for both students and teachers to
 	'database' => 'databaseNameHere',
 6. Run **XAMPP** control panel with **Apache** and **MySQL** services running.
 7. Access the application with the link given in step number 4.
+
+# License
+Tarheta is licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
