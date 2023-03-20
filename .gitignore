@@ -13,3 +13,5 @@ application/config/database.php
 
 composer.lock
 .phpunit.result.cache 
+
+vendor/

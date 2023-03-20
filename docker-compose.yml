@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.6
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=testo
+      - MARIADB_DATABASE=db_softeng
+
+  myapp:
+    image: docker.io/bitnami/codeigniter:3.1.11
+    ports:
+      - '8000:8000'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - CODEIGNITER_DATABASE_HOST=mariadb
+      - CODEIGNITER_DATABASE_PORT_NUMBER=3306
+      - CODEIGNITER_DATABASE_USER=testo
+      - CODEIGNITER_DATABASE_NAME=db_softeng
+      # NEED TO NAME ROOT FOLDER AS "myapp" OR ELSE WONT WORK (Bitnami configuration)
+    volumes:
+      - '../:/app'
+    depends_on:
+      - mariadb
